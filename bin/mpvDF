@@ -40,9 +40,9 @@ if test "n" != "$format"; then
         echo $line
         sleep $(wait_file "$line" 99)
         if [ -f "$line" ]; then
-            echo Found
+            echo "Found it"
+            /usr/bin/mpv --sub-auto=all "$line"
         fi
 
-        /usr/bin/mpv --sub-auto=all "$line"
     done < <(youtube-dl --format "$format" --get-filename "$clip")
 fi
