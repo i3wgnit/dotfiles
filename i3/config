@@ -315,13 +315,6 @@ for_window [class="Qalculate-gtk"] floating enable
 
 
 # STARTUP
-# xinput
-set $mouse = "ELAN1200:00 04F3:3059 Touchpad"
-$exec xinput --set-prop $mouse "libinput Tapping Enabled"               1
-$exec xinput --set-prop $mouse "libinput Natural Scrolling Enabled"     1
-$exec xinput --set-prop $mouse "libinput Middle Emulation Enabled"      1
-$exec xinput --set-prop $mouse "libinput Click Method Enabled"          0, 1
-
 $exec dunst
 $exec rescuetime
 $exec clipmenud

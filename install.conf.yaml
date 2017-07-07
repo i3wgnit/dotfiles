@@ -13,6 +13,7 @@
     ~/.inputrc:                     bash/inputrc
     # xorg
     ~/.xinitrc:                     x/xinitrc
+    ~/.xprofile:                    x/xprofile
     ~/.Xresources:                  x/Xresources
     # vim
     ~/.vim:                         vim/vim/

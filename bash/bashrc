@@ -54,7 +54,8 @@ alias vrc="vim ~/.vimrc"
 alias gvrc="vim ~/.gvimrc"
 
 # config files
-alias cf="cd ~/.config && ranger"
+alias cf="range ~/.configr"
+alias cfd="ranger ~/.dotfiles "
 alias cfi="vim ~/.config/i3/config"
 alias cfr="vim ~/.config/ranger/rc.conf"
 alias cfrif="vim ~/.config/ranger/rifle.conf"
