@@ -2,7 +2,7 @@
 
 Clone this repo, run `install` to set up.
 
-This dotfiles uses [Dotbot][https://github.com/anishathalye/dotbot/] for installation.
+This dotfiles uses [Dotbot](https://github.com/anishathalye/dotbot/) for installation.
 
 ## TODO
 
