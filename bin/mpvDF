@@ -1,4 +1,6 @@
 #!/bin/bash
+# dramafever is ~~a~~ my bitch
+
 wait_file() {
   local file="$1"; shift
   local wait_seconds="${1:-10}"; shift # 10 seconds as default timeout
@@ -8,15 +10,17 @@ wait_file() {
   echo $count
 }
 
+/usr/bin/i3-msg "move container to workspace 3, workspace 3, layout tabbed"
+
 clip=$(xclip -selection c -o)
+echo "Clipboard: $clip"
+
 temp_dir=$(mktemp -d)
 trap "rm -Rf -- \"$temp_dir\"" EXIT
+echo "Entering $temp_dir"
 cd -- "$temp_dir"
-format=${@:-"-F"}
-echo "$clip"
-echo "$temp_dir"
-echo "$format"
 
+format=${@:-"-F"}
 if test "-F" = "$format" ; then
     format=""
     /usr/bin/youtube-dl --verbose --list-formats -- "$clip"
@@ -24,19 +28,21 @@ if test "-F" = "$format" ; then
         read -a format -p "Format: "
     done
 fi
+echo "Format: $format"
 
 if test "n" != "$format"; then
     /usr/bin/termite -t "youtube-dl" -e "youtube-dl --no-part --format \"$format\" --all-subs -- \"$clip\"" &
     ytdl=$!
     trap "kill $ytdl" EXIT
-    echo $ytdl
-    file="$()"
+    echo "youtube-dl at $ytdl"
+
     while read -r line; do
         echo $line
-        sleep $(wait_file "$file" 99)
-        if [ -f "$file" ]; then
+        sleep $(wait_file "$line" 99)
+        if [ -f "$line" ]; then
             echo Found
         fi
-        /usr/bin/mpv --sub-auto=all "$file"
+
+        /usr/bin/mpv --sub-auto=all "$line"
     done < <(youtube-dl --format "$format" --get-filename "$clip")
 fi
