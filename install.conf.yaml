@@ -1,0 +1,40 @@
+- defaults:
+    link:
+        create: true
+        relink: true
+
+- clean: ['~', '~/.config']
+
+- link:
+    ~/.dotfiles: ''
+    # bash
+    ~/.bashrc:                      bash/bashrc
+    ~/.bash_profile:                bash/bash_profile
+    ~/.inputrc:                     bash/inputrc
+    # xorg
+    ~/.xinitrc:                     x/xinitrc
+    ~/.Xresources:                  x/Xresources
+    # vim
+    ~/.vim:                         vim/vim/
+    ~/.vimrc:                       vim/vimrc
+    ~/.gvimrc:                      vim/gvimrc
+    # i3
+    ~/.config/i3:                   i3/
+    # ranger
+    ~/.config/ranger:               ranger/
+    # termite
+    ~/.config/termite/config:       termite/config
+    # mpv
+    ~/.config/mpv:                  mpv/
+    # scripts
+    ~/bin:                          bin/
+    # dunst
+    ~/.config/dunst/dunstrc:        other/dunstrc
+    # zathura
+    ~/.config/zathura/zathurarc:    other/zathurarc
+    # latexmk
+    ~/.latexmkrc:                   other/latexmkrc
+
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
+

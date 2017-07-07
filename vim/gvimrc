@@ -1,0 +1,22 @@
+" General {{{
+
+set cursorline
+
+colorscheme luna
+
+" }}}
+" Options {{{
+
+" Font
+set guifont=Iosevka\ Term\ 14
+
+" Gui options {{{
+
+set guioptions-=m   " remove menu bar
+set guioptions-=T   " remove tool bar
+set guioptions-=r   " remove right scrollbar
+set guioptions-=l   " remove left scrollbar
+
+" }}}
+
+" }}}

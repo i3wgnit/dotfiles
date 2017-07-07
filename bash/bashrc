@@ -1,0 +1,99 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias ls='ls --color=auto'
+PS1='[\u@\h \W]\$ '
+
+
+export EDITOR=vim
+export VISUAL=vim
+
+
+export PATH=~/bin:${PATH}
+
+
+# == INPUT ==
+# Make Tab autocomplete ignore case
+set completion-ignore-case on
+
+# List all match cases
+set show-all-if-ambiguous on
+
+# Show all results at once
+set page-completions off
+
+# Ask to show more than 200 completions
+set completion-query-items 200
+
+# Show extra info when completing
+set visible-stats on
+
+# Make autocomplete look at the text after the cursor.
+set skip-completed-text on
+
+# Allow UTF-8 i/o
+set input-meta on
+set output-meta on
+set convert-meta off
+
+
+# == ALIAS ==
+# cd
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias ~="cd ~"              # cd is probably faster ಠ_ಠ
+alias -- -="cd -"
+
+# VIMRC
+alias vrc="vim ~/.vimrc"
+alias gvrc="vim ~/.gvimrc"
+
+# config files
+alias cf="cd ~/.config && ranger"
+alias cfi="vim ~/.config/i3/config"
+alias cfr="vim ~/.config/ranger/rc.conf"
+alias cfrif="vim ~/.config/ranger/rifle.conf"
+alias cfb="vim ~/.bashrc"
+alias cfm="vim ~/.config/mpv/mpv.conf"
+
+# Enable aliases to be sudo'ed
+alias sudo="sudo "
+
+# Stopwatch
+alias sw="echo 'StopWatch started. Stop with Ctrl+D.' && time cat"
+
+# Reload .bash_profile
+alias br=". ~/.bashrc"
+
+# Full system upgrade
+alias pSyyu="pacaur --noconfirm -Syyu"
+
+
+# == RANGER ==
+ranger() {
+    if [ -z "$RANGER_LEVEL" ]; then
+        tempfile="$(mktemp -t tmp.XXXXXX)"
+        trap "rm -f -- \"$tempfile\"" EXIT
+        /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+        test -f "$tempfile" &&
+        if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
+            cd -- "$(cat "$tempfile")"
+        fi
+    else
+        exit
+    fi
+}
+
+[ -n "$RANGER_LEVEL" ] && PS1="$PS1"'(in ranger) '
+
+
+# ==mpv==
+function mm() {
+    mpv --no-video --ytdl-format=bestaudio ytdl://ytsearch:"$*"
+}
+
