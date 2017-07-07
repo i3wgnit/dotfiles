@@ -27,8 +27,9 @@ if test "-F" = "$format" ; then
     until [ -n "$format" ]; do
         read -a format -p "Format: "
     done
+else
+    echo "Format: $format"
 fi
-echo "Format: $format"
 
 if test "n" != "$format"; then
     /usr/bin/termite -t "youtube-dl" -e "youtube-dl --no-part --format \"$format\" --all-subs -- \"$clip\"" &
