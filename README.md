@@ -8,3 +8,4 @@ This dotfiles uses [Dotbot](https://github.com/anishathalye/dotbot/) for install
 
 1. add a way to make local customizations
 2. customize git
+3. Make it install dependencies ಠ_ಠ
