@@ -50,7 +50,7 @@ if [ "n" != "$format" ]; then
         sleep $(wait_file "$line" -1)
         if [ -f "$line" ]; then
             echo "Found it"
-            /usr/bin/mpv --quiet --msg-level=input=no --sub-auto=fuzzy --keep-open-pause=no -- "$line"
+            /usr/bin/mpv --quiet --msg-level=input=no --sub-auto=fuzzy --keep-open=yes --keep-open-pause=no -- "$line"
         fi
     done < <(youtube-dl --output "$output" --format "$format" --get-filename "$clip")
 fi
