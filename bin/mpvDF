@@ -10,40 +10,47 @@ wait_file() {
   echo $count
 }
 
-/usr/bin/i3-msg "move container to workspace 3, workspace 3, layout tabbed"
+/usr/bin/i3-msg "move container to workspace 3, workspace 3, layout tabbed" >/dev/null
 
 clip=$(xclip -selection c -o)
 echo "Clipboard: $clip"
 
-temp_dir=$(mktemp -d)
-trap "rm -Rf -- \"$temp_dir\"" EXIT
-echo "Entering $temp_dir"
-cd -- "$temp_dir"
-
-format=${@:-"-F"}
-if test "-F" = "$format" ; then
-    format=""
-    /usr/bin/youtube-dl --verbose --list-formats -- "$clip"
-    until [ -n "$format" ]; do
-        read -a format -p "Format: "
-    done
+if [ "$1" = "-d" ]; then
+    shift; directory=${1:-'~/Pictures/kdrama'}; shift
+    format="best"
 else
-    echo "Format: $format"
+    directory=$(mktemp -d)
+    trap "rm -Rf -- \"$directory\"" EXIT
+fi
+echo "Entering $directory"
+cd -- "$directory"
+
+if [ -z $format ]; then
+    format=${1:-"-F"}; shift
+    if [ "-F" = "$format" ]; then
+        format=""
+        /usr/bin/youtube-dl --verbose --list-formats -- "$clip"
+        until [ -n "$format" ]; do
+            read -a format -p "Format: "
+        done
+    else
+        echo "Format: $format"
+    fi
 fi
 
-if test "n" != "$format"; then
-    /usr/bin/termite -t "youtube-dl" -e "youtube-dl --no-part --format \"$format\" --all-subs -- \"$clip\"" &
+if [ "n" != "$format" ]; then
+    output='%(playlist_title)s/EP%(episode_number)d - %(episode)s.%(ext)s'
+    /usr/bin/termite -t "youtube-dl" -e "youtube-dl --output '$output' --no-part --format '$format' --sub-lang 'English' --sub-format 'srt/best' --convert-subtitles srt --write-sub -- '$clip'" &
     ytdl=$!
     trap "kill $ytdl" EXIT
     echo "youtube-dl at $ytdl"
 
     while read -r line; do
         echo $line
-        sleep $(wait_file "$line" 99)
+        sleep $(wait_file "$line" -1)
         if [ -f "$line" ]; then
             echo "Found it"
-            /usr/bin/mpv --sub-auto=all "$line"
+            /usr/bin/mpv --quiet --msg-level=input=no --sub-auto=fuzzy --keep-open-pause=no -- "$line"
         fi
-
-    done < <(youtube-dl --format "$format" --get-filename "$clip")
+    done < <(youtube-dl --output "$output" --format "$format" --get-filename "$clip")
 fi
