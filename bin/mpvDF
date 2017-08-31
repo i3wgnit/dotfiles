@@ -16,7 +16,7 @@ clip=$(xclip -selection c -o)
 echo "Clipboard: $clip"
 
 if [ "$1" = "-d" ]; then
-    shift; directory=${1:-'~/Pictures/kdrama'}; shift
+    shift; directory=${1:-"$HOME/Pictures/kdrama"}; shift
     format="best"
 else
     directory=$(mktemp -d)
@@ -40,7 +40,7 @@ fi
 
 if [ "n" != "$format" ]; then
     output='%(playlist_title)s/EP%(episode_number)d - %(episode)s.%(ext)s'
-    /usr/bin/termite -t "youtube-dl" -e "youtube-dl --output '$output' --no-part --format '$format' --sub-lang 'English' --sub-format 'srt/best' --convert-subtitles srt --write-sub -- '$clip'" &
+    /usr/bin/termite -t "youtube-dl" -e "youtube-dl --download-archive 'archive.txt' --output '$output' --no-part --format '$format' --sub-lang 'English' --sub-format 'srt/best' --convert-subtitles srt --write-sub -- '$clip'" &
     ytdl=$!
     trap "kill $ytdl" EXIT
     echo "youtube-dl at $ytdl"

@@ -1,3 +1,5 @@
+# vim: ft=cfg
+
 [global]
     font = Monospace 8
 
@@ -242,4 +244,3 @@
 #    summary = *twitter.com*
 #    urgency = normal
 #
-# vim: ft=cfg

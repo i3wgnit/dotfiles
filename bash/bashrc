@@ -54,7 +54,7 @@ alias vrc="vim ~/.vimrc"
 alias gvrc="vim ~/.gvimrc"
 
 # config files
-alias cf="range ~/.configr"
+alias cf="ranger ~/.config"
 alias cfd="ranger ~/.dotfiles "
 alias cfi="vim ~/.config/i3/config"
 alias cfr="vim ~/.config/ranger/rc.conf"
@@ -73,6 +73,9 @@ alias br=". ~/.bashrc"
 
 # Full system upgrade
 alias pSyyu="pacaur --noconfirm -Syyu"
+
+# xclip
+alias xclip="xclip -selection c"
 
 
 # == RANGER ==

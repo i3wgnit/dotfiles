@@ -58,12 +58,15 @@ let maplocalleader = "\\"
 inoremap <leader>w <esc>:w<cr>a
 inoremap <leader>q <esc>:q!<cr>
 inoremap <leader>z <esc>:wq!<cr>
+
 vnoremap <leader>w <esc>:w<cr>
 vnoremap <leader>q <esc>:q!<cr>
 vnoremap <leader>z <esc>:wq!<cr>
+
 nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q!<cr>
 nnoremap <leader>z :wq!<cr>
+
 nnoremap <leader>e :w!<cr>:e %:h<cr>
 nnoremap <leader>so :so ~/.vimrc<cr>
 
@@ -267,6 +270,8 @@ function! s:RunShellCommand(cmdline)
   1
 endfunction
 
+nnoremap <leader>s :Shell 
+
 " }}}
 
 " }}}
@@ -276,6 +281,7 @@ endfunction
 iabbrev ldis ಠ_ಠ
 iabbrev lsad ಥ_ಥ
 iabbrev lsmg ಸωಸ
+iabbrev lflo (◕‿◕✿)
 
 iabbrev i3@ i3wgnit@gmail.com
 
@@ -290,9 +296,9 @@ nnoremap <leader>ee <c-w>s<c-w>j<c-w>L:Ex<cr>
 " Plugins {{{
 
 " Vim-Latex {{{
-imap <space><space> <Plug>IMAP_JumpForward
-nmap <space><space> <Plug>IMAP_JumpForward
-vmap <space><space> <Plug>IMAP_JumpForward
+imap <leader>m <Plug>IMAP_JumpForward
+nmap <leader>m <Plug>IMAP_JumpForward
+vmap <leader>m <Plug>IMAP_JumpForward
 
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'

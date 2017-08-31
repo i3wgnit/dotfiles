@@ -208,6 +208,7 @@ smart_borders on
 bindsym $mod+i          exec $term -r utils -e htop
 bindsym $mod+Shift+c    exec $term -r utils -e qalc
 bindsym $mod+r          exec $term          -e ranger
+bindsym $mod+z          exec $term          -e calcurse
 bindsym $mod+g          exec $browser
 
 for_window [window_role="utils"] floating enable
@@ -295,23 +296,25 @@ for_window [class="Qalculate-gtk"] floating enable
 # WORKSPACE
 # WS1
 # WS2
-    assign [window_role="browser"]   $WS2
+    for_window [window_role="browser"]  move to workspace $WS2
     # assign [class="Chromium"]       $WS2
     # assign [class="Google-chrome"]  $WS2
     # assign [class="qutebrowser"]    $WS2
 # WS3
-    assign [class="bomi"]           $WS3
-    assign [class="mpv"]            $WS3
+    assign [class="bomi"]               $WS3
+    for_window [class="mpv"]            move to workspace $WS3
 # WS4
-    assign [class="Zathura"]        $WS4
+    assign [class="Zathura"]            $WS4
 # WS5
-    assign [class="qBittorrent"]    $WS5
+    assign [class="Lutris"]             $WS5
+    assign [class="Steam"]              $WS5
 # WS6
 # WS7
 # WS8
 # WS9
+    assign [class="qBittorrent"]        $WS9
 # WS0
-    assign [class="KeePass"]        $WS0
+    assign [class="KeePass"]            $WS0
 
 
 # STARTUP
@@ -319,4 +322,4 @@ $exec dunst
 $exec rescuetime
 $exec clipmenud
 $exec keepass
-$exec termite -e "sudo asus-kbd-backlight allowusers"-
+$exec redshift-gtk
