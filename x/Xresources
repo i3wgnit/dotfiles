@@ -1,9 +1,16 @@
 xterm*termName: xterm-256color
 xterm*locale: true
 xterm*saveLines: 4096
+xterm*bellIsUrgent: true
+
 xterm*faceName: Iosevka Term:style=Regular:size=14:antialias=true
+
 xterm*borderWidth: 0
-xterm*reverseVideo: on
+xterm*scrollBar: false
+xterm*selectToClipboard: true
+
+*background: #000000
+*foreground: #dcdccc
 
 ! ------------------------------------------------------------------------------
 ! ROFI Color theme

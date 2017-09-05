@@ -319,6 +319,13 @@ let g:bufferline_echo = 0
 " }}}
 
 " }}}
+" Languages {{{
+
+"Make calcurse notes markdown compatible
+autocmd BufRead,BufNewFile /tmp/calcurse* set filetype=markdown
+autocmd BufRead,BufNewFile ~/.calcurse/notes/* set filetype=markdown
+
+" }}}
 " Idiot proof {{{
 
 " nnoremap :w :exe "silent !echo \"Retard Alert \"" \| wq
