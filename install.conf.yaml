@@ -11,6 +11,8 @@
     ~/.bashrc:                      bash/bashrc
     ~/.bash_profile:                bash/bash_profile
     ~/.inputrc:                     bash/inputrc
+    # fish
+    ~/.config/fish:                 fish/
     # xorg
     ~/.xinitrc:                     x/xinitrc
     ~/.Xresources:                  x/Xresources
