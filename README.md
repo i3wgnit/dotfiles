@@ -1,6 +1,6 @@
 # dotfiles
 
-Clone this repo, run `install` to set up.
+Clone this repo, install submodules, run `install` to set up.
 
 This dotfiles uses [Dotbot](https://github.com/anishathalye/dotbot/) for installation.
 
