@@ -54,7 +54,7 @@ status.register("weather",
         color="#FFFFFF",
         hints={'markup': 'pango'},
         backend=weathercom.Weathercom(
-            location_code="CAXX2463:1:CA",
+            location_code="CAXX0531:1:CA",
             units="metric",
         ),
         on_leftclick=["check_weather"],

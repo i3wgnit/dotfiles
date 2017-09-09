@@ -49,18 +49,11 @@ alias ....="cd ../../.."
 alias ~="cd ~"              # cd is probably faster ಠ_ಠ
 alias -- -="cd -"
 
-# VIMRC
-alias vrc="vim ~/.vimrc"
-alias gvrc="vim ~/.gvimrc"
+# VIM
+alias v="vim"
 
-# config files
-alias cf="ranger ~/.config"
-alias cfd="ranger ~/.dotfiles "
-alias cfi="vim ~/.config/i3/config"
-alias cfr="vim ~/.config/ranger/rc.conf"
-alias cfrif="vim ~/.config/ranger/rifle.conf"
-alias cfb="vim ~/.bashrc"
-alias cfm="vim ~/.config/mpv/mpv.conf"
+# Ranger
+alias ra="ranger"
 
 # Enable aliases to be sudo'ed
 alias sudo="sudo "

@@ -70,6 +70,8 @@ nnoremap <leader>z :wq!<cr>
 nnoremap <leader>e :w!<cr>:e %:h<cr>
 nnoremap <leader>so :so ~/.vimrc<cr>
 
+inoremap <localleader>\ \
+
 command! W :w !sudo tee %
 
 " }}}
@@ -296,10 +298,6 @@ nnoremap <leader>ee <c-w>s<c-w>j<c-w>L:Ex<cr>
 " Plugins {{{
 
 " Vim-Latex {{{
-imap <leader>m <Plug>IMAP_JumpForward
-nmap <leader>m <Plug>IMAP_JumpForward
-vmap <leader>m <Plug>IMAP_JumpForward
-
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 let g:Tex_SmartKeyQuote=0

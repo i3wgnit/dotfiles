@@ -25,3 +25,6 @@
 [submodule "vim/vim/bundle/vim-fish"]
 	path = vim/vim/bundle/vim-fish
 	url = https://github.com/dag/vim-fish
+[submodule "vim/vim/bundle/i3-vim-syntax"]
+	path = vim/vim/bundle/i3-vim-syntax
+	url = https://github.com/PotatoesMaster/i3-vim-syntax

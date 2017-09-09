@@ -1,3 +1,6 @@
+! ------------------------------------------------------------------------------
+! xterm
+! ------------------------------------------------------------------------------
 xterm*termName: xterm-256color
 xterm*locale: true
 xterm*saveLines: 4096
@@ -11,6 +14,32 @@ xterm*selectToClipboard: true
 
 *background: #000000
 *foreground: #dcdccc
+
+! ------------------------------------------------------------------------------
+! urxvt
+! ------------------------------------------------------------------------------
+URxvt*font: xft:Iosevka Term:style=Regular:size=14:antialias=true,\
+            xft:DejaVu Sans Mono:style=Book:size=14,\
+            xft:Terminus,\
+            xft:Code2000:antialias=true,\
+            xft:Droid Sans Fallback
+#URxvt*letterSpace: -1
+
+URxvt*saveLines: 4096
+URxvt*bellIsUrgent: true
+URxvt*unicode3: true
+
+URxvt*borderWidth: 0
+URxvt*scrollBar: false
+URxvt*scrollBar_right: false
+URxvt*scrollBar_floating: false
+URxvt*scrollstyle: rxvt
+URxvt*scrollTtyOutput: false
+URxvt*scrollWithBuffer: true
+URxvt*scrollTtyKeypress: true
+
+URxvt*perl-ext-common: selection-to-clipboard
+URxvt*color12: rgb:5c/5c/ff
 
 ! ------------------------------------------------------------------------------
 ! ROFI Color theme
