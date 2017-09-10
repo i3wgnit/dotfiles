@@ -30,6 +30,10 @@
     ~/.gvimrc:                          vim/gvimrc
     # i3
     ~/.config/i3:                       i3/
+    # polybar
+    ~/.config/polybar/config:           polybar/config
+    ~/.config/polybar/scripts:          polybar/scripts
+    ~/.config/polybar/launch.sh:             polybar/launch.sh
     # ranger
     ~/.config/ranger/rc.conf:           ranger/.rc.conf.comp
     ~/.config/ranger/rc.conf.base:      ranger/rc.conf

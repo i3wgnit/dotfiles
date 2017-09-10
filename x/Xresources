@@ -18,12 +18,14 @@ xterm*selectToClipboard: true
 ! ------------------------------------------------------------------------------
 ! urxvt
 ! ------------------------------------------------------------------------------
-URxvt*font: xft:Iosevka Term:style=Regular:size=14:antialias=true,\
-            xft:DejaVu Sans Mono:style=Book:size=14,\
+URxvt*font: xft:Iosevka Term:style=Regular:size=11:antialias=true,\
+            xft:DejaVu Sans Mono:style=Book:size=11,\
             xft:Terminus,\
             xft:Code2000:antialias=true,\
-            xft:Droid Sans Fallback
-#URxvt*letterSpace: -1
+            xft:Droid Sans Fallback,\
+            xft:Ohsnap Siji
+
+!URxvt*letterSpace: -1
 
 URxvt*saveLines: 4096
 URxvt*bellIsUrgent: true

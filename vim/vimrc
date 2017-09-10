@@ -40,6 +40,8 @@ colorscheme luna-term
 
 syntax on
 filetype plugin indent on
+set modeline
+set modelines=5
 
 set encoding=utf-8
 setglobal fileencoding=utf-8
