@@ -1,0 +1,11 @@
+cfb         ~/.bashrc.base
+cff         ~/.config/fish/config.fish.base
+cfv         ~/.vimrc
+cfg         ~/.gvimrc
+cfrc         ~/.config/ranger/rc.conf.base
+cfrif       ~/.config/ranger/rifle.conf
+cfi         ~/.config/i3/config
+cfm         ~/.config/mpv/mpv.conf
+cfp         ~/.config/polybar/config
+cft         ~/texmf/tex/latex/twl/twl.sty
+

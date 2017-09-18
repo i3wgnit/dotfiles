@@ -1,0 +1,21 @@
+#!/usr/bin/python
+# new class
+import sys
+import os
+
+name = sys.argv[1].strip().upper()
+folder = name.lower()
+
+with open("template.tex", "r") as f:
+    file_content = f.read().format(name)
+    f.close()
+
+os.makedirs(folder)
+os.chdir(folder)
+
+with open("main.tex", "w+") as f:
+    f.write(file_content)
+    f.close()
+
+os.system("vim main.tex")
+

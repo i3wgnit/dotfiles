@@ -1,0 +1,79 @@
+\ProvidesPackage{twl}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{ulem}
+\RequirePackage{needspace}
+\RequirePackage{fullpage}
+
+\newcommand{\Sum}[2] {\sum\limits_{#1}^{#2}}
+
+\newcommand{\CC} {\mathbb C}
+\newcommand{\RR} {\mathbb R}
+\newcommand{\QQ} {\mathbb Q}
+\newcommand{\ZZ} {\mathbb Z}
+\newcommand{\NN} {\mathbb N}
+
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\ii}{\item}
+\newcommand{\st}{^{\text{st}}}
+\newcommand{\nd}{^{\text{nd}}}
+%\newcommand{\th}{^{\text{th}}}
+
+\newcommand{\liff}{\leftrightarrow}
+\newcommand{\lthen}{\rightarrow}
+
+\RequirePackage[dvips]{attachfile2}
+\RequirePackage[attach]{asymptote}
+\begin{asydef}
+    import three;
+    import math;
+    import graph3;
+    import olympiad;
+\end{asydef}
+
+\PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
+\RequirePackage{xcolor}
+
+\author{twl}
+
+\newcounter{probl}
+\renewcommand{\theprobl}{\arabic{probl}.}
+\newcounter{probll}
+\renewcommand{\theprobll}{\arabic{probll}.}
+
+\newenvironment{problem}{%
+    \begin{list}
+    {\Large\textbf{\theprobl}\hfill}
+    {\usecounter{probl}%
+        \rightmargin=0pt\leftmargin=16pt%
+        \labelwidth=24pt\labelsep=6pt\itemsep=2ex%
+} }{\end{list}\medbreak}
+
+\newenvironment{problems}{%
+    \begin{list}
+    {\Large\textbf{\theprobll}\hfill}
+    {\usecounter{probll}%
+        \let\my@olditem\item
+        \let\my@closepage\relax
+        \newcommand{\Item}{%
+            \my@closepage\pagebreak\my@olditem\minipage[t]{\linewidth}%
+            \let\my@closepage\endminipage%
+        }
+        \renewcommand{\ii}{\Item}
+        \rightmargin=0pt\leftmargin=16pt%
+        \labelwidth=24pt\labelsep=6pt\itemsep=2ex%
+} }{\my@closepage\end{list}\medbreak}
+
+\newenvironment{subproblem}{%
+    \begin{enumerate}
+        \let\my@olditem\item
+        \let\my@closepage\relax
+        \newcommand{\Item}{%
+            \my@closepage\my@olditem\minipage[t]{\linewidth}%
+            \let\my@closepage\endminipage%
+        }
+        \renewcommand{\ii}{\Item}
+        \renewcommand{\itemsep}{.5ex}
+        \renewcommand{\labelenumi}{\textbf{\alph{enumi})\;}}%
+}{\my@closepage\end{enumerate}}
+

@@ -1,0 +1,42 @@
+#!/bin/python
+
+import urllib.request, json, time
+
+city = "6176823"
+api_key = "ba5cab018fb87f0308e2cf624b49713a"
+units = "Metric"
+unit_key = "°C"
+
+while True:
+    try:
+        with urllib.request.urlopen("http://api.openweathermap.org/data/2.5/weather?id={}&APPID={}&units={}"
+                .format(city, api_key, units)) as f:
+            weather = json.load(f)
+    except:
+        time.sleep(30)
+        continue
+    finally:
+        break
+
+info = weather["weather"][0]["description"].capitalize()
+main = weather["weather"][0]["main"].lower()
+temp = int(round(float(weather["main"]["temp"]),0))
+temp_max = int(round(float(weather["main"].pop("temp_max", temp)),0))
+temp_min = int(round(float(weather["main"].pop("temp_min", temp)),0))
+
+temp_status = "{}{}".format(temp, unit_key)
+tmp = map(lambda a: " "+a[1].format(a[0]) if a[0]!=temp else "", [(temp_max,"HI:{}"), (temp_min,"LO:{}")])
+temp_status += "".join(tmp)
+
+icons = {
+    "clear": "☼",
+    "clouds": "☁",
+}
+if main in icons:
+    icon = icons[main] + "  "
+else:
+    icon = ""
+
+status = "{}{}".format(icon, info)
+
+print("{}, {}".format(status, temp_status))
