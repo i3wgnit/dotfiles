@@ -54,6 +54,8 @@
     ~/.config/zathura/zathurarc:        other/zathurarc
     # latexmk
     ~/.latexmkrc:                       other/latexmkrc
+    # latex
+    ~/texmf/tex/latex:                  texmf/tex/latex
     # redshift
     ~/.config/redshift.conf:            other/redshift.conf
 

@@ -206,13 +206,13 @@ smart_borders on
 
 # apps
 # mode "$apps" {
-bindsym $mod+i          exec $term -r utils -e htop
-bindsym $mod+Shift+c    exec $term -r utils -e qalc
+bindsym $mod+i          exec $term -name utils -e htop
+bindsym $mod+Shift+c    exec $term -name utils -e qalc
 bindsym $mod+r          exec $term          -e ranger
 bindsym $mod+z          exec $term          -e calcurse
 bindsym $mod+g          exec $browser
 
-for_window [window_role="utils"] floating enable
+for_window [class="URxvt" instance="utils"] floating enable
 
 #    bindsym Escape mode "default"
 #    bindsym Return mode "default"
@@ -252,10 +252,10 @@ bindsym $mod+c $exec clipmenu
 # printscreen
 set $print_xclip xclip -t image/png -selection clipboard $f
 set $print_folder ~/Pictures/screenshots
-set $print_scrot scrot '%Y-%m-%d_$wx$h.png'
+set $print_scrot scrot '%Y%m%d-%H%M%S_$wx$h.png'
 mode "$print" {
-    bindsym Print $exec "$print-scrot -e '$print_xclip && mv $f $print_folder'", mode "default"
-    bindsym space $exec "$print-scrot -ue '$print_xclip && mv $f $print_folder'", mode "default"
+    bindsym Print $exec "$print_scrot -e '$print_xclip && mv $f $print_folder'", mode "default"
+    bindsym space $exec "$print_scrot -ue '$print_xclip && mv $f $print_folder'", mode "default"
     bindsym --release s $exec "$print_scrot -se '$print_xclip && mv $f $print_folder'", mode "default"
 
     # clipboard only
