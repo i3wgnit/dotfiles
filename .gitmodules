@@ -28,3 +28,9 @@
 [submodule "vim/vim/bundle/i3-vim-syntax"]
 	path = vim/vim/bundle/i3-vim-syntax
 	url = https://github.com/PotatoesMaster/i3-vim-syntax
+[submodule "vim/vim/bundle/vim-sensible"]
+	path = vim/vim/bundle/vim-sensible
+	url = git://github.com/tpope/vim-sensible.git
+[submodule "vim/vim/bundle/vim-surround"]
+	path = vim/vim/bundle/vim-surround
+	url = https://github.com/tpope/vim-surround

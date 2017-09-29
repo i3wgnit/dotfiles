@@ -20,7 +20,7 @@ set backspace=indent,eol,start
 set number
 set relativenumber
 set ttyfast
-set lazyredraw
+"set lazyredraw
 set showmatch
 set matchtime=3
 set shell=/bin/bash
@@ -46,7 +46,7 @@ set modelines=5
 set encoding=utf-8
 setglobal fileencoding=utf-8
 
-set conceallevel=2
+set conceallevel=0
 
 set foldmethod=marker
 
@@ -92,17 +92,17 @@ set sidescrolloff=10
 set list
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮,trail:·
 set showbreak=↪
-hi NonText ctermfg=102
-hi SpecialKey ctermfg=102
+hi NonText ctermfg=244
+hi SpecialKey ctermfg=244
 
 " }}}
 
 " Tab, spaces, wrapping options {{{
 
-set tabstop=8
+set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set expandtab
+"set expandtab
 set wrap
 set textwidth=90
 set colorcolumn=+1
@@ -250,7 +250,7 @@ vnoremap <c-c> "+y
 vnoremap K k
 
 " Increment ordered list
-inoremap <leader><cr> <esc>Yp<c-a>elC
+"inoremap <leader><cr> <esc>Yp<c-a>elC
 
 " Cool Shell command {{{
 

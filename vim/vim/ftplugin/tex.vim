@@ -1,3 +1,5 @@
+set listchars+=space:␣
+
 function! UpdatePDF()
     silent! execute "silent! Start! latexmk -f -silent %"
 endfunction

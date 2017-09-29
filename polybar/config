@@ -103,9 +103,9 @@ module-margin-left = 2
 ;   font-2 = Termsynu:size=8;-1
 ;   font-3 = FontAwesome:size=10
 ; See the Fonts wiki page for more details
-font-0 = Misc Ohsnap:pixelsize=14:size=20:antialias=false;2
+font-0 = Misc Ohsnap:pixelsize=14:antialias=false;2
 font-1 = Wuncon Siji:antialias=false;3
-font-2 = DejaVu Sans Mono:antialias=true;1
+font-2 = Unifont:size=11:antialias=true;3
 
 ; Modules are added to one of the available blocks
 ;   modules-left = cpu ram
@@ -521,7 +521,9 @@ label-full = %percentage%
 ; Only applies if <ramp-capacity> is used
 ramp-capacity-0 = 
 ramp-capacity-1 = 
-ramp-capacity-2 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
 ;ramp-capacity-3 = 
 ;ramp-capacity-4 = 
 ramp-capacity-font = 1
