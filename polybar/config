@@ -719,7 +719,7 @@ type = internal/xwindow
 ;   %title%
 ; Default: %title%
 label = %title%
-label-maxlen = 80
+label-maxlen = 60
 
 [module/weather]
 type = custom/script

@@ -61,3 +61,6 @@ alias pSyyu='pacaur --noconfirm -Syyu'
 # xclip
 alias xclip='xclip -selection c'
 
+# latexmk
+alias latexmks='grep -l \'\\documentclass\' *tex | xargs latexmk -f -pvc'
+

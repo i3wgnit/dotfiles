@@ -1,6 +1,20 @@
 \ProvidesPackage{twl}
 \RequirePackage{amsmath,amssymb}
-\PassOptionsToPackage{thmmarks}{ntheorem}
+
+\newif\iftwl@maketitle\twl@maketitletrue
+\newif\iftwl@crowdmark\twl@crowdmarkfalse
+%\newif\iftwl@asy\twl@asytrue
+
+\DeclareOption{crowdmark}{\twl@maketitlefalse\twl@crowdmarktrue}
+
+\DeclareOption{maketitle}{\twl@maketitletrue}
+\DeclareOption{nomaketitle}{\twl@maketitlefalse}
+%\DeclareOption{asy}{\twl@asytrue}
+%\DeclareOption{noasy}{\twl@asyfalse}
+\ProcessOptions\relax
+
+
+\PassOptionsToPackage{thmmarks, amsmath}{ntheorem}
 \RequirePackage{ntheorem}
 \RequirePackage{ulem}
 \RequirePackage{needspace}
@@ -8,14 +22,6 @@
 \RequirePackage{setspace}
 \RequirePackage{etoolbox}
 
-\renewcommand{\title}[1]{\def\tw@title{#1}}
-\renewcommand{\date}[1]{\def\tw@date{#1}}
-\renewcommand{\author}[1]{\def\tw@author{#1}}
-
-\renewcommand\maketitle{%
-	\centering\textbf{\Large\tw@title}\\[1ex]%
-	\tw@date\hfill\tw@author\vspace{1ex}\hline\vspace{4ex}%
-}
 
 \newcommand{\QEDmark}{\ensuremath{\square}}
 \theoremheaderfont{\bfseries}
@@ -25,7 +31,10 @@
 \newtheorem*{proof}{Proof}
 \AtBeginEnvironment{proof}{\setstretch{1.5}}
 
-\newcommand{\Sum}[2] {\sum\limits_{#1}^{#2}}
+\theoremstyle{plain}
+
+
+\newcommand{\Tau}{\mathcal T}
 
 \newcommand{\CC} {\mathbb C}
 \newcommand{\RR} {\mathbb R}
@@ -33,6 +42,8 @@
 \newcommand{\ZZ} {\mathbb Z}
 \newcommand{\NN} {\mathbb N}
 
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
 \newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
 \newcommand{\ii}{\item}
@@ -40,77 +51,93 @@
 \newcommand{\nd}{^{\text{nd}}}
 %\newcommand{\th}{^{\text{th}}}
 
+\DeclareMathOperator{\arcsec}{arcsec}
+
 \newcommand{\liff}{\leftrightarrow}
 \newcommand{\lthen}{\rightarrow}
 
-\RequirePackage[dvips]{attachfile2}
-\RequirePackage[attach]{asymptote}
-\begin{asydef}
-	import three;
-	import math;
-	import graph3;
-	import olympiad;
-\end{asydef}
 
 \PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
 \RequirePackage{xcolor}
 
+
+%\iftwl@asy
+%	\RequirePackage[dvips]{attachfile2}
+%	\RequirePackage[attach]{asymptote}
+%	\begin{asydef}
+%		import three;
+%		import math;
+%		import graph3;
+%		import olympiad;
+%	\end{asydef}
+%\fi
+
 \author{twl}
 
-\newcounter{probl}
-\renewcommand{\theprobl}{Q\arabic{probl}}
-
-\newenvironment{problem}{%
-	\begin{list}
-	{\Large\textbf{\theprobl}\hfill}
-	{\usecounter{probl}%
-		\rightmargin=0mm\leftmargin=1.25em%
-		\labelwidth=2.25em\labelsep=.75em\itemsep=8ex%
-} }{\end{list}\medbreak}
-
-\newenvironment{problems}{%
-	\begin{list}
-	{\Large\textbf{\theprobll}\hfill}
-	{\usecounter{probl}%
-		\let\my@olditem\item
-		\let\my@closepage\relax
-		\newcommand{\Item}{%
-			\my@closepage\pagebreak\my@olditem\minipage[t]{\linewidth}%
-			\let\my@closepage\endminipage%
-		}
-		\renewcommand{\ii}{\Item}
-		\rightmargin=0mm\leftmargin=1.25em%
-		\labelwidth=2.25em\labelsep=.75em\itemsep=8ex%
-} }{\my@closepage\end{list}\medbreak}
 
 \newcounter{probll}
 \renewcommand{\theprobll}{\alph{probll})}
 
-\newenvironment{subproblem}{%
-	\begin{list}
-	{\textbf{\theprobll}\;}
-	{\usecounter{probll}%
-		\let\my@olditem\item
-		\let\my@closepage\relax
-		\newcommand{\Item}{%
-			\my@closepage\my@olditem\minipage[t]{\linewidth}%
-			\let\my@closepage\endminipage%
-		}
-		\renewcommand{\ii}{\Item}
-		\itemsep=2ex%
-} }{\my@closepage\end{list}\medbreak}
 
 \renewcommand{\labelenumi}{(\arabic{enumi})\;}
 
-%	\begin{enumerate}
-%		\let\my@olditem\item
-%		\let\my@closepage\relax
-%		\newcommand{\Item}{%
-%			\my@closepage\my@olditem\minipage[t]{\linewidth}%
-%			\let\my@closepage\endminipage%
-%		}
-%		\renewcommand{\ii}{\Item}%
-%		\renewcommand{\itemsep}{2ex}%
-%		\renewcommand{\labelenumi}{\textbf{\alph{enumi})\;}}%
-%}{\my@closepage\end{enumerate}}
+
+\newcounter{probl}
+\renewcommand{\theprobl}{Q\arabic{probl}}
+
+\iftwl@crowdmark
+	\newenvironment{problem}{%
+		\begin{list}
+		{\Large\textbf{\theprobl}\hfill}
+		{\usecounter{probl}%
+			\let\my@olditem\item%
+			\newcommand{\Item}{\pagebreak\my@olditem}%
+			\renewcommand{\ii}{\Item}%
+			\rightmargin=0mm\leftmargin=1.25em%
+			\labelwidth=2.25em\labelsep=.75em%
+	} }{\end{list}}
+
+	\newenvironment{subproblem}{%
+		\begin{list}
+		{\textbf{\theprobll}\;}
+		{\usecounter{probll}%
+	} }{\end{list}}
+\else
+	\newenvironment{problem}{%
+		\begin{list}
+		{\Large\textbf{\theprobl}\hfill}
+		{\usecounter{probl}%
+			\rightmargin=0mm\leftmargin=1.25em%
+			\labelwidth=2.25em\labelsep=.75em\itemsep=8ex%
+	} }{\end{list}}
+
+	\newenvironment{subproblem}{%
+		\begin{list}
+		{\textbf{\theprobll}\;}
+		{\usecounter{probll}%
+			\let\my@olditem\item
+			\let\my@closepage\relax
+			\newcommand{\Item}{%
+				\my@closepage\my@olditem\minipage[t]{\linewidth}%
+				\let\my@closepage\endminipage%
+			}
+			\renewcommand{\ii}{\Item}
+			\let\my@oldpagebreak\pagebreak
+			\renewcommand{\pagebreak}{\my@closepage\my@oldpagebreak}
+		\itemsep=1.5ex%
+	} }{\my@closepage\end{list}\medbreak}
+\fi
+
+
+\iftwl@maketitle
+	\renewcommand{\title}[1]{\def\tw@title{#1}}
+	\renewcommand{\date}[1]{\def\tw@date{#1}}
+	\renewcommand{\author}[1]{\def\tw@author{#1}}
+
+	\renewcommand{\maketitle}{%
+		\centering\textbf{\Large\tw@title}\\[1ex]%
+		\tw@date\hfill\tw@author\\[1ex]%
+		\hrule\vspace{2ex}%
+	}
+\fi
 

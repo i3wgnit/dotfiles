@@ -42,8 +42,13 @@ URxvt*scrollTtyKeypress: true
 
 URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.iso14755: False
-URxvt*perl-ext-common: defalut,clipboard,selection-to-clipboard
 URxvt*color12: rgb:5c/5c/ff
+URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select,selection-to-clipboard
+URxvt.url-select.launcher:  firefox
+URxvt.url-select.underline: true
+URxvt.keysym.M-u:           perl:url-select:select_next
+URxvt.keysym.M-Escape:      perl:keyboard-select:activate
+URxvt.keysym.M-s:           perl:keyboard-select:searc
 
 ! ------------------------------------------------------------------------------
 ! ROFI Color theme
