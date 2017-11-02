@@ -34,3 +34,6 @@
 [submodule "vim/vim/bundle/vim-surround"]
 	path = vim/vim/bundle/vim-surround
 	url = https://github.com/tpope/vim-surround
+[submodule "vim/vim/bundle/vim-pandoc-syntax"]
+	path = vim/vim/bundle/vim-pandoc-syntax
+	url = https://github.com/vim-pandoc/vim-pandoc-syntax

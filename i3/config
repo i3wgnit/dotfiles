@@ -207,7 +207,7 @@ smart_borders on
 # apps
 # mode "$apps" {
 bindsym $mod+i          exec $term -name utils -e htop
-bindsym $mod+Shift+c    exec $term -name utils -e qalc
+bindsym $mod+Shift+c    exec qalculate-gtk
 bindsym $mod+r          exec $term          -e ranger
 bindsym $mod+z          exec $term          -e calcurse
 bindsym $mod+g          exec $browser

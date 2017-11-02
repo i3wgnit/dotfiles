@@ -3,14 +3,14 @@
 
 \newif\iftwl@maketitle\twl@maketitletrue
 \newif\iftwl@crowdmark\twl@crowdmarkfalse
-%\newif\iftwl@asy\twl@asytrue
+\newif\iftwl@asy\twl@asytrue
 
 \DeclareOption{crowdmark}{\twl@maketitlefalse\twl@crowdmarktrue}
 
 \DeclareOption{maketitle}{\twl@maketitletrue}
 \DeclareOption{nomaketitle}{\twl@maketitlefalse}
-%\DeclareOption{asy}{\twl@asytrue}
-%\DeclareOption{noasy}{\twl@asyfalse}
+\DeclareOption{asy}{\twl@asytrue}
+\DeclareOption{noasy}{\twl@asyfalse}
 \ProcessOptions\relax
 
 
@@ -33,14 +33,17 @@
 
 \theoremstyle{plain}
 
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}
+
 
 \newcommand{\Tau}{\mathcal T}
 
-\newcommand{\CC} {\mathbb C}
-\newcommand{\RR} {\mathbb R}
-\newcommand{\QQ} {\mathbb Q}
-\newcommand{\ZZ} {\mathbb Z}
-\newcommand{\NN} {\mathbb N}
+\newcommand{\CC} {\mathbf C}
+\newcommand{\RR} {\mathbf R}
+\newcommand{\QQ} {\mathbf Q}
+\newcommand{\ZZ} {\mathbf Z}
+\newcommand{\NN} {\mathbf N}
 
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
@@ -61,16 +64,18 @@
 \RequirePackage{xcolor}
 
 
-%\iftwl@asy
-%	\RequirePackage[dvips]{attachfile2}
-%	\RequirePackage[attach]{asymptote}
-%	\begin{asydef}
-%		import three;
-%		import math;
-%		import graph3;
-%		import olympiad;
-%	\end{asydef}
-%\fi
+\iftwl@asy
+	\RequirePackage[dvips]{attachfile2}
+	\RequirePackage[attach]{asymptote}
+	\begin{asydef}
+		settings.prc=false;
+		settings.embed=true;
+		import three;
+		import math;
+		import graph3;
+		import olympiad;
+	\end{asydef}
+\fi
 
 \author{twl}
 
@@ -107,6 +112,11 @@
 		\begin{list}
 		{\Large\textbf{\theprobl}\hfill}
 		{\usecounter{probl}%
+			\let\my@olditem\item
+			\newcommand{\Item}{%
+				\filbreak\my@olditem
+			}
+			\renewcommand{\ii}{\Item}
 			\rightmargin=0mm\leftmargin=1.25em%
 			\labelwidth=2.25em\labelsep=.75em\itemsep=8ex%
 	} }{\end{list}}
@@ -116,16 +126,14 @@
 		{\textbf{\theprobll}\;}
 		{\usecounter{probll}%
 			\let\my@olditem\item
-			\let\my@closepage\relax
-			\newcommand{\Item}{%
-				\my@closepage\my@olditem\minipage[t]{\linewidth}%
-				\let\my@closepage\endminipage%
+			\renewcommand{\Item}{%
+				%\my@closepage\my@olditem\minipage[t]{\linewidth}%
+				%\let\my@closepage\endminipage%
+				\filbreak\my@olditem
 			}
 			\renewcommand{\ii}{\Item}
-			\let\my@oldpagebreak\pagebreak
-			\renewcommand{\pagebreak}{\my@closepage\my@oldpagebreak}
 		\itemsep=1.5ex%
-	} }{\my@closepage\end{list}\medbreak}
+	} }{\end{list}\medbreak}
 \fi
 
 
