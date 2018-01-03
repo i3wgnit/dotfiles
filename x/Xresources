@@ -18,8 +18,7 @@ xterm*selectToClipboard: true
 ! ------------------------------------------------------------------------------
 ! urxvt
 ! ------------------------------------------------------------------------------
-URxvt*font: xft:Iosevka Term:style=Regular:size=11:antialias=true,\
-            xft:DejaVu Sans Mono:style=Book:size=11,\
+URxvt*font: xft:DejaVu Sans Mono:style=Book:size=11,\
             xft:Terminus,\
             xft:Code2000:antialias=true,\
             xft:Droid Sans Fallback,\
