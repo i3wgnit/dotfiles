@@ -2,6 +2,7 @@
 # ~/.bashrc
 #
 
+set -o vi
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -80,7 +81,7 @@ ranger() {
     if [ -z "$RANGER_LEVEL" ]; then
         tempfile="$(mktemp -t tmp.XXXXXX)"
         trap "rm -f -- \"$tempfile\"" EXIT
-        /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+        $HOME/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
         test -f "$tempfile" &&
         if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
             cd -- "$(cat "$tempfile")"

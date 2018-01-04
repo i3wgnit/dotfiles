@@ -13,7 +13,7 @@ end
 test -n "$RANGER_LEVEL"; and set fish_greeting "in ranger"
 
 # Powerline
-source /usr/lib/python3.6/site-packages/powerline/bindings/fish/powerline-setup.fish
+source $HOME/src/powerline/powerline/bindings/fish/powerline-setup.fish
 powerline-setup
 
 
