@@ -1,5 +1,5 @@
 # == Startup ==
-set PATH ~/bin /usr/local/bin $PATH
+set -l PATH ~/bin $PATH
 set fish_greeting ""
 
 # Start X at login
@@ -12,7 +12,8 @@ end
 # Ranger level
 test -n "$RANGER_LEVEL"; and set fish_greeting "in ranger"
 
-# Fish Mode Prompt
+# Fish Vi-Mode
+fish_vi_key_bindings
 function fish_mode_prompt; end
 
 # Powerline
