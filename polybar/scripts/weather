@@ -2,7 +2,8 @@
 
 import urllib.request, json, time
 
-city = "6176823"
+# city = "6176823" # waterloo
+city = "6077243" # montreal
 api_key = "ba5cab018fb87f0308e2cf624b49713a"
 units = "Metric"
 unit_key = "°C"
@@ -15,7 +16,7 @@ while True:
             f.close()
         break
     except:
-        time.sleep(30)
+        time.sleep(300)
         continue
 
 info = weather["weather"][0]["description"].capitalize()

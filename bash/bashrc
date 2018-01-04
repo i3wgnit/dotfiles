@@ -12,8 +12,10 @@ PS1='[\u@\h \W]\$ '
 export EDITOR=vim
 export VISUAL=vim
 
+set -o vi
 
-export PATH=~/bin:${PATH}
+
+export PATH=~/bin:/usr/local/bin:${PATH}
 
 
 # == INPUT ==

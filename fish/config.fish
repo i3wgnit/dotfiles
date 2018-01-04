@@ -1,5 +1,5 @@
 # == Startup ==
-set PATH ~/bin $PATH
+set PATH ~/bin /usr/local/bin $PATH
 set fish_greeting ""
 
 # Start X at login
@@ -11,6 +11,9 @@ end
 
 # Ranger level
 test -n "$RANGER_LEVEL"; and set fish_greeting "in ranger"
+
+# Fish Mode Prompt
+function fish_mode_prompt; end
 
 # Powerline
 source /usr/lib/python3.6/site-packages/powerline/bindings/fish/powerline-setup.fish

@@ -3,6 +3,7 @@
 set sessionoptions-=options
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
+Helptags
 
 " }}}
 " General {{{
@@ -209,10 +210,10 @@ nnoremap H ^
 nnoremap L g_
 
 " split screen navigation
-noremap <c-h> <c-w>h
-noremap <c-j> <c-w>j
-noremap <c-k> <c-w>k
-noremap <c-l> <c-w>l
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
 
 " Easy split
 noremap <leader>v <c-w>v
@@ -329,9 +330,9 @@ autocmd BufRead,BufNewFile ~/.calcurse/notes/* set filetype=markdown
 " Idiot proof {{{
 
 " nnoremap :w :exe "silent !echo \"Retard Alert \"" \| wq
-nnoremap :w :exe "silent !i3-nagbar -t warning -m \"Retard Alert\"" \| wq
+" nnoremap :w :exe "silent !i3-nagbar -t warning -m \"Retard Alert\"" \| wq
 " nnoremap :w :exe "silent !i3lock-fancy" \| wq
-nnoremap :q :exe "silent !~/.config/i3/lock.sh" \| q
+" nnoremap :q :exe "silent !~/.config/i3/lock.sh" \| q
 
 " }}}
 

@@ -1,5 +1,5 @@
 \ProvidesPackage{twl}
-\RequirePackage{amsmath,amssymb}
+\RequirePackage{amsmath,amssymb,amsfonts}
 
 \newif\iftwl@maketitle\twl@maketitletrue
 \newif\iftwl@crowdmark\twl@crowdmarkfalse
@@ -21,6 +21,8 @@
 \RequirePackage{fullpage}
 \RequirePackage{setspace}
 \RequirePackage{etoolbox}
+\RequirePackage{array}
+\RequirePackage{xfrac}
 
 
 \newcommand{\QEDmark}{\ensuremath{\square}}
@@ -29,7 +31,7 @@
 \theoremseparator{:}
 \theoremsymbol{\QEDmark}
 \newtheorem*{proof}{Proof}
-\AtBeginEnvironment{proof}{\setstretch{1.5}}
+\AtBeginEnvironment{proof}{\setstretch{1.25}}
 
 \theoremstyle{plain}
 
@@ -45,6 +47,7 @@
 \newcommand{\ZZ} {\mathbf Z}
 \newcommand{\NN} {\mathbf N}
 
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
@@ -54,7 +57,11 @@
 \newcommand{\nd}{^{\text{nd}}}
 %\newcommand{\th}{^{\text{th}}}
 
-\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arcsec}{\operatorname{arcsec}}
+\DeclareMathOperator{\lcm}{\operatorname{lcm}}
+
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
 
 \newcommand{\liff}{\leftrightarrow}
 \newcommand{\lthen}{\rightarrow}
@@ -98,7 +105,7 @@
 			\let\my@olditem\item%
 			\newcommand{\Item}{\pagebreak\my@olditem}%
 			\renewcommand{\ii}{\Item}%
-			\rightmargin=0mm\leftmargin=1.25em%
+			\rightmargin=0mm\leftmargin=1em%
 			\labelwidth=2.25em\labelsep=.75em%
 	} }{\end{list}}
 
@@ -117,7 +124,7 @@
 				\filbreak\my@olditem
 			}
 			\renewcommand{\ii}{\Item}
-			\rightmargin=0mm\leftmargin=1.25em%
+			\rightmargin=0mm\leftmargin=1em%
 			\labelwidth=2.25em\labelsep=.75em\itemsep=8ex%
 	} }{\end{list}}
 
