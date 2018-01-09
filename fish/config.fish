@@ -1,5 +1,6 @@
 # == Startup ==
-set -l PATH ~/bin $PATH
+set PATH /usr/local/bin /usr/local/sbin /usr/local/bin /usr/bin /usr/bin/site_perl /usr/bin/vendor_perl /usr/bin/core_perl
+set PATH ~/bin $PATH
 set fish_greeting ""
 
 # Start X at login

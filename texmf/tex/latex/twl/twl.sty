@@ -26,12 +26,12 @@
 
 
 \newcommand{\QEDmark}{\ensuremath{\square}}
-\theoremheaderfont{\bfseries}
+\theoremheaderfont{\itshape}
 \theorembodyfont{\normalfont}
 \theoremseparator{:}
 \theoremsymbol{\QEDmark}
 \newtheorem*{proof}{Proof}
-\AtBeginEnvironment{proof}{\setstretch{1.25}}
+\AtBeginEnvironment{proof}{\setstretch{1.125}}
 
 \theoremstyle{plain}
 
@@ -124,8 +124,8 @@
 				\filbreak\my@olditem
 			}
 			\renewcommand{\ii}{\Item}
-			\rightmargin=0mm\leftmargin=1em%
-			\labelwidth=2.25em\labelsep=.75em\itemsep=8ex%
+			\rightmargin=0mm\leftmargin=0em%
+			\labelwidth=2.5em\labelsep=0em\itemsep=8ex%
 	} }{\end{list}}
 
 	\newenvironment{subproblem}{%
@@ -133,13 +133,14 @@
 		{\textbf{\theprobll}\;}
 		{\usecounter{probll}%
 			\let\my@olditem\item
-			\renewcommand{\Item}{%
+			\newcommand{\Item}{%
 				%\my@closepage\my@olditem\minipage[t]{\linewidth}%
 				%\let\my@closepage\endminipage%
 				\filbreak\my@olditem
 			}
-			\renewcommand{\ii}{\Item}
-		\itemsep=1.5ex%
+			\renewcommand{\ii}{\Item}%
+			\rightmargin=0em\leftmargin=0.5em%
+			\labelwidth=0em\labelsep=0.5em\itemsep=1.5ex%
 	} }{\end{list}\medbreak}
 \fi
 
@@ -150,9 +151,10 @@
 	\renewcommand{\author}[1]{\def\tw@author{#1}}
 
 	\renewcommand{\maketitle}{%
-		\centering\textbf{\Large\tw@title}\\[1ex]%
-		\tw@date\hfill\tw@author\\[1ex]%
-		\hrule\vspace{2ex}%
+		\begin{center}\textbf{\Large\tw@title}\\[1ex]%
+			\tw@date\hfill\tw@author\\[1ex]%
+			\hrule%
+		\end{center}
 	}
 \fi
 

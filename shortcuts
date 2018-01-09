@@ -1,3 +1,4 @@
+#!/usr/bin/python
 def read_file(f):
     with open(f, "r") as fi:
         tmp = fi.read() + "\n"

@@ -1,4 +1,11 @@
 ! ------------------------------------------------------------------------------
+! defaults
+! ------------------------------------------------------------------------------
+
+*background: #000000
+*foreground: #dcdccc
+
+! ------------------------------------------------------------------------------
 ! xterm
 ! ------------------------------------------------------------------------------
 xterm*termName: xterm-256color
@@ -12,9 +19,6 @@ xterm*borderWidth: 0
 xterm*scrollBar: false
 xterm*selectToClipboard: true
 
-*background: #000000
-*foreground: #dcdccc
-
 ! ------------------------------------------------------------------------------
 ! urxvt
 ! ------------------------------------------------------------------------------
@@ -25,7 +29,7 @@ URxvt*font: xft:Iosevka Term:style=Regular:size=11:antialias=true,\
             xft:Droid Sans Fallback,\
             xft:Ohsnap Siji
 
-!URxvt*letterSpace: -1
+!URxvt*letterSpace: 0
 
 URxvt*saveLines: 4096
 URxvt*bellIsUrgent: true

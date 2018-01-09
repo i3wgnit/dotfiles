@@ -9,7 +9,11 @@ s           ~/.config/Scripts
 r           /
 S           ~/Documents/school
 uw          ~/Documents/school/uwat
-uwcs145     ~/Documents/school/uwat/cs145
-uwm145      ~/Documents/school/uwat/math145
-uwm138      ~/Documents/school/uwat/math138
+uwcs145     ~/Documents/school/uwat/1a/cs145
+uwm145      ~/Documents/school/uwat/1a/math145
+uwm138      ~/Documents/school/uwat/1a/math138
+uwm146      ~/Documents/school/uwat/1b/math146
+uwcs146     ~/Documents/school/uwat/1b/cs146
+uws230      ~/Documents/school/uwat/1b/stat230
+
 
