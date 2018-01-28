@@ -14,7 +14,7 @@ function! StartLatexmk()
     "     echo "latexmk is already running"
     " else
     "     let b:latexmkStarted = 1
-        silent! Start! urxvt -e latexmk -f -silent -pvc %
+        Start! urxvt -e latexmk -f -silent -pvc %
         echo "latexmk is now running"
     " endif
 endfunction
@@ -22,6 +22,12 @@ endfunction
 function! StartZathura()
     silent! Start! 'zathura '.expand('%:r').'.pdf'
 endfunction
+
+command! Lat execute '!latexmk '.expand('%')
+command! Latg execute '!latexmk -g '.expand('%')
+
+command! Latx execute '!latexmk -pdflatex=xelatex '.expand('%')
+command! Latxg execute '!latexmk -pdflatex=xelatex -g '.expand('%')
 
 nnoremap <silent> <buffer> <localLeader>o :call StartLatexmk()<cr>
 nnoremap <silent> <buffer> <localLeader>p :silent! execute "silent! !zathura ".expand('%:r').'.pdf &' \| redraw!<cr>

@@ -17,7 +17,7 @@ set $exec exec --no-startup-id
 set $term urxvt
 set $browser firefox
 
-set $clip $(xclip -selection c -o)
+set $clip (xclip -selection c -o)
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -230,10 +230,10 @@ bindsym $mod+plus           gaps inner current set      16
 bindsym $mod+Shift+plus     gaps inner current plus     4
 
 # Resize
-bindsym $mod+Shift+y    resize shrink   width   10 px or 10 ppt
-bindsym $mod+Shift+u    resize shrink   height  10 px or 10 ppt
-bindsym $mod+Shift+i    resize grow     height  10 px or 10 ppt
-bindsym $mod+Shift+o    resize grow     width   10 px or 10 ppt
+bindsym $mod+Shift+u    resize shrink   width   10 px or 10 ppt
+bindsym $mod+Shift+i    resize shrink   height  10 px or 10 ppt
+bindsym $mod+Shift+o    resize grow     height  10 px or 10 ppt
+bindsym $mod+Shift+p    resize grow     width   10 px or 10 ppt
 
 # brightness
 bindsym XF86MonBrightnessDown       $exec xbacklight -dec 10
@@ -331,3 +331,4 @@ $exec rescuetime
 $exec clipmenud
 #$exec keepass
 $exec redshift-gtk
+$exec nextcloud

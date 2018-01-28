@@ -42,29 +42,6 @@
 \RequirePackage{ntheorem}
 %\RequirePackage{thmtools}
 
-\mdfdefinestyle{mdbluebox}{%
-	roundcorner=10pt,
-	linewidth=1pt,
-	skipabove=12pt,
-	innerbottommargin=9pt,
-	skipbelow=2pt,
-	linecolor=blue,
-	nobreak=true,
-	backgroundcolor=TealBlue!5,
-}
-\mdfdefinestyle{mdrecbox}{%
-	linewidth=0.5pt,
-	skipabove=12pt,
-	frametitleaboveskip=5pt,
-	frametitlebelowskip=0pt,
-	skipbelow=2pt,
-	frametitlefont=\bfseries,
-	innertopmargin=4pt,
-	innerbottommargin=8pt,
-	nobreak=true,
-	backgroundcolor=Salmon!5,
-}
-
 \newcommand{\mdfthm}[1]{%
 	\theoremprework{\begin{mdframed}[#1]}%
 	\theorempostwork{\end{mdframed}}%
@@ -102,26 +79,6 @@
 	\theoremsymbol{}
 }
 
-\newcommand{\thmbluebox}{%
-	\theoremstyle{mybreak}
-	\theoremheaderfont{\sffamily\bfseries\color{MidnightBlue}}
-	\theorembodyfont{\normalfont}
-	\theoremnumbering{arabic}
-	\theoremseparator{}
-	\mdfthm{style=mdbluebox}
-	\theoremsymbol{}
-}
-
-\newcommand{\thmrecbox}{%
-	\theoremstyle{bplain}
-	\theoremheaderfont{\bfseries\color{RawSienna}}
-	\theorembodyfont{\normalfont}
-	\theoremnumbering{arabic}
-	\theoremseparator{}
-	\mdfthm{style=mdrecbox}
-	\theoremsymbol{}
-}
-
 \newcommand{\thmpbox}{%
 	\theoremstyle{bplain}
 	\theoremheaderfont{\bfseries}
@@ -142,8 +99,7 @@
 	\theoremsymbol{\ensuremath{_\square}}
 }
 
-\thmbluebox
-\newtheorem{theorem}{Theorem}[section]
+\newtheorem{theorem}{Theorem}
 
 \thmplain
 \newtheorem*{note}{Note}
@@ -158,32 +114,10 @@
 \renewtheorem*{notation*}{Notation}
 \renewtheorem*{exercise*}{Exercise}
 
-\thmbluebox
-\newtheorem{axiom}[theorem]{Axiom}
-\thmbluebox
 \newtheorem{lemma}[theorem]{Lemma}
-\thmbluebox
-\newtheorem{proposition}[theorem]{Proposition}
-\thmbluebox
-\newtheorem{corollary}[theorem]{Corollary}
-\thmbluebox
-\renewtheorem*{axiom*}[theorem]{Axiom}
-\thmbluebox
+\newtheorem*{proposition}{Proposition}
 \renewtheorem*{lemma*}{Lemma}
-\thmbluebox
-\renewtheorem*{proposition*}{Proposition}
-\thmbluebox
-\renewtheorem*{corollary*}{Corollary}
-
-\thmrecbox
-\newtheorem{definition}[theorem]{Definition}
-\thmrecbox
-\renewtheorem*{definition*}{Definition}
-
-\thmpbox
-\newtheorem{example}[theorem]{Example}
-\thmpbox
-\renewtheorem*{example*}{Example}
+\renewtheorem{proposition*}[theorem]{Proposition}
 
 \thmproof
 \newtheorem{proof}{Proof}
@@ -263,6 +197,9 @@
 
 
 %%fakesection custom maketitle
+\RequirePackage{titling}
+\author{twl}
+\date{\today}
 \iftwl@maketitle
 	\renewcommand{\title}[1]{\def\tw@title{#1}}
 	\renewcommand{\date}[1]{\def\tw@date{#1}}
@@ -275,27 +212,6 @@
 		\end{center}
 	}
 \fi
-
-
-%%fakesection Title
-\RequirePackage{titling}
-\author{twl}
-\date{\today}
-%%fakesection Header
-\PassOptionsToPackage{headsepline}{scrlayer-scrpage}
-\RequirePackage{scrlayer-scrpage}
-\renewcommand{\headfont}{}
-
-\addtolength{\textheight}{0.65in}
-\setlength{\footskip}{0.35in}
-\setlength{\headsep}{10pt}
-
-\ihead{\footnotesize\textbf{\theauthor}}
-\automark{section}
-\chead{}
-\ohead{\footnotesize\textbf{\headmark}}
-
-\cfoot{\pagemark}
 
 
 %%fakesection problem environment
