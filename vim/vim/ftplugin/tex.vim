@@ -32,11 +32,6 @@ command! Latxg execute '!latexmk -pdflatex=xelatex -g '.expand('%')
 nnoremap <silent> <buffer> <localLeader>o :call StartLatexmk()<cr>
 nnoremap <silent> <buffer> <localLeader>p :silent! execute "silent! !zathura ".expand('%:r').'.pdf &' \| redraw!<cr>
 
-imap <c-\> <Plug>IMAP_JumpForward
-nmap <c-\> <Plug>IMAP_JumpForward
-vmap <c-\> <Plug>IMAP_JumpForward
-nmap <localleader>l :redraw!<cr>
-
 " imap <localleader>i <Plug>Tex_InsertItemOnThisLine
 " nmap <localleader>i <Plug>Tex_InsertItemOnThisLine
 " vmap <localleader>i <Plug>Tex_InsertItemOnThisLine

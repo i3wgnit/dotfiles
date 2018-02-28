@@ -43,3 +43,6 @@
 [submodule "vim/vim/bundle/idris-vim"]
 	path = vim/vim/bundle/idris-vim
 	url = https://github.com/idris-hackers/idris-vim
+[submodule "vim/vim/bundle/nerdtree"]
+	path = vim/vim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree

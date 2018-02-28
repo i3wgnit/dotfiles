@@ -183,7 +183,11 @@
 \thmpbox
 \newtheorem{example}[theorem]{Example}
 \thmpbox
+\newtheorem{conjecture}[theorem]{Conjecture}
+\thmpbox
 \renewtheorem*{example*}{Example}
+\thmpbox
+\renewtheorem*{conjecture*}{Conjecture}
 
 \thmproof
 \newtheorem{proof}{Proof}
@@ -226,9 +230,15 @@
 \newcommand{\surjto}{\twoheadrightarrow}
 \newcommand{\injto}{\hookrightarrow}
 \DeclareMathOperator{\dom}{dom} %domain
-\DeclareMathOperator{\img}{im} %image
-\DeclareMathOperator{\Img}{Im} %image
-\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\img}{img} %image
+\DeclareMathOperator{\Dom}{Dom} %domain
+\DeclareMathOperator{\Img}{Img} %image
+\DeclareMathOperator{\vspan}{span} %rank
+\DeclareMathOperator{\rk}{rk} %rank
+\DeclareMathOperator{\nul}{nul} %null
+\DeclareMathOperator{\rank}{rank} %rank
+%\DeclareMathOperator{\null}{null} %null
+%\DeclareMathOperator{\ker}{ker} %kernel
 
 
 
@@ -298,7 +308,8 @@
 \cfoot{\pagemark}
 
 
-%%fakesection problem environment
+%
+%fakesection problem environment
 \newcounter{probll}
 \renewcommand{\theprobll}{\alph{probll})}
 

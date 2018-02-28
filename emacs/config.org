@@ -1,0 +1,81 @@
+* Packages
+** Evil
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :ensure t
+    :init
+    (setq evil-search-module 'evil-search)
+    (setq evil-ex-complete-emacs-commands nil)
+    (setq evil-vsplit-window-right t)
+    (setq evil-split-window-below t)
+    (setq evil-shift-round nil)
+    (setq evil-want-C-u-scroll t)
+    :config
+    (evil-mode 1)
+
+    (use-package evil-leader
+      :ensure t
+      :config
+      (global-evil-leader-mode))
+
+    (use-package evil-surround
+      :ensure t
+      :config
+      (global-evil-surround-mode))
+
+    (use-package evil-indent-textobject
+      :ensure t)
+
+    (setq evil-default-state 'normal)
+    (setq evil-emacs-state-modes nil))
+#+END_SRC
+   
+** Org
+*** Org-bullets
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook
+              (lambda () (org-bullets-mode))))
+#+END_SRC
+
+** Which-key
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :ensure t
+    :config
+    (which-key-mode))
+#+END_SRC
+
+** Helm
+#+BEGIN_SRC emacs-lisp
+    (use-package helm
+      :ensure t)
+#+END_SRC
+   
+** Beacon
+#+BEGIN_SRC emacs-lisp
+    (use-package beacon
+      :ensure t
+      :config
+      (beacon-mode 1))
+#+END_SRC
+
+* General
+** Basic options
+#+BEGIN_SRC emacs-lisp
+  (setq make-backup-file nil
+        auto-save-default nil)
+
+  (defalias 'yes-or-no-p 'y-or-n-p)
+
+  (setq scroll-step 1
+        scroll-conservatively 100)
+
+  (setq ring-bell-function 'ignore)
+
+  (when window-system (global-hl-line-mode t))
+
+  (when window-system (global-prettify-symbols-mode t))
+#+END_SRC

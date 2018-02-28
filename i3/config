@@ -17,7 +17,7 @@ set $exec exec --no-startup-id
 set $term urxvt
 set $browser firefox
 
-set $clip (xclip -selection c -o)
+set $clip $(xclip -selection c -o)
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -207,7 +207,7 @@ smart_borders on
 # apps
 # mode "$apps" {
 bindsym $mod+i          exec $term -name utils -e htop
-bindsym $mod+Shift+c    exec $term -name utils -e qalc -s "fractions 2" +u8
+bindsym $mod+Shift+c    exec $term -name utils -e R -q
 bindsym $mod+r          exec $term          -e ranger
 bindsym $mod+z          exec $term          -e calcurse
 bindsym $mod+g          exec $browser
@@ -220,8 +220,8 @@ for_window [instance="utils"] floating enable
 # bad idea.. super slow
 
 # load video in clipboard
-bindsym $mod+m          workspace $WS3, layout tabbed, exec $term -e "mpv $clip"
-bindsym $mod+Shift+m    workspace $WS3, layout tabbed, exec $term -e "mpv --profile=low $clip"
+bindsym $mod+m          workspace $WS3, layout tabbed, exec $term -e mpv "$clip"
+bindsym $mod+Shift+m    workspace $WS3, layout tabbed, exec $term -e mpv --profile=low "$clip"
 
 # gap size
 bindsym $mod+minus          gaps inner current minus    4
@@ -314,12 +314,12 @@ for_window [class="Qalculate-gtk"] floating enable
     assign [instance="latexmk"]         $WS5
     assign [class="DrRacket"]           $WS5
 # WS6
-    assign [class="Lutris"]             $WS6
-    assign [class="Steam"]              $WS6
+    #assign [class="Lutris"]             $WS6
+    #assign [class="Steam"]              $WS6
 # WS7
 # WS8
 # WS9
-    assign [class="qBittorrent"]        $WS9
+    #assign [class="qBittorrent"]        $WS9
 # WS0
     assign [class="KeePass"]            $WS0
 

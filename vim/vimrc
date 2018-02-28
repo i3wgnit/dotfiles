@@ -6,6 +6,46 @@ execute pathogen#infect()
 Helptags
 
 " }}}
+" Plugins {{{
+
+" Vim-Latex {{{
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor='latex'
+let g:Tex_SmartKeyQuote=0
+
+imap <c-\> <Plug>IMAP_JumpForward
+nmap <c-\> <Plug>IMAP_JumpForward
+vmap <c-\> <Plug>IMAP_JumpForward
+nmap <localleader>l :redraw!<cr>
+" }}}
+" Airline {{{
+" Required
+set laststatus=2
+let g:airline_powerline_fonts = 1
+
+let g:airline_skip_empty_sections = 1
+
+" Theme
+let g:airline_theme = 'luna'
+" }}}
+" bufferline {{{
+let g:bufferline_echo = 0
+" }}}
+" Syntastic {{{
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+" }}}
+" NERDTree {{{
+nnoremap <C-n> :NERDTreeToggle<CR>
+" }}}
+
+" }}}
 " General {{{
 
 " Basic options {{{
@@ -34,6 +74,7 @@ set autoread
 set title
 set linebreak
 set mouse=a
+set nojoinspaces
 
 " }}}
 
@@ -296,38 +337,6 @@ iabbrev i3@ i3wgnit@gmail.com
 nnoremap <leader>ev <c-w>s<c-w>j<c-w>L:e $MYVIMRC<cr>
 nnoremap <leader>eg <c-w>s<c-w>j<c-w>L:e ~/.gvimrc<cr>
 nnoremap <leader>ee <c-w>s<c-w>j<c-w>L:Ex<cr>
-
-" }}}
-" Plugins {{{
-
-" Vim-Latex {{{
-set grepprg=grep\ -nH\ $*
-let g:tex_flavor='latex'
-let g:Tex_SmartKeyQuote=0
-" }}}
-" Airline {{{
-" Required
-set laststatus=2
-let g:airline_powerline_fonts = 1
-
-let g:airline_skip_empty_sections = 1
-
-" Theme
-let g:airline_theme = 'luna'
-" }}}
-" bufferline {{{
-let g:bufferline_echo = 0
-" }}}
-" Syntastic {{{
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-" }}}
 
 " }}}
 " Languages {{{

@@ -28,6 +28,9 @@
     ~/.vim:                             vim/vim/
     ~/.vimrc:                           vim/vimrc
     ~/.gvimrc:                          vim/gvimrc
+    # emacs
+    ~/.emacs.d/init.el:                 emacs/init.el
+    ~/.emacs.d/config.org:              emacs/config.org
     # i3
     ~/.config/i3:                       i3/
     # polybar
