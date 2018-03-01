@@ -1,3 +1,12 @@
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+
+(setq inhibit-startup-message t)
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;;;;;;;
+
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
@@ -14,13 +23,11 @@
   (package-refresh-contents)
   (package-install 'spacemacs-theme))
 
+;;;;;;;
+
 (org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))
 
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-
-(setq inhibit-startup-message t)
+;;;;;;
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -31,10 +38,9 @@
  '(custom-safe-themes
    (quote
     ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
- '(org-agenda-files nil)
  '(package-selected-packages
    (quote
-    (org-bullets beacon spacemacs-theme helm which-key evil-indent-textobject evil-surround evil-leader evil use-package))))
+    (diminish smooth-scrolling helm company hungry-delete rainbow-delimiters evil-collection auctex avy asy nlinum-relative spaceline beacon which-key smex ido-vertical-mode org-bullets evil-indent-textobject evil-surround evil-leader evil spacemacs-theme use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

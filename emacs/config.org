@@ -1,22 +1,54 @@
-* Packages
-** Evil
+* Custom functions
+** Kill buffer
 #+BEGIN_SRC emacs-lisp
-  (use-package evil
-    :ensure t
-    :init
+  (defun twl/kill-cur-buffer ()
+    (interactive)
+    (kill-buffer (current-buffer)))
+#+END_SRC
+* Packages
+** evil
+*** config
+#+BEGIN_SRC emacs-lisp
+  (defun twl/evil-init ()
+    (setq evil-want-integration nil)
     (setq evil-search-module 'evil-search)
     (setq evil-ex-complete-emacs-commands nil)
     (setq evil-vsplit-window-right t)
     (setq evil-split-window-below t)
     (setq evil-shift-round nil)
-    (setq evil-want-C-u-scroll t)
-    :config
-    (evil-mode 1)
+    (setq evil-default-state 'normal)
+    (setq evil-emacs-state-modes nil))
+
+  (defun twl/evil-config ()
+    (global-set-key (kbd "C-j") 'evil-scroll-down)
+    (global-set-key (kbd "C-k") 'evil-scroll-up))
+#+END_SRC
+
+*** evil-leader
+#+BEGIN_SRC emacs-lisp
+  (defun twl/evil-leader-config ()
+    (evil-leader/set-leader ",")
+    (evil-leader/set-key
+      "e" 'find-file
+      "w" 'save-buffer
+      "q" 'twl/kill-cur-buffer
+      "b" 'ibuffer
+      "x" 'smex
+      "s" 'avy-goto-word-0))
+#+END_SRC
+
+*** load packages
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :ensure t
+    :init
+    (twl/evil-init)
 
     (use-package evil-leader
       :ensure t
       :config
-      (global-evil-leader-mode))
+      (global-evil-leader-mode)
+      (twl/evil-leader-config))
 
     (use-package evil-surround
       :ensure t
@@ -26,11 +58,29 @@
     (use-package evil-indent-textobject
       :ensure t)
 
-    (setq evil-default-state 'normal)
-    (setq evil-emacs-state-modes nil))
+    :config
+    (evil-mode 1)
+    (twl/evil-config))
 #+END_SRC
-   
-** Org
+
+*** evil-collection
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-collection
+    :after evil
+    :ensure t
+    :config
+    (setq evil-collection-mode-list (remq 'helm evil-collection-mode-list))
+    (evil-collection-init)
+    )
+#+END_SRC
+
+** org
+*** config
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-structure-template-alist
+               '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+#+END_SRC
+
 *** Org-bullets
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
@@ -40,7 +90,116 @@
               (lambda () (org-bullets-mode))))
 #+END_SRC
 
-** Which-key
+** dashboard
+#+BEGIN_SRC emacs-lisp
+  (use-package dashboard
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook)
+    (setq dashboard-items '((recents . 10))))
+#+END_SRC
+
+** Line number
+*** nlinum-relative
+#+BEGIN_SRC emacs-lisp
+  ;;(use-package nlinum-relative
+  ;;  ;;:after evil
+  ;;  :ensure t
+  ;;  :config
+  ;;  (nlinum-relative-setup-evil)
+  ;;  (global-nlinum-relative-mode)
+  ;;  ;;(add-hook 'evil-mode-hook 'nlinum-relative-mode)
+  ;;  )
+
+  (use-package nlinum
+    :ensure t
+    :config
+    (global-nlinum-mode))
+#+END_SRC
+
+** Modeline
+*** spaceline
+#+BEGIN_SRC emacs-lisp
+  ;;(use-package spaceline
+  ;;  :ensure t
+  ;;  :config
+  ;;  (require 'spaceline-config)
+  ;;  (setq powerline-default-separator 'arrow)
+  ;;  (spaceline-spacemacs-theme))
+#+END_SRC
+
+*** diminish
+#+BEGIN_SRC emacs-lisp
+  (use-package diminish
+    :ensure t
+    :config
+    (diminish 'hungry-delete-mode)
+    (diminish 'which-key-mode)
+    (diminish 'undo-tree-mode)
+    (diminish 'helm-mode)
+    (diminish 'beacon-mode))
+#+END_SRC
+
+** Emacs autocompletion
+*** helm
+#+BEGIN_SRC emacs-lisp
+    (use-package helm
+      :defer t
+      :ensure t
+      :config
+      (helm-mode 1)
+      :bind
+      ("M-x" . helm-M-x))
+#+END_SRC
+
+*** company
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-company
+    :defer t
+    :ensure t)
+  (use-package company
+    :ensure t
+    :config
+    (add-hook 'after-init-hook 'global-company-mode)
+    (define-key company-mode-map (kbd "C-:") 'helm-company)
+    (define-key company-active-map (kbd "C-:") 'helm-company))
+#+END_SRC
+
+*** ido
+#+BEGIN_SRC emacs-lisp
+  (setq ido-enable-flex-matching nil)
+  (setq ido-create-new-buffer 'always)
+  (setq ido-everywhere t)
+  (ido-mode 1)
+  (global-set-key (kbd "C-x k") 'twl/kill-cur-buffer)
+#+END_SRC
+**** ido-vertical
+#+BEGIN_SRC emacs-lisp
+  (use-package ido-vertical-mode
+    :ensure t
+    :config
+    (ido-vertical-mode 1))
+#+END_SRC
+
+*** smex
+#+BEGIN_SRC emacs-lisp
+  ;;(use-package smex
+  ;;  :ensure t
+  ;;  :config
+  ;;  (smex-initialize)
+  ;;  :bind
+  ;;  ("M-x" . smex))
+#+END_SRC
+
+** hungry-delete
+#+BEGIN_SRC emacs-lisp
+  (use-package hungry-delete
+    :ensure t
+    :config
+    (global-hungry-delete-mode))
+#+END_SRC
+
+** which-key
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
     :ensure t
@@ -48,13 +207,14 @@
     (which-key-mode))
 #+END_SRC
 
-** Helm
+** rainbow-delimiters
 #+BEGIN_SRC emacs-lisp
-    (use-package helm
-      :ensure t)
+    (use-package rainbow-delimiters
+      :ensure t
+      :config
+      (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 #+END_SRC
-   
-** Beacon
+** beacon
 #+BEGIN_SRC emacs-lisp
     (use-package beacon
       :ensure t
@@ -62,20 +222,230 @@
       (beacon-mode 1))
 #+END_SRC
 
+** avy
+#+BEGIN_SRC emacs-lisp
+  (use-package avy
+    :ensure t
+    :init
+    (setq avy-all-windows t)
+    :bind
+    ("M-s" . avy-goto-char))
+#+END_SRC
+
+** auctex
+#+BEGIN_SRC emacs-lisp
+  (use-package auctex
+    :defer t
+    :ensure t)
+#+END_SRC
+
 * General
 ** Basic options
 #+BEGIN_SRC emacs-lisp
-  (setq make-backup-file nil
+  (setq backup-inhibited t
         auto-save-default nil)
-
-  (defalias 'yes-or-no-p 'y-or-n-p)
-
-  (setq scroll-step 1
-        scroll-conservatively 100)
 
   (setq ring-bell-function 'ignore)
 
-  (when window-system (global-hl-line-mode t))
+  ;;(when window-system (global-hl-line-mode t))
+  ;;(when window-system (global-prettify-symbols-mode t))
 
-  (when window-system (global-prettify-symbols-mode t))
+  (line-number-mode 1)
+  (column-number-mode 1)
+
+  (setq display-time-24hr-format t)
+  (display-time-mode 1)
+#+END_SRC
+
+* Options
+** Scrolling
+#+BEGIN_SRC emacs-lisp
+  (setq
+   redisplay-dont-pause t
+   scroll-margin 3
+   scroll-step 1
+   scroll-conservatively 10000
+   scroll-preserve-screen-position 1
+   ;;fast-but-imprecise-scrolling nil
+   ;;jit-lock-defer-time 0
+   )
+
+  ;;(use-package smooth-scrolling
+  ;;  :ensure t)
+#+END_SRC
+
+** Show invisible char
+#+BEGIN_SRC emacs-lisp
+  (setq-default show-trailing-whitespace t)
+#+END_SRC
+** Buffers
+*** ibuffer
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
+#+END_SRC
+** Electric-indent
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'electric-indent-chars ?\))
+  (add-to-list 'electric-indent-chars ?\])
+  (add-to-list 'electric-indent-chars ?\})
+
+  (electric-indent-mode 1)
+#+END_SRC
+* Quick shotcuts
+** Open config
+#+BEGIN_SRC emacs-lisp
+  (defun twl/config-visit ()
+    (interactive)
+    (find-file "~/.emacs.d/config.org"))
+  (global-set-key (kbd "C-c e") 'twl/config-visit)
+#+END_SRC
+
+** Reload config
+#+BEGIN_SRC emacs-lisp
+  (defun twl/config-reload ()
+    (interactive)
+    (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+  (global-set-key (kbd "C-c r") 'twl/config-reload)
+#+END_SRC
+* Major modes
+** LaTeX mode
+*** Section hooks
+#+BEGIN_SRC emacs-lisp
+  (setq LaTeX-section-hook
+        '(LaTeX-section-heading
+          LaTeX-section-title
+          LaTeX-section-section))
+#+END_SRC
+
+*** RefTeX
+#+BEGIN_SRC emacs-lisp
+  (setq reftex-plug-into-AUCTeX t)
+  (defun twl/turn-on-reftex ()
+    (interactive)
+    (reftex-mode))
+  (add-hook 'LaTeX-mode-hook 'twl/turn-on-reftex)
+#+END_SRC
+
+*** Style hooks
+**** Siunitx
+#+BEGIN_SRC emacs-lisp
+  (defun twl/LaTeX-style/siunitx-symbols ()
+    (interactive)
+    (TeX-add-symbols
+     '("SI" "number" "unit")
+     '("num" "number")
+     '("ang" "angle")))
+
+  (defun twl/LaTeX-style/siunitx ()
+    (TeX-add-style-hook
+     "siunitx" (lambda ()
+                 (twl/LaTeX-style/siunitx-symbols))))
+#+END_SRC
+
+**** twl
+#+BEGIN_SRC emacs-lisp
+  (defun twl/LaTeX-style/twl-symbols ()
+    (interactive)
+    (twl/LaTeX-style/siunitx-symbols)
+    (TeX-add-symbols
+     '("overbar" 1)
+     '("floor" 1)
+     '("ceil" 1)
+     '("abs" 1)
+     '("norm" 1)))
+
+  (defun twl/LaTeX-style/twl-thmenv-format (name)
+    (list name ["title"]))
+
+  (defvar twl/LaTeX-style/twl-envs-label
+    '("theorem" "lemma" "proposition" "corollary" "axiom"))
+
+  (defvar twl/LaTeX-style/twl-envs-nolabel
+    '("note" "recall" "remark" "notation" "exercise" "conjecture"
+      "definition"
+      "example"
+      "proof" "subproof"))
+
+  (defun twl/LaTeX-style/twl-env-h (format lst)
+    (mapc 'LaTeX-add-environments (mapcar format lst))
+    (mapc 'LaTeX-add-environments
+          (mapc format (mapcar (lambda (name) (concat name "*")) lst))))
+
+  (defun twl/LaTeX-style/twl-environments ()
+    (interactive)
+    (twl/LaTeX-style/twl-env-h
+     'twl/LaTeX-style/twl-thmenv-format
+     twl/LaTeX-style/twl-envs-nolabel)
+    (twl/LaTeX-style/twl-env-h
+     'twl/LaTeX-style/twl-thmenv-format
+     twl/LaTeX-style/twl-envs-label))
+
+  (defvar twl/LaTeX-style/twl-ref-label
+    '((?h "thm:" "~\\ref{%s}" t
+          ("Theorem" "Thm."))
+      (?h "lem:" "~\\ref{%s}" t
+          ("Lemma" "Lem.") nil)
+      (?h "prop:" "~\\ref{%s}" t
+          ("Proposition" "Prop."))
+      (?h "cor:" "~\\ref{%s}" t
+          ("Corollary" "Cor."))
+      (?h "axm:" "~\\ref{%s}" t
+          ("Axiom" "Axm."))))
+
+  (defun twl/LaTeX-style/twl-reftex-h (lst)
+    (if (fboundp 'reftex-add-label-environments)
+        (reftex-add-label-environments lst)))
+
+  (defun twl/LaTeX-style/twl-reftex-env ()
+    (interactive)
+    (twl/LaTeX-style/twl-reftex-h
+      (cl-mapcar
+       #'cons
+       twl/LaTeX-style/twl-envs-label
+       twl/LaTeX-style/twl-ref-label))
+    (twl/LaTeX-style/twl-reftex-h
+      (cl-mapcar
+       #'cons
+       (mapcar (lambda (name) (concat name "*"))
+               twl/LaTeX-style/twl-envs-label)
+       twl/LaTeX-style/twl-ref-label)))
+
+  (defun twl/LaTeX-style/twl ()
+    (TeX-add-style-hook
+     "twl" (lambda ()
+             (twl/LaTeX-style/twl-symbols)
+             (twl/LaTeX-style/twl-environments)
+             (twl/LaTeX-style/twl-reftex-env)
+             )))
+#+END_SRC
+
+**** twla
+#+BEGIN_SRC emacs-lisp
+  (defun twl/LaTeX-style/twla ()
+    (TeX-add-style-hook
+     "twla" (lambda ()
+              (if (fboundp 'reftex-add-section-levels)
+                  (reftex-add-section-levels '(("problem" . 2)
+                                               ("subproblem" . 3)))))))
+#+END_SRC
+
+**** Hooks
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (twl/LaTeX-style/siunitx)
+              (twl/LaTeX-style/twl)
+              (twl/LaTeX-style/twla)))
+#+END_SRC
+
+*** config
+#+BEGIN_SRC emacs-lisp
+  (evil-leader/set-key-for-mode 'LaTeX-mode
+    "\\" 'TeX-electric-insert)
+  (setq TeX-electric-escape nil)
+  (setq TeX-insert-braces nil)
+  (setq TeX-auto-save t)
+  (setq TeX-parse-self t)
+  (add-hook 'LaTeX-mode-hook
+            (lambda () (helm-mode 1)))
 #+END_SRC
