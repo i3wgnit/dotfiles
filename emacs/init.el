@@ -1,23 +1,8 @@
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-
-(setq inhibit-startup-message t)
-(defalias 'yes-or-no-p 'y-or-n-p)
-
-;;;;;;;
-
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 (package-initialize)
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-(eval-when-compile
-  (require 'use-package))
 
 (unless (package-installed-p 'spacemacs-theme)
   (package-refresh-contents)
@@ -38,9 +23,10 @@
  '(custom-safe-themes
    (quote
     ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
+ '(org-agenda-files (quote ("~/calendar/assignments.org")))
  '(package-selected-packages
    (quote
-    (diminish smooth-scrolling helm company hungry-delete rainbow-delimiters evil-collection auctex avy asy nlinum-relative spaceline beacon which-key smex ido-vertical-mode org-bullets evil-indent-textobject evil-surround evil-leader evil spacemacs-theme use-package))))
+    (evil-magit ox-twbs paredit flycheck smex spaceline linum-relative racket-mode haskell-mode auctex-latexmk auctex avy beacon rainbow-delimiters which-key swiper hungry-delete ido-vertical-mode helm-company helm diminish nlinum-relative dashboard htmlize org-bullets evil-collection evil-indent-textobject evil-surround evil-leader evil spacemacs-theme use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -322,14 +322,11 @@ for_window [class="Qalculate-gtk"] floating enable
 # WS9
     #assign [class="qBittorrent"]        $WS9
 # WS0
-    assign [class="KeePass"]            $WS0
+    #assign [class="KeePass"]            $WS0
 
 
 # == STARTUP ==
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-$exec dunst
 $exec rescuetime
-$exec clipmenud
 #$exec keepass
-$exec redshift-gtk
-$exec nextcloud
+#$exec nextcloud

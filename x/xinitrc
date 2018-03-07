@@ -44,5 +44,9 @@ fi
 #xterm -geometry 80x20+494-0 &
 #exec xterm -geometry 80x66+0+0 -name login
 
+clipmenud &
+dunst &
+redshift-gtk &
+
 echo "Starting at $(date)" >> ~/.i3/logfile
 exec /usr/bin/i3 -V -d all >> ~/.i3/logfile 2>&1

@@ -46,3 +46,6 @@
 [submodule "vim/vim/bundle/nerdtree"]
 	path = vim/vim/bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree
+[submodule "emacs/packages/sensible-defaults.el"]
+	path = emacs/packages/sensible-defaults.el
+	url = https://github.com/hrs/sensible-defaults.el

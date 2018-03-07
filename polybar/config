@@ -113,7 +113,7 @@ font-2 = Unifont:size=11:antialias=true;3
 ;   modules-right = ipc clock
 modules-left = i3 title
 modules-center =
-modules-right = weather filesystem network battery backlight volume keyboard date
+modules-right = filesystem network battery backlight volume date
 
 ; The separator will be inserted between the output of each module
 ;separator =
