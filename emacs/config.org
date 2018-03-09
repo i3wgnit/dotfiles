@@ -170,6 +170,7 @@
     (dashboard-setup-startup-hook)
     (setq dashboard-items '((recents . 25))))
 #+END_SRC
+
 *** Remove menus
 #+BEGIN_SRC emacs-lisp
   (tool-bar-mode 0)
@@ -206,6 +207,7 @@
   ;;  (setq powerline-default-separator 'arrow)
   ;;  (spaceline-spacemacs-theme))
 #+END_SRC
+
 **** diminish-mode
 #+BEGIN_SRC emacs-lisp
   (defmacro diminish-minor-mode (filename mode &optional abbrev)
@@ -268,6 +270,7 @@
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x C-b") 'ibuffer)
 #+END_SRC
+
 *** Electric-indent
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'electric-indent-chars ?\))
@@ -282,6 +285,7 @@
   (setq-default indent-tabs-mode nil)
   (setq-default tab-width 4)
 #+END_SRC
+
 ** Quick shortcuts
 *** Open config
 #+BEGIN_SRC emacs-lisp
@@ -292,6 +296,7 @@
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c r") 'twl/config-reload)
 #+END_SRC
+
 * Emacs autocompletion
 ** company
 #+BEGIN_SRC emacs-lisp
@@ -299,6 +304,7 @@
     :config
     (add-hook 'after-init-hook 'global-company-mode))
 #+END_SRC
+
 ** ido
 #+BEGIN_SRC emacs-lisp
   (setq ido-enable-flex-matching t)
@@ -324,16 +330,6 @@
     ("M-x" . smex)
     ("M-x" . smex-major-mode-commands))
 #+END_SRC
-* Fly stuff
-** flycheck-mode
-#+BEGIN_SRC emacs-lisp
-  (use-package flycheck)
-#+END_SRC
-
-** flyspell-mode
-#+BEGIN_SRC emacs-lisp
-  (use-package flyspell)
-#+END_SRC
 
 * Major modes
 ** Org-mode
@@ -346,6 +342,7 @@
   (setq org-src-tab-acts-natively t)
   (setq org-src-window-setup 'current-window)
   (add-hook 'org-mode-hook 'flyspell-mode)
+  (setq org-html-postamble nil)
 #+END_SRC
 
 *** org-bullets
@@ -354,7 +351,8 @@
     :config
     (add-hook 'org-mode-hook #'org-bullets-mode))
 #+END_SRC
-*** ox-twbs
+
+*** ox
 #+BEGIN_SRC emacs-lisp
   (use-package ox-twbs)
 #+END_SRC
@@ -363,6 +361,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package htmlize)
 #+END_SRC
+
 ** Lisps
 #+BEGIN_SRC emacs-lisp
   (setq lispy-mode-hooks
@@ -377,6 +376,7 @@
                      (paredit-mode)
                      (rainbow-delimiters-mode))))
 #+END_SRC
+
 ** LaTeX-mode
 *** AucTeX
 #+BEGIN_SRC emacs-lisp
@@ -393,6 +393,23 @@
   (add-hook 'LaTeX-mode-hook 'twl/turn-on-reftex)
 #+END_SRC
 
+*** LatexMK
+#+BEGIN_SRC emacs-lisp
+  (use-package auctex-latexmk
+    :config
+    (auctex-latexmk-setup)
+    (add-hook 'TeX-mode-hook (lambda () (setq TeX-command-default "LatexMK")))
+    (add-hook 'LaTeX-mode-hook (lambda () (setq TeX-command-default "LatexMK"))))
+#+END_SRC
+
+*** Math mode
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+  (setq LaTeX-math-list
+        '(("ve" "varepsilon")
+          ("vo" "varnothing")))
+#+END_SRC
+
 *** config
 #+BEGIN_SRC emacs-lisp
   (evil-leader/set-key-for-mode 'LaTeX-mode
@@ -401,6 +418,7 @@
   (setq TeX-insert-braces nil)
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
+  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 #+END_SRC
 
 ** Haskell-mode
@@ -422,6 +440,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package racket-mode)
 #+END_SRC
+
 * Magit
 #+BEGIN_SRC emacs-lisp
   (use-package magit

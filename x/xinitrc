@@ -48,5 +48,6 @@ clipmenud &
 dunst &
 redshift-gtk &
 
-echo "Starting at $(date)" >> ~/.i3/logfile
-exec /usr/bin/i3 -V -d all >> ~/.i3/logfile 2>&1
+#echo "Starting at $(date)" >> ~/.i3/logfile
+exec /usr/bin/i3
+# -V -d all >> ~/.i3/logfile 2>&1

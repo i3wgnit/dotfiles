@@ -1,0 +1,74 @@
+(TeX-add-style-hook
+ "twla"
+ (lambda ()
+   (TeX-add-to-alist 'LaTeX-provided-package-options
+                     '(("attachfile2" "dvips")))
+   (TeX-run-style-hooks
+    "amsmath"
+    "amssymb"
+    "amsfonts"
+    "ulem"
+    "needspace"
+    "setspace"
+    "etoolbox"
+    "array"
+    "xfrac"
+    "titlesec"
+    "geometry"
+    "xcolor"
+    "siunitx"
+    "framed"
+    "mdframed"
+    "ntheorem"
+    "attachfile2"
+    "asymptote"
+    "titling")
+   (TeX-add-symbols
+    '("norm" 1)
+    '("abs" 1)
+    '("ceil" 1)
+    '("floor" 1)
+    '("overbar" 1)
+    "thmproof"
+    "ii"
+    "dg"
+    "st"
+    "nd"
+    "Tau"
+    "CC"
+    "RR"
+    "QQ"
+    "ZZ"
+    "NN"
+    "FF"
+    "arcsec"
+    "lcm"
+    "liff"
+    "lthen"
+    "surjto"
+    "injto"
+    "dom"
+    "img"
+    "Dom"
+    "Img"
+    "rk"
+    "nul"
+    "rank"
+    "problem"
+    "subproblem")
+   (LaTeX-add-environments
+    "proof"
+    "solution"
+    "subproof")
+   (LaTeX-add-counters
+    "probl"
+    "probll")
+   (LaTeX-section-list-add-locally
+     '(("problem" 2)
+       ("subproblem" 3)))
+   (if (fboundp 'reftex-add-section-levels)
+     (reftex-add-section-levels
+       '(("problem" . 2)
+         ("subproblem" . 3)))))
+ :latex)
+
