@@ -165,8 +165,11 @@
 \newcommand{\injto}{\hookrightarrow}
 \DeclareMathOperator{\dom}{dom} %domain
 \DeclareMathOperator{\img}{img} %image
+\DeclareMathOperator{\ran}{ran} %range
 \DeclareMathOperator{\Dom}{Dom} %domain
 \DeclareMathOperator{\Img}{Img} %image
+\DeclareMathOperator{\Ran}{Ran} %range
+\DeclareMathOperator{\vspan}{span} %rank
 \DeclareMathOperator{\rk}{rk} %rank
 \DeclareMathOperator{\nul}{nul} %null
 \DeclareMathOperator{\rank}{rank} %rank
@@ -225,10 +228,10 @@
 
 %%fakesection problem environment
 \newcounter{probl}
-\renewcommand*{\theprobl}{P\arabic{probl}}
+\renewcommand*{\theprobl}{Q\arabic{probl}}
 
 \newcommand{\problem}{%
-\stepcounter{probl}{\noindent\Large\textbf{\theprobl}}\hfill%
+\stepcounter{probl}{\noindent\Large\textbf{\theprobl}}%
 \addcontentsline{toc}{section}{\theprobl}}
 
 
@@ -299,5 +302,3 @@
 %			\labelwidth=0em\labelsep=0.5em\itemsep=1.5ex%
 %	} }{\end{list}\medbreak}
 %\fi
-
-

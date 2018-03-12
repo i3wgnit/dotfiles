@@ -416,9 +416,10 @@
     "\\" 'TeX-electric-insert)
   (setq TeX-electric-escape nil)
   (setq TeX-insert-braces nil)
-  (setq TeX-auto-save t)
   (setq TeX-parse-self t)
   (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+  (add-to-list 'TeX-view-program-selection
+               '(output-pdf "Zathura"))
 #+END_SRC
 
 ** Haskell-mode
