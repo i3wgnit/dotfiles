@@ -26,7 +26,7 @@
  '(org-agenda-files (quote ("~/calendar/assignments.org")))
  '(package-selected-packages
    (quote
-    (ox-beamer ox-md evil-magit ox-twbs paredit flycheck smex spaceline linum-relative racket-mode haskell-mode auctex-latexmk auctex avy beacon rainbow-delimiters which-key swiper hungry-delete ido-vertical-mode helm-company helm diminish nlinum-relative dashboard htmlize org-bullets evil-collection evil-indent-textobject evil-surround evil-leader evil spacemacs-theme use-package))))
+    (ivy ox-beamer ox-md evil-magit ox-twbs paredit flycheck smex spaceline linum-relative racket-mode haskell-mode auctex-latexmk auctex avy beacon rainbow-delimiters which-key swiper hungry-delete ido-vertical-mode helm-company helm diminish nlinum-relative dashboard htmlize org-bullets evil-collection evil-indent-textobject evil-surround evil-leader evil spacemacs-theme use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

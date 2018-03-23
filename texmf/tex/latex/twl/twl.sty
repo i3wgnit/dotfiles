@@ -43,7 +43,7 @@
 %\RequirePackage{thmtools}
 
 \mdfdefinestyle{mdbluebox}{%
-	roundcorner=10pt,
+	%roundcorner=10pt,
 	linewidth=1pt,
 	skipabove=12pt,
 	innerbottommargin=9pt,
@@ -179,6 +179,7 @@
 \newtheorem{definition}[theorem]{Definition}
 \thmrecbox
 \renewtheorem*{definition*}{Definition}
+\newcommand{\vocab}[1]{\textbf{\color{red}#1}}
 
 \thmpbox
 \newtheorem{example}[theorem]{Example}
@@ -234,12 +235,15 @@
 \newcommand{\injto}{\hookrightarrow}
 \DeclareMathOperator{\dom}{dom} %domain
 \DeclareMathOperator{\img}{img} %image
+\DeclareMathOperator{\ran}{ran} %range
 \DeclareMathOperator{\Dom}{Dom} %domain
 \DeclareMathOperator{\Img}{Img} %image
+\DeclareMathOperator{\Ran}{Ran} %range
 \DeclareMathOperator{\vspan}{span} %rank
 \DeclareMathOperator{\rk}{rk} %rank
 \DeclareMathOperator{\nul}{nul} %null
 \DeclareMathOperator{\rank}{rank} %rank
+\DeclareMathOperator{\tr}{tr} %trace
 %\DeclareMathOperator{\null}{null} %null
 %\DeclareMathOperator{\ker}{ker} %kernel
 
@@ -369,5 +373,3 @@
 %			\labelwidth=0em\labelsep=0.5em\itemsep=1.5ex%
 %	} }{\end{list}\medbreak}
 %\fi
-
-

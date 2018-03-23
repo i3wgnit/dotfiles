@@ -66,6 +66,13 @@
   (use-package paredit)
 #+END_SRC
 
+** swiper
+#+BEGIN_SRC emacs-lisp
+  ;;(use-package ivy
+  ;;  :config
+  ;;  (ivy-mode 1))
+#+END_SRC
+
 * Personal information
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Ting Wei Liu"
@@ -93,6 +100,7 @@
   (defun twl/evil-leader-config ()
     (evil-leader/set-leader ",")
     (evil-leader/set-key
+      "/" 'swiper
       "e" 'find-file
       "w" 'save-buffer
       "q" 'twl/kill-cur-buffer
