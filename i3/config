@@ -255,18 +255,17 @@ bindsym XF86AudioMute           $exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym $mod+c $exec clipmenu
 
 # printscreen
-set $print_xclip xclip -t image/png -selection clipboard $f
-set $print_folder ~/Pictures/screenshots
-set $print_scrot scrot '%Y%m%d-%H%M%S_$wx$h.png'
+set $print_xclip xclip -t image/png -selection clipboard
+set $print_file ~/Pictures/screenshots/$(date +%Y%m%d-%H%M%S).png
 mode "$print" {
-    bindsym Print $exec "$print_scrot -e '$print_xclip && mv $f $print_folder'", mode "default"
-    bindsym space $exec "$print_scrot -ue '$print_xclip && mv $f $print_folder'", mode "default"
-    bindsym --release s $exec "$print_scrot -se '$print_xclip && mv $f $print_folder'", mode "default"
+    bindsym Print $exec "maim -qud 1 $print_file", mode "default"
+    bindsym space $exec "maim -ui $(xdotool getactivewindow) $print_file", mode "default"
+    bindsym --release s $exec "maim -us $print_file", mode "default"
 
     # clipboard only
-    bindsym $mod+Print $exec "$print_scrot -e '$print_xclip && rm $f'", mode "default"
-    bindsym $mod+space $exec "$print_scrot -ue '$print_xclip && rm $f'", mode "default"
-    bindsym --release $mod+s $exec "$print_scrot -se '$print_xclip && rm $f'", mode "default"
+    bindsym $mod+Print $exec "maim -qud 1 | $print_xclip", mode "default"
+    bindsym $mod+space $exec "maim -ui $(xdotool getactivewindow) | $print_xclip", mode "default"
+    bindsym --release $mod+s $exec "maim -us | $print_xclip", mode "default"
 
     bindsym Escape mode "default"
     bindsym Return mode "default"
