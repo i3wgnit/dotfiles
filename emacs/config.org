@@ -66,11 +66,18 @@
   (use-package paredit)
 #+END_SRC
 
-** swiper
+** counsel
 #+BEGIN_SRC emacs-lisp
-  ;;(use-package ivy
-  ;;  :config
-  ;;  (ivy-mode 1))
+  (use-package counsel)
+#+END_SRC
+*** ivy
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy :demand
+    :config
+    (setq ivy-use-virtual-buffers t
+          ivy-count-format "%d/%d ")
+    (ivy-mode 1))
+  (use-package flyspell-correct-ivy)
 #+END_SRC
 
 * Personal information
@@ -101,13 +108,14 @@
     (evil-leader/set-leader ",")
     (evil-leader/set-key
       "/" 'swiper
-      "e" 'find-file
+      "e" 'counsel-find-file
       "w" 'save-buffer
       "q" 'twl/kill-cur-buffer
       "h" 'dired-jump
       "b" 'ibuffer
-      "x" 'smex
-      "s" 'avy-goto-word-0))
+      "x" 'counsel-M-x
+      "s" 'avy-goto-word-0
+      "z" 'flyspell-correct-at-point))
 #+END_SRC
 
 ** Load packages
@@ -190,6 +198,16 @@
 *** Pretty symbols
 #+BEGIN_SRC emacs-lisp
   (global-prettify-symbols-mode t)
+  (use-package pretty-mode
+    :config
+    (global-pretty-mode t)
+    (pretty-deactivate-groups
+     '(:equality
+       :ordering :ordering-double :ordering-triple
+       :arrows :arrows-twoheaded
+       :punctuation))
+    (pretty-activate-groups
+     '(:sub-and-superscripts :greek :arithmetic-nary)))
 #+END_SRC
 
 *** Line number
@@ -236,6 +254,7 @@
     (diminish-minor-mode 'beacon 'beacon-mode)
     (diminish-minor-mode 'paredit 'paredit-mode)
     (diminish-minor-mode 'subword 'subword-mode)
+    (diminish-minor-mode 'ivy 'ivy-mode)
 
     (diminish-major-mode 'emacs-lisp-mode-hook "el")
     (diminish-major-mode 'haskell-mode-hook "λ=")
@@ -305,7 +324,7 @@
   (global-set-key (kbd "C-c r") 'twl/config-reload)
 #+END_SRC
 
-* Emacs autocompletion
+* Emacs auto-completion
 ** company
 #+BEGIN_SRC emacs-lisp
   (use-package company
@@ -335,8 +354,7 @@
     :config
     (smex-initialize)
     :bind
-    ("M-x" . smex)
-    ("M-x" . smex-major-mode-commands))
+    ("M-x" . smex))
 #+END_SRC
 
 * Major modes
@@ -448,6 +466,16 @@
 ** Racket-mode
 #+BEGIN_SRC emacs-lisp
   (use-package racket-mode)
+#+END_SRC
+
+** Assembly
+#+BEGIN_SRC emacs-lisp
+  (use-package iasm-mode)
+#+END_SRC
+
+*** MMIXAL
+#+BEGIN_SRC emacs-lisp
+  (use-package mixal-mode)
 #+END_SRC
 
 * Magit
