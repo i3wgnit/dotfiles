@@ -49,3 +49,6 @@
 [submodule "emacs/packages/sensible-defaults.el"]
 	path = emacs/packages/sensible-defaults.el
 	url = https://github.com/hrs/sensible-defaults.el
+[submodule "vim/vim/bundle/ale"]
+	path = vim/vim/bundle/ale
+	url = https://github.com/w0rp/ale
