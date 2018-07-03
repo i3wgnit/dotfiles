@@ -15,7 +15,7 @@ set $mod Mod4
 set $exec exec --no-startup-id
 
 set $term urxvt
-set $browser firefox
+set $browser qutebrowser
 
 set $clip $(xclip -selection c -o)
 
@@ -210,7 +210,9 @@ smart_borders on
 bindsym $mod+i          exec $term -name utils -e htop
 bindsym $mod+Shift+c    exec $term -name utils -e R -q
 bindsym $mod+r          exec $term          -e ranger
+bindsym $mod+Shift+r    exec $term          -e rtv
 bindsym $mod+z          exec $term          -e calcurse
+bindsym $mod+Shift+z    exec $term          -e neomutt
 bindsym $mod+g          exec $browser
 
 for_window [instance="utils"] floating enable
@@ -221,14 +223,14 @@ for_window [instance="utils"] floating enable
 # bad idea.. super slow
 
 # load video in clipboard
-bindsym $mod+m          workspace $WS3, layout tabbed, exec $term -e mpv "$clip"
-bindsym $mod+Shift+m    workspace $WS3, layout tabbed, exec $term -e mpv --profile=low "$clip"
+# bindsym $mod+m          workspace $WS3, layout tabbed, exec $term -e mpv "$clip"
+# bindsym $mod+Shift+m    workspace $WS3, layout tabbed, exec $term -e mpv --profile=low "$clip"
 
 # gap size
-bindsym $mod+minus          gaps inner current minus    4
+bindsym $mod+minus          gaps inner current minus    2
 bindsym $mod+Shift+minus    gaps inner current set      0
-bindsym $mod+plus           gaps inner current set      16
-bindsym $mod+Shift+plus     gaps inner current plus     4
+bindsym $mod+plus           gaps inner current set      8
+bindsym $mod+Shift+plus     gaps inner current plus     2
 
 # Resize
 bindsym $mod+Shift+u    resize shrink   width   10 px or 10 ppt
@@ -247,9 +249,9 @@ bindsym XF86KbdBrightnessDown   $exec sudo asus-kbd-backlight down
 bindsym XF86KbdBrightnessUp     $exec sudo asus-kbd-backlight up
 
 # volume
-bindsym XF86AudioLowerVolume    $exec pactl set-sink-mute @DEFAULT_SINK@ false && amixer -qM set Master 1%-
-bindsym XF86AudioRaiseVolume    $exec pactl set-sink-mute @DEFAULT_SINK@ false && amixer -qM set Master 1%+
-bindsym XF86AudioMute           $exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioLowerVolume    $exec pamixer -u && pamixer --allow-boost -d 1
+bindsym XF86AudioRaiseVolume    $exec pamixer -u && pamixer --allow-boost -i 1
+bindsym XF86AudioMute           $exec pamixer -t
 
 # clipboard
 bindsym $mod+c $exec clipmenu
@@ -304,7 +306,7 @@ for_window [class="Qalculate-gtk"] floating enable
     assign [window_role="browser"]      $WS2
     # assign [class="Chromium"]       $WS2
     # assign [class="Google-chrome"]  $WS2
-    # assign [class="qutebrowser"]    $WS2
+    assign [class="qutebrowser"]        $WS2
 # WS3
     assign [class="bomi"]               $WS3
     assign [class="mpv"]                $WS3

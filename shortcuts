@@ -6,8 +6,9 @@ def read_file(f):
         return tmp
 
 rang = read_file("./ranger/rc.conf")
-bash = read_file("./bash/bashrc")
-fish = read_file("./fish/config.fish")
+# bash = read_file("./bash/bashrc")
+bash = ""
+# fish = read_file("./fish/config.fish")
 
 configs = open("./Scripts/configs", "r")
 folders = open("./Scripts/folders", "r")
@@ -19,7 +20,7 @@ for line in configs:
 
     rang += "map {} shell vim {}\n".format(*ln)
     bash += "alias {}=\"vim {}\"\n".format(*ln)
-    fish += "alias {}='vim {}'\n".format(*ln)
+    # fish += "alias {}='vim {}'\n".format(*ln)
 
 for line in folders:
     if not line.strip():
@@ -32,7 +33,7 @@ for line in folders:
     rang += "map Y{} shell cp -r %s {}\n".format(*ln)
 
     bash += "alias {}=\"cd {} && ls -a\"\n".format(*ln)
-    fish += "alias {}='cd {}; ls -a'\n".format(*ln)
+    # fish += "alias {}='cd {}; ls -a'\n".format(*ln)
 
 def writeFile(f, content):
     with open(f, "w+") as fi:
@@ -40,6 +41,6 @@ def writeFile(f, content):
         fi.close
 
 writeFile("./ranger/.rc.conf.comp", rang)
-writeFile("./bash/.bashrc.comp", bash)
-writeFile("./fish/.config.fish.comp", fish)
+writeFile("./bash/.bashrc.shortcuts", bash)
+# writeFile("./fish/.config.fish.comp", fish)
 

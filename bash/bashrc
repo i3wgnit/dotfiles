@@ -13,11 +13,25 @@ PS1='[\u@\h \W]\$ '
 
 export EDITOR=vim
 export VISUAL=vim
+export MAN_DISABLE_SECCOMP=1
+export CM_SELECTIONS=clipboard
+export CM_LAUNCHER=rofi
+export BROWSER=qutebrowser
+
+
+# shortcuts
+[ -s "$HOME/.bashrc.shortcuts" ] && source "$HOME/.bashrc.shortcuts"
+
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+# This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 set -o vi
 
 
-export PATH=~/bin:/usr/local/bin:${PATH}
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:${PATH}
 
 
 # == INPUT ==
@@ -50,7 +64,8 @@ set convert-meta off
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-alias ~="cd ~"              # cd is probably faster ಠ_ಠ
+# cd is probably faster ಠ_ಠ
+alias ~="cd ~"
 alias -- -="cd -"
 
 # VIM
@@ -66,13 +81,13 @@ alias sudo="sudo "
 alias sw="echo 'StopWatch started. Stop with Ctrl+D.' && time cat"
 
 # Reload .bash_profile
-alias br=". ~/.bashrc"
+alias br=". $HOME/.bashrc"
 
 # Full system upgrade
 alias pSyyu="trizen --noedit --noconfirm -Syyu"
 
 # xclip
-alias xclip="xclip -selection c"
+alias xclip="xclip -selection c "
 
 
 # == RANGER ==

@@ -1,4 +1,4 @@
-cfb         ~/.bashrc.base
+cfb         ~/.bashrc
 cff         ~/.config/fish/config.fish.base
 cfv         ~/.vimrc
 cfg         ~/.gvimrc

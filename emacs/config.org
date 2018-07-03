@@ -70,6 +70,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package counsel)
 #+END_SRC
+
 *** ivy
 #+BEGIN_SRC emacs-lisp
   (use-package ivy :demand
@@ -80,10 +81,17 @@
   (use-package flyspell-correct-ivy)
 #+END_SRC
 
+** flycheck
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :init
+    (global-flycheck-mode))
+#+END_SRC
+
 * Personal information
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Ting Wei Liu"
-        user-mail-address "tingwei890@gmail.com")
+        user-mail-address "i3wgnit@gmail.com")
 #+END_SRC
 
 * evil-mode
@@ -115,7 +123,7 @@
       "b" 'ibuffer
       "x" 'counsel-M-x
       "s" 'avy-goto-word-0
-      "z" 'flyspell-correct-at-point))
+      "z" 'flyspell-correct-previous-word-generic))
 #+END_SRC
 
 ** Load packages
@@ -144,6 +152,8 @@
 #+BEGIN_SRC emacs-lisp
   (use-package evil-collection
     :after evil
+    :custom
+    (evil-collection-setup-minibuffer t)
     :config
     (evil-collection-init))
 #+END_SRC
@@ -200,7 +210,7 @@
   (global-prettify-symbols-mode t)
   (use-package pretty-mode
     :config
-    (global-pretty-mode t)
+    ;(global-pretty-mode t)
     (pretty-deactivate-groups
      '(:equality
        :ordering :ordering-double :ordering-triple
@@ -269,11 +279,7 @@
 #+END_SRC
 
 ** Quality of life
-*** Disable visual bell
-#+BEGIN_SRC emacs-lisp
-  (setq ring-bell-function 'ignore)
-#+END_SRC
-
+*** Disable visual bell #+BEGIN_SRC emacs-lisp (setq ring-bell-function 'ignore) #+END_SRC
 *** Show invisible char
 #+BEGIN_SRC emacs-lisp
   ;;(setq-default show-trailing-whitespace t)
@@ -311,6 +317,11 @@
 #+BEGIN_SRC emacs-lisp
   (setq-default indent-tabs-mode nil)
   (setq-default tab-width 4)
+#+END_SRC
+
+*** Use unicode
+#+BEGIN_SRC emacs-lisp
+  (prefer-coding-system 'utf-8)
 #+END_SRC
 
 ** Quick shortcuts
@@ -358,6 +369,12 @@
 #+END_SRC
 
 * Major modes
+** Text-mode
+*** config
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'text-mode-hook 'flyspell-mode)
+#+END_SRC
+
 ** Org-mode
 *** config
 #+BEGIN_SRC emacs-lisp
@@ -425,7 +442,9 @@
     :config
     (auctex-latexmk-setup)
     (add-hook 'TeX-mode-hook (lambda () (setq TeX-command-default "LatexMK")))
-    (add-hook 'LaTeX-mode-hook (lambda () (setq TeX-command-default "LatexMK"))))
+    (add-hook 'LaTeX-mode-hook (lambda () (setq TeX-command-default "LatexMK")))
+    (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
+    (setq TeX-source-correlate-start-server t))
 #+END_SRC
 
 *** Math mode
@@ -476,6 +495,22 @@
 *** MMIXAL
 #+BEGIN_SRC emacs-lisp
   (use-package mixal-mode)
+#+END_SRC
+
+** Javascript
+*** Auto-mode
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . javascript-mode))
+#+END_SRC
+
+*** Tab stuff
+#+BEGIN_SRC emacs-lisp
+  (setq-default js-indent-level 2)
+#+END_SRC
+
+*** flycheck
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'javascript-mode-hook (lambda () (flycheck-describe 'javascript-standard)))
 #+END_SRC
 
 * Magit

@@ -44,6 +44,11 @@ let g:bufferline_echo = 0
 " NERDTree {{{
 nnoremap <C-n> :NERDTreeToggle<CR>
 " }}}
+" Ale {{{
+let g:ale_linters = {
+\   'javascript': ['standard'],
+\}
+" }}}
 
 " }}}
 " General {{{

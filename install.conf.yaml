@@ -13,8 +13,8 @@
     # Scripts
     ~/.config/Scripts:                  Scripts/
     # bash
-    ~/.bashrc:                          bash/.bashrc.comp
-    ~/.bashrc.base:                     bash/bashrc
+    ~/.bashrc:                          bash/bashrc
+    ~/.bashrc.shortcuts:                bash/.bashrc.shortcuts
     ~/.bash_profile:                    bash/bash_profile
     ~/.inputrc:                         bash/inputrc
     # fish
@@ -52,7 +52,7 @@
     ~/.config/mpv/input.conf:           mpv/input.conf
     ~/.config/mpv/scripts:              mpv/scripts
     # scripts
-    ~/bin:                              bin/
+    #~/bin:                              bin/
     # dunst
     ~/.config/dunst/dunstrc:            other/dunstrc
     # zathura
