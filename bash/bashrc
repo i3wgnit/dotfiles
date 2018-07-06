@@ -8,9 +8,17 @@
 alias ls='ls --color=auto'
 alias ll='ls -l'
 alias la='ls -al'
-PS1='[\u@\h \W]\$ '
+
+# == PS1 ==
+case ${USER} in
+    waigni) _get_PS1() { echo -n '\[\e[0;97m\]w\[\e[38;5;250m\]a\[\e[38;5;245m\]i\[\e[38;5;81m\]g\[\e[38;5;45m\]n\[\e[38;5;39m\]i \[\e[1;97m\]\W \[\e[m\e(B\]' ; } ;;
+    root)   _get_PS1() { echo -n '\[\e[0;91m\][root] \[\e[1;97m\]\W \[\e[m\e(B\]' ; } ;;
+    *)      _get_PS1() { echo -n '% \[\e[1;97m\]\W \[\e[m\e(B\]' ; } ;;
+esac
+export PS1="$(_get_PS1)${RANGER_LEVEL:+[ranger] }${SSH_TTY:+(ssh) }"
 
 
+#export PS1="[\u@\h \W]\$ ${RANGER_LEVEL:+[ranger] }${SSH_TTY:+(ssh) }"
 export EDITOR=vim
 export VISUAL=vim
 export MAN_DISABLE_SECCOMP=1
@@ -81,7 +89,7 @@ alias sudo="sudo "
 alias sw="echo 'StopWatch started. Stop with Ctrl+D.' && time cat"
 
 # Reload .bash_profile
-alias br=". $HOME/.bashrc"
+alias br="source $HOME/.bashrc"
 
 # Full system upgrade
 alias pSyyu="trizen --noedit --noconfirm -Syyu"
@@ -105,11 +113,11 @@ ranger() {
     fi
 }
 
-[ -n "$RANGER_LEVEL" ] && PS1="$PS1"'(in ranger) '
+[[ -n RANGER_LEVEL ]] && clear
 
-
-# ==mpv==
+# == MPV ==
 function mm() {
     mpv --no-video --ytdl-format=bestaudio ytdl://ytsearch:"$*"
 }
+
 

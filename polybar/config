@@ -47,7 +47,7 @@ bottom = false
 
 ; Prefer fixed center position for the `modules-center` block
 ; When false, the center position will be based on the size of the other blocks.
-fixed-center = false
+fixed-center = true
 
 ; Dimension defined as pixel value (e.g. 35) or percentage (e.g. 50%)
 width = 100%
@@ -94,7 +94,7 @@ padding = 0
 ; Number of spaces to add before/after each module
 ; Individual side values can be defined using:
 ;   module-margin-{left,right}
-module-margin-left = 2
+module-margin = 1
 
 ; Fonts are defined using <font-name>;<vertical-offset>
 ; Font names are specified using a fontconfig pattern.
@@ -113,7 +113,7 @@ font-2 = Unifont:size=11:antialias=true;3
 ;   modules-right = ipc clock
 modules-left = i3 title
 modules-center =
-modules-right = filesystem network battery backlight pulseaudio date
+modules-right = network battery backlight pulseaudio date
 
 ; The separator will be inserted between the output of each module
 ;separator =
@@ -190,9 +190,9 @@ enable-ipc = false
 
 ; Fallback click handlers that will be called if
 ; there's no matching module handler found.
-click-left =            urxvt &
+;click-left =            urxvt &
 ;click-middle =
-click-right =           nm-connection-editor &
+;click-right =           nm-connection-editor &
 ;scroll-up =
 ;scroll-down =
 ;double-click-left =
@@ -208,7 +208,7 @@ type = internal/i3
 ; on different bars
 ;
 ; Default: false
-;pin-workspaces = true
+pin-workspaces = true
 
 ; This will split the workspace name on ':'
 ; Default: false
@@ -261,8 +261,9 @@ format = <label-state> <label-mode>
 ; Default: %mode%
 label-mode = %mode%
 label-mode-padding = 2
-label-mode-background = ${colors.urgent}
+label-mode-background = ${colors.foreground-alt}
 label-mode-overline = ${colors.background}
+label-mode-foreground = ${colors.background}
 
 ; Available tokens:
 ;   %name%
@@ -317,7 +318,7 @@ mount-0 = /
 
 ; Seconds to sleep between updates
 ; Default: 30
-;interval = 10
+interval = 500
 
 ; Display fixed precision values
 ; Default: false
@@ -412,7 +413,7 @@ format-packetloss = <animation-packetloss><label-packetloss>
 ;   %downspeed% [wireless+wired]
 ;   %linkspeed% [wired]
 ; Default: %ifname% %local_ip%
-label-connected = %local_ip% %downspeed% %signal%%
+label-connected = %downspeed% %signal%%
 
 ; Available tokens:
 ;   %ifname%    [wireless+wired]
@@ -430,9 +431,10 @@ label-packetloss = %essid%!
 label-packetloss-foreground = ${colors.foreground-alt}
 
 ; Only applies if <ramp-signal> is used
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
 ;ramp-signal-3 = 😊
 ;ramp-signal-4 = 😃
 ;ramp-signal-5 = 😈
@@ -442,7 +444,7 @@ ramp-signal-margin-right = 2
 ; Only applies if <animation-packetloss> is used
 animation-packetloss-0 = 
 ;animation-packetloss-0-foreground = #ffa64c
-animation-packetloss-1 = 
+animation-packetloss-1 = 
 ;animation-packetloss-1-foreground = #000000
 animation-packetloss-font = 1
 animation-packetloss-margin-right = 2
@@ -469,7 +471,7 @@ adapter = AC0
 ; Disable polling by setting the interval to 0.
 ;
 ; Default: 5
-poll-interval = 5
+poll-interval = 30
 
 ; see "man date" for details on how to format the time string
 ; NOTE: if you want to use syntax tags here you need to use %%{...}
@@ -482,10 +484,9 @@ time-format = %H:%M
 ;   <ramp-capacity>
 ;   <animation-charging>
 format-charging = <label-charging>
-format-charging-foreground = ${colors.lime}
-format-charging-overline = ${colors.lime}
 format-charging-prefix = %{T1}
 format-charging-prefix-padding-right = 2
+format-charging-overline = ${colors.foreground}
 
 ; Available tags:
 ;   <label-discharging> (default)
@@ -501,6 +502,8 @@ format-discharging-overline = ${colors.foreground}
 format-full = <label-full>
 format-full-prefix = %{T1}
 format-full-prefix-padding-right = 2
+format-full-foreground = ${colors.lime}
+format-full-overline = ${colors.lime}
 
 ; Available tokens:
 ;   %percentage% (default)
@@ -516,7 +519,7 @@ label-discharging = %percentage%% %time%
 
 ; Available tokens:
 ;   %percentage% (default)
-label-full = %percentage%
+label-full = %percentage%%
 
 ; Only applies if <ramp-capacity> is used
 ramp-capacity-0 = 
@@ -524,6 +527,7 @@ ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
+ramp-capacity-5 = 
 ;ramp-capacity-3 = 
 ;ramp-capacity-4 = 
 ramp-capacity-font = 1
@@ -610,7 +614,7 @@ format-muted-foreground = ${colors.foreground-alt}
 
 ; Available tokens:
 ;   %percentage% (default)
-;label-volume = %percentage%%
+label-volume = %percentage%%
 
 ; Available tokens:
 ;   %percentage% (default)
@@ -619,6 +623,7 @@ label-muted = muted
 ; Only applies if <ramp-volume> is used
 ramp-volume-0 = 
 ramp-volume-1 = 
+ramp-volume-2 = 
 ;ramp-volume-2 = 🔊
 ramp-volume-margin-right = 2
 ramp-volume-font = 1
@@ -662,11 +667,11 @@ label-indicator-foreground = ${colors.foreground-alt}
 type = internal/date
 
 ; Seconds to sleep between updates
-interval = 1.0
+interval = 1
 
 ; See "man date" for details on how to format the date string
 ; NOTE: if you want to use syntax tags here you need to use %%{...}
-date = %A %B %d
+date =
 
 ; Optional time format
 time = %H:%M
@@ -687,7 +692,7 @@ format-prefix-padding-right = 2
 ;   %date%
 ;   %time%
 ; Default: %date%
-label = %date% %time%
+label = %time% %date%
 
 [module/title]
 type = internal/xwindow

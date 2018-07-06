@@ -23,11 +23,8 @@ xterm*selectToClipboard: true
 ! urxvt
 ! ------------------------------------------------------------------------------
 URxvt*font: xft:Iosevka Term:style=Regular:size=11:antialias=true,\
+            -wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1,\
             xft:DejaVu Sans Mono:style=Book:size=11,\
-            xft:Terminus,\
-            xft:Code2000:antialias=true,\
-            xft:Droid Sans Fallback,\
-            xft:Ohsnap Siji
 
 !URxvt*letterSpace: 0
 
@@ -36,6 +33,7 @@ URxvt*bellIsUrgent: true
 URxvt*unicode3: true
 
 URxvt*borderWidth: 0
+URxvt*internalBorder: 4
 URxvt*scrollBar: false
 URxvt*scrollBar_right: false
 URxvt*scrollBar_floating: false

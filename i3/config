@@ -249,9 +249,9 @@ bindsym XF86KbdBrightnessDown   $exec sudo asus-kbd-backlight down
 bindsym XF86KbdBrightnessUp     $exec sudo asus-kbd-backlight up
 
 # volume
-bindsym XF86AudioLowerVolume    $exec pamixer -u && pamixer --allow-boost -d 1
-bindsym XF86AudioRaiseVolume    $exec pamixer -u && pamixer --allow-boost -i 1
-bindsym XF86AudioMute           $exec pamixer -t
+bindsym XF86AudioLowerVolume    $exec pulsemixer --unmute && pulsemixer --change-volume -1
+bindsym XF86AudioRaiseVolume    $exec pulsemixer --unmute && pulsemixer --change-volume +1
+bindsym XF86AudioMute           $exec pulsemixer --toggle-mute
 
 # clipboard
 bindsym $mod+c $exec clipmenu
@@ -299,6 +299,9 @@ for_window [window_role="pop-up"] floating enable
 # qalculate-gtk
 for_window [class="Qalculate-gtk"] floating enable
 
+# nm-connection-editor
+for_window [class="Nm-connection-editor"] floating enable
+
 
 # == WORKSPACE ==
 # WS1
@@ -328,6 +331,12 @@ for_window [class="Qalculate-gtk"] floating enable
 
 # == STARTUP ==
 exec_always --no-startup-id ~/.config/polybar/launch.sh
+# exec_always --no-startup-id feh --no-fehbg --bg-tile /home/waigni/Pictures/wallpaper.png
 $exec rescuetime
-#$exec keepass
-#$exec nextcloud
+$exec clipmenud
+$exec dunst
+$exec redshift-gtk
+$exec nm-applet
+# $exec compton -b
+# $exec keepass
+# $exec nextcloud
