@@ -92,7 +92,7 @@ alias sw="echo 'StopWatch started. Stop with Ctrl+D.' && time cat"
 alias br="source $HOME/.bashrc"
 
 # Full system upgrade
-alias pSyyu="trizen --noedit --noconfirm -Syyu"
+alias pSyyu="yay --nouseask --noconfirm -Syyu"
 
 # xclip
 alias xclip="xclip -selection c "

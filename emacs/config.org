@@ -487,7 +487,7 @@
   (use-package racket-mode)
 #+END_SRC
 
-** Assembly
+** Assembly-mode
 #+BEGIN_SRC emacs-lisp
   (use-package iasm-mode)
 #+END_SRC
@@ -497,7 +497,7 @@
   (use-package mixal-mode)
 #+END_SRC
 
-** Javascript
+** Javascript-mode
 *** Auto-mode
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'auto-mode-alist '("\\.jsx\\'" . javascript-mode))

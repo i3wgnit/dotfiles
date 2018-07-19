@@ -11,83 +11,88 @@
 - link:
     ~/.dotfiles: ''
     # Scripts
-    ~/.config/Scripts:                  Scripts/
+    ~/.config/Scripts:                      Scripts/
 
     # ===
     # Shells
     # ===
 
     # bash
-    ~/.bashrc:                          bash/bashrc
-    ~/.bashrc.shortcuts:                bash/.bashrc.shortcuts
-    ~/.bash_profile:                    bash/bash_profile
-    ~/.inputrc:                         bash/inputrc
+    ~/.bashrc:                              bash/bashrc
+    ~/.bashrc.shortcuts:                    bash/.bashrc.shortcuts
+    ~/.bash_profile:                        bash/bash_profile
+    ~/.inputrc:                             bash/inputrc
     # fish
-    ~/.config/fish/config.fish:         fish/.config.fish.comp
-    ~/.config/fish/config.fish.base:    fish/config.fish
-    ~/.config/fish/functions:           fish/functions
+    ~/.config/fish/config.fish:             fish/.config.fish.comp
+    ~/.config/fish/config.fish.base:        fish/config.fish
+    ~/.config/fish/functions:               fish/functions
 
     # ===
     # Some Styling
     # ===
 
     # xorg
-    ~/.xinitrc:                         xorg/xinitrc
-    ~/.Xresources:                      xorg/Xresources
+    ~/.xinitrc:                             xorg/xinitrc
+    ~/.Xresources:                          xorg/Xresources
     # termite
-    ~/.config/termite/config:           termite/config
+    ~/.config/termite/config:               termite/config
 
     # ===
     # Editors
     # ===
 
     # vim
-    ~/.vim:                             vim/vim/
-    ~/.vimrc:                           vim/vimrc
-    ~/.gvimrc:                          vim/gvimrc
+    ~/.vim:                                 vim/vim/
+    ~/.vimrc:                               vim/vimrc
+    ~/.gvimrc:                              vim/gvimrc
     # emacs
-    ~/.emacs.d/init.el:                 emacs/init.el
-    ~/.emacs.d/config.org:              emacs/config.org
-    ~/.emacs.d/auctex:                  emacs/auctex/
-    ~/.emacs.d/packages:                emacs/packages/
+    ~/.emacs.d/init.el:                     emacs/init.el
+    ~/.emacs.d/config.org:                  emacs/config.org
+    ~/.emacs.d/auctex:                      emacs/auctex/
+    ~/.emacs.d/packages:                    emacs/packages/
 
-    # === 
+    # ===
     # Workflow
     # ===
 
     # i3
-    ~/.config/i3:                       i3/
+    ~/.config/i3:                           i3/
     # polybar
-    ~/.config/polybar/config:           polybar/config
-    ~/.config/polybar/scripts:          polybar/scripts
-    ~/.config/polybar/launch.sh:        polybar/launch.sh
+    ~/.config/polybar/config:               polybar/config
+    ~/.config/polybar/scripts:              polybar/scripts
+    ~/.config/polybar/launch.sh:            polybar/launch.sh
     # ranger
-    ~/.config/ranger/rc.conf:           ranger/.rc.conf.comp
-    ~/.config/ranger/rc.conf.base:      ranger/rc.conf
-    ~/.config/ranger/rifle.conf:        ranger/rifle.conf
-    ~/.config/ranger/commands.py:       ranger/commands.py
-    ~/.config/ranger/plugins:           ranger/plugins
+    ~/.config/ranger/rc.conf:               ranger/.rc.conf.comp
+    ~/.config/ranger/rc.conf.base:          ranger/rc.conf
+    ~/.config/ranger/rifle.conf:            ranger/rifle.conf
+    ~/.config/ranger/commands.py:           ranger/commands.py
+    ~/.config/ranger/plugins:               ranger/plugins
+
+    # qutebrowser
+    ~/.config/qutebrowser/config.py:        qutebrowser/config.py
+    ~/.config/qutebrowser/autoconfig.yml:   qutebrowser/autoconfig.yml
+    ~/.config/qutebrowser/quickmarks:       qutebrowser/quickmarks
 
     # ===
     # Others
     # ===
 
     # latex
-    ~/texmf/tex/latex:                  texmf/tex/latex
+    ~/texmf/tex/latex:                      texmf/tex/latex
     # mpv
-    ~/.config/mpv/mpv.conf:             mpv/mpv.conf
-    ~/.config/mpv/input.conf:           mpv/input.conf
-    ~/.config/mpv/scripts:              mpv/scripts
+    ~/.config/mpv/mpv.conf:                 mpv/mpv.conf
+    ~/.config/mpv/input.conf:               mpv/input.conf
+    ~/.config/mpv/scripts:                  mpv/scripts
     # dunst
-    ~/.config/dunst/dunstrc:            others/dunstrc
+    ~/.config/dunst/dunstrc:                others/dunstrc
     # zathura
-    ~/.config/zathura/zathurarc:        others/zathurarc
+    ~/.config/zathura/zathurarc:            others/zathurarc
     # latexmk
-    ~/.latexmkrc:                       others/latexmkrc
+    ~/.latexmkrc:                           others/latexmkrc
     # redshift
-    ~/.config/redshift.conf:            others/redshift.conf
+    ~/.config/redshift.conf:                others/redshift.conf
     # neofetch
-    ~/.config/neofetch/config:          others/neofetch.conf
+    ~/.config/neofetch/config:              others/neofetch.conf
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]

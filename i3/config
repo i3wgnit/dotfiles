@@ -249,8 +249,10 @@ bindsym XF86KbdBrightnessDown   $exec sudo asus-kbd-backlight down
 bindsym XF86KbdBrightnessUp     $exec sudo asus-kbd-backlight up
 
 # volume
-bindsym XF86AudioLowerVolume    $exec pulsemixer --unmute && pulsemixer --change-volume -1
-bindsym XF86AudioRaiseVolume    $exec pulsemixer --unmute && pulsemixer --change-volume +1
+bindsym XF86AudioLowerVolume    $exec pulsemixer --change-volume -1
+bindsym XF86AudioRaiseVolume    $exec pulsemixer --change-volume +1
+bindsym Shift+XF86AudioLowerVolume    $exec pulsemixer --change-volume -10
+bindsym Shift+XF86AudioRaiseVolume    $exec pulsemixer --change-volume +10
 bindsym XF86AudioMute           $exec pulsemixer --toggle-mute
 
 # clipboard
@@ -332,7 +334,7 @@ for_window [class="Nm-connection-editor"] floating enable
 # == STARTUP ==
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 # exec_always --no-startup-id feh --no-fehbg --bg-tile /home/waigni/Pictures/wallpaper.png
-$exec rescuetime
+$exec aw-qt
 $exec clipmenud
 $exec dunst
 $exec redshift-gtk
