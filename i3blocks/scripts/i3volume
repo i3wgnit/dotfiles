@@ -1,0 +1,24 @@
+#!/bin/bash
+
+case $BLOCK_BUTTON in
+    1)  $TERMINAL -e pulsemixer & disown ;;
+    2)  pamixer -m ;;
+    3)  pamixer -t ;;
+    4)  pamixer --allow-boost -ud 5 ;;
+    5)  pamixer --allow-boost -ui 5 ;;
+esac
+
+[[ "$(pamixer --get-mute)" = 'true' ]] &&
+    echo muted && echo && echo "#888888" && exit
+
+get_label() {
+    if [[ $VOLUME -ge 33 ]]; then
+        echo -e '\ue203'
+    else
+        echo -e '\ue204'
+    fi
+}
+
+VOLUME=$(pamixer --get-volume)
+
+echo "<span font='9'>$(get_label)</span>  $VOLUME%"

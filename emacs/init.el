@@ -23,10 +23,11 @@
  '(custom-safe-themes
    (quote
     ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
- '(org-agenda-files (quote ("~/calendar/assignments.org")))
+ '(evil-collection-setup-minibuffer t)
  '(package-selected-packages
    (quote
-    (iasm-mode gas-mode latex-pretty-symbols pretty-mode flyspell-correct-ivy counsel ivy ox-beamer ox-md evil-magit ox-twbs paredit flycheck smex spaceline linum-relative racket-mode haskell-mode auctex-latexmk auctex avy beacon rainbow-delimiters which-key swiper hungry-delete ido-vertical-mode helm-company helm diminish nlinum-relative dashboard htmlize org-bullets evil-collection evil-indent-textobject evil-surround evil-leader evil spacemacs-theme use-package))))
+    (evil-magit magit iasm-mode racket-mode haskell-mode auctex-latexmk auctex htmlize ox-twbs org-bullets company diminish spaceline nlinum-relative pretty-mode dashboard evil-collection evil-indent-textobject evil-surround evil-leader evil flx golden-ratio fzf flycheck flyspell-correct-ivy counsel paredit avy beacon rainbow-delimiters which-key hungry-delete auto-compile use-package spacemacs-theme))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

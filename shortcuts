@@ -5,13 +5,14 @@ def read_file(f):
         fi.close()
         return tmp
 
-rang = read_file("./ranger/rc.conf")
+# rang = read_file("./ranger/rc.conf")
+rang = ""
 # bash = read_file("./bash/bashrc")
 bash = ""
 # fish = read_file("./fish/config.fish")
 
-configs = open("./Scripts/configs", "r")
-folders = open("./Scripts/folders", "r")
+configs = open("./Shortcuts/configs", "r")
+folders = open("./Shortcuts/folders", "r")
 
 for line in configs:
     if not line.strip():
@@ -40,7 +41,7 @@ def writeFile(f, content):
         fi.write(content)
         fi.close
 
-writeFile("./ranger/.rc.conf.comp", rang)
-writeFile("./bash/.bashrc.shortcuts", bash)
+writeFile("./ranger/rc.conf.shortcuts", rang)
+writeFile("./bash/bashrc.shortcuts", bash)
 # writeFile("./fish/.config.fish.comp", fish)
 

@@ -1,0 +1,49 @@
+#!/bin/bash
+
+case $BLOCK_BUTTON in
+    1) $TERMINAL -e nmtui & disown ;;
+    3) nm-connection-editor & disown ;;
+esac
+
+INTERFACE=${BLOCK_INSTANCE:-wlan0}
+
+# Check if interface is on
+[[ ! -d /sys/class/net/${INTERFACE}/wireless ]] ||
+    [[ "$(cat /sys/class/net/$INTERFACE/operstate)" = 'down' ]] &&
+    echo "$INTERFACE: not connected" && echo && echo "#888888" && exit
+
+# Accumulate values from all interfaces
+get_rx_bytes() { cat /proc/net/dev | tail +3 | awk '{ sum += $2 } END { print sum }'; }
+# get_rx_bytes() { cat /sys/class/net/${INTERFACE}/statistics/rx_bytes; }
+
+get_label() {
+    if [[ $QUALITY -ge 75 ]]; then
+        echo -e '\ue222'
+    elif [[ $QUALITY -ge 50 ]]; then
+        echo -e '\ue221'
+    elif [[ $QUALITY -ge 25 ]]; then
+        echo -e '\ue220'
+    else
+        echo -e '\ue21f'
+    fi
+}
+
+parse_speed() {
+    # Change "do-while loop" to "while loop" if you want bytes
+    local SPEED=$(grep "$1")
+    local LOG=0
+    while : ; do
+        LOG=$(( LOG + 1 ))
+        # +512 to round
+        SPEED=$(((SPEED + 512) / 1024))
+        [[ $SPEED -ge 1024 ]] || break
+    done
+    BYTEPRE=('' K M G)
+    echo "$SPEED ${BYTEPRE[LOG]}B/s"
+}
+
+SPEED=$({ get_rx_bytes; sleep 1; get_rx_bytes; } | paste -sd ' ' | awk '{ print int($2 - $1) }' | parse_speed)
+
+QUALITY=$(grep $INTERFACE /proc/net/wireless | awk '{ print int($3 * 100 / 70) }')
+
+echo "<span font='10'>$(get_label)</span>  $SPEED $QUALITY%"

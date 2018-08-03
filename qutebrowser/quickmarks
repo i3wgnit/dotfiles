@@ -1,22 +1,19 @@
-time    http://localhost:5600/
-gh      https://github.com/i3wgnit/
-gl      https://gitlab.com/i3wgnit/
-inbx    https://inbox.google.com/
-
-msg     https://messenger.com/
-d       https://duckduckgo.com/
-go      https://google.com/
-r       https://reddit.com/
-w       https://en.wikipedia.org/w/index.php
-
-aw      https://www.archlinux.org/
-aur     https://aur.archlinux.org/
-
-
-quest   https://quest.pecs.uwaterloo.ca/psp/SS/ACADEMIC/SA/h/?tab=DEFAULT
-learn   https://learn.uwaterloo.ca/d2l/home
-uwmar   https://marmoset.student.cs.uwaterloo.ca/
-uwww    https://cas.uwaterloo.ca/cas/login?service=https://waterlooworks.uwaterloo.ca/waterloo.htm
-
-yt      https://www.youtube.com/feed/subscriptions/
-ttv     https://twitch.tv/
+time https://www.rescuetime.com/dashboard?src=client
+gh https://github.com/i3wgnit/
+gl https://gitlab.com/i3wgnit/
+inbx https://inbox.google.com/
+trans https://translate.google.com
+msg https://messenger.com/
+d https://duckduckgo.com/
+go https://google.com/
+r https://reddit.com/
+w https://en.wikipedia.org/w/index.php
+aw https://www.archlinux.org/
+aur https://aur.archlinux.org/
+quest https://quest.pecs.uwaterloo.ca/psp/SS/ACADEMIC/SA/h/?tab=DEFAULT
+learn https://learn.uwaterloo.ca/d2l/home
+uwmar https://marmoset.student.cs.uwaterloo.ca/
+uwww https://cas.uwaterloo.ca/cas/login?service=https://waterlooworks.uwaterloo.ca/waterloo.htm
+yt https://www.youtube.com/feed/subscriptions/
+ttv https://twitch.tv/
+disc https://discordapp.com/app

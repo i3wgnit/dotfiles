@@ -1,0 +1,13 @@
+#!/bin/bash
+
+case $BLOCK_BUTTON in
+    4)  xbacklight -steps 1 -time 0 -dec 5 ;;
+    5)  xbacklight -steps 1 -time 0 -inc 5 ;;
+esac
+
+BRIGHTNESS=$(cat /sys/class/backlight/*/brightness)
+MAXBRIGHTNESS=$(cat /sys/class/backlight/*/max_brightness)
+
+PERCENT=$(((BRIGHTNESS * 100 / MAXBRIGHTNESS + 3) / 5 * 5))
+
+echo "<span font='9'>$(echo -e '\ue26e')</span>  $PERCENT%"

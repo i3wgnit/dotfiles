@@ -139,12 +139,21 @@ bindsym $mod+Shift+7 move container to workspace $WS7
 bindsym $mod+Shift+8 move container to workspace $WS8
 bindsym $mod+Shift+9 move container to workspace $WS9
 bindsym $mod+Shift+0 move container to workspace $WS0
-#
+
 # colors
-# class                 border  backgr. text    indicator child_border
-client.focused          #ffffff #ffffff #000000 #bbbbbb   #ffffff
-client.focused_inactive #222222 #222222 #ffffff #222222   #222222
-client.unfocused        #222222 #222222 #ffffff #222222   #222222
+set $background     #000000
+set $backgroundAlt  #222222
+set $foreground     #ffffff
+set $foregroundAlt  #888888
+set $urgent         #900000
+
+# class                 border          backgr.         text        indicator       child_border
+client.focused          $foreground     $foreground     $background $foregroundAlt  $foreground
+client.focused_inactive $backgroundAlt  $backgroundAlt  $foreground $backgroundAlt  $backgroundAlt
+client.unfocused        $backgroundAlt  $backgroundAlt  $foreground $backgroundAlt  $backgroundAlt
+client.urgent           $urgent         $urgent         $foreground $urgent         $urgent
+client.placeholder      $backgroundAlt  $background     $foreground $backgroundAlt  $backgroundAlt
+client.background       $foregroundAlt
 
 # exit i3 (logs you out of your X session)
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
@@ -177,21 +186,25 @@ client.unfocused        #222222 #222222 #ffffff #222222   #222222
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-#bar {
-#        status_command ~/.config/i3/status.py
-#        font pango:Wuncon Siji, Misc Ohsnap 14
-#        separator_symbol " "
-#        position top
-#        height 25
-#        colors {
-#                # class                 border  backgr. text
-#                focused_workspace       #ffffff #ffffff #000000
-#                active_workspace        #222222 #222222 #ffffff
-#                inactive_workspace      #222222 #222222 #888888
-#                urgent_workspace        #2f343a #900000 #ffffff
-#                binding_mode            #2f343a #900000 #ffffff
-#        }
-#}
+bar {
+    status_command i3blocks
+    font pango:Misc Ohsnap, Wuncon Siji 13
+    position top
+    height 25
+    tray_output primary
+    colors {
+        background  $background
+        statusline  $foreground
+        separator   $foregroundAlt
+
+        # class             border          background      text
+        focused_workspace   $foreground     $foreground     $background
+        active_workspace    $background     $foregroundAlt  $background
+        inactive_workspace  $background     $background     $foregroundAlt
+        urgent_workspace    $background     $background     $urgent
+        binding_mode        $foregroundAlt  $foregroundAlt  $background
+    }
+}
 
 
 # CUSTOM
@@ -207,15 +220,23 @@ smart_borders on
 
 # apps
 # mode "$apps" {
-bindsym $mod+i          exec $term -name utils -e htop
-bindsym $mod+Shift+c    exec $term -name utils -e R -q
 bindsym $mod+r          exec $term          -e ranger
 bindsym $mod+Shift+r    exec $term          -e rtv
 bindsym $mod+z          exec $term          -e calcurse
 bindsym $mod+Shift+z    exec $term          -e neomutt
 bindsym $mod+g          exec $browser
 
-for_window [instance="utils"] floating enable
+# Scratchpad
+$exec $term -geometry 123x48 -name "scratchpad/utils/top" -e gotop
+$exec $term -name "scratchpad/utils/R" -e R -q --no-save --no-restore
+$exec $term -name "scratchpad/utils/notes" -e vim $HOME/.notes.txt
+bindsym $mod+i          [instance="utils/top$"]    scratchpad show
+bindsym $mod+Shift+c    [instance="utils/R$"]      scratchpad show
+bindsym $mod+n          [instance="utils/notes$"]  scratchpad show
+
+for_window [instance="utils/"] floating enable
+for_window [instance="scratchpad/"] move scratchpad
+for_window [instance="sticky/"] sticky enable
 #    bindsym Escape mode "default"
 #    bindsym Return mode "default"
 # }
@@ -239,21 +260,21 @@ bindsym $mod+Shift+o    resize grow     height  10 px or 10 ppt
 bindsym $mod+Shift+p    resize grow     width   10 px or 10 ppt
 
 # brightness
-bindsym XF86MonBrightnessDown       $exec xbacklight -dec 10
-bindsym XF86MonBrightnessUp         $exec xbacklight -inc 10
-bindsym Shift+XF86MonBrightnessDown $exec xbacklight -dec 5 -steps 1
-bindsym Shift+XF86MonBrightnessUp   $exec xbacklight -inc 5 -steps 1
+bindsym XF86MonBrightnessDown       $exec ~/.config/i3/backlight.sh slow down  10
+bindsym XF86MonBrightnessUp         $exec ~/.config/i3/backlight.sh slow up    10
+bindsym Shift+XF86MonBrightnessDown $exec ~/.config/i3/backlight.sh fast down  10
+bindsym Shift+XF86MonBrightnessUp   $exec ~/.config/i3/backlight.sh fast up    10
 
 # backlight
 bindsym XF86KbdBrightnessDown   $exec sudo asus-kbd-backlight down
 bindsym XF86KbdBrightnessUp     $exec sudo asus-kbd-backlight up
 
 # volume
-bindsym XF86AudioLowerVolume    $exec pulsemixer --change-volume -1
-bindsym XF86AudioRaiseVolume    $exec pulsemixer --change-volume +1
-bindsym Shift+XF86AudioLowerVolume    $exec pulsemixer --change-volume -10
-bindsym Shift+XF86AudioRaiseVolume    $exec pulsemixer --change-volume +10
-bindsym XF86AudioMute           $exec pulsemixer --toggle-mute
+bindsym XF86AudioLowerVolume        $exec ~/.config/i3/volume.sh down   1
+bindsym XF86AudioRaiseVolume        $exec ~/.config/i3/volume.sh up     1
+bindsym Shift+XF86AudioLowerVolume  $exec ~/.config/i3/volume.sh down   10
+bindsym Shift+XF86AudioRaiseVolume  $exec ~/.config/i3/volume.sh up     10
+bindsym XF86AudioMute               $exec ~/.config/i3/volume.sh mute
 
 # clipboard
 bindsym $mod+c $exec clipmenu
@@ -308,7 +329,7 @@ for_window [class="Nm-connection-editor"] floating enable
 # == WORKSPACE ==
 # WS1
 # WS2
-    assign [window_role="browser"]      $WS2
+    assign [window_role="browser"]      $WS3
     # assign [class="Chromium"]       $WS2
     # assign [class="Google-chrome"]  $WS2
     assign [class="qutebrowser"]        $WS2
@@ -332,9 +353,10 @@ for_window [class="Nm-connection-editor"] floating enable
 
 
 # == STARTUP ==
-exec_always --no-startup-id ~/.config/polybar/launch.sh
+# exec_always --no-startup-id ~/.config/polybar/launch.sh
 # exec_always --no-startup-id feh --no-fehbg --bg-tile /home/waigni/Pictures/wallpaper.png
-$exec aw-qt
+#$exec aw-qt
+$exec rescuetime
 $exec clipmenud
 $exec dunst
 $exec redshift-gtk

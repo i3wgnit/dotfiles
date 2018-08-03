@@ -1,0 +1,30 @@
+#!/bin/bash
+
+BATTERY=${BLOCK_INSTANCE:-BAT0}
+
+CAPACITY=$(cat /sys/class/power_supply/${BATTERY}/capacity)
+STATUS=$(cat /sys/class/power_supply/${BATTERY}/status)
+TIME=$(acpi | cut -d ' ' -f 5 | sed -r 's/:[0-9]+$//')
+
+get_label() {
+    if [[ $CAPACITY -ge 50 ]]; then
+        echo -e '\ue238'
+    elif [[ $CAPACITY -ge 20 ]]; then
+        echo -e '\ue237'
+    else
+        echo -e '\ue236'
+    fi
+}
+
+get_status() {
+    case ${STATUS} in
+        Discharging)    get_label ;;
+        Charging)       echo -e '\ue239' ;;
+        Full)           echo -e '\ue23a' ;;
+    esac
+}
+
+echo "<span font='9'>$(get_status)</span>  $CAPACITY% $TIME"
+echo "<span font='9'>$(get_status)</span>  $CAPACITY%"
+[[ "$STATUS" = 'Full' ]] &&
+    echo '#00ff00' || exit 0

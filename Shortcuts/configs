@@ -2,9 +2,10 @@ cfb         ~/.bashrc
 cff         ~/.config/fish/config.fish.base
 cfv         ~/.vimrc
 cfg         ~/.gvimrc
-cfrc         ~/.config/ranger/rc.conf.base
+cfrc        ~/.config/ranger/rc.conf
 cfrif       ~/.config/ranger/rifle.conf
-cfi         ~/.config/i3/config
+cfic        ~/.config/i3/config
+cfib        ~/.config/i3blocks/config
 cfm         ~/.config/mpv/mpv.conf
 cfp         ~/.config/polybar/config
 cfq         ~/.config/qutebrowser/config.py

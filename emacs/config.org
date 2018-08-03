@@ -54,6 +54,13 @@
 
 ** beacon
 #+BEGIN_SRC emacs-lisp
+  (use-package beacon
+    :config
+    (beacon-mode 1))
+#+END_SRC
+
+** avy
+#+BEGIN_SRC emacs-lisp
   (use-package avy
     :init
     (setq avy-all-windows t)
@@ -76,7 +83,10 @@
   (use-package ivy :demand
     :config
     (setq ivy-use-virtual-buffers t
-          ivy-count-format "%d/%d ")
+          ivy-count-format "%d/%d "
+          ivy-re-builders-alist
+          '((swiper . ivy--regex-plus)
+            (t . ivy--regex-fuzzy)))
     (ivy-mode 1))
   (use-package flyspell-correct-ivy)
 #+END_SRC
@@ -84,8 +94,44 @@
 ** flycheck
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
-    :init
+    :config
     (global-flycheck-mode))
+#+END_SRC
+
+** fzf
+#+BEGIN_SRC emacs-lisp
+  (use-package fzf)
+#+END_SRC
+
+** golden-ratio
+#+BEGIN_SRC emacs-lisp
+  (use-package golden-ratio
+    :config
+    (golden-ratio-mode 1)
+    (setq golden-ratio-extra-commands
+          (append golden-ratio-extra-commands
+                  '(evil-window-left
+                    evil-window-right
+                    evil-window-up
+                    evil-window-down
+                    select-window-1
+                    select-window-2
+                    select-window-3
+                    select-window-4
+                    select-window-5))))
+#+END_SRC
+
+** flx
+#+BEGIN_SRC emacs-lisp
+  (use-package flx)
+#+END_SRC
+
+** anzu
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package anzu
+  ;;   :config
+  ;;   (global-anzu-mode 1)
+  ;;   (setq anzu-cons-mode-line-p nil))
 #+END_SRC
 
 * Personal information
@@ -230,46 +276,59 @@
 #+BEGIN_SRC emacs-lisp
   (use-package nlinum-relative
     :config
-    (nlinum-relative-setup-evil)
-    (global-nlinum-relative-mode 1))
+    ;;(nlinum-relative-setup-evil)
+    (setq-default twl/nlinum-exception-list '())
+    (define-global-minor-mode twl/global-nlinum-relative-mode nlinum-relative-mode
+      (lambda () (when (not (memq major-mode twl/nlinum-exception-list))
+              (nlinum-relative-mode 1))))
+    (twl/global-nlinum-relative-mode 1))
 #+END_SRC
 
 *** Modeline
 **** spaceline
 #+BEGIN_SRC emacs-lisp
-  ;;(use-package spaceline
-  ;;  :config
-  ;;  (require 'spaceline-config)
-  ;;  (setq powerline-default-separator 'arrow)
-  ;;  (spaceline-spacemacs-theme))
+  (use-package spaceline
+    :init
+    (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+    :config
+    (require 'spaceline-config)
+    (setq powerline-default-separator 'arrow)
+    (spaceline-spacemacs-theme))
 #+END_SRC
 
 **** diminish-mode
 #+BEGIN_SRC emacs-lisp
-  (defmacro diminish-minor-mode (filename mode &optional abbrev)
+  (defmacro twl/diminish-minor-mode (filename mode &optional abbrev)
     `(eval-after-load (symbol-name ,filename)
        '(diminish ,mode ,abbrev)))
 
-  (defmacro diminish-major-mode (mode-hook abbrev)
+  (defmacro twl/diminish-major-mode (mode-hook abbrev)
     `(add-hook ,mode-hook
                (lambda () (setq mode-name ,abbrev))))
 
   (use-package diminish
     :config
-    (diminish-minor-mode 'hungry-delete 'hungry-delete-mode)
-    (diminish-minor-mode 'which-key 'which-key-mode)
-    (diminish-minor-mode 'undo-tree 'undo-tree-mode)
-    (diminish-minor-mode 'flycheck 'flycheck-mode)
-    (diminish-minor-mode 'flyspell 'flyspell-mode)
-    (diminish-minor-mode 'beacon 'beacon-mode)
-    (diminish-minor-mode 'paredit 'paredit-mode)
-    (diminish-minor-mode 'subword 'subword-mode)
-    (diminish-minor-mode 'ivy 'ivy-mode)
+    (twl/diminish-minor-mode 'hungry-delete 'hungry-delete-mode)
+    (twl/diminish-minor-mode 'which-key 'which-key-mode)
+    (twl/diminish-minor-mode 'undo-tree 'undo-tree-mode)
+    (twl/diminish-minor-mode 'flycheck 'flycheck-mode)
+    (twl/diminish-minor-mode 'flyspell 'flyspell-mode)
+    (twl/diminish-minor-mode 'beacon 'beacon-mode)
+    (twl/diminish-minor-mode 'paredit 'paredit-mode)
+    (twl/diminish-minor-mode 'subword 'subword-mode)
+    (twl/diminish-minor-mode 'ivy 'ivy-mode)
+    (twl/diminish-minor-mode 'golden-ratio 'golden-ratio-mode)
+    (twl/diminish-minor-mode 'company 'company-mode)
 
-    (diminish-major-mode 'emacs-lisp-mode-hook "el")
-    (diminish-major-mode 'haskell-mode-hook "λ=")
-    (diminish-major-mode 'lisp-interaction-mode-hook "λ")
-    (diminish-major-mode 'python-mode-hook "Py"))
+    (twl/diminish-major-mode 'emacs-lisp-mode-hook "el")
+    (twl/diminish-major-mode 'haskell-mode-hook "λ=")
+    (twl/diminish-major-mode 'lisp-interaction-mode-hook "λ")
+    (twl/diminish-major-mode 'python-mode-hook "Py"))
+#+END_SRC
+
+**** which-function-mode
+#+BEGIN_SRC emacs-lisp
+  (which-function-mode)
 #+END_SRC
 
 *** Time
@@ -345,27 +404,35 @@
 
 ** ido
 #+BEGIN_SRC emacs-lisp
-  (setq ido-enable-flex-matching t)
-  (setq ido-create-new-buffer 'always)
-  (setq ido-everywhere t)
-  (ido-mode 1)
-  (global-set-key (kbd "C-x l") 'twl/kill-cur-buffer)
+  ;; (setq ido-enable-flex-matching t)
+  ;; (setq ido-create-new-buffer 'always)
+  ;; (setq ido-everywhere t)
+  ;; (ido-mode 1)
+  ;; (global-set-key (kbd "C-x l") 'twl/kill-cur-buffer)
 #+END_SRC
 
 *** ido-vertical
 #+BEGIN_SRC emacs-lisp
-  (use-package ido-vertical-mode
-    :config
-    (ido-vertical-mode 1))
+  ;; (use-package ido-vertical-mode
+  ;;   :config
+  ;;   (ido-vertical-mode 1))
+#+END_SRC
+
+*** flx-ido
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package flx-ido
+  ;;   :config
+  ;;   (flx-ido-mode 1)
+  ;;   (setq ido-use-faces nil))
 #+END_SRC
 
 ** smex
 #+BEGIN_SRC emacs-lisp
-  (use-package smex
-    :config
-    (smex-initialize)
-    :bind
-    ("M-x" . smex))
+  ;; (use-package smex
+  ;;   :config
+  ;;   (smex-initialize)
+  ;;   :bind
+  ;;   ("M-x" . smex))
 #+END_SRC
 
 * Major modes
@@ -500,7 +567,7 @@
 ** Javascript-mode
 *** Auto-mode
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . javascript-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
 #+END_SRC
 
 *** Tab stuff
@@ -523,5 +590,7 @@
     (setq magit-push-always-verify nil)
     (setq git-commit-summary-max-length 50)
     (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
-    (add-hook 'with-editor-mode-hook 'evil-insert-state))
+    (add-hook 'with-editor-mode-hook 'evil-insert-state)
+    (add-to-list 'twl/nlinum-exception-list 'magit-status-mode)
+    (add-to-list 'twl/nlinum-exception-list 'magit-diff-mode))
 #+END_SRC

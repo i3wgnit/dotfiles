@@ -5,15 +5,17 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
-alias ll='ls -l'
-alias la='ls -al'
+# == IMPORT ==
+[ -s "$HOME/.inputrc" ] && source "$HOME/.inputrc"
+[ -s "$HOME/.bashrc.local" ] && source "$HOME/.bashrc.local"
+[ -s "$HOME/.bashrc.shortcuts" ] && source "$HOME/.bashrc.shortcuts"
+
 
 # == PS1 ==
 case ${USER} in
     waigni) _get_PS1() { echo -n '\[\e[0;97m\]w\[\e[38;5;250m\]a\[\e[38;5;245m\]i\[\e[38;5;81m\]g\[\e[38;5;45m\]n\[\e[38;5;39m\]i \[\e[1;97m\]\W \[\e[m\e(B\]' ; } ;;
     root)   _get_PS1() { echo -n '\[\e[0;91m\][root] \[\e[1;97m\]\W \[\e[m\e(B\]' ; } ;;
-    *)      _get_PS1() { echo -n '% \[\e[1;97m\]\W \[\e[m\e(B\]' ; } ;;
+    *)      _get_PS1() { echo -n '\u \[\e[1;97m\]\W \[\e[m\e(B\]' ; } ;;
 esac
 export PS1="$(_get_PS1)${RANGER_LEVEL:+[ranger] }${SSH_TTY:+(ssh) }"
 
@@ -21,53 +23,24 @@ export PS1="$(_get_PS1)${RANGER_LEVEL:+[ranger] }${SSH_TTY:+(ssh) }"
 #export PS1="[\u@\h \W]\$ ${RANGER_LEVEL:+[ranger] }${SSH_TTY:+(ssh) }"
 export EDITOR=vim
 export VISUAL=vim
-export MAN_DISABLE_SECCOMP=1
-export CM_SELECTIONS=clipboard
-export CM_LAUNCHER=rofi
+export TERMINAL=urxvt
 export BROWSER=qutebrowser
-
-
-# shortcuts
-[ -s "$HOME/.bashrc.shortcuts" ] && source "$HOME/.bashrc.shortcuts"
-
-
-# nvm
-export NVM_DIR="$HOME/.nvm"
-# This loads nvm
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-set -o vi
-
+export MAN_DISABLE_SECCOMP=1
+export CM_SELECTIONS=(clipboard)
+export CM_LAUNCHER=rofi
 
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:${PATH}
 
 
-# == INPUT ==
-# Make Tab autocomplete ignore case
-set completion-ignore-case on
-
-# List all match cases
-set show-all-if-ambiguous on
-
-# Show all results at once
-set page-completions off
-
-# Ask to show more than 200 completions
-set completion-query-items 200
-
-# Show extra info when completing
-set visible-stats on
-
-# Make autocomplete look at the text after the cursor.
-set skip-completed-text on
-
-# Allow UTF-8 i/o
-set input-meta on
-set output-meta on
-set convert-meta off
+set -o vi
 
 
 # == ALIAS ==
+# ls
+alias ls='ls --color=auto'
+alias ll='ls -l'
+alias la='ls -al'
+
 # cd
 alias ..="cd .."
 alias ...="cd ../.."
@@ -92,7 +65,8 @@ alias sw="echo 'StopWatch started. Stop with Ctrl+D.' && time cat"
 alias br="source $HOME/.bashrc"
 
 # Full system upgrade
-alias pSyyu="yay --nouseask --noconfirm -Syyu"
+alias pSyyu="aurman --noedit --noconfirm -Syyu"
+alias aurman="aurman --always_edit"
 
 # xclip
 alias xclip="xclip -selection c "
@@ -115,9 +89,14 @@ ranger() {
 
 [[ -n RANGER_LEVEL ]] && clear
 
+
 # == MPV ==
 function mm() {
     mpv --no-video --ytdl-format=bestaudio ytdl://ytsearch:"$*"
 }
 
 
+# == nvm ==
+export NVM_DIR="$HOME/.nvm"
+# This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

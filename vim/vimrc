@@ -105,16 +105,16 @@ let maplocalleader = "\\"
 " }}}
 
 inoremap <leader>w <esc>:w<cr>a
-inoremap <leader>q <esc>:q!<cr>
-inoremap <leader>z <esc>:wq!<cr>
+" inoremap <leader>q <esc>:q!<cr>
+" inoremap <leader>z <esc>:wq!<cr>
 
 vnoremap <leader>w <esc>:w<cr>
-vnoremap <leader>q <esc>:q!<cr>
-vnoremap <leader>z <esc>:wq!<cr>
+" vnoremap <leader>q <esc>:q!<cr>
+" vnoremap <leader>z <esc>:wq!<cr>
 
 nnoremap <leader>w :w<cr>
-nnoremap <leader>q :q!<cr>
-nnoremap <leader>z :wq!<cr>
+" nnoremap <leader>q :q!<cr>
+" nnoremap <leader>z :wq!<cr>
 
 nnoremap <leader>e :w!<cr>:e %:h<cr>
 nnoremap <leader>so :so ~/.vimrc<cr>
