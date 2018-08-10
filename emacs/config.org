@@ -574,10 +574,16 @@
 #+BEGIN_SRC emacs-lisp
   (setq-default js-indent-level 2)
 #+END_SRC
-
 *** flycheck
 #+BEGIN_SRC emacs-lisp
   (add-hook 'javascript-mode-hook (lambda () (flycheck-describe 'javascript-standard)))
+#+END_SRC
+
+
+** Css-mode
+*** Identations
+#+BEGIN_SRC emacs-lisp
+  (setq-default css-indent-offset 2)
 #+END_SRC
 
 * Magit

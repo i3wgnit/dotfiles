@@ -30,7 +30,7 @@ get_label() {
 
 parse_speed() {
     # Change "do-while loop" to "while loop" if you want bytes
-    local SPEED=$(grep "$1")
+    local SPEED=$(cat -)
     local LOG=0
     while : ; do
         LOG=$(( LOG + 1 ))
