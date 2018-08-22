@@ -26,5 +26,5 @@ get_status() {
 
 echo "<span font='9'>$(get_status)</span>  $CAPACITY% $TIME"
 echo "<span font='9'>$(get_status)</span>  $CAPACITY%"
-[[ "$STATUS" = 'Full' ]] &&
+([[ $CAPACITY -ge 98  ]] && [[ "$STATUS" = 'Charging' ]] || [[ "$STATUS" = 'Full' ]]) &&
     echo '#00ff00' || exit 0
