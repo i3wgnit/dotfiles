@@ -13,20 +13,23 @@
 
 # == PS1 ==
 case ${USER} in
-    waigni) _get_PS1() { echo -n '\[\e[0;97m\]w\[\e[38;5;250m\]a\[\e[38;5;245m\]i\[\e[38;5;81m\]g\[\e[38;5;45m\]n\[\e[38;5;39m\]i \[\e[1;97m\]\W \[\e[m\e(B\]' ; } ;;
+    waigni) _get_PS1() { echo -n '\[\e[0;97m\]w\[\e[38;5;250m\]a\[\e[38;5;245m\]i\[\e[38;5;81m\]g\[\e[38;5;45m\]n\[\e[38;5;39m\]i\[\e[1;97m\] \W \[\e[m\e(B\]' ; } ;;
     root)   _get_PS1() { echo -n '\[\e[0;91m\][root] \[\e[1;97m\]\W \[\e[m\e(B\]' ; } ;;
     *)      _get_PS1() { echo -n '\u \[\e[1;97m\]\W \[\e[m\e(B\]' ; } ;;
 esac
 export PS1="$(_get_PS1)${RANGER_LEVEL:+[ranger] }${SSH_TTY:+(ssh) }"
 
 
+# == EXPORT ==
 #export PS1="[\u@\h \W]\$ ${RANGER_LEVEL:+[ranger] }${SSH_TTY:+(ssh) }"
 export EDITOR=vim
 export VISUAL=vim
-export TERMINAL=urxvt
+export TERMINAL=st
 export BROWSER=qutebrowser
 export MAN_DISABLE_SECCOMP=1
-export CM_SELECTIONS=(clipboard)
+
+# clipmenu
+export CM_SELECTIONS=clipboard
 export CM_LAUNCHER=rofi
 
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:${PATH}
@@ -41,6 +44,9 @@ alias ls='ls --color=auto'
 alias ll='ls -l'
 alias la='ls -al'
 
+# diff
+alias diff='diff --color=auto'
+
 # cd
 alias ..="cd .."
 alias ...="cd ../.."
@@ -48,6 +54,10 @@ alias ....="cd ../../.."
 # cd is probably faster ಠ_ಠ
 alias ~="cd ~"
 alias -- -="cd -"
+
+# c/c++
+alias gcc99="gcc -std=c99 -Wall"
+alias g++14="g++ -std=c++14 -Wall"
 
 # VIM
 alias v="vim"
@@ -99,3 +109,4 @@ function mm() {
 export NVM_DIR="$HOME/.nvm"
 # This loads nvm
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+

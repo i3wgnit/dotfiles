@@ -14,7 +14,7 @@ set $mod Mod4
 
 set $exec exec --no-startup-id
 
-set $term urxvt
+set $term st
 set $browser qutebrowser --enable-webengine-inspector
 
 set $clip $(xclip -selection c -o)
@@ -227,12 +227,15 @@ bindsym $mod+Shift+z    exec $term          -e neomutt
 bindsym $mod+g          exec $browser
 
 # Scratchpad
-$exec $term -geometry 123x48 -name "scratchpad/utils/top" -e gotop
-$exec $term -name "scratchpad/utils/R" -e R -q --no-save --no-restore
-$exec $term -name "scratchpad/utils/notes" -e vim $HOME/.notes.txt
-bindsym $mod+i          [instance="utils/top$"]    scratchpad show
-bindsym $mod+Shift+c    [instance="utils/R$"]      scratchpad show
-bindsym $mod+n          [instance="utils/notes$"]  scratchpad show
+# $exec $term -geometry 123x48 -name "scratchpad/utils/top" -e htop
+# $exec $term -name "scratchpad/utils/R" -e R -q --no-save --no-restore
+# $exec $term -name "scratchpad/utils/notes" -e vim $HOME/.notes.txt
+# bindsym $mod+i          [instance="utils/top$"]    scratchpad show
+# bindsym $mod+Shift+c    [instance="utils/R$"]      scratchpad show
+# bindsym $mod+n          [instance="utils/notes$"]  scratchpad show
+bindsym $mod+i          $exec $term -n "utils/top" -e htop
+bindsym $mod+Shift+c    $exec $term -n "utils/R" -e R -q --no-save --no-restore
+bindsym $mod+n          $exec $term -n "utils/notes" -e vim $HOME/.notes.txt
 
 for_window [instance="utils/"] floating enable
 for_window [instance="scratchpad/"] move scratchpad
@@ -262,8 +265,8 @@ bindsym $mod+Shift+p    resize grow     width   10 px or 10 ppt
 # brightness
 bindsym XF86MonBrightnessDown       $exec ~/.config/i3/backlight.sh slow down  10
 bindsym XF86MonBrightnessUp         $exec ~/.config/i3/backlight.sh slow up    10
-bindsym Shift+XF86MonBrightnessDown $exec ~/.config/i3/backlight.sh fast down  10
-bindsym Shift+XF86MonBrightnessUp   $exec ~/.config/i3/backlight.sh fast up    10
+bindsym Shift+XF86MonBrightnessDown $exec ~/.config/i3/backlight.sh fast down  5
+bindsym Shift+XF86MonBrightnessUp   $exec ~/.config/i3/backlight.sh fast up    5
 
 # backlight
 bindsym XF86KbdBrightnessDown   $exec sudo asus-kbd-backlight down

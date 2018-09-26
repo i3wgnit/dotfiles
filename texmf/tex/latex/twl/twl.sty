@@ -19,7 +19,9 @@
 
 \ProcessOptions\relax
 
+%%fakesection Packages
 \RequirePackage{ulem}
+\RequirePackage{booktabs}
 \RequirePackage{needspace}
 \RequirePackage{setspace}
 \RequirePackage{etoolbox}
@@ -27,7 +29,7 @@
 \RequirePackage{xfrac}
 %\RequirePackage{graphicx}
 %\RequirePackage{wrapfig}
-\PassOptionsToPackage{a4paper, margin=1.25in, tmargin=1in}{geometry}
+\PassOptionsToPackage{letterpaper, margin=1.25in, tmargin=1in}{geometry}
 \RequirePackage{geometry}
 \PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
 \RequirePackage{xcolor}
@@ -136,10 +138,10 @@
 	\theoremstyle{nonumberbplain}
 	\theoremheaderfont{\itshape}
 	\theorembodyfont{\normalfont}
-	\theoremseparator{:}
+	\theoremseparator{.}
 	\theoremprework{}
 	\theorempostwork{}
-	\theoremsymbol{\ensuremath{_\square}}
+	\theoremsymbol{\ensuremath{\square}}
 }
 
 \thmbluebox
@@ -228,8 +230,8 @@
 \renewcommand{\Re}{\operatorname{Re}}
 \renewcommand{\Im}{\operatorname{Im}}
 
-\newcommand{\liff}{\leftrightarrow}
-\newcommand{\lthen}{\rightarrow}
+\newcommand{\liff}{\mathbin \leftrightarrow}
+\newcommand{\lthen}{\mathbin \rightarrow}
 \newcommand{\ot}{\leftarrow}
 \newcommand{\surjto}{\twoheadrightarrow}
 \newcommand{\injto}{\hookrightarrow}
@@ -239,7 +241,7 @@
 \DeclareMathOperator{\Dom}{Dom} %domain
 \DeclareMathOperator{\Img}{Img} %image
 \DeclareMathOperator{\Ran}{Ran} %range
-\DeclareMathOperator{\vspan}{span} %rank
+\DeclareMathOperator{\vspan}{span} %span
 \DeclareMathOperator{\rk}{rk} %rank
 \DeclareMathOperator{\nul}{nul} %null
 \DeclareMathOperator{\rank}{rank} %rank
@@ -261,6 +263,7 @@
 
 		import olympiad;
 		import cse5;
+		import drawtree;
 
 		pointpen = black;
 		pathpen = black;
@@ -271,6 +274,7 @@
 		defaultpen(fontsize(10pt));
 
 		size(5cm);
+		treeLevelStep = 1cm;
 
 		usepackage("amsmath");
 		usepackage("amssymb");

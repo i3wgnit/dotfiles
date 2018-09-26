@@ -134,6 +134,37 @@
   ;;   (setq anzu-cons-mode-line-p nil))
 #+END_SRC
 
+** saveplace
+#+BEGIN_SRC emacs-lisp
+  (use-package saveplace
+    :config
+    (setq save-place-file "~/.emacs.d/saveplace")
+    (setq-default save-place t))
+#+END_SRC
+
+** fill-column-indicator
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package fill-column-indicator
+  ;;   :config
+  ;;   (setq-default fill-column 82)
+  ;;   :init
+  ;;   (define-globalized-minor-mode global-fci-mode fci-mode
+  ;;     (lambda () (fci-mode 1)))
+  ;;   (global-fci-mode 1))
+#+END_SRC
+
+** whitespace
+#+BEGIN_SRC emacs-lisp
+  (use-package whitespace
+    :init
+    (setq whitespace-style
+          '(face empty lines-tail trailing indentation)
+          whitespace-action
+          '(report-on-bogus))
+    :config
+    (global-whitespace-mode 1))
+#+END_SRC
+
 * Personal information
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Ting Wei Liu"
@@ -240,7 +271,7 @@
   (use-package dashboard
     :config
     (dashboard-setup-startup-hook)
-    (setq dashboard-items '((recents . 25))))
+    (setq dashboard-items '((recents . 50))))
 #+END_SRC
 
 *** Remove menus
@@ -277,11 +308,11 @@
   (use-package nlinum-relative
     :config
     ;;(nlinum-relative-setup-evil)
-    (setq-default twl/nlinum-exception-list '())
-    (define-global-minor-mode twl/global-nlinum-relative-mode nlinum-relative-mode
-      (lambda () (when (not (memq major-mode twl/nlinum-exception-list))
+    (setq-default nlinum-exception-list '())
+    (define-global-minor-mode global-nlinum-relative-mode nlinum-relative-mode
+      (lambda () (when (not (memq major-mode nlinum-exception-list))
               (nlinum-relative-mode 1))))
-    (twl/global-nlinum-relative-mode 1))
+    (global-nlinum-relative-mode 1))
 #+END_SRC
 
 *** Modeline
@@ -453,6 +484,8 @@
   (setq org-src-window-setup 'current-window)
   (add-hook 'org-mode-hook 'flyspell-mode)
   (setq org-html-postamble nil)
+  (org-babel-do-load-languages
+   'org-babel-load-languages '((C . t)))
 #+END_SRC
 
 *** org-bullets
@@ -586,6 +619,18 @@
   (setq-default css-indent-offset 2)
 #+END_SRC
 
+** Scala-mode
+#+BEGIN_SRC emacs-lisp
+  (use-package scala-mode
+    :interpreter
+    ("scala" . scala-mode))
+#+END_SRC
+
+** DocView-mode
+#+BEGIN_SRC emacs-lisp
+  (setq doc-view-continuous t)
+#+END_SRC
+
 * Magit
 #+BEGIN_SRC emacs-lisp
   (use-package magit
@@ -597,6 +642,6 @@
     (setq git-commit-summary-max-length 50)
     (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
     (add-hook 'with-editor-mode-hook 'evil-insert-state)
-    (add-to-list 'twl/nlinum-exception-list 'magit-status-mode)
-    (add-to-list 'twl/nlinum-exception-list 'magit-diff-mode))
+    (add-to-list 'nlinum-exception-list 'magit-status-mode)
+    (add-to-list 'nlinum-exception-list 'magit-diff-mode))
 #+END_SRC

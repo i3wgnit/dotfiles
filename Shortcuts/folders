@@ -9,12 +9,22 @@ s           ~/.config/Shortcuts
 r           /
 S           ~/Documents/school
 N           ~/Nextcloud
+
 uw          ~/Documents/school/uwat
 uwcs145     ~/Documents/school/uwat/1a/cs145
 uwm145      ~/Documents/school/uwat/1a/math145
 uwm138      ~/Documents/school/uwat/1a/math138
-uwm146      ~/Documents/school/uwat/1b/math146
+uwp121      ~/Documents/school/uwat/1a/phys121
+
 uwcs146     ~/Documents/school/uwat/1b/cs146
+uwm146      ~/Documents/school/uwat/1b/math146
 uws230      ~/Documents/school/uwat/1b/stat230
 uwp122      ~/Documents/school/uwat/1b/phys122
+
+uwcs245     ~/Documents/school/uwat/2a/cs245
+uwcs246e    ~/Documents/school/uwat/2a/cs246e
+uwcs241e    ~/Documents/school/uwat/2a/cs241e
+uwm245      ~/Documents/school/uwat/2a/math245
+uws240      ~/Documents/school/uwat/2a/stat240
+uwm249      ~/Documents/school/uwat/2a/math249
 
