@@ -363,7 +363,7 @@ $exec rescuetime
 $exec clipmenud
 $exec dunst
 $exec redshift-gtk
-$exec nm-applet
+# $exec nm-applet
 # $exec compton -b
 # $exec keepass
 # $exec nextcloud

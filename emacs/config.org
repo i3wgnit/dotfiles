@@ -551,8 +551,7 @@
 #+BEGIN_SRC emacs-lisp
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
   (setq LaTeX-math-list
-        '(("ve" "varepsilon")
-          ("vo" "varnothing")))
+        '(("v0" "varnothing")))
 #+END_SRC
 
 *** config
