@@ -24,7 +24,10 @@ get_status() {
     esac
 }
 
+[[ $CAPACITY -ge 98  ]] && [[ "$STATUS" = 'Charging' ]] &&
+    STATUS='Full'
+
 echo "<span font='9'>$(get_status)</span>  $CAPACITY% $TIME"
 echo "<span font='9'>$(get_status)</span>  $CAPACITY%"
-([[ $CAPACITY -ge 98  ]] && [[ "$STATUS" = 'Charging' ]] || [[ "$STATUS" = 'Full' ]]) &&
+[[ "$STATUS" = 'Full' ]] &&
     echo '#00ff00' || exit 0

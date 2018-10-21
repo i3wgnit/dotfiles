@@ -3,5 +3,5 @@
 echo -ne "<span font='11'>\ue151</span>  "
 case ${BLOCK_BUTTON} in
     1) date '+%A %B %d %Y %H:%M:%S' ;;
-    *) date '+%H:%M' ;;
+    *) date '+%b %d %H:%M' ;;
 esac
