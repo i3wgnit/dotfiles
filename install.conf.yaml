@@ -11,7 +11,7 @@
 - link:
     ~/.dotfiles: ''
     # Shortcuts
-    ~/.config/Shortcuts:                      Shortcuts/
+    ~/.config/Shortcuts:
 
     # ===
     # Shells
@@ -40,11 +40,11 @@
     # ===
 
     # vim
-    ~/.vim:                                 vim/vim/
+    ~/.vim:                                 vim/vim
     ~/.vimrc:                               vim/vimrc
     ~/.gvimrc:                              vim/gvimrc
     # emacs
-    ~/.emacs.d:                             emacs/
+    ~/.emacs.d:                             emacs
     # ~/.emacs.d/init.el:                     emacs/init.el
     # ~/.emacs.d/config.org:                  emacs/config.org
     # ~/.emacs.d/auctex:                      emacs/auctex/
@@ -55,8 +55,8 @@
     # ===
 
     # i3
-    ~/.config/i3:                           i3/
-    ~/.config/i3blocks:                     i3blocks/
+    ~/.config/i3:
+    ~/.config/i3blocks:
 
     # # polybar
     # ~/.config/polybar/config:               polybar/config
@@ -64,7 +64,7 @@
     # ~/.config/polybar/launch.sh:            polybar/launch.sh
 
     # ranger
-    ~/.config/ranger:                       ranger/
+    ~/.config/ranger:
     # ~/.config/ranger/rc.conf:               ranger/rc.conf
     # ~/.config/ranger/rc.conf.shotcuts:      ranger/rc.conf.shortcuts
     # ~/.config/ranger/rifle.conf:            ranger/rifle.conf
@@ -72,7 +72,7 @@
     # ~/.config/ranger/plugins:               ranger/plugins
 
     # qutebrowser
-    ~/.config/qutebrowser:                  qutebrowser/
+    ~/.config/qutebrowser:
     # ~/.config/qutebrowser/config.py:        qutebrowser/config.py
     # ~/.config/qutebrowser/autoconfig.yml:   qutebrowser/autoconfig.yml
     # ~/.config/qutebrowser/quickmarks:       qutebrowser/quickmarks
@@ -85,6 +85,8 @@
     ~/.config/mpv/mpv.conf:                 mpv/mpv.conf
     ~/.config/mpv/input.conf:               mpv/input.conf
     ~/.config/mpv/scripts:                  mpv/scripts
+    # asymptote
+    ~/.asy:
     # latex
     ~/texmf/tex/latex:                      texmf/tex/latex
     # dunst
