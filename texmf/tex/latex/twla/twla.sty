@@ -34,6 +34,7 @@
 \PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
 \RequirePackage{xcolor}
 \RequirePackage{siunitx}
+\RequirePackage{physics}
 
 
 %%fakesection Theorems
@@ -128,8 +129,8 @@
 \thmproof
 \newtheorem{solution}{Solution}
 
-\theoremsymbol{\ensuremath{_\blacksquare}}
-\newtheorem{subproof}{Proof}
+%\theoremsymbol{\ensuremath{_\blacksquare}}
+%\newtheorem{subproof}{Proof}
 
 \theoremstyle{plain}
 
@@ -137,8 +138,8 @@
 \newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
-\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
-\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+%\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+%\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
 \newcommand{\ii}{\item}
 \newcommand{\dg}{^\circ}
 \newcommand{\st}{^{\text{st}}}
@@ -154,7 +155,7 @@
 \newcommand{\FF}{\mathbb F} %Field
 
 
-\DeclareMathOperator{\arcsec}{arcsec} %arcsec
+%\DeclareMathOperator{\arcsec}{arcsec} %arcsec
 \DeclareMathOperator*{\lcm}{lcm} %lcm
 
 
@@ -174,8 +175,8 @@
 \DeclareMathOperator{\vspan}{span} %rank
 \DeclareMathOperator{\rk}{rk} %rank
 \DeclareMathOperator{\nul}{nul} %null
-\DeclareMathOperator{\rank}{rank} %rank
-\DeclareMathOperator{\tr}{tr}
+%\DeclareMathOperator{\rank}{rank} %rank
+%\DeclareMathOperator{\tr}{tr}
 %\DeclareMathOperator{\null}{null} %null
 %\DeclareMathOperator{\ker}{ker} %kernel
 
@@ -246,6 +247,13 @@
 \newcommand{\subproblem}{%
 \stepcounter{probll}{\noindent\textbf{\theprobll}}%
 \addcontentsline{toc}{subsection}{\theprobll}}
+
+\newcounter{problll}[probll]
+\renewcommand*{\theproblll}{\roman{problll}.\quad}
+
+\newcommand{\subsubproblem}{%
+\stepcounter{problll}{\noindent\textbf{\theproblll}}%
+\addcontentsline{toc}{subsubsection}{\theproblll}}
 
 %\newcounter{probll}
 %\renewcommand{\theprobll}{\alph{probll})}
