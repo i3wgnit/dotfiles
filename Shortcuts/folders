@@ -1,7 +1,7 @@
 h           ~
-.           ~/.dotfiles
+dot         ~/.dotfiles
 c           ~/.config
-d           ~/Documents
+doc         ~/Documents
 D           ~/Downloads
 p           ~/Pictures
 b           ~/Books
