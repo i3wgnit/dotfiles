@@ -6,4 +6,5 @@ ido.last
 init2.el
 recentf
 smex-items
+*.elc
 

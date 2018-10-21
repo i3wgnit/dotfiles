@@ -1,248 +1,128 @@
-#+TITLE: Emacs Configuration
+#+TITLE: Emacs configuration
+#+AUTHOR: Ting Wei Liu
 #+CREATOR: twl
 #+OPTIONS: toc:4
 
-* Packages
-** sensible-default.el
+* Head
+** Packages
+
+Adding a few extra repos,
+because GNU is not enough.
+
 #+BEGIN_SRC emacs-lisp
-  (load-file "~/.emacs.d/packages/sensible-defaults.el/sensible-defaults.el")
-  (sensible-defaults/use-all-settings)
-  (sensible-defaults/use-all-keybindings)
-  (sensible-defaults/backup-to-temp-directory)
+  (require 'package)
+  (setq package-enable-at-startup nil)
+  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+  ;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+  (package-initialize)
 #+END_SRC
 
-** use-package
+Function to install packages
+
 #+BEGIN_SRC emacs-lisp
-  (unless (package-installed-p 'use-package)
-    (package-refresh-contents)
-    (package-install 'use-package))
+  (defun twl/install-package (pkg)
+    (unless (package-installed-p pkg)
+      (package-refresh-contents)
+      (package-install pkg)))
+#+END_SRC
 
-  (setq use-pacakge-verbose t)
-  (setq use-package-always-ensure t)
+*** use-package
 
+I tried writing my configs without use-package once
+and it was a bit painful.
+
+#+BEGIN_SRC emacs-lisp
+  (twl/install-package 'general)
+  (twl/install-package 'diminish)
+  (twl/install-package 'use-package)
+  (setq use-package-verbose t
+        use-package-always-ensure t)
   (eval-when-compile
     (require 'use-package))
+  (require 'general)
+  (require 'diminish)
 #+END_SRC
 
-*** auto-compile
+** quality of life
+
 #+BEGIN_SRC emacs-lisp
-  (use-package auto-compile
-    :init
-    (setq load-prefer-newer t)
-    :config
-    (auto-compile-on-load-mode))
+  (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
-** hungry-delete
+** custom file
+
 #+BEGIN_SRC emacs-lisp
-  (use-package hungry-delete
-    :config
-    (global-hungry-delete-mode))
+  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+  (load custom-file :noerror)
 #+END_SRC
 
-** which-key
+** Security Vulnerability
+
 #+BEGIN_SRC emacs-lisp
-  (use-package which-key
-    :config
-    (which-key-mode))
+  (eval-after-load "enriched"
+    '(defun enriched-decode-display-prop (start end &optional param)
+      (list start end)))
 #+END_SRC
 
-** rainbow-delimiters
+* Custom functions
+** Configs
+
+To quickly visit config file
 #+BEGIN_SRC emacs-lisp
-  (use-package rainbow-delimiters)
+  (defun twl/config-visit ()
+    "Visit ~/.emacs.d/config.org"
+    (interactive)
+    (find-file "~/.emacs.d/config.org"))
+  (global-set-key (kbd "C-c e") 'twl/config-visit)
 #+END_SRC
 
-** beacon
+To reload config.org
 #+BEGIN_SRC emacs-lisp
-  (use-package beacon
-    :config
-    (beacon-mode 1))
+  (defun twl/config-reload ()
+    "Reloads ~/.emacs.d/config.org at runtime."
+    (interactive)
+    (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+  (global-set-key (kbd "C-c r") 'twl/config-reload)
 #+END_SRC
 
-** avy
+Compile init folder
 #+BEGIN_SRC emacs-lisp
-  (use-package avy
-    :init
-    (setq avy-all-windows t)
-    :bind
-    ("M-s" . avy-goto-char))
+  (defun twl/byte-compile-init-dit ()
+    "Byte-compile all your settings."
+    (interactive)
+    (byte-recompile-directory user-emacs-directory 0))
 #+END_SRC
 
-** paraedit
+** Misc
+
+To open a scratch buffer
 #+BEGIN_SRC emacs-lisp
-  (use-package paredit)
+  (defun twl/scratch-buffer ()
+    "Switch to a scratch buffer"
+    (interactive)
+    (let ((buf (get-buffer "*scratch*")))
+      (if buf (switch-to-buffer buf)
+        (switch-to-buffer (get-buffer-create "*scratch*"))
+        (lisp-interaction-mode))))
+  (global-set-key (kbd "C-c b") 'twl/scratch-buffer)
 #+END_SRC
 
-** counsel
+Remove annoying scratch buffer message
 #+BEGIN_SRC emacs-lisp
-  (use-package counsel)
+  (setq initial-scratch-message "")
 #+END_SRC
 
-*** ivy
-#+BEGIN_SRC emacs-lisp
-  (use-package ivy :demand
-    :config
-    (setq ivy-use-virtual-buffers t
-          ivy-count-format "%d/%d "
-          ivy-re-builders-alist
-          '((swiper . ivy--regex-plus)
-            (t . ivy--regex-fuzzy)))
-    (ivy-mode 1))
-  (use-package flyspell-correct-ivy)
-#+END_SRC
-
-** flycheck
-#+BEGIN_SRC emacs-lisp
-  (use-package flycheck
-    :config
-    (global-flycheck-mode))
-#+END_SRC
-
-** fzf
-#+BEGIN_SRC emacs-lisp
-  (use-package fzf)
-#+END_SRC
-
-** golden-ratio
-#+BEGIN_SRC emacs-lisp
-  (use-package golden-ratio
-    :config
-    (golden-ratio-mode 1)
-    (setq golden-ratio-extra-commands
-          (append golden-ratio-extra-commands
-                  '(evil-window-left
-                    evil-window-right
-                    evil-window-up
-                    evil-window-down
-                    select-window-1
-                    select-window-2
-                    select-window-3
-                    select-window-4
-                    select-window-5))))
-#+END_SRC
-
-** flx
-#+BEGIN_SRC emacs-lisp
-  (use-package flx)
-#+END_SRC
-
-** anzu
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package anzu
-  ;;   :config
-  ;;   (global-anzu-mode 1)
-  ;;   (setq anzu-cons-mode-line-p nil))
-#+END_SRC
-
-** saveplace
-#+BEGIN_SRC emacs-lisp
-  (use-package saveplace
-    :config
-    (setq save-place-file "~/.emacs.d/saveplace")
-    (setq-default save-place t))
-#+END_SRC
-
-** fill-column-indicator
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package fill-column-indicator
-  ;;   :config
-  ;;   (setq-default fill-column 82)
-  ;;   :init
-  ;;   (define-globalized-minor-mode global-fci-mode fci-mode
-  ;;     (lambda () (fci-mode 1)))
-  ;;   (global-fci-mode 1))
-#+END_SRC
-
-** whitespace
-#+BEGIN_SRC emacs-lisp
-  (use-package whitespace
-    :init
-    (setq whitespace-style
-          '(face empty lines-tail trailing indentation)
-          whitespace-action
-          '(report-on-bogus))
-    :config
-    (global-whitespace-mode 1))
-#+END_SRC
-
-* Personal information
-#+BEGIN_SRC emacs-lisp
-  (setq user-full-name "Ting Wei Liu"
-        user-mail-address "i3wgnit@gmail.com")
-#+END_SRC
-
-* evil-mode
-** config
-#+BEGIN_SRC emacs-lisp
-  (defun twl/evil-init ()
-    (setq evil-want-integration nil)
-    (setq evil-search-module 'evil-search)
-    (setq evil-ex-complete-emacs-commands nil)
-    (setq evil-vsplit-window-right t)
-    (setq evil-split-window-below t)
-    (setq evil-shift-round nil))
-
-  (defun twl/evil-config ()
-    (global-set-key (kbd "C-j") 'evil-scroll-down)
-    (global-set-key (kbd "C-k") 'evil-scroll-up))
-#+END_SRC
-
-** evil-leader
-#+BEGIN_SRC emacs-lisp
-  (defun twl/evil-leader-config ()
-    (evil-leader/set-leader ",")
-    (evil-leader/set-key
-      "/" 'swiper
-      "e" 'counsel-find-file
-      "w" 'save-buffer
-      "q" 'twl/kill-cur-buffer
-      "h" 'dired-jump
-      "b" 'ibuffer
-      "x" 'counsel-M-x
-      "s" 'avy-goto-word-0
-      "z" 'flyspell-correct-previous-word-generic))
-#+END_SRC
-
-** Load packages
-#+BEGIN_SRC emacs-lisp
-  (use-package evil
-    :init
-    (twl/evil-init)
-
-    (use-package evil-leader
-      :config
-      (global-evil-leader-mode 1)
-      (twl/evil-leader-config))
-
-    (use-package evil-surround
-      :config
-      (global-evil-surround-mode 1))
-
-    (use-package evil-indent-textobject)
-
-    :config
-    (evil-mode 1)
-    (twl/evil-config))
-#+END_SRC
-
-** evil-collection
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-collection
-    :after evil
-    :custom
-    (evil-collection-setup-minibuffer t)
-    :config
-    (evil-collection-init))
-#+END_SRC
-
-* General
-** Utility functions
+To kill current buffer
 #+BEGIN_SRC emacs-lisp
   (defun twl/kill-cur-buffer ()
     "Kill the current buffer without prompt"
     (interactive)
     (kill-buffer (current-buffer)))
+#+END_SRC
 
+To rename the current file
+#+BEGIN_SRC emacs-lisp
   (defun twl/rename-file (new-name)
     (interactive "FNew name: ")
     (let ((filename (buffer-file-name)))
@@ -255,392 +135,531 @@
             (find-file new-name)
             (message "Renamed '%s' -> '%s'" filename new-name))
         (message "Buffer '%s' isn't backed by a file!" (buffer-name)))))
+#+END_SRC
 
-  (defun twl/config-visit ()
+"I have always wanted a function like this" - Me, 2018
+#+BEGIN_SRC emacs-lisp
+  (defun twl/insert-date ()
+    "Function to insert date into buffer"
     (interactive)
-    (find-file "~/.emacs.d/config.org"))
-
-  (defun twl/config-reload ()
-    (interactive)
-    (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+    (insert (format-time-string
+              "%B %d, %Y" (current-time))))
 #+END_SRC
 
-** UI settings
-*** dashboard
+** Custom variables
+   
+Leader
 #+BEGIN_SRC emacs-lisp
-  (use-package dashboard
+(defvar *leader* ",")
+#+END_SRC
+* Core
+** Display
+*** Font
+
+#+BEGIN_SRC emacs-lisp
+  (set-frame-font "Iosevka Term-14")
+#+END_SRC
+
+*** Theme
+    
+Some advice
+
+#+BEGIN_SRC emacs-lisp
+(defadvice load-theme (before theme-dont-propagate activate)
+  "Disable all theme effects before enabling new ones"
+  (mapc #'disable-theme custom-enabled-themes))
+#+END_SRC
+
+I really like this theme
+
+#+BEGIN_SRC emacs-lisp
+  (use-package doom-themes
     :config
-    (dashboard-setup-startup-hook)
-    (setq dashboard-items '((recents . 50))))
-#+END_SRC
-
-*** Remove menus
-#+BEGIN_SRC emacs-lisp
-  (tool-bar-mode 0)
-  (menu-bar-mode 0)
-  (when window-system
-    (scroll-bar-mode 0))
-#+END_SRC
-
-*** Pretty symbols
-#+BEGIN_SRC emacs-lisp
-  (global-prettify-symbols-mode t)
-  (use-package pretty-mode
-    :config
-    ;(global-pretty-mode t)
-    (pretty-deactivate-groups
-     '(:equality
-       :ordering :ordering-double :ordering-triple
-       :arrows :arrows-twoheaded
-       :punctuation))
-    (pretty-activate-groups
-     '(:sub-and-superscripts :greek :arithmetic-nary)))
-#+END_SRC
-
-*** Line number
-#+BEGIN_SRC emacs-lisp
-  (line-number-mode 1)
-  (column-number-mode 1)
-#+END_SRC
-
-**** nlinum-relative
-#+BEGIN_SRC emacs-lisp
-  (use-package nlinum-relative
-    :config
-    ;;(nlinum-relative-setup-evil)
-    (setq-default nlinum-exception-list '())
-    (define-global-minor-mode global-nlinum-relative-mode nlinum-relative-mode
-      (lambda () (when (not (memq major-mode nlinum-exception-list))
-              (nlinum-relative-mode 1))))
-    (global-nlinum-relative-mode 1))
+    (setq doom-themes-enable-bold t
+          doom-themes-enable-italic t)
+    (load-theme 'doom-vibrant t)
+    (doom-themes-org-config))
 #+END_SRC
 
 *** Modeline
-**** spaceline
+
+I really like spaceline
+
 #+BEGIN_SRC emacs-lisp
   (use-package spaceline
-    :init
-    (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
     :config
+    (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
     (require 'spaceline-config)
     (setq powerline-default-separator 'arrow)
     (spaceline-spacemacs-theme))
 #+END_SRC
 
-**** diminish-mode
+*** diminish
+    
 #+BEGIN_SRC emacs-lisp
-  (defmacro twl/diminish-minor-mode (filename mode &optional abbrev)
-    `(eval-after-load (symbol-name ,filename)
-       '(diminish ,mode ,abbrev)))
+(defmacro twl/diminish-minor-mode (filename mode &optional abbrev)
+  `(eval-after-load (symbol-name ,filename)
+     '(diminish ,mode ,abbrev)))
 
-  (defmacro twl/diminish-major-mode (mode-hook abbrev)
-    `(add-hook ,mode-hook
-               (lambda () (setq mode-name ,abbrev))))
+(defmacro twl/diminish-major-mode (mode-hook abbrev)
+  `(add-hook ,mode-hook
+             (lambda () (setq mode-name ,abbrev))))
 
-  (use-package diminish
-    :config
-    (twl/diminish-minor-mode 'hungry-delete 'hungry-delete-mode)
-    (twl/diminish-minor-mode 'which-key 'which-key-mode)
-    (twl/diminish-minor-mode 'undo-tree 'undo-tree-mode)
-    (twl/diminish-minor-mode 'flycheck 'flycheck-mode)
-    (twl/diminish-minor-mode 'flyspell 'flyspell-mode)
-    (twl/diminish-minor-mode 'beacon 'beacon-mode)
-    (twl/diminish-minor-mode 'paredit 'paredit-mode)
-    (twl/diminish-minor-mode 'subword 'subword-mode)
-    (twl/diminish-minor-mode 'ivy 'ivy-mode)
-    (twl/diminish-minor-mode 'golden-ratio 'golden-ratio-mode)
-    (twl/diminish-minor-mode 'company 'company-mode)
-
-    (twl/diminish-major-mode 'emacs-lisp-mode-hook "el")
-    (twl/diminish-major-mode 'haskell-mode-hook "λ=")
-    (twl/diminish-major-mode 'lisp-interaction-mode-hook "λ")
-    (twl/diminish-major-mode 'python-mode-hook "Py"))
+(twl/diminish-minor-mode 'undo-tree 'undo-tree-mode)
+(twl/diminish-minor-mode 'eldoc 'eldoc-mode)
 #+END_SRC
 
-**** which-function-mode
+** evil mode
+*** state-modes
+
 #+BEGIN_SRC emacs-lisp
-  (which-function-mode)
+(setq twl/evil-state-modes
+      '((evil-motion-state-modes 
+         recentf-dialog-mode)
+        (evil-emacs-state-modes
+         magit-popup-mode)))
 #+END_SRC
 
-*** Time
+*** evil
+
 #+BEGIN_SRC emacs-lisp
-  (setq display-time-24hr-format t)
-  (display-time-mode 1)
+(use-package evil
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  :config
+  (setq evil-emacs-state-modes nil
+        evil-search-module 'evil-search
+        evil-vsplit-window-right t
+        evil-split-window-below t)
+  (dolist (_s twl/evil-state-modes)
+    (dolist (_m (cdr _s))
+      (add-to-list (car _s) _m)))
+  (evil-mode 1))
 #+END_SRC
 
-** Quality of life
-*** Disable visual bell #+BEGIN_SRC emacs-lisp (setq ring-bell-function 'ignore) #+END_SRC
-*** Show invisible char
+*** evil collection
+
 #+BEGIN_SRC emacs-lisp
-  ;;(setq-default show-trailing-whitespace t)
-  ;;(global-whitespace-mode 1)
+(use-package evil-collection
+  :after evil
+  :config
+  (setq evil-collection-setup-minibuffer t)
+  (evil-collection-init))
 #+END_SRC
 
-*** Fix scrolling
+*** Keybinds
+
 #+BEGIN_SRC emacs-lisp
-  (setq
-   redisplay-dont-pause t
-   scroll-margin 3
-   scroll-step 1
-   scroll-conservatively 100000
-   scroll-preserve-screen-position 1
-   ;;fast-but-imprecise-scrolling nil
-   ;;jit-lock-defer-time 0
-   )
+(general-define-key
+ :states 'motion
+ :keymaps 'override
+ :prefix *leader*
+ "w" 'save-buffer
+ "q" 'twl/kill-cur-buffer
+ "e" 'find-file
+ "b" 'ibuffer
+ "h" 'dired-jump
+ "x" 'execute-extended-command
+ "r" 'revert-buffer
+ "j" 'recentf-open-files)
 #+END_SRC
 
-*** Better buffers
+*** plug-ins
+
+evil-surround is the one package I always use.
+At this point, I just cannot live without this.
+
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-x C-b") 'ibuffer)
+(use-package evil-surround
+  :after evil
+  :config
+  (global-evil-surround-mode 1))
 #+END_SRC
 
-*** Electric-indent
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'electric-indent-chars ?\))
-  (add-to-list 'electric-indent-chars ?\])
-  (add-to-list 'electric-indent-chars ?\})
+I always had this package installed,
+however I have yet to use it.
 
-  (electric-indent-mode 1)
+#+BEGIN_SRC emacs-lisp
+(use-package evil-indent-textobject
+  :after evil)
 #+END_SRC
 
-*** No tabs on my lawn
+** Completion
+*** ivy
+
 #+BEGIN_SRC emacs-lisp
-  (setq-default indent-tabs-mode nil)
-  (setq-default tab-width 4)
+(use-package ivy
+  :after flx
+  :defer nil
+  :diminish ivy-mode
+  :general
+  (:states 'motion :prefix *leader*
+           "/" 'swiper)
+  :config
+  (setq ivy-use-virtual-buffers t
+        ivy-count-format "%d/%d "
+        ivy-use-selectable-prompt t
+        ivy-re-builders-alist
+        '((swiper . ivy--regex-plus)
+          (t . ivy--regex-fuzzy)))
+  (ivy-mode 1))
 #+END_SRC
 
-*** Use unicode
+*** counsel
+    
 #+BEGIN_SRC emacs-lisp
-  (prefer-coding-system 'utf-8)
+(use-package counsel
+  :after ivy
+  :diminish counsel-mode
+  :config
+  (counsel-mode 1))
 #+END_SRC
 
-** Quick shortcuts
-*** Open config
+* Better defaults
+** Settings
+*** UTF-8
+
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c e") 'twl/config-visit)
+  (set-language-environment "UTF-8")
+  (set-default-coding-systems 'utf-8-unix)
 #+END_SRC
 
-*** Reload config
+*** Backup
+
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c r") 'twl/config-reload)
+(setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+  version-control t
+  backup-by-copying t
+  delete-old-versions t
+  save-place-file "~/.emacs.d/saveplace")
 #+END_SRC
 
-* Emacs auto-completion
-** company
+*** Scrolling
+
 #+BEGIN_SRC emacs-lisp
-  (use-package company
-    :config
-    (add-hook 'after-init-hook 'global-company-mode))
+  (setq scroll-margin 3
+        scroll-conservatively 10000
+        scroll-preserve-screen-position t)
 #+END_SRC
 
-** ido
+*** Lines and spacing
+
 #+BEGIN_SRC emacs-lisp
-  ;; (setq ido-enable-flex-matching t)
-  ;; (setq ido-create-new-buffer 'always)
-  ;; (setq ido-everywhere t)
-  ;; (ido-mode 1)
-  ;; (global-set-key (kbd "C-x l") 'twl/kill-cur-buffer)
+  (setq tab-always-indent 'complete)
+  (setq-default indicate-empty-lines t
+                indent-tabs-mode nil
+                tab-width 4
+                display-line-numbers 'relative)
 #+END_SRC
 
-*** ido-vertical
+*** Misc
+
 #+BEGIN_SRC emacs-lisp
-  ;; (use-package ido-vertical-mode
-  ;;   :config
-  ;;   (ido-vertical-mode 1))
+(setq ring-bell-function 'ignore
+        help-window-select t
+        load-prefer-newer t
+        echo-keystrokes 0.1
+        show-paren-delay 0
+        show-paren-style 'mixed
+        prettify-symbols-unprettify-at-point 'right-edge
+        display-time-24hr-format t)
 #+END_SRC
 
-*** flx-ido
+*** Disabled functions
+
 #+BEGIN_SRC emacs-lisp
-  ;; (use-package flx-ido
-  ;;   :config
-  ;;   (flx-ido-mode 1)
-  ;;   (setq ido-use-faces nil))
+  (put 'set-goal-column 'disabled nil)
 #+END_SRC
 
-** smex
+** Builtin packages
+*** Builtin modes
+
 #+BEGIN_SRC emacs-lisp
-  ;; (use-package smex
-  ;;   :config
-  ;;   (smex-initialize)
-  ;;   :bind
-  ;;   ("M-x" . smex))
+(setq twl/builtin-packages
+  '((menu-bar-mode . nil)
+    (tool-bar-mode . nil)
+    (scroll-bar-mode . nil)
+    (horizontal-scroll-bar-mode . nil)
+    (blink-cursor-mode . nil)
+    (electric-pair-mode . t)
+    (show-paren-mode . t)
+    (recentf-mode . t)
+    (save-place-mode . t)
+    (global-prettify-symbols-mode . t)
+    (display-time-mode . t)))
+(dolist (_bp twl/builtin-packages)
+  (let ((mode (car _bp)))
+   (if (cdr _bp)
+    (add-hook 'after-init-hook mode)
+    (when (fboundp mode)
+      (funcall mode -1)))))
+#+END_SRC
+
+*** recentf
+
+#+BEGIN_SRC emacs-lisp
+  (setq recentf-max-saved-items 500
+        recentf-max-menu-items 50
+        recentf-auto-cleanup 'never)
+  (recentf-mode 1)
+#+END_SRC
+
+*** tramp
+
+#+BEGIN_SRC emacs-lisp
+  (setq tramp-default-method "ssh"
+        tramp-backup-directory-alist backup-directory-alist)
+#+END_SRC
+
+*** uniquify
+
+#+BEGIN_SRC emacs-lisp
+(setq uniquify-buffer-name-style 'reverse)
+#+END_SRC
+
+*** dired
+
+#+BEGIN_SRC emacs-lisp
+(setq dired-recursive-copies 'always
+      dired-recursive-deletes 'always
+      dired-dwim-target t)
+#+END_SRC
+
+*** flyspell
+
+#+BEGIN_SRC emacs-lisp
+(use-package flyspell
+  :diminish
+  :hook
+  ((prog-mode . flyspell-prog-mode)
+   (text-mode . flyspell-mode))
+  :config
+  (setq ispell-program-name "/usr/bin/aspell"
+        ispell-extra-args '("--sug-mode=ultra"))
+  (ispell-change-dictionary "en_CA"))
+#+END_SRC
+
+* Packages
+** flyspell-correct
+
+I never remember to use this, but this is actually quite nice.
+#+BEGIN_SRC emacs-lisp
+(use-package flyspell-correct
+  :after ivy
+  :general
+  (:states 'normal :prefix *leader*
+           "z" 'flyspell-correct-at-point)
+  :config
+  (require 'flyspell-correct-ivy))
+#+END_SRC
+
+** avy
+
+This allows for jumping to whichever word on the screen I want.
+I do not actively use this, but this seems very efficient.
+#+BEGIN_SRC emacs-lisp
+(use-package avy
+  :general
+  (:states 'motion :prefix *leader*
+           "s" 'avy-goto-word-0)
+  :config
+  (setq avy-all-windows t))
+#+END_SRC
+
+** flx
+
+Better fuzzy find for =ivy=.
+Otherwise, it looks very rainbow-ish and unbearable.
+#+BEGIN_SRC emacs-lisp
+(use-package flx)
+#+END_SRC
+
+** magit
+
+#+BEGIN_SRC emacs-lisp
+(use-package magit
+  :general
+  (:states 'motion :prefix *leader*
+           "g" 'magit-status)
+  :config
+  (setq magit-push-always-verify nil
+        git-commit-summary-max-length 50))
+#+END_SRC
+
+evil-mode is the best thing in the world.
+#+BEGIN_SRC emacs-lisp
+(use-package evil-magit
+  :after (evil magit))
+#+END_SRC
+
+* Minor modes
+** flycheck
+
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :diminish flycheck-mode
+  :hook (prog-mode . flycheck-mode))
+#+END_SRC
+
+** which-key
+
+#+BEGIN_SRC emacs-lisp
+(use-package which-key
+  :diminish which-key-mode
+  :defer 1
+  :config
+  (which-key-mode))
+#+END_SRC
+
+** rainbow-delimiters
+
+#+BEGIN_SRC emacs-lisp
+(use-package rainbow-delimiters
+  :commands rainbow-delimiters-mode)
+#+END_SRC
+
+** golden-ratio
+
+#+BEGIN_SRC emacs-lisp
+(use-package golden-ratio
+  :diminish golden-ratio-mode
+  :config
+  (setq golden-ratio-extra-commands
+        (append golden-ratio-extra-commands
+                '(evil-window-left
+                  evil-window-right
+                  evil-window-up
+                  evil-window-down
+                  select-window-1
+                  select-window-2
+                  select-window-3
+                  select-window-4
+                  select-window-5)))
+  (golden-ratio-mode 1))
 #+END_SRC
 
 * Major modes
-** Text-mode
-*** config
+** text mode
+   
+#+BeGIN_SRC emacs-lisp
+(add-hook 'text-mode #'flyspell-mode)
+#+EnD_SRC
+
+** prog mode
+   
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'prog-mode
+          (lambda ()
+            (flyspell-prog-mode 1)
+            (flycheck-mode 1)))
 #+END_SRC
 
-** Org-mode
-*** config
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'org-structure-template-alist
-               '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+** org mode
+*** better defaults
 
-  (setq org-src-fontify-natively t)
-  (setq org-src-tab-acts-natively t)
-  (setq org-src-window-setup 'current-window)
-  (add-hook 'org-mode-hook 'flyspell-mode)
-  (setq org-html-postamble nil)
-  (org-babel-do-load-languages
-   'org-babel-load-languages '((C . t)))
+#+BEGIN_SRC emacs-lisp
+(setq-default org-confirm-babel-evaluate nil)
+(setq org-edit-src-content-indentation 0
+      org-src-tab-acts-natively t
+      org-src-fontify-natively t
+      org-enforce-todo-dependencies t
+      org-return-follows-link t
+      org-confirm-elisp-link-function nil
+      org-log-done t)
 #+END_SRC
 
-*** org-bullets
+*** org agenda
+
 #+BEGIN_SRC emacs-lisp
-  (use-package org-bullets
-    :config
-    (add-hook 'org-mode-hook #'org-bullets-mode))
+(setq org-agenda-files '("~/org")
+      org-todo-keywords '((sequence "TODO" "IN_PROGRESS" "DONE"))
+      org-todo-keyword-faces '(("IN_PROGRESS" . "#FF9900")))
 #+END_SRC
 
-*** ox
+*** ox-twbs
+
 #+BEGIN_SRC emacs-lisp
-  (use-package ox-twbs)
+(use-package ox-twbs
+  :after org)
+(use-package htmlize)
 #+END_SRC
-
-*** htmlize
+** Lispy modes
+   
 #+BEGIN_SRC emacs-lisp
-  (use-package htmlize)
+(setq twl/lispy-mode-hooks
+      '(emacs-lisp-mode-hook
+        lisp-mode-hook
+        scheme-mode-hook
+        racket-mode-hook))
+
+(dolist (_h twl/lispy-mode-hooks)
+  (add-hook _h (lambda ()
+                 (rainbow-delimiters-mode))))
 #+END_SRC
+** LaTeX mode
 
-** Lisps
 #+BEGIN_SRC emacs-lisp
-  (setq lispy-mode-hooks
-        '(emacs-lisp-mode-hook
-          lisp-mode-hook
-          scheme-mode-hook
-          racket-mode-hook))
-
-  (dolist (hook lispy-mode-hooks)
-    (add-hook hook (lambda ()
-                     (setq show-paren-style 'expression)
-                     (paredit-mode)
-                     (rainbow-delimiters-mode))))
-#+END_SRC
-
-** LaTeX-mode
-*** AucTeX
-#+BEGIN_SRC emacs-lisp
-  (use-package auctex
-    :defer t)
-#+END_SRC
-
-*** RefTeX
-#+BEGIN_SRC emacs-lisp
+(use-package auctex
+  :defer t
+  :init
   (setq reftex-plug-intoAUCTeX t)
-  (defun twl/turn-on-reftex ()
-    (interactive)
-    (reftex-mode))
-  (add-hook 'LaTeX-mode-hook 'twl/turn-on-reftex)
+  (setq TeX-electric-escape nil
+        TeX-insert-braces nil
+        TeX-parse-self t))
 #+END_SRC
 
 *** LatexMK
+
+This is bad, as it somehow removes the prettify-symbols
 #+BEGIN_SRC emacs-lisp
-  (use-package auctex-latexmk
-    :config
-    (auctex-latexmk-setup)
-    (add-hook 'TeX-mode-hook (lambda () (setq TeX-command-default "LatexMK")))
-    (add-hook 'LaTeX-mode-hook (lambda () (setq TeX-command-default "LatexMK")))
-    (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
-    (setq TeX-source-correlate-start-server t))
+;(use-package auctex-latexmk
+;  :config
+;  (auctex-latexmk-setup))
 #+END_SRC
 
-*** Math mode
+So I made my own? jk I copied that =^^=
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-  (setq LaTeX-math-list
-        '(("v0" "varnothing")))
+(defun twl/latexmk-setup ()
+  (add-to-list 'TeX-expand-list
+               '("%(-PDF)" 
+                 (lambda ()
+                   (concat (if TeX-PDF-mode "-pdf " "")
+                           (cond
+                            ((eq TeX-engine 'default) "")
+                            ((eq TeX-engine 'xetex)
+                             (concat (if TeX-PDF-mode "-pdflatex=" "-") "xelatex "))
+                            ((eq TeX-engine 'lualatex) "-lualatex ")
+                            (t ""))))))
+  (add-to-list 'TeX-command-list
+               '("LatexMK" "latexmk %(-PDF)%S%(mode) %(file-line-error) %(extraopts) %t"
+                 TeX-run-TeX nil t)))
 #+END_SRC
 
-*** config
-#+BEGIN_SRC emacs-lisp
-  (evil-leader/set-key-for-mode 'LaTeX-mode
-    "\\" 'TeX-electric-insert)
-  (setq TeX-electric-escape nil)
-  (setq TeX-insert-braces nil)
-  (setq TeX-parse-self t)
-  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-  (add-to-list 'TeX-view-program-selection
-               '(output-pdf "Zathura"))
-#+END_SRC
+*** Hooks
 
-** Haskell-mode
 #+BEGIN_SRC emacs-lisp
-  (use-package haskell-mode)
-  (add-hook 'haskell-mode-hook
+(setq twl/latex-mode-hooks
+      '(LaTeX-mode-hook TeX-mode-hook))
+(dolist (_m twl/latex-mode-hooks)
+  (add-hook _m
             (lambda ()
-              (haskell-doc-mode)
-              (turn-on-haskell-indent)))
+              (setq TeX-command-default "LatexMK")
+              (twl/latexmk-setup)
+              (run-with-idle-timer 0 nil (lambda () (prettify-symbols-mode 1)))
+              (reftex-mode 1)
+              (LaTeX-math-mode 1)
+              (flyspell-mode 1)
+              (flycheck-mode 1)
+              (add-to-list 'TeX-view-program-selection
+                           '(output-pdf "Zathura"))
+)))
 #+END_SRC
 
-** Emacs-lisp-mode
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-  (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
-#+END_SRC
+** scala mode
 
-** Racket-mode
 #+BEGIN_SRC emacs-lisp
-  (use-package racket-mode)
-#+END_SRC
-
-** Assembly-mode
-#+BEGIN_SRC emacs-lisp
-  (use-package iasm-mode)
-#+END_SRC
-
-*** MMIXAL
-#+BEGIN_SRC emacs-lisp
-  (use-package mixal-mode)
-#+END_SRC
-
-** Javascript-mode
-*** Auto-mode
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
-#+END_SRC
-
-*** Tab stuff
-#+BEGIN_SRC emacs-lisp
-  (setq-default js-indent-level 2)
-#+END_SRC
-*** flycheck
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'javascript-mode-hook (lambda () (flycheck-describe 'javascript-standard)))
-#+END_SRC
-
-
-** Css-mode
-*** Identations
-#+BEGIN_SRC emacs-lisp
-  (setq-default css-indent-offset 2)
-#+END_SRC
-
-** Scala-mode
-#+BEGIN_SRC emacs-lisp
-  (use-package scala-mode
-    :interpreter
-    ("scala" . scala-mode))
-#+END_SRC
-
-** DocView-mode
-#+BEGIN_SRC emacs-lisp
-  (setq doc-view-continuous t)
-#+END_SRC
-
-* Magit
-#+BEGIN_SRC emacs-lisp
-  (use-package magit
-    :bind ("C-x g" . magit-status)
-
-    :config
-    (use-package evil-magit)
-    (setq magit-push-always-verify nil)
-    (setq git-commit-summary-max-length 50)
-    (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
-    (add-hook 'with-editor-mode-hook 'evil-insert-state)
-    (add-to-list 'nlinum-exception-list 'magit-status-mode)
-    (add-to-list 'nlinum-exception-list 'magit-diff-mode))
+(use-package scala-mode
+  :interpreter
+  ("scala" . scala-mode))
 #+END_SRC
