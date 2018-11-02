@@ -14,7 +14,7 @@ function! StartLatexmk()
     "     echo "latexmk is already running"
     " else
     "     let b:latexmkStarted = 1
-        Start! urxvt -e latexmk -f -silent -pvc %
+        Start! st -e latexmk -f -silent -pvc %
         echo "latexmk is now running"
     " endif
 endfunction
@@ -25,6 +25,9 @@ endfunction
 
 command! Lat execute '!latexmk '.expand('%')
 command! Latg execute '!latexmk -g '.expand('%')
+
+command! Latl execute '!latexmk -pdflatex=lualatex '.expand('%')
+command! Latlg execute '!latexmk -pdflatex=lualatex -g '.expand('%')
 
 command! Latx execute '!latexmk -pdflatex=xelatex '.expand('%')
 command! Latxg execute '!latexmk -pdflatex=xelatex -g '.expand('%')
