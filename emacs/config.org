@@ -41,6 +41,7 @@ and it was a bit painful.
   (eval-when-compile
     (require 'use-package))
   (require 'general)
+  (general-auto-unbind-keys)
   (require 'diminish)
 #+END_SRC
 
@@ -629,11 +630,19 @@ So I made my own? jk I copied that =^^=
                             ((eq TeX-engine 'default) "")
                             ((eq TeX-engine 'xetex)
                              (concat (if TeX-PDF-mode "-pdflatex=" "-") "xelatex "))
-                            ((eq TeX-engine 'lualatex) "-lualatex ")
+                            ((eq TeX-engine 'luatex) "-lualatex ")
                             (t ""))))))
   (add-to-list 'TeX-command-list
                '("LatexMK" "latexmk %(-PDF)%S%(mode) %(file-line-error) %(extraopts) %t"
                  TeX-run-TeX nil t)))
+#+END_SRC
+
+Also, heres a quick latex compile command
+#+BEGIN_SRC emacs-lisp
+(defun twl/latexmk-compile ()
+  (interactive)
+  (TeX-command-select-master)
+  (TeX-command "LatexMK"))
 #+END_SRC
 
 *** Hooks
