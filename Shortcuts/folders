@@ -1,6 +1,7 @@
 h           ~
 dot         ~/.dotfiles
 c           ~/.config
+f           ~/.config/fish
 doc         ~/Documents
 D           ~/Downloads
 p           ~/Pictures

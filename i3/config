@@ -189,7 +189,7 @@ client.background       $foregroundAlt
 bar {
     status_command i3blocks
     font pango:Misc Ohsnap, Wuncon Siji 13
-    position top
+    position bottom
     height 25
     tray_output primary
     colors {
@@ -280,7 +280,7 @@ bindsym Shift+XF86AudioRaiseVolume  $exec ~/.config/i3/volume.sh up     10
 bindsym XF86AudioMute               $exec ~/.config/i3/volume.sh mute
 
 # clipboard
-bindsym $mod+c $exec clipmenu
+bindsym $mod+c $exec CM_LAUNCHER=rofi clipmenu
 
 # printscreen
 set $print_xclip xclip -t image/png -selection clipboard
@@ -360,7 +360,7 @@ for_window [class="Nm-connection-editor"] floating enable
 # exec_always --no-startup-id feh --no-fehbg --bg-tile /home/waigni/Pictures/wallpaper.png
 #$exec aw-qt
 $exec rescuetime
-$exec clipmenud
+$exec CM_SELECTIONS=clipboard clipmenud
 $exec dunst
 $exec redshift-gtk
 # $exec nm-applet

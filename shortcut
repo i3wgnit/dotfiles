@@ -10,6 +10,7 @@ rang = ""
 # bash = read_file("./bash/bashrc")
 bash = ""
 # fish = read_file("./fish/config.fish")
+fish = ""
 
 configs = open("./Shortcuts/configs", "r")
 folders = open("./Shortcuts/folders", "r")
@@ -21,7 +22,7 @@ for line in configs:
 
     rang += "map {} shell vim {}\n".format(*ln)
     bash += "alias {}=\"vim {}\"\n".format(*ln)
-    # fish += "alias {}='vim {}'\n".format(*ln)
+    fish += "alias {}='vim {}'\n".format(*ln)
 
 for line in folders:
     if not line.strip():
@@ -33,8 +34,8 @@ for line in folders:
     rang += "map m{} shell mv %s {}\n".format(*ln)
     rang += "map Y{} shell cp -r %s {}\n".format(*ln)
 
-    bash += "alias {}=\"cd {} && ls -a\"\n".format(*ln)
-    # fish += "alias {}='cd {}; ls -a'\n".format(*ln)
+    bash += "alias {}=\"cd {} && ls\"\n".format(*ln)
+    fish += "alias {}='cd {}; ls'\n".format(*ln)
 
 def writeFile(f, content):
     with open(f, "w+") as fi:
@@ -43,5 +44,5 @@ def writeFile(f, content):
 
 writeFile("./ranger/rc.conf.shortcuts", rang)
 writeFile("./bash/bashrc.shortcuts", bash)
-# writeFile("./fish/.config.fish.comp", fish)
+writeFile("./fish/shortcuts.fish", fish)
 

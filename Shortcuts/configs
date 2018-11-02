@@ -1,5 +1,5 @@
 cfb         ~/.bashrc
-cff         ~/.config/fish/config.fish.base
+cff         ~/.config/fish/config.fish
 cfv         ~/.vimrc
 cfg         ~/.gvimrc
 cfrc        ~/.config/ranger/rc.conf

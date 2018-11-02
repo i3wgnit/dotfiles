@@ -23,9 +23,7 @@
     ~/.bash_profile:                        bash/bash_profile
     ~/.inputrc:                             bash/inputrc
     # fish
-    ~/.config/fish/config.fish:             fish/.config.fish.comp
-    ~/.config/fish/config.fish.base:        fish/config.fish
-    ~/.config/fish/functions:               fish/functions
+    ~/.config/fish:
 
     # ===
     # Some Styling
