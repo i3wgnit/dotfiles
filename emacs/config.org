@@ -10,21 +10,21 @@ Adding a few extra repos,
 because GNU is not enough.
 
 #+BEGIN_SRC emacs-lisp
-  (require 'package)
-  (setq package-enable-at-startup nil)
-  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-  ;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-  (package-initialize)
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
 #+END_SRC
 
 Function to install packages
 
 #+BEGIN_SRC emacs-lisp
-  (defun twl/install-package (pkg)
-    (unless (package-installed-p pkg)
-      (package-refresh-contents)
-      (package-install pkg)))
+(defun twl/install-package (pkg)
+  (unless (package-installed-p pkg)
+    (package-refresh-contents)
+    (package-install pkg)))
 #+END_SRC
 
 *** use-package
@@ -33,37 +33,37 @@ I tried writing my configs without use-package once
 and it was a bit painful.
 
 #+BEGIN_SRC emacs-lisp
-  (twl/install-package 'general)
-  (twl/install-package 'diminish)
-  (twl/install-package 'use-package)
-  (setq use-package-verbose t
-        use-package-always-ensure t)
-  (eval-when-compile
-    (require 'use-package))
-  (require 'general)
-  (general-auto-unbind-keys)
-  (require 'diminish)
+(twl/install-package 'general)
+(twl/install-package 'diminish)
+(twl/install-package 'use-package)
+(setq use-package-verbose t
+      use-package-always-ensure t)
+(eval-when-compile
+  (require 'use-package))
+(require 'general)
+(general-auto-unbind-keys)
+(require 'diminish)
 #+END_SRC
 
 ** quality of life
 
 #+BEGIN_SRC emacs-lisp
-  (fset 'yes-or-no-p 'y-or-n-p)
+(fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
 ** custom file
 
 #+BEGIN_SRC emacs-lisp
-  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-  (load custom-file :noerror)
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file :noerror)
 #+END_SRC
 
 ** Security Vulnerability
 
 #+BEGIN_SRC emacs-lisp
-  (eval-after-load "enriched"
-    '(defun enriched-decode-display-prop (start end &optional param)
-      (list start end)))
+(eval-after-load "enriched"
+  '(defun enriched-decode-display-prop (start end &optional param)
+     (list start end)))
 #+END_SRC
 
 * Custom functions
@@ -71,84 +71,84 @@ and it was a bit painful.
 
 To quickly visit config file
 #+BEGIN_SRC emacs-lisp
-  (defun twl/config-visit ()
-    "Visit ~/.emacs.d/config.org"
-    (interactive)
-    (find-file "~/.emacs.d/config.org"))
-  (global-set-key (kbd "C-c e") 'twl/config-visit)
+(defun twl/config-visit ()
+  "Visit ~/.emacs.d/config.org"
+  (interactive)
+  (find-file "~/.emacs.d/config.org"))
+(global-set-key (kbd "C-c e") 'twl/config-visit)
 #+END_SRC
 
 To reload config.org
 #+BEGIN_SRC emacs-lisp
-  (defun twl/config-reload ()
-    "Reloads ~/.emacs.d/config.org at runtime."
-    (interactive)
-    (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
-  (global-set-key (kbd "C-c r") 'twl/config-reload)
+(defun twl/config-reload ()
+  "Reloads ~/.emacs.d/config.org at runtime."
+  (interactive)
+  (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+(global-set-key (kbd "C-c r") 'twl/config-reload)
 #+END_SRC
 
 Compile init folder
 #+BEGIN_SRC emacs-lisp
-  (defun twl/byte-compile-init-dit ()
-    "Byte-compile all your settings."
-    (interactive)
-    (byte-recompile-directory user-emacs-directory 0))
+(defun twl/byte-compile-init-dit ()
+  "Byte-compile all your settings."
+  (interactive)
+  (byte-recompile-directory user-emacs-directory 0))
 #+END_SRC
 
 ** Misc
 
 To open a scratch buffer
 #+BEGIN_SRC emacs-lisp
-  (defun twl/scratch-buffer ()
-    "Switch to a scratch buffer"
-    (interactive)
-    (let ((buf (get-buffer "*scratch*")))
-      (if buf (switch-to-buffer buf)
-        (switch-to-buffer (get-buffer-create "*scratch*"))
-        (lisp-interaction-mode))))
-  (global-set-key (kbd "C-c b") 'twl/scratch-buffer)
+(defun twl/scratch-buffer ()
+  "Switch to a scratch buffer"
+  (interactive)
+  (let ((buf (get-buffer "*scratch*")))
+    (if buf (switch-to-buffer buf)
+      (switch-to-buffer (get-buffer-create "*scratch*"))
+      (lisp-interaction-mode))))
+(global-set-key (kbd "C-c b") 'twl/scratch-buffer)
 #+END_SRC
 
 Remove annoying scratch buffer message
 #+BEGIN_SRC emacs-lisp
-  (setq initial-scratch-message "")
+(setq initial-scratch-message "")
 #+END_SRC
 
 To kill current buffer
 #+BEGIN_SRC emacs-lisp
-  (defun twl/kill-cur-buffer ()
-    "Kill the current buffer without prompt"
-    (interactive)
-    (kill-buffer (current-buffer)))
+(defun twl/kill-cur-buffer ()
+  "Kill the current buffer without prompt"
+  (interactive)
+  (kill-buffer (current-buffer)))
 #+END_SRC
 
 To rename the current file
 #+BEGIN_SRC emacs-lisp
-  (defun twl/rename-file (new-name)
-    (interactive "FNew name: ")
-    (let ((filename (buffer-file-name)))
-      (if filename
-          (progn
-            (when (buffer-modified-p)
-              (save-buffer))
-            (rename-file filename new-name t)
-            (kill-buffer (current-buffer))
-            (find-file new-name)
-            (message "Renamed '%s' -> '%s'" filename new-name))
-        (message "Buffer '%s' isn't backed by a file!" (buffer-name)))))
+(defun twl/rename-file (new-name)
+  (interactive "FNew name: ")
+  (let ((filename (buffer-file-name)))
+    (if filename
+        (progn
+          (when (buffer-modified-p)
+            (save-buffer))
+          (rename-file filename new-name t)
+          (kill-buffer (current-buffer))
+          (find-file new-name)
+          (message "Renamed '%s' -> '%s'" filename new-name))
+      (message "Buffer '%s' isn't backed by a file!" (buffer-name)))))
 #+END_SRC
 
 "I have always wanted a function like this" - Me, 2018
 #+BEGIN_SRC emacs-lisp
-  (defun twl/insert-date ()
-    "Function to insert date into buffer"
-    (interactive)
-    (insert (format-time-string
-              "%B %d, %Y" (current-time))))
+(defun twl/insert-date ()
+  "Function to insert date into buffer"
+  (interactive)
+  (insert (format-time-string
+           "%B %d, %Y" (current-time))))
 #+END_SRC
 
 ** Custom variables
-   
+
 Leader
 #+BEGIN_SRC emacs-lisp
 (defvar *leader* ",")
@@ -158,11 +158,11 @@ Leader
 *** Font
 
 #+BEGIN_SRC emacs-lisp
-  (set-frame-font "Iosevka Term-14")
+(set-frame-font "Iosevka Term-14")
 #+END_SRC
 
 *** Theme
-    
+
 Some advice
 
 #+BEGIN_SRC emacs-lisp
@@ -174,12 +174,12 @@ Some advice
 I really like this theme
 
 #+BEGIN_SRC emacs-lisp
-  (use-package doom-themes
-    :config
-    (setq doom-themes-enable-bold t
-          doom-themes-enable-italic t)
-    (load-theme 'doom-vibrant t)
-    (doom-themes-org-config))
+(use-package doom-themes
+  :config
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t)
+  (load-theme 'doom-vibrant t)
+  (doom-themes-org-config))
 #+END_SRC
 
 *** Modeline
@@ -187,16 +187,16 @@ I really like this theme
 I really like spaceline
 
 #+BEGIN_SRC emacs-lisp
-  (use-package spaceline
-    :config
-    (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-    (require 'spaceline-config)
-    (setq powerline-default-separator 'arrow)
-    (spaceline-spacemacs-theme))
+(use-package spaceline
+  :config
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+  (require 'spaceline-config)
+  (setq powerline-default-separator 'arrow)
+  (spaceline-spacemacs-theme))
 #+END_SRC
 
 *** diminish
-    
+
 #+BEGIN_SRC emacs-lisp
 (defmacro twl/diminish-minor-mode (filename mode &optional abbrev)
   `(eval-after-load (symbol-name ,filename)
@@ -215,7 +215,7 @@ I really like spaceline
 
 #+BEGIN_SRC emacs-lisp
 (setq twl/evil-state-modes
-      '((evil-motion-state-modes 
+      '((evil-motion-state-modes
          recentf-dialog-mode)
         (evil-emacs-state-modes
          magit-popup-mode)))
@@ -308,7 +308,7 @@ however I have yet to use it.
 #+END_SRC
 
 *** counsel
-    
+
 #+BEGIN_SRC emacs-lisp
 (use-package counsel
   :after ivy
@@ -322,55 +322,56 @@ however I have yet to use it.
 *** UTF-8
 
 #+BEGIN_SRC emacs-lisp
-  (set-language-environment "UTF-8")
-  (set-default-coding-systems 'utf-8-unix)
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8-unix)
 #+END_SRC
 
 *** Backup
 
 #+BEGIN_SRC emacs-lisp
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
-  version-control t
-  backup-by-copying t
-  delete-old-versions t
-  save-place-file "~/.emacs.d/saveplace")
+      version-control t
+      backup-by-copying t
+      delete-old-versions t
+      save-place-file "~/.emacs.d/saveplace")
 #+END_SRC
 
 *** Scrolling
 
 #+BEGIN_SRC emacs-lisp
-  (setq scroll-margin 3
-        scroll-conservatively 10000
-        scroll-preserve-screen-position t)
+(setq scroll-margin 3
+      scroll-conservatively 10000
+      scroll-preserve-screen-position t)
 #+END_SRC
 
 *** Lines and spacing
 
 #+BEGIN_SRC emacs-lisp
-  (setq tab-always-indent 'complete)
-  (setq-default indicate-empty-lines t
-                indent-tabs-mode nil
-                tab-width 4
-                display-line-numbers 'relative)
+(setq tab-always-indent 'complete)
+(setq-default indicate-empty-lines t
+              indent-tabs-mode nil
+              tab-width 4
+              display-line-numbers 'relative
+              fill-column 66)
 #+END_SRC
 
 *** Misc
 
 #+BEGIN_SRC emacs-lisp
 (setq ring-bell-function 'ignore
-        help-window-select t
-        load-prefer-newer t
-        echo-keystrokes 0.1
-        show-paren-delay 0
-        show-paren-style 'mixed
-        prettify-symbols-unprettify-at-point 'right-edge
-        display-time-24hr-format t)
+      help-window-select t
+      load-prefer-newer t
+      echo-keystrokes 0.1
+      show-paren-delay 0
+      show-paren-style 'mixed
+      prettify-symbols-unprettify-at-point 'right-edge
+      display-time-24hr-format t)
 #+END_SRC
 
 *** Disabled functions
 
 #+BEGIN_SRC emacs-lisp
-  (put 'set-goal-column 'disabled nil)
+(put 'set-goal-column 'disabled nil)
 #+END_SRC
 
 ** Builtin packages
@@ -378,39 +379,39 @@ however I have yet to use it.
 
 #+BEGIN_SRC emacs-lisp
 (setq twl/builtin-packages
-  '((menu-bar-mode . nil)
-    (tool-bar-mode . nil)
-    (scroll-bar-mode . nil)
-    (horizontal-scroll-bar-mode . nil)
-    (blink-cursor-mode . nil)
-    (electric-pair-mode . t)
-    (show-paren-mode . t)
-    (recentf-mode . t)
-    (save-place-mode . t)
-    (global-prettify-symbols-mode . t)
-    (display-time-mode . t)))
+      '((menu-bar-mode . nil)
+        (tool-bar-mode . nil)
+        (scroll-bar-mode . nil)
+        (horizontal-scroll-bar-mode . nil)
+        (blink-cursor-mode . nil)
+        (electric-pair-mode . t)
+        (show-paren-mode . t)
+        (recentf-mode . t)
+        (save-place-mode . t)
+        (global-prettify-symbols-mode . t)
+        (display-time-mode . t)))
 (dolist (_bp twl/builtin-packages)
   (let ((mode (car _bp)))
-   (if (cdr _bp)
-    (add-hook 'after-init-hook mode)
-    (when (fboundp mode)
-      (funcall mode -1)))))
+    (if (cdr _bp)
+        (add-hook 'after-init-hook mode)
+      (when (fboundp mode)
+        (funcall mode -1)))))
 #+END_SRC
 
 *** recentf
 
 #+BEGIN_SRC emacs-lisp
-  (setq recentf-max-saved-items 500
-        recentf-max-menu-items 50
-        recentf-auto-cleanup 'never)
-  (recentf-mode 1)
+(setq recentf-max-saved-items 500
+      recentf-max-menu-items 50
+      recentf-auto-cleanup 'never)
+(recentf-mode 1)
 #+END_SRC
 
 *** tramp
 
 #+BEGIN_SRC emacs-lisp
-  (setq tramp-default-method "ssh"
-        tramp-backup-directory-alist backup-directory-alist)
+(setq tramp-default-method "ssh"
+      tramp-backup-directory-alist backup-directory-alist)
 #+END_SRC
 
 *** uniquify
@@ -425,6 +426,15 @@ however I have yet to use it.
 (setq dired-recursive-copies 'always
       dired-recursive-deletes 'always
       dired-dwim-target t)
+#+END_SRC
+
+*** whitespace
+
+#+BEGIN_SRC emacs-lisp
+(setq whitespace-style
+      '(face empty lines-tail trailing indentation)
+      whitespace-line-column fill-column)
+(global-whitespace-mode 1)
 #+END_SRC
 
 *** flyspell
@@ -542,13 +552,13 @@ evil-mode is the best thing in the world.
 
 * Major modes
 ** text mode
-   
+
 #+BeGIN_SRC emacs-lisp
 (add-hook 'text-mode #'flyspell-mode)
 #+EnD_SRC
 
 ** prog mode
-   
+
 #+BEGIN_SRC emacs-lisp
 (add-hook 'prog-mode
           (lambda ()
@@ -570,12 +580,29 @@ evil-mode is the best thing in the world.
       org-log-done t)
 #+END_SRC
 
+**** hooks
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-mode-hook 'org-indent-mode)
+#+END_SRC
+
 *** org agenda
 
 #+BEGIN_SRC emacs-lisp
 (setq org-agenda-files '("~/org")
       org-todo-keywords '((sequence "TODO" "IN_PROGRESS" "DONE"))
       org-todo-keyword-faces '(("IN_PROGRESS" . "#FF9900")))
+#+END_SRC
+
+*** org-babel
+
+#+BEGIN_SRC emacs-lisp
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((asymptote . t)
+   (dot . t)
+   (latex . t)
+   (R . t)
+   (plantuml . t)))
 #+END_SRC
 
 *** ox-twbs
@@ -585,8 +612,9 @@ evil-mode is the best thing in the world.
   :after org)
 (use-package htmlize)
 #+END_SRC
+
 ** Lispy modes
-   
+
 #+BEGIN_SRC emacs-lisp
 (setq twl/lispy-mode-hooks
       '(emacs-lisp-mode-hook
@@ -614,16 +642,16 @@ evil-mode is the best thing in the world.
 
 This is bad, as it somehow removes the prettify-symbols
 #+BEGIN_SRC emacs-lisp
-;(use-package auctex-latexmk
-;  :config
-;  (auctex-latexmk-setup))
+                                        ;(use-package auctex-latexmk
+                                        ;  :config
+                                        ;  (auctex-latexmk-setup))
 #+END_SRC
 
 So I made my own? jk I copied that =^^=
 #+BEGIN_SRC emacs-lisp
 (defun twl/latexmk-setup ()
   (add-to-list 'TeX-expand-list
-               '("%(-PDF)" 
+               '("%(-PDF)"
                  (lambda ()
                    (concat (if TeX-PDF-mode "-pdf " "")
                            (cond
@@ -662,7 +690,7 @@ Also, heres a quick latex compile command
               (flycheck-mode 1)
               (add-to-list 'TeX-view-program-selection
                            '(output-pdf "Zathura"))
-)))
+              )))
 #+END_SRC
 
 ** scala mode
@@ -671,4 +699,16 @@ Also, heres a quick latex compile command
 (use-package scala-mode
   :interpreter
   ("scala" . scala-mode))
+#+END_SRC
+
+
+** plantuml
+
+#+BEGIN_SRC emacs-lisp
+(use-package plantuml-mode
+  :interpreter
+  ("plantuml" . plantuml-mode)
+  :config
+  (setq plantuml-jar-path (expand-file-name "~/src/plantuml/plantuml.jar"))
+  (setq org-plantuml-jar-path plantuml-jar-path))
 #+END_SRC

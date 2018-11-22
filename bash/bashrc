@@ -75,7 +75,10 @@ alias sw="echo 'StopWatch started. Stop with Ctrl+D.' && time cat"
 alias br="source $HOME/.bashrc"
 
 # Full system upgrade
-alias pSyyu="command yay --nouseask --noconfirm -Syyu"
+# alias pSyyu="command yay --nouseask --noconfirm -Syyu"
+
+# pacman
+# alias p="command yay"
 
 # xclip
 alias xclip="xclip -selection c "
@@ -109,4 +112,5 @@ function mm() {
 export NVM_DIR="$HOME/.nvm"
 # This loads nvm
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
+# This loads nvm bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"

@@ -43,16 +43,16 @@ object Vertex(picture pic=currentpicture, pair position, pen p=currentpen) {
     return draw(pic, "", circle, position, p, Fill);
 }
 
-object[] genObjects(pair[] coors) {
+object[] genObjects(picture pic=currentpicture, pair[] coors) {
     object[] obj;
     for (int i = 0; i < coors.length; ++i)
-        obj.push(Vertex(coors[i]));
+        obj.push(Vertex(pic, coors[i]));
     return obj;
 }
-object[] genObjects(pair[] coors, Label[] labels) {
+object[] genObjects(picture pic=currentpicture, pair[] coors, Label[] labels) {
     object[] obj;
     for (int i = 0; i < coors.length; ++i)
-        obj.push(Vertex(labels[i], coors[i]));
+        obj.push(Vertex(pic, labels[i], coors[i]));
     return obj;
 }
 

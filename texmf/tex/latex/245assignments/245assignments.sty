@@ -53,37 +53,55 @@
 
 % Definitions that vary by style
 
+\newcommand*{\hr@tru}{\text{\ttfamily\upshape T}}
+\newcommand*{\hr@fals}{\text{\ttfamily\upshape F}}
+\newcommand*{\hr@ccxlv@eq@sym}{=}
+\newcommand*{\hr@ccxlv@neq@sym}{\neq}
+\newcommand*{\hr@entailedby}[2]{#1\asmeta{\ccxlv@ent@sym_{#2}}}
+\newcommand*{\hr@notentailedby}[2]{#1\asmeta{\ccxlv@notent@sym_{#2}}}
+\newcommand*{\hr@subsinforby}[3]{{#1}[{#3}/{#2}]}
+\newcommand*{\hr@ccxlv@intro}[1]{\text{${#1}\mkern0.5mu$i}}
+\newcommand*{\hr@ccxlv@elim}[1]{\text{${#1}\mkern0.5mu$e}}
+
+\newcommand*{\lu@tru}{1}
+\newcommand*{\lu@fals}{0}
+\newcommand*{\lu@ccxlv@eq@sym}{\approx}
+\newcommand*{\lu@ccxlv@neq@sym}{\napprox}
+\newcommand*{\lu@entailedby}[2]{(#1,#2)\entails}
+\newcommand*{\lu@notentailedby}[2]{(#1,#2)\notentails}
+\newcommand*{\lu@subsinforby}[3]{{#1}[{#2}/{#3}]}
+\newcommand*{\lu@ccxlv@intro}[1]{\text{${#1}$-intro}}
+\newcommand*{\lu@ccxlv@elim}[1]{\text{${#1}$-elim}}
+
+
 \ifcase\value{CCXLV@style@ctr}%
 % 0 = Huth & Ryan
-  \providecommand*{\tru}{\text{\ttfamily\upshape T}}
-  \providecommand*{\fals}{\text{\ttfamily\upshape F}}
-  \providecommand*{\ccxlv@eq@sym}{=}
-  \providecommand*{\ccxlv@neq@sym}{\neq}
-  \providecommand*{\entailedby}[2]{#1\asmeta{\ccxlv@ent@sym_{#2}}}
-  \providecommand*{\notentailedby}[2]{#1\asmeta{\ccxlv@notent@sym_{#2}}}
-  \providecommand*{\subsinforby}[3]{{#1}[{#3}/{#2}]}
-  % Used by \dedrule, below
-  \providecommand*{\ccxlv@intro}[1]{\text{${#1}\mkern0.5mu$i}}
-  \providecommand*{\ccxlv@elim}[1]{\text{${#1}\mkern0.5mu$e}}
+  \let\tru\hr@tru
+  \let\fals\hr@fals
+  \let\ccxlv@eq@sym\hr@ccxlv@eq@sym
+  \let\ccxlv@neq@sym\hr@ccxlv@neq@sym
+  \let\entailedby\hr@entailedby
+  \let\notentailedby\hr@notentailedby
+  \let\subsinforby\hr@subsinforby
+  \let\ccxlv@intro\hr@ccxlv@intro
+  \let\ccxlv@elim\hr@ccxlv@elim
 \or % 1 = Lu
-  \providecommand*{\tru}{1}
-  \providecommand*{\fals}{0}
-  \providecommand*{\ccxlv@eq@sym}{\approx}
-  \providecommand*{\ccxlv@neq@sym}{\napprox}
-  \providecommand*{\entailedby}[2]{(#1,#2)\entails}
-  \providecommand*{\notentailedby}[2]{(#1,#2)\notentails}
-  \providecommand*{\subsinforby}[3]{{#1}[{#2}/{#3}]}
-  \providecommand*{\ccxlv@intro}[1]{\text{${#1}$-intro}}
-  \providecommand*{\ccxlv@elim}[1]{\text{${#1}$-elim}}
-  %\providecommand*{\modelof}[2]{\entailedby{{\modelfont{#1}}}{#2}}
-  %\providecommand*{\notmodelof}[2]{\notentailedby{{\modelfont{#1}}}{#2}}
-  \providecommand*{\luhilbertproves}{}
+  \let\tru\lu@tru
+  \let\fals\lu@fals
+  \let\ccxlv@eq@sym\lu@ccxlv@eq@sym
+  \let\ccxlv@neq@sym\lu@ccxlv@neq@sym
+  \let\entailedby\lu@entailedby
+  \let\notentailedby\lu@notentailedby
+  \let\subsinforby\lu@subsinforby
+  \let\ccxlv@intro\lu@ccxlv@intro
+  \let\ccxlv@elim\lu@ccxlv@elim
+  \providecommand*{\luhilbertproves}{\assert} % 
   \providecommand*{\lunatdedproves}{\vdash}
 \or % 2 = Ben Ari
-  \providecommand*{\tru}{\ensuremath{T}}
-  \providecommand*{\fals}{\ensuremath{F}}
-  \providecommand*{\ccxlv@eq@sym}{=}
-  \providecommand*{\ccxlv@neq@sym}{\neq}
+  \renewcommand*{\tru}{\ensuremath{T}}
+  \renewcommand*{\fals}{\ensuremath{F}}
+  \renewcommand*{\ccxlv@eq@sym}{=}
+  \renewcommand*{\ccxlv@neq@sym}{\neq}
 \or\relax
 \fi
 
@@ -106,8 +124,9 @@
 \providecommand*{\notmodelof}[2]{\notentailedby{{\modelfont{#1}}}{#2}}
 
 
-% The choice of character for ``entails'' is user-specific
-\providecommand*{\ccxlv@ent@sym}{\vDash} % Longer horizontal than \models
+% The choice of character for ``entails'' is user-specific.
+% \vDash has longer horizontals than \models.
+\providecommand*{\ccxlv@ent@sym}{\vDash}
 \providecommand*{\ccxlv@notent@sym}{\nvDash}
 
 \providecommand*{\entailsismodels}{% Note: local re-definitions
@@ -120,11 +139,12 @@
 }
 
 % [So what?  Who CAN spell?]
-\let\substinforby\subsinforby
-\let\substinbyfor\subsinbyfor
-\let\sibf\subsinforby
-\let\sifb\subsinbyfor
-
+\AtBeginDocument{
+  \let\substinforby\subsinforby
+  \let\substinbyfor\subsinbyfor
+  \let\sifb\subsinforby
+  \let\sibf\subsinbyfor
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
@@ -230,7 +250,7 @@
 
 \newcommand*{\envsubsinforby}[3]{#1[#2\mapsto\domelmt#3]}
 
-\providecommand*{\pfm}[1]{\left(#1\right)}
+\providecommand*{\pfm}[1]{\mleft(#1\mright)}
 \newcommand*{\andof}[2]{\pfm{#1 \And#2}}
 \newcommand*{\orof}[2]{\pfm{#1 \Or#2}}
 \newcommand*{\implof}[2]{\pfm{#1 \Impl#2}}
@@ -239,13 +259,16 @@
 \newcommand*{\dblnegof}[1]{\negof{\negof{#1}}}
 \newcommand*{\existsof}[2]{\pfm{\Exists{#1}#2}}
 \newcommand*{\forallof}[2]{\pfm{\Forall{#1}#2}}
+\newcommand*{\eqof}[2]{\pfm{#1\eqrel#2}}
+\let\equalof\eqof
+\providecommand*{\ptm}[1]{\pfm{#1}}
 
 % Macros for names of deduction rules.
 % An invocation \dedrulename{<name>}{<symbol>} defines two macros,
 % \<name>intro and \<name>elim .
 \newcommand*{\dedrule}[2]%
-{\@namedef{#1intro}{\ccxlv@intro{{\boldsymbol{#2}}}}%
- \@namedef{#1elim}{\ccxlv@elim{{\boldsymbol{#2}}}}%
+{\@namedef{#1intro}{\ccxlv@intro{{\mathbf{#2}}}}%
+ \@namedef{#1elim}{\ccxlv@elim{{\mathbf{#2}}}}%
 }%
 \dedrule{impl}{\Impl}
 \dedrule{and}{\And}
@@ -304,7 +327,7 @@
 
 % Print "math" for program code
 \newenvironment{codemath}{%
-  \annotecodefont
+  \annotecodefont%
   \renewcommand*{\And}{\&\&\xspace }%
   \renewcommand*{\Or}{||\xspace }%
   \renewcommand*{\Neg}{\mbox{!}}% Hide the punctuation from any \xspace
@@ -320,7 +343,7 @@
   \renewcommand*{\neqrel}{\mbox{!=}\xspace }%
   \renewcommand*{\Forall}[1]{}%
   \renewcommand*{\relsym}[1]{##1}%
-  \def\@gobble@dot{\@ifnextchar.\expandafter\@gobble\fi}
+  \def\@gobble@dot{\@ifnextchar.\expandafter\@gobble\fi}%
   \let\left\@gobble@dot\let\right\@gobble@dot
   \let\mleft\@gobble@dot\let\mright\@gobble@dot
 }{%
@@ -360,7 +383,7 @@
     {\makebox[\ccxlv@wd@i][l]{\hoarebegin{#1}}}%
     {\makebox[\ccxlv@wd@i][r]{\hoareend{#2}}}}}
 \let\mlhoare\mlhstate
-\newcommand*{\iiilhstate}[3]%  Should this be a \gathered ?
+\newcommand*{\iiihstate}[3]%  Should this be a \gathered ?
 {%
   \settowidth{\ccxlv@wd@i}{\hoarebegin{#1}}%
   \settowidth{\ccxlv@wd@ii}{\hoaremid{#2}}%
@@ -398,8 +421,8 @@
 
 \providecommand*{\code}[1]{\PackageWarning{\thispkgname}{Mapping
     "\string\code" to "\string\tuple".}\tuple{#1}\global\let\code\tuple}
-\providecommand*{\tuple}[1]{\mathord{\left\langle#1\right\rangle}}
-\providecommand*{\setst}[2]{\left\{\,#1\mid#2\,\right\}}
+\providecommand*{\tuple}[1]{\mathord{\mleft\langle#1\mright\rangle}}
+\providecommand*{\setst}[2]{\mleft\{\,#1\mid#2\,\mright\}}
 
 \providecommand*{\dom}{\mathit{dom}}
 \providecommand*{\ran}{\mathit{ran}}
@@ -570,11 +593,6 @@
 %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\providecommand*{\fmla}{\fmlai}
-\providecommand*{\fmlb}{\fmlaii}
-\providecommand*{\fmlc}{\fmlaiii}
-\providecommand*{\fmld}{\fmlaiv}
-
 \providecommand*{\fmlai}{\alpha}
 \providecommand*{\fmlaii}{\beta}
 \providecommand*{\fmlaiii}{\gamma}
@@ -585,14 +603,27 @@
 \providecommand*{\fmlaiii}{\smash[b]{\zeta}}
 \providecommand*{\fmlaiv}{\smash[b]{\alpha}}
 
+\@ifundefined{fmla}{\let\fmla\fmli}{}
+\@ifundefined{fmlb}{\let\fmlb\fmlii}{}
+\@ifundefined{fmlc}{\let\fmlc\fmliii}{}
+\@ifundefined{fmld}{\let\fmld\fmliv}{}
+
 \providecommand*{\vari}{x}
 \providecommand*{\varii}{\smash[b]{y}}
 \providecommand*{\variii}{z}
 \providecommand*{\variv}{u}
 
+\@ifundefined{vara}{\let\vara\vari}{}
+\@ifundefined{varb}{\let\varb\varii}{}
+\@ifundefined{varc}{\let\varc\variii}{}
+\@ifundefined{vard}{\let\vard\variv}{}
+
 \providecommand*{\condi}{\ensuremath{P}}
 \providecommand*{\condii}{\ensuremath{Q}}
 \providecommand*{\condiii}{\ensuremath{R}}
+\@ifundefined{conda}{\let\conda\condi}{}
+\@ifundefined{condb}{\let\condb\condii}{}
+\@ifundefined{condc}{\let\condc\condiii}{}
 
 \providecommand*{\fmlan}[1]{\@nameuse{fmla\romannumeral{#1}}}
 \providecommand*{\varn}[1]{\@nameuse{var\romannumeral{#1}}}
@@ -651,9 +682,9 @@
 
 \RequirePackage{xspace}
 
-\providecommand*{\folnamefont}{\normalfont\itshape}
-\providecommand*{\lispnamefont}{\normalfont\ttfamily\upshape\spaceskip=0.7\fontdimen2\font\relax}
-\providecommand*{\lispmathfont}{\lispnamefont\slshape}
+\providecommand*{\folnamefont}{\normalfont\mdseries\itshape}
+\providecommand*{\lispnamefont}{\normalfont\ttfamily\upshape\mdseries\spaceskip=0.7\fontdimen2\font\relax}
+\providecommand*{\lispmathfont}{\normalfont\ttfamily\slshape}
 \providecommand*{\setlisp}{\def\currnamefont{\lispnamefont}}
 \providecommand*{\setfol}{\def\currnamefont{\folnamefont}}
 \setlisp
@@ -687,14 +718,14 @@
 
 \providecommand*{\dualnilname}[2]%
 {\gdef\nil%
-    {\relax\ifmmode\mathop{\text{\folnamefont#1\/}}\nolimits
+    {\relax\ifmmode\text{\folnamefont#1\/}%
       \else{\lispnamefont#2}\expandafter\xspace\fi
     }%
 }
-\dualnilname{e}{empty}
+\dualnilname{e}{'()}
 
 
-\providecommand*{\listof}[1]{\left\langle#1\right\rangle}
+\providecommand*{\listof}[1]{\mleft\langle#1\mright\rangle}
 \@ifundefined{exenum}{\newenvironment{exenum}{\unskip\mbox{}\begin{enumerate}}{\end{enumerate}}}{}
 \providecommand*{\lisptrue}{\codesym{\#t}}
 \providecommand*{\lispfalse}{\codesym{\#f}}
@@ -717,16 +748,19 @@
 \providecommand*{\restrel}{\relof{rest}}
 \providecommand*{\appendrel}{\relof{Append}}
 
-\providecommand*{\conspair}[1]{\cons\left(#1\right)}
-\providecommand*{\abbrpair}[1]{\left\langle\smash[b]{#1}\right\rangle}
+\providecommand*{\conspair}[1]{\cons\mleft(#1\mright)}
+\providecommand*{\abbrpair}[1]{\mleft\langle\smash[b]{#1}\right\mrangle}
 \providecommand*{\pairof}{}
 \@ifundefined{consof}{\def\consof(#1){\pairof{\smash{#1}}}}{}
 \providecommand*{\conspairs}{\let\pairof\conspair}
 \providecommand*{\abbrpairs}{\let\pairof\abbrpair}
 \conspairs
 
-\providecommand*{\listnametext}[1]{\mbox{\smash{\underline{\smash{\small\slshape#1}}}}}
-\providecommand*{\listnamemath}[1]{\underline{\ensuremath{#1}}}
+\providecommand*{\listnametext}[1]%
+%{\mbox{\smash{\underline{\smash{\small\slshape#1}}}}}
+{\mbox{\smash{\underline{\smash{\small\lispnamefont#1}}}}}
+\providecommand*{\listnamemath}[1]%
+{\underline{\ensuremath{#1}}}
 \gdef\listname{\listnametext}
 
 
@@ -853,7 +887,7 @@
   \global\let\qbreak\relax%
 }
 \providecommand*{\solnintrotext}{Solution:}
-\providecommand*{\solnfont}{\em}
+\providecommand*{\solnfont}{\normalfont}
 \providecommand*{\solnstrongfont}{\upshape\bfseries}
 
 
