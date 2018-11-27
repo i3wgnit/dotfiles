@@ -159,6 +159,8 @@ Leader
 
 #+BEGIN_SRC emacs-lisp
 (set-frame-font "Iosevka Term-14")
+(add-hook 'focus-in-hook
+          (lambda () (set-frame-font "Iosevka Term-14")))
 #+END_SRC
 
 *** Theme

@@ -39,7 +39,7 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return $exec $term
-bindsym $mod+Shift+Return exec emacs
+bindsym $mod+Shift+Return $exec emacsclient -c
 
 # kill focused window
 bindsym $mod+q kill
@@ -363,6 +363,7 @@ $exec rescuetime
 $exec CM_SELECTIONS=clipboard clipmenud
 $exec dunst
 $exec redshift-gtk
+$exec emacs --daemon
 # $exec nm-applet
 # $exec compton -b
 # $exec keepass
