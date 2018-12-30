@@ -53,6 +53,15 @@ URxvt.keysym.M-u:           perl:url-select:select_next
 URxvt.keysym.M-Escape:      perl:keyboard-select:activate
 URxvt.keysym.M-s:           perl:keyboard-select:searc
 
+
+! ------------------------------------------------------------------------------
+! ST Color theme
+! ------------------------------------------------------------------------------
+
+ST*alpha: #a0
+ST*shell: /bin/bash
+
+
 ! ------------------------------------------------------------------------------
 ! ROFI Color theme
 ! ------------------------------------------------------------------------------
