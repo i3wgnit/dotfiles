@@ -173,15 +173,19 @@ Some advice
   (mapc #'disable-theme custom-enabled-themes))
 #+END_SRC
 
-I really like this theme
+#+BEGIN_SRC emacs-lisp
+;;(use-package doom-themes
+;;  :config
+;;  (setq doom-themes-enable-bold t
+;;        doom-themes-enable-italic t)
+;;  (load-theme 'doom-vibrant t)
+;;  (doom-themes-org-config))
+#+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(use-package doom-themes
+(use-package spacemacs-theme
   :config
-  (setq doom-themes-enable-bold t
-        doom-themes-enable-italic t)
-  (load-theme 'doom-vibrant t)
-  (doom-themes-org-config))
+  (load-theme 'spacemacs-dark t))
 #+END_SRC
 
 *** Modeline
