@@ -1,3 +1,6 @@
+# Fix delete key
+set enable-keypad on
+
 # Make Tab autocomplete ignore case
 set completion-ignore-case on
 
