@@ -174,18 +174,18 @@ Some advice
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-;;(use-package doom-themes
-;;  :config
-;;  (setq doom-themes-enable-bold t
-;;        doom-themes-enable-italic t)
-;;  (load-theme 'doom-vibrant t)
-;;  (doom-themes-org-config))
+(use-package doom-themes
+  :config
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t)
+  (load-theme 'doom-vibrant t)
+  (doom-themes-org-config))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(use-package spacemacs-theme
-  :config
-  (load-theme 'spacemacs-dark t))
+;;(use-package spacemacs-theme
+;;  :config
+;;  (load-theme 'spacemacs-dark t))
 #+END_SRC
 
 *** Modeline
@@ -358,7 +358,7 @@ however I have yet to use it.
               indent-tabs-mode nil
               tab-width 4
               display-line-numbers 'relative
-              fill-column 66)
+              fill-column 80)
 #+END_SRC
 
 *** Misc
@@ -717,4 +717,10 @@ Also, heres a quick latex compile command
   :config
   (setq plantuml-jar-path (expand-file-name "~/src/plantuml/plantuml.jar"))
   (setq org-plantuml-jar-path plantuml-jar-path))
+#+END_SRC
+
+** C/C++ mode
+
+#+BEGIN_SRC emacs-lisp
+(setq-default c-basic-offset 4)
 #+END_SRC
