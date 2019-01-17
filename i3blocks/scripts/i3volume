@@ -12,13 +12,15 @@ esac
     echo muted && echo && echo "#888888" && exit
 
 get_label() {
-    if [[ $VOLUME -ge 33 ]]; then
-        echo -e '\ue203'
+    if [[ $VOLUME -ge 66 ]]; then
+        echo -e '\ufa7d'
+    elif [[ $VOLUME -ge 33 ]]; then
+        echo -e '\ufa7f'
     else
-        echo -e '\ue204'
+        echo -e '\ufa7e'
     fi
 }
 
 VOLUME=$(pamixer --get-volume)
 
-echo "<span font='9'>$(get_label)</span>  $VOLUME%"
+echo "<span font='12'>$(get_label)</span>  $VOLUME%"
