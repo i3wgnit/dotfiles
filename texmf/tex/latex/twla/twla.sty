@@ -1,5 +1,4 @@
 \ProvidesPackage{twla}
-\RequirePackage{amsmath,amssymb,amsfonts}
 %%fakesection Arguments
 
 % Default arguments
@@ -19,20 +18,25 @@
 
 \ProcessOptions\relax
 
+%%fakesection Packages
+\PassOptionsToPackage{utf8}{inputenc}
+\PassOptionsToPackage{T1}{fontenc}
+\RequirePackage{inputenc, fontenc, lmodern}
+\PassOptionsToPackage{letterpaper, margin=1.25in, tmargin=1in}{geometry}
+\RequirePackage{geometry}
+\RequirePackage{amsmath,amsfonts,amssymb}
+\RequirePackage{mathtools}
+\RequirePackage{graphicx}
+\PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
+\RequirePackage{xcolor}
+
 \RequirePackage{ulem}
 \RequirePackage{booktabs}
 \RequirePackage{needspace}
 \RequirePackage{setspace}
 \RequirePackage{etoolbox}
-\RequirePackage{array}
 \RequirePackage{xfrac}
-\RequirePackage{titlesec}
-%\RequirePackage{graphicx}
 %\RequirePackage{wrapfig}
-\PassOptionsToPackage{letterpaper, margin=1.25in, tmargin=1in}{geometry}
-\RequirePackage{geometry}
-\PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
-\RequirePackage{xcolor}
 \RequirePackage{siunitx}
 \RequirePackage{physics}
 
