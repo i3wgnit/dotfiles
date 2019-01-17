@@ -14,7 +14,8 @@ c.aliases = {
         'w': 'session-save',
         'q': 'quit',
         'wq': 'quit --save',
-        'h5spd': 'jseval var e=parseFloat(prompt("Speed","1.5"));[].slice.apply(document.querySelectorAll("video,audio")).forEach(function(t){t.playbackRate=e})'
+        'h5spd': 'jseval var e=parseFloat(prompt("Speed","1.5"));[].slice.apply(document.querySelectorAll("video,audio")).forEach(function(t){t.playbackRate=e})',
+        'uwcs': 'jseval window.location="https://student.cs.uwaterloo.ca/~"+prompt("Course Number", "cs")',
         }
 
 # Time interval (in milliseconds) between auto-saves of
@@ -1047,7 +1048,7 @@ c.input.rocker_gestures = False
 # determine whether there is an element he might be trying to reach
 # towards the right and which element he probably wants.
 # Type: Bool
-c.input.spatial_navigation = True
+c.input.spatial_navigation = False
 
 # Keychains that shouldn't be shown in the keyhint dialog. Globs are
 # supported, so `;*` will blacklist all keychains starting with `;`. Use
@@ -1165,7 +1166,7 @@ c.scrolling.bar = 'when-searching'
 # Enable smooth scrolling for web pages. Note smooth scrolling does not
 # work with the `:scroll-px` command.
 # Type: Bool
-c.scrolling.smooth = True
+c.scrolling.smooth = False
 
 # When to find text on a page case-insensitively.
 # Type: String
