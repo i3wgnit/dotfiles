@@ -187,7 +187,7 @@ client.background       $foregroundAlt
 # finds out, if available)
 bar {
     status_command i3blocks
-    font xft:Misc Ohsnap, Iosevka Nerd Font 14
+    font pango:Misc Ohsnap, Iosevka Nerd Font 14
     position bottom
     height 25
     tray_output primary
@@ -352,7 +352,7 @@ bindsym $mod+Escape mode "$system"
 
 
 # == STARTUP ==
-exec_always --no-startup-id ~/.config/i3/wallpaper.sh
+exec_always --no-startup-id setsid ~/.config/i3/wallpaper.sh
 # exec_always --no-startup-id ~/.config/polybar/launch.sh
 #$exec aw-qt
 $exec rescuetime
