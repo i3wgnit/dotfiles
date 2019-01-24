@@ -4,7 +4,7 @@ Clone this repo, install submodules, run `install` to set up.
 
 This dotfiles uses [Dotbot](https://github.com/anishathalye/dotbot/) for installation.
 
-** Dependencies
+## Dependencies
 
 - st
 - rofi
@@ -17,7 +17,7 @@ This dotfiles uses [Dotbot](https://github.com/anishathalye/dotbot/) for install
     - iosevka term
     - iosevka nerd font
 
-*** Optional
+### Optional
 
 - ranger
 - calcurse
