@@ -12,7 +12,7 @@ get_label() {
     elif [[ $CAPACITY -le 5 ]]; then
         echo -e '\uf582'
     else
-        echo -e '\u'$(printf '%x' $((16#f579 + $CAPACITY / 10 - 1)))
+        echo -e '\u'$(printf '%x' $((16#f579 + ($CAPACITY - 5) / 10)))
     fi
 }
 
