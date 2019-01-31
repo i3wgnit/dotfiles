@@ -22,7 +22,7 @@ for line in configs:
 
     rang += "map {} shell vim {}\n".format(*ln)
     bash += "alias {}=\"vim {}\"\n".format(*ln)
-    fish += "alias {}='vim {}'\n".format(*ln)
+    fish += "abbr --add {} 'vim {}'\n".format(*ln)
 
 for line in folders:
     if not line.strip():
@@ -35,7 +35,7 @@ for line in folders:
     rang += "map Y{} shell cp -r %s {}\n".format(*ln)
 
     bash += "alias {}=\"cd {} && ls\"\n".format(*ln)
-    fish += "alias {}='cd {}; ls'\n".format(*ln)
+    fish += "abbr --add {} 'cd {}; ls'\n".format(*ln)
 
 def writeFile(f, content):
     with open(f, "w+") as fi:
