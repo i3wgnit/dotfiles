@@ -7,10 +7,9 @@ This dotfiles uses [Dotbot](https://github.com/anishathalye/dotbot/) for install
 ## Dependencies
 
 - st
-- rofi
-- i3
-  - i3 gaps
+- dwm
   - i3blocks gaps
+- dmenu
 - fonts
   - misc ohsnap
   - iosevka
@@ -19,19 +18,21 @@ This dotfiles uses [Dotbot](https://github.com/anishathalye/dotbot/) for install
 
 ### Optional
 
-- ranger
 - calcurse
-- calculator
-  - R
-  - qalc
+- compton
 - browser
   - qutebrowser
   - firefox
+- calculator
+  - R
+  - qalc
 - mpv
 - mutt
+- ranger
+- redshift
 
 ## TODO
 
-1. add a way to make local customizations
-2. customize git
-3. switch to dwm
+1. [ ] add a way to make local customizations
+2. [ ] customize git
+3. [x] switch to dwm
