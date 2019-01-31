@@ -57,6 +57,9 @@
     ~/.config/i3:
     ~/.config/i3blocks:
 
+    # dwm
+    ~/.config/dwm:
+
     # # polybar
     # ~/.config/polybar/config:               polybar/config
     # ~/.config/polybar/scripts:              polybar/scripts
