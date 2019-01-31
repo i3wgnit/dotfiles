@@ -6,8 +6,8 @@ This dotfiles uses [Dotbot](https://github.com/anishathalye/dotbot/) for install
 
 ## Dependencies
 
-- st
-- dwm
+- [st](https://gitlab.com/i3wgnit/st-twl)
+- [dwm](https://gitlab.com/i3wgnit/dwm-twl)
   - i3blocks gaps
 - dmenu
 - fonts
