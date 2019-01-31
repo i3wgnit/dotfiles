@@ -211,7 +211,7 @@ bar {
 # i3-gaps
 for_window [class="^.*"] border pixel 2
 gaps outer 0
-gaps inner 8
+gaps inner 0
 smart_borders on
 
 # gap size
@@ -267,21 +267,21 @@ bindsym $mod+Shift+o    resize grow     height  10 px or 10 ppt
 bindsym $mod+Shift+p    resize grow     width   10 px or 10 ppt
 
 # brightness
-bindsym XF86MonBrightnessDown       $exec ~/.config/i3/backlight.sh slow down  10
-bindsym XF86MonBrightnessUp         $exec ~/.config/i3/backlight.sh slow up    10
-bindsym Shift+XF86MonBrightnessDown $exec ~/.config/i3/backlight.sh fast down  5
-bindsym Shift+XF86MonBrightnessUp   $exec ~/.config/i3/backlight.sh fast up    5
+bindsym XF86MonBrightnessDown       $exec backlight.sh slow down  10
+bindsym XF86MonBrightnessUp         $exec backlight.sh slow up    10
+bindsym Shift+XF86MonBrightnessDown $exec backlight.sh fast down  5
+bindsym Shift+XF86MonBrightnessUp   $exec backlight.sh fast up    5
 
 # backlight
 bindsym XF86KbdBrightnessDown   $exec sudo asus-kbd-backlight down
 bindsym XF86KbdBrightnessUp     $exec sudo asus-kbd-backlight up
 
 # volume
-bindsym XF86AudioLowerVolume        $exec ~/.config/i3/volume.sh down   1
-bindsym XF86AudioRaiseVolume        $exec ~/.config/i3/volume.sh up     1
-bindsym Shift+XF86AudioLowerVolume  $exec ~/.config/i3/volume.sh down   10
-bindsym Shift+XF86AudioRaiseVolume  $exec ~/.config/i3/volume.sh up     10
-bindsym XF86AudioMute               $exec ~/.config/i3/volume.sh mute
+bindsym XF86AudioLowerVolume        $exec volume.sh down   1
+bindsym XF86AudioRaiseVolume        $exec volume.sh up     1
+bindsym Shift+XF86AudioLowerVolume  $exec volume.sh down   10
+bindsym Shift+XF86AudioRaiseVolume  $exec volume.sh up     10
+bindsym XF86AudioMute               $exec volume.sh mute
 
 # clipboard
 bindsym $mod+c $exec CM_LAUNCHER=rofi clipmenu
@@ -290,14 +290,14 @@ bindsym $mod+c $exec CM_LAUNCHER=rofi clipmenu
 set $print_xclip xclip -t image/png -selection clipboard
 set $print_file ~/Pictures/screenshots/$(date +%Y%m%d-%H%M%S).png
 mode "$print" {
-    bindsym Print $exec "maim -qud 1 $print_file", mode "default"
-    bindsym space $exec "maim -ui $(xdotool getactivewindow) $print_file", mode "default"
-    bindsym --release s $exec "maim -us $print_file", mode "default"
+    bindsym Print       $exec screenshot.sh file screen,    mode "default"
+    bindsym space       $exec screenshot.sh file window,    mode "default"
+    bindsym --release s $exec screenshot.sh file select,    mode "default"
 
     # clipboard only
-    bindsym $mod+Print $exec "maim -qud 1 | $print_xclip", mode "default"
-    bindsym $mod+space $exec "maim -ui $(xdotool getactivewindow) | $print_xclip", mode "default"
-    bindsym --release $mod+s $exec "maim -us | $print_xclip", mode "default"
+    bindsym $mod+Print          $exec screenshot.sh clip screen, mode "default"
+    bindsym $mod+space          $exec screenshot.sh clip window, mode "default"
+    bindsym --release $mod+s    $exec screenshot.sh clip select, mode "default"
 
     bindsym Escape mode "default"
     bindsym Return mode "default"
@@ -307,11 +307,11 @@ bindsym Print mode "$print"
 
 # system
 mode "$system" {
-        bindsym l $exec ~/.config/i3/lock.sh, mode "default"
+        bindsym l $exec system.sh lock, mode "default"
         bindsym e exec i3-msg exit, mode "default"
-        bindsym s $exec systemctl suspend, mode "default"
-        bindsym Shift+s exec systemctl poweroff, mode "default"
-        bindsym Shift+r exec systemctl reboot, mode "default"
+        bindsym s $exec system.sh suspend, mode "default"
+        bindsym Shift+s exec system.sh Shutdown, mode "default"
+        bindsym Shift+r exec system.sh Reboot, mode "default"
 
         # reload the configuration file
         bindsym c reload
@@ -352,7 +352,7 @@ bindsym $mod+Escape mode "$system"
 
 
 # == STARTUP ==
-exec_always --no-startup-id setsid ~/.config/i3/wallpaper.sh
+exec_always --no-startup-id setsid wallpaper.sh
 # exec_always --no-startup-id ~/.config/polybar/launch.sh
 #$exec aw-qt
 $exec rescuetime
@@ -361,6 +361,6 @@ $exec dunst
 $exec redshift-gtk
 $exec emacs --daemon
 # $exec nm-applet
-$exec compton -b
+# $exec compton -b
 # $exec keepass
 # $exec nextcloud
