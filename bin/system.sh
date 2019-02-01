@@ -7,6 +7,6 @@ case ${action} in
     lock) ~/.dotfiles/bin/lock.sh;;
     suspend) systemctl suspend;;
     Shutdown) systemctl poweroff;;
-    Reboot) systemcctl reboot;;
+    Reboot) systemctl reboot;;
 esac
 
