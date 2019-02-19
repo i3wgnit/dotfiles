@@ -354,7 +354,7 @@ bindsym $mod+Escape mode "$system"
 # == STARTUP ==
 exec_always --no-startup-id setsid wallpaper.sh
 # exec_always --no-startup-id ~/.config/polybar/launch.sh
-#$exec aw-qt
+# $exec aw-qt
 $exec rescuetime
 $exec CM_SELECTIONS=clipboard clipmenud
 $exec dunst
