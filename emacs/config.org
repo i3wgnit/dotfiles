@@ -565,16 +565,13 @@ evil-mode is the best thing in the world.
 (add-hook 'text-mode #'flyspell-mode)
 #+EnD_SRC
 
-** prog mode
+** org mode
 
 #+BEGIN_SRC emacs-lisp
-(add-hook 'prog-mode
-          (lambda ()
-            (flyspell-prog-mode 1)
-            (flycheck-mode 1)))
+(use-package org
+  :pin org)
 #+END_SRC
 
-** org mode
 *** better defaults
 
 #+BEGIN_SRC emacs-lisp
@@ -593,12 +590,50 @@ evil-mode is the best thing in the world.
 (add-hook 'org-mode-hook 'org-indent-mode)
 #+END_SRC
 
-*** org agenda
+*** evil-org
 
 #+BEGIN_SRC emacs-lisp
-(setq org-agenda-files '("~/org")
-      org-todo-keywords '((sequence "TODO" "IN_PROGRESS" "DONE"))
-      org-todo-keyword-faces '(("IN_PROGRESS" . "#FF9900")))
+(use-package evil-org
+  :diminish evil-org-mode
+  :after org
+  :hook
+  (((org-mode org-agenda-mode) . evil-org-mode)
+   (evil-org-mode . evil-org-set-key-theme))
+  :config
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
+#+END_SRC
+
+*** org agenda
+
+**** Better Defaults
+
+#+BEGIN_SRC emacs-lisp
+(setq org-agenda-start-on-weekday 0
+      org-refile-use-outline-path t
+      org-outline-path-complete-in-steps nil
+      org-agenda-files '("~/org")
+      org-default-notes-file "notes.org"
+      org-refile-targets '((nil :maxlevel . 3)
+                           ("school.org" :level . 2)
+                           ("assignments.org" :level . 2)
+                           ("main.org" :maxlevel . 3))
+      org-todo-keywords '((sequence "TODO" "DOING" "DONE"))
+      org-todo-keyword-faces '(("IN_PROGRESS" . "#FF9900"))
+      org-agenda-prefix-format '((agenda . " %i %-12:c%?12 b%?-12t% s")
+                                 (todo . " %i %-12:c%12 b")
+                                 (tags . " %i %-12:c%12 b")
+                                 (search . " %i %-12:c%12 b")))
+(general-def 'global
+  "C-c a" 'org-agenda)
+#+END_SRC
+
+**** Capture Templates
+
+#+BEGIN_SRC emacs-lisp
+(setq org-capture-templates
+      '(("a" "Assignment" entry (file "notes.org")
+         "* TODO %?\nDEADLINE: %t")))
 #+END_SRC
 
 *** org-babel
