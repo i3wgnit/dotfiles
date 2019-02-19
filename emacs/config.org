@@ -174,9 +174,10 @@ Leader
 Some advice
 
 #+BEGIN_SRC emacs-lisp
-(defadvice load-theme (before theme-dont-propagate activate)
+(defun load-theme--theme-dont-propagate (&rest args)
   "Disable all theme effects before enabling new ones"
   (mapc #'disable-theme custom-enabled-themes))
+(advice-add 'load-theme :before #'load-theme--theme-dont-propagate)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
