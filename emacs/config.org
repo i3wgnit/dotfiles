@@ -75,7 +75,6 @@ To quickly visit config file
   "Visit ~/.emacs.d/config.org"
   (interactive)
   (find-file "~/.emacs.d/config.org"))
-(global-set-key (kbd "C-c e") 'twl/config-visit)
 #+END_SRC
 
 To reload config.org
@@ -84,7 +83,6 @@ To reload config.org
   "Reloads ~/.emacs.d/config.org at runtime."
   (interactive)
   (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
-(global-set-key (kbd "C-c r") 'twl/config-reload)
 #+END_SRC
 
 Compile init folder
@@ -106,7 +104,6 @@ To open a scratch buffer
     (if buf (switch-to-buffer buf)
       (switch-to-buffer (get-buffer-create "*scratch*"))
       (lisp-interaction-mode))))
-(global-set-key (kbd "C-c b") 'twl/scratch-buffer)
 #+END_SRC
 
 Remove annoying scratch buffer message
@@ -145,6 +142,15 @@ To rename the current file
   (interactive)
   (insert (format-time-string
            "%B %d, %Y" (current-time))))
+#+END_SRC
+
+** Keybings
+
+#+BEGIN_SRC emacs-lisp
+(general-def 'global
+  "C-c e" 'twl/config-visit
+  "C-c r" 'twl/config-reload
+  "C-c b" 'twl/scratch-buffer)
 #+END_SRC
 
 ** Custom variables

@@ -2,12 +2,17 @@ auto-save-list/
 elpa/
 eshell/
 games/
+irony/
 
+bookmarks
+diary
 ido.last
 recentf
-smex-items
 saveplace
+smex-items
 tramp
+
+.last-package-update-day
 
 *.elc
 *.el
