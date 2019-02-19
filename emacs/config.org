@@ -227,10 +227,8 @@ I really like spaceline
 
 #+BEGIN_SRC emacs-lisp
 (setq twl/evil-state-modes
-      '((evil-motion-state-modes
-         recentf-dialog-mode)
-        (evil-emacs-state-modes
-         magit-popup-mode)))
+      '((evil-motion-state-modes recentf-dialog-mode)
+        (evil-emacs-state-modes magit-popup-mode)))
 #+END_SRC
 
 *** evil
@@ -238,13 +236,13 @@ I really like spaceline
 #+BEGIN_SRC emacs-lisp
 (use-package evil
   :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  :config
-  (setq evil-emacs-state-modes nil
+  (setq evil-want-integration t
+        evil-want-keybinding nil
+        evil-emacs-state-modes nil
         evil-search-module 'evil-search
         evil-vsplit-window-right t
         evil-split-window-below t)
+  :config
   (dolist (_s twl/evil-state-modes)
     (dolist (_m (cdr _s))
       (add-to-list (car _s) _m)))
@@ -256,18 +254,17 @@ I really like spaceline
 #+BEGIN_SRC emacs-lisp
 (use-package evil-collection
   :after evil
-  :config
+  :init
   (setq evil-collection-setup-minibuffer t)
+  :config
   (evil-collection-init))
 #+END_SRC
 
 *** Keybinds
 
 #+BEGIN_SRC emacs-lisp
-(general-define-key
- :states 'motion
- :keymaps 'override
- :prefix *leader*
+(general-def 'motion 'override
+  :prefix *leader*
  "w" 'save-buffer
  "q" 'twl/kill-cur-buffer
  "e" 'find-file
@@ -309,14 +306,22 @@ however I have yet to use it.
   :general
   (:states 'motion :prefix *leader*
            "/" 'swiper)
-  :config
+  :init
   (setq ivy-use-virtual-buffers t
         ivy-count-format "%d/%d "
         ivy-use-selectable-prompt t
-        ivy-re-builders-alist
-        '((swiper . ivy--regex-plus)
-          (t . ivy--regex-fuzzy)))
+        ivy-re-builders-alist '((swiper . ivy--regex-plus)
+                                (t . ivy--regex-fuzzy)))
+  :config
   (ivy-mode 1))
+#+END_SRC
+
+**** flx
+
+Better fuzzy find for =ivy=.
+Otherwise, it looks very rainbow-ish and unbearable.
+#+BEGIN_SRC emacs-lisp
+(use-package flx)
 #+END_SRC
 
 *** counsel
@@ -391,17 +396,18 @@ however I have yet to use it.
 
 #+BEGIN_SRC emacs-lisp
 (setq twl/builtin-packages
-      '((menu-bar-mode . nil)
-        (tool-bar-mode . nil)
-        (scroll-bar-mode . nil)
-        (horizontal-scroll-bar-mode . nil)
-        (blink-cursor-mode . nil)
+      '((blink-cursor-mode . nil)
+        (display-time-mode . t)
         (electric-pair-mode . t)
-        (show-paren-mode . t)
+        (global-prettify-symbols-mode . t)
+        (global-whitespace-mode . t)
+        (horizontal-scroll-bar-mode . nil)
+        (menu-bar-mode . nil)
         (recentf-mode . t)
         (save-place-mode . t)
-        (global-prettify-symbols-mode . t)
-        (display-time-mode . t)))
+        (scroll-bar-mode . nil)
+        (show-paren-mode . t)
+        (tool-bar-mode . nil)))
 (dolist (_bp twl/builtin-packages)
   (let ((mode (car _bp)))
     (if (cdr _bp)
@@ -416,7 +422,6 @@ however I have yet to use it.
 (setq recentf-max-saved-items 500
       recentf-max-menu-items 50
       recentf-auto-cleanup 'never)
-(recentf-mode 1)
 #+END_SRC
 
 *** tramp
@@ -446,7 +451,7 @@ however I have yet to use it.
 (setq whitespace-style
       '(face empty lines-tail trailing indentation)
       whitespace-line-column fill-column)
-(global-whitespace-mode 1)
+(twl/diminish-minor-mode 'whitespace 'global-whitespace-mode)
 #+END_SRC
 
 *** flyspell
@@ -628,26 +633,14 @@ evil-mode is the best thing in the world.
 ** Lispy modes
 
 #+BEGIN_SRC emacs-lisp
-(setq twl/lispy-mode-hooks
-      '(emacs-lisp-mode-hook
-        lisp-mode-hook
-        scheme-mode-hook
-        racket-mode-hook))
+(defun twl/lispy-mode-hooks ()
+  (rainbow-delimiters-mode))
 
-(dolist (_h twl/lispy-mode-hooks)
-  (add-hook _h (lambda ()
-                 (rainbow-delimiters-mode))))
-#+END_SRC
-** LaTeX mode
-
-#+BEGIN_SRC emacs-lisp
-(use-package auctex
-  :defer t
-  :init
-  (setq reftex-plug-intoAUCTeX t)
-  (setq TeX-electric-escape nil
-        TeX-insert-braces nil
-        TeX-parse-self t))
+(dolist (_h '(emacs-lisp-mode-hook
+              lisp-mode-hook
+              scheme-mode-hook
+              racket-mode-hook))
+  (add-hook _h 'twl/lispy-mode-hooks))
 #+END_SRC
 
 *** LatexMK
