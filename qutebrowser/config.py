@@ -15,7 +15,6 @@ c.aliases = {
         'q': 'quit',
         'wq': 'quit --save',
         'h5spd': 'jseval var e=parseFloat(prompt("Speed","1.5"));[].slice.apply(document.querySelectorAll("video,audio")).forEach(function(t){t.playbackRate=e})',
-        'uwcs': 'jseval window.location="https://student.cs.uwaterloo.ca/~"+prompt("Course Number", "cs")',
         }
 
 # Time interval (in milliseconds) between auto-saves of
@@ -1497,7 +1496,8 @@ c.url.searchengines = {
         'ud': 'http://www.urbandictionary.com/define.php?term={}',
         'walph': 'https://www.wolframalpha.com/input/?i={}',
         'yt': 'https://youtube.com/results?search_query={}',
-        'w': 'https://en.wikipedia.org/w/index.php?title=Special&search={}'
+        'w': 'https://en.wikipedia.org/w/index.php?title=Special&search={}',
+        'uwcs': 'https://student.cs.uwaterloo.ca/~cs{}'
         }
 
 # Page(s) to open at the start.
