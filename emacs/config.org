@@ -669,16 +669,17 @@ evil-mode is the best thing in the world.
   (add-hook _h 'twl/lispy-mode-hooks))
 #+END_SRC
 
+** LaTeX mode
 *** LatexMK
 
 This is bad, as it somehow removes the prettify-symbols
 #+BEGIN_SRC emacs-lisp
-                                        ;(use-package auctex-latexmk
-                                        ;  :config
-                                        ;  (auctex-latexmk-setup))
+;(use-package auctex-latexmk
+;  :config
+;  (auctex-latexmk-setup))
 #+END_SRC
 
-So I made my own? jk I copied that =^^=
+So I made my own? jk I copied this =^^=
 #+BEGIN_SRC emacs-lisp
 (defun twl/latexmk-setup ()
   (add-to-list 'TeX-expand-list
@@ -707,29 +708,91 @@ Also, heres a quick latex compile command
 *** Hooks
 
 #+BEGIN_SRC emacs-lisp
-(setq twl/latex-mode-hooks
-      '(LaTeX-mode-hook TeX-mode-hook))
-(dolist (_m twl/latex-mode-hooks)
-  (add-hook _m
-            (lambda ()
-              (setq TeX-command-default "LatexMK")
-              (twl/latexmk-setup)
-              (run-with-idle-timer 0 nil (lambda () (prettify-symbols-mode 1)))
-              (reftex-mode 1)
-              (LaTeX-math-mode 1)
-              (flyspell-mode 1)
-              (flycheck-mode 1)
-              (add-to-list 'TeX-view-program-selection
-                           '(output-pdf "Zathura"))
-              )))
+(defun twl/latex-mode-hooks ()
+  (reftex-mode 1)
+  (LaTeX-math-mode 1)
+  (flyspell-mode 1)
+  (flycheck-mode 1)
+  (company-mode 1)
+
+  (add-to-list 'TeX-view-program-selection
+               '(output-pdf "Zathura"))
+  (TeX-source-correlate-mode 1)
+
+  (twl/latexmk-setup)
+  (setq TeX-command-default "LatexMK"))
+#+END_SRC
+
+*** LaTeX-fill-sentence
+
+#+BEGIN_SRC emacs-lisp
+(defun LaTeX-fill-region-as-paragraph--fill-sentence
+    (orig-fun from to &rest args)
+  "Start each sentence on a new line."
+  (let ((to-marker (set-marker (make-marker) to))
+        tmp-end)
+    (while (< from (marker-position to-marker))
+      (forward-sentence)
+      (when (looking-at " ") (backward-char))
+      ;; might have gone beyond to-marker --- use whichever is smaller:
+      (setq to (setq tmp-end (min (point) (marker-position to-marker))))
+      (apply orig-fun from to args)
+      (setq from (point))
+      (unless (or (bolp)
+                  (looking-at "\\s *$"))
+        (LaTeX-newline)))
+    (set-marker to-marker nil)))
+#+END_SRC
+
+*** AUCTeX
+
+#+BEGIN_SRC emacs-lisp
+(use-package tex
+  :ensure auctex
+  :hook (LaTeX-mode . twl/latex-mode-hooks)
+  :general
+  (normal LaTeX-mode-map "M-q" 'LaTeX-fill-paragraph)
+  (visual LaTeX-mode-map "M-q" 'LaTeX-fill-region)
+  :init
+  (setq TeX-auto-save t
+        TeX-parse-self t
+        reftex-plug-intoAUCTeX t
+        TeX-electric-escape nil
+        TeX-insert-braces nil
+        LaTeX-fill-break-at-separators '(\\\( \\\[ \\\]))
+  :config
+  (advice-add 'LaTeX-fill-region-as-paragraph
+              :around #'LaTeX-fill-region-as-paragraph--fill-sentence))
+#+END_SRC
+
+*** company-math
+
+#+BEGIN_SRC emacs-lisp
+(use-package company-math
+  :after (tex company)
+  :config
+  (setq company-math-allow-unicode-symbols-in-faces nil))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package company-auctex
+  :after company-math
+  :hook
+  (LaTeX-mode .
+              (lambda ()
+                (setq-local company-backends
+                            (append '(company-math-symbols-latex
+                                      company-auctex-macros
+                                      copmany-auctex-environments)
+                                    company-backends)))))
 #+END_SRC
 
 ** scala mode
 
 #+BEGIN_SRC emacs-lisp
-(use-package scala-mode
-  :interpreter
-  ("scala" . scala-mode))
+;(use-package scala-mode
+;  :interpreter
+;  ("scala" . scala-mode))
 #+END_SRC
 
 
