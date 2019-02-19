@@ -5,7 +5,7 @@ cd
 ~/.dotfiles/bin/wallpaper.sh
 
 pulseaudio --kill
-setsid pulseaudio --start
+pulseaudio --start
 setsid -f emacs --daemon
 setsid -f rescuetime
 setsid -f redshift-gtk

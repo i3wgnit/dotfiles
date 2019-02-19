@@ -537,9 +537,8 @@ evil-mode is the best thing in the world.
 #+BEGIN_SRC emacs-lisp
 (use-package which-key
   :diminish which-key-mode
-  :defer 1
   :config
-  (which-key-mode))
+  (which-key-mode 1))
 #+END_SRC
 
 ** rainbow-delimiters
@@ -750,6 +749,7 @@ Also, heres a quick latex compile command
       (apply orig-fun from to args)
       (setq from (point))
       (unless (or (bolp)
+                  (texmathp)
                   (looking-at "\\s *$"))
         (LaTeX-newline)))
     (set-marker to-marker nil)))
@@ -797,15 +797,6 @@ Also, heres a quick latex compile command
                                       copmany-auctex-environments)
                                     company-backends)))))
 #+END_SRC
-
-** scala mode
-
-#+BEGIN_SRC emacs-lisp
-;(use-package scala-mode
-;  :interpreter
-;  ("scala" . scala-mode))
-#+END_SRC
-
 
 ** plantuml
 
