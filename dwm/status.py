@@ -4,7 +4,7 @@ import json
 import re
 import subprocess
 
-for _ in range(5):
+for _ in range(3):
     input()
 
 for line in fileinput.input():
