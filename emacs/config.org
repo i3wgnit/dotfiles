@@ -45,6 +45,17 @@ and it was a bit painful.
 (require 'diminish)
 #+END_SRC
 
+*** auto-package-update
+
+This is for having the most recent packages.
+
+#+BEGIN_SRC emacs-lisp
+(use-package auto-package-update
+  :config
+  (setq auto-package-update-delete-old-versions t)
+  (setq auto-package-update-hide-results t)
+  (auto-package-update-maybe))
+#+END_SRC
 ** quality of life
 
 #+BEGIN_SRC emacs-lisp
