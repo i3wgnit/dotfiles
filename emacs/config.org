@@ -397,6 +397,15 @@ Otherwise, it looks very rainbow-ish and unbearable.
         company-minimum-prefix-length 3))
 #+END_SRC
 
+**** company-flx
+
+#+BEGIN_SRC emacs-lisp
+(use-package company-flx
+  :after company
+  :config
+  (company-flx-mode 1))
+#+END_SRC
+
 * Better defaults
 ** Settings
 *** UTF-8
@@ -817,26 +826,27 @@ Also, heres a quick latex compile command
               :around #'LaTeX-fill-region-as-paragraph--fill-sentence))
 #+END_SRC
 
-*** company-math
+*** Auto completion
 
 #+BEGIN_SRC emacs-lisp
+(defun twl//latex-company-backends ()
+  (setq-local company-backends
+              '((company-math-symbols-latex
+                 company-auctex-macros
+                 company-auctex-environments
+                 company-reftex-citations
+                 company-reftex-labels))))
+
 (use-package company-math
   :after (tex company)
-  :config
-  (setq company-math-allow-unicode-symbols-in-faces nil))
-#+END_SRC
+  :init (setq company-math-allow-unicode-symbols-in-faces nil))
 
-#+BEGIN_SRC emacs-lisp
 (use-package company-auctex
-  :after company-math
-  :hook
-  (LaTeX-mode .
-              (lambda ()
-                (setq-local company-backends
-                            (append '(company-math-symbols-latex
-                                      company-auctex-macros
-                                      copmany-auctex-environments)
-                                    company-backends)))))
+  :after company-math)
+
+(use-package company-reftex
+  :after company-auctex
+  :hook (LaTeX-mode . twl//latex-company-backends))
 #+END_SRC
 
 ** plantuml
@@ -862,12 +872,20 @@ Also, heres a quick latex compile command
   :hook
   (((c++-mode c-mode) . irony-mode)
    (irony-mode . irony-cdb-autosetup-compile-options)))
+#+END_SRC
 
+**** company-irony
+
+#+BEGIN_SRC emacs-lisp
 (use-package company-irony
-  :after (irony company)
+  :after (irony company))
+
+(use-package company-irony-c-headers
+  :after company-irony
   :hook
   (irony-mode .
               (lambda ()
                 (setq-local company-backends
-                            (append '(company-irony) company-backends)))))
+                     '((company-irony
+                        company-irony-c-headers))))))
 #+END_SRC
