@@ -829,7 +829,8 @@ Also, heres a quick latex compile command
         reftex-plug-intoAUCTeX t
         TeX-electric-escape nil
         TeX-insert-braces nil
-        LaTeX-fill-break-at-separators '(\\\( \\\[ \\\]))
+        LaTeX-fill-break-at-separators '(\\\( \\\[ \\\])
+        LaTeX-math-list '(("v0" "varnothing")))
   :config
   (advice-add 'LaTeX-fill-region-as-paragraph
               :around #'LaTeX-fill-region-as-paragraph--fill-sentence))
