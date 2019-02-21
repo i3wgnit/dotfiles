@@ -250,12 +250,86 @@ At this point, I just cannot live without this.
   (global-evil-surround-mode 1))
 #+END_SRC
 
-I always had this package installed,
+**** evil-indent-plus
+
+I have always had this package installed,
 however I have yet to use it.
 
 #+BEGIN_SRC emacs-lisp
-(use-package evil-indent-textobject
+(use-package evil-indent-plus
   :after evil)
+#+END_SRC
+
+**** evil-matchit
+
+This seems like a must.
+Although I don't know much about it.
+
+#+BEGIN_SRC emacs-lisp
+(use-package evil-matchit
+  :after evil
+  :config
+  (global-evil-matchit-mode 1))
+#+END_SRC
+
+**** evil-lion
+
+This has a lot of potential, although I am not sure how often I will use this.
+
+#+BEGIN_SRC emacs-lisp
+(use-package evil-lion
+  :after evil
+  :config
+  (evil-lion-mode 1))
+#+END_SRC
+
+** Display
+*** Font
+
+#+BEGIN_SRC emacs-lisp
+(set-frame-font "Iosevka Term-14")
+(add-hook 'focus-in-hook
+          (lambda () (set-frame-font "Iosevka Term-14")))
+#+END_SRC
+
+*** Theme
+
+Load theme advice
+
+#+BEGIN_SRC emacs-lisp
+(defun load-theme--theme-dont-propagate (&rest args)
+  "Disable all theme effects before enabling new ones"
+  (mapc #'disable-theme custom-enabled-themes))
+(advice-add 'load-theme :before #'load-theme--theme-dont-propagate)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package doom-themes
+  :init
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t)
+  :config
+  (load-theme 'doom-vibrant t)
+  (doom-themes-org-config))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+;; (use-package spacemacs-theme
+;;   :config
+;;   (load-theme 'spacemacs-dark t))
+#+END_SRC
+
+*** Modeline
+
+I really like spaceline
+
+#+BEGIN_SRC emacs-lisp
+(use-package spaceline
+  :config
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+  (require 'spaceline-config)
+  (setq powerline-default-separator 'arrow)
+  (spaceline-spacemacs-theme))
 #+END_SRC
 
 *** diminish
@@ -287,10 +361,10 @@ however I have yet to use it.
   :init
   (setq ivy-use-virtual-buffers t
         ivy-count-format "%d/%d "
-        ivy-use-selectable-prompt t
-        ivy-re-builders-alist '((swiper . ivy--regex-plus)
-                                (t . ivy--regex-fuzzy)))
+        ivy-use-selectable-prompt t)
   :config
+  (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
+                                (t . ivy--regex-fuzzy)))
   (ivy-mode 1))
 #+END_SRC
 
@@ -302,7 +376,7 @@ Otherwise, it looks very rainbow-ish and unbearable.
 (use-package flx)
 #+END_SRC
 
-*** counsel
+**** counsel
 
 #+BEGIN_SRC emacs-lisp
 (use-package counsel
@@ -389,6 +463,7 @@ Otherwise, it looks very rainbow-ish and unbearable.
         (display-time-mode . t)
         (electric-pair-mode . t)
         (global-prettify-symbols-mode . t)
+        (global-hl-line-mode . t)
         (global-whitespace-mode . t)
         (horizontal-scroll-bar-mode . nil)
         (menu-bar-mode . nil)
