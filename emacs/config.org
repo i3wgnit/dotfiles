@@ -629,6 +629,7 @@ evil-mode is the best thing in the world.
 
 #+BEGIN_SRC emacs-lisp
 (use-package org
+  :ensure org-plus-contrib
   :pin org)
 #+END_SRC
 
@@ -708,12 +709,20 @@ evil-mode is the best thing in the world.
    (plantuml . t)))
 #+END_SRC
 
-*** ox-twbs
+*** Export Options
+**** ox-twbs
 
 #+BEGIN_SRC emacs-lisp
 (use-package ox-twbs
   :after org)
 (use-package htmlize)
+#+END_SRC
+
+**** ox-reveal
+
+#+BEGIN_SRC emacs-lisp
+(use-package ox-reveal
+  :init (setq org-reveal-root "~/src/reveal.js"))
 #+END_SRC
 
 ** Lispy modes
