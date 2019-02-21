@@ -2,6 +2,7 @@
 #+AUTHOR: Ting Wei Liu
 #+CREATOR: twl
 #+OPTIONS: toc:4
+#+STARTUP: overview
 
 * Head
 ** Packages
@@ -21,7 +22,7 @@ because GNU is not enough.
 Function to install packages
 
 #+BEGIN_SRC emacs-lisp
-(defun twl/install-package (pkg)
+(defun twl//install-package (pkg)
   (unless (package-installed-p pkg)
     (package-refresh-contents)
     (package-install pkg)))
@@ -33,9 +34,9 @@ I tried writing my configs without use-package once
 and it was a bit painful.
 
 #+BEGIN_SRC emacs-lisp
-(twl/install-package 'general)
-(twl/install-package 'diminish)
-(twl/install-package 'use-package)
+(twl//install-package 'general)
+(twl//install-package 'diminish)
+(twl//install-package 'use-package)
 (setq use-package-verbose t
       use-package-always-ensure t)
 (eval-when-compile
@@ -82,7 +83,7 @@ This is for having the most recent packages.
 
 To quickly visit config file
 #+BEGIN_SRC emacs-lisp
-(defun twl/config-visit ()
+(defun twl//config-visit ()
   "Visit ~/.emacs.d/config.org"
   (interactive)
   (find-file "~/.emacs.d/config.org"))
@@ -90,7 +91,7 @@ To quickly visit config file
 
 To reload config.org
 #+BEGIN_SRC emacs-lisp
-(defun twl/config-reload ()
+(defun twl//config-reload ()
   "Reloads ~/.emacs.d/config.org at runtime."
   (interactive)
   (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
@@ -98,7 +99,7 @@ To reload config.org
 
 Compile init folder
 #+BEGIN_SRC emacs-lisp
-(defun twl/byte-compile-init-dit ()
+(defun twl//byte-compile-init-dit ()
   "Byte-compile all your settings."
   (interactive)
   (byte-recompile-directory user-emacs-directory 0))
@@ -108,7 +109,7 @@ Compile init folder
 
 To open a scratch buffer
 #+BEGIN_SRC emacs-lisp
-(defun twl/scratch-buffer ()
+(defun twl//scratch-buffer ()
   "Switch to a scratch buffer"
   (interactive)
   (let ((buf (get-buffer "*scratch*")))
@@ -124,7 +125,7 @@ Remove annoying scratch buffer message
 
 To kill current buffer
 #+BEGIN_SRC emacs-lisp
-(defun twl/kill-cur-buffer ()
+(defun twl//kill-cur-buffer ()
   "Kill the current buffer without prompt"
   (interactive)
   (kill-buffer (current-buffer)))
@@ -132,7 +133,7 @@ To kill current buffer
 
 To rename the current file
 #+BEGIN_SRC emacs-lisp
-(defun twl/rename-file (new-name)
+(defun twl//rename-file (new-name)
   (interactive "FNew name: ")
   (let ((filename (buffer-file-name)))
     (if filename
@@ -148,7 +149,7 @@ To rename the current file
 
 "I have always wanted a function like this" - Me, 2018
 #+BEGIN_SRC emacs-lisp
-(defun twl/insert-date ()
+(defun twl//insert-date ()
   "Function to insert date into buffer"
   (interactive)
   (insert (format-time-string
@@ -159,88 +160,28 @@ To rename the current file
 
 #+BEGIN_SRC emacs-lisp
 (general-def 'global
-  "C-c e" 'twl/config-visit
-  "C-c r" 'twl/config-reload
-  "C-c b" 'twl/scratch-buffer)
+  "C-c e" 'twl//config-visit
+  "C-c r" 'twl//config-reload
+  "C-c b" 'twl//scratch-buffer)
 #+END_SRC
 
 ** Custom variables
 
-Leader
+Leader key
+
 #+BEGIN_SRC emacs-lisp
 (defvar *leader* ",")
 #+END_SRC
 * Core
-** Display
-*** Font
-
-#+BEGIN_SRC emacs-lisp
-(set-frame-font "Iosevka Term-14")
-(add-hook 'focus-in-hook
-          (lambda () (set-frame-font "Iosevka Term-14")))
-#+END_SRC
-
-*** Theme
-
-Some advice
-
-#+BEGIN_SRC emacs-lisp
-(defun load-theme--theme-dont-propagate (&rest args)
-  "Disable all theme effects before enabling new ones"
-  (mapc #'disable-theme custom-enabled-themes))
-(advice-add 'load-theme :before #'load-theme--theme-dont-propagate)
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-(use-package doom-themes
-  :config
-  (setq doom-themes-enable-bold t
-        doom-themes-enable-italic t)
-  (load-theme 'doom-vibrant t)
-  (doom-themes-org-config))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-;;(use-package spacemacs-theme
-;;  :config
-;;  (load-theme 'spacemacs-dark t))
-#+END_SRC
-
-*** Modeline
-
-I really like spaceline
-
-#+BEGIN_SRC emacs-lisp
-(use-package spaceline
-  :config
-  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-  (require 'spaceline-config)
-  (setq powerline-default-separator 'arrow)
-  (spaceline-spacemacs-theme))
-#+END_SRC
-
-*** diminish
-
-#+BEGIN_SRC emacs-lisp
-(defmacro twl/diminish-minor-mode (filename mode &optional abbrev)
-  `(eval-after-load (symbol-name ,filename)
-     '(diminish ,mode ,abbrev)))
-
-(defmacro twl/diminish-major-mode (mode-hook abbrev)
-  `(add-hook ,mode-hook
-             (lambda () (setq mode-name ,abbrev))))
-
-(twl/diminish-minor-mode 'undo-tree 'undo-tree-mode)
-(twl/diminish-minor-mode 'eldoc 'eldoc-mode)
-#+END_SRC
-
 ** evil mode
 *** state-modes
 
 #+BEGIN_SRC emacs-lisp
 (setq twl/evil-state-modes
-      '((evil-motion-state-modes recentf-dialog-mode)
-        (evil-emacs-state-modes magit-popup-mode)))
+      '((evil-motion-state-modes
+         recentf-dialog-mode)
+        (evil-emacs-state-modes
+         magit-popup-mode)))
 #+END_SRC
 
 *** evil
@@ -277,17 +218,18 @@ I really like spaceline
 #+BEGIN_SRC emacs-lisp
 (general-def 'motion 'override
   :prefix *leader*
- "w" 'save-buffer
- "q" 'twl/kill-cur-buffer
- "e" 'find-file
- "b" 'ibuffer
- "h" 'dired-jump
- "x" 'execute-extended-command
- "r" 'revert-buffer
- "j" 'recentf-open-files)
+  "w" 'save-buffer
+  "q" 'twl//kill-cur-buffer
+  "e" 'find-file
+  "b" 'ibuffer
+  "h" 'dired-jump
+  "x" 'execute-extended-command
+  "r" 'revert-buffer
+  "j" 'recentf-open-files)
 #+END_SRC
 
 *** plug-ins
+**** evil-surround
 
 evil-surround is the one package I always use.
 At this point, I just cannot live without this.
@@ -305,6 +247,21 @@ however I have yet to use it.
 #+BEGIN_SRC emacs-lisp
 (use-package evil-indent-textobject
   :after evil)
+#+END_SRC
+
+*** diminish
+
+#+BEGIN_SRC emacs-lisp
+(defmacro twl|diminish-minor-mode (filename mode &optional abbrev)
+  `(eval-after-load (symbol-name ,filename)
+     '(diminish ,mode ,abbrev)))
+
+(defmacro twl|diminish-major-mode (mode-hook abbrev)
+  `(add-hook ,mode-hook
+             (lambda () (setq mode-name ,abbrev))))
+
+(twl|diminish-minor-mode 'undo-tree 'undo-tree-mode)
+(twl|diminish-minor-mode 'eldoc 'eldoc-mode)
 #+END_SRC
 
 ** Completion
@@ -474,7 +431,7 @@ Otherwise, it looks very rainbow-ish and unbearable.
 (setq whitespace-style
       '(face empty lines-tail trailing indentation)
       whitespace-line-column fill-column)
-(twl/diminish-minor-mode 'whitespace 'global-whitespace-mode)
+(twl|diminish-minor-mode 'whitespace 'global-whitespace-mode)
 #+END_SRC
 
 *** flyspell
@@ -669,14 +626,14 @@ evil-mode is the best thing in the world.
 ** Lispy modes
 
 #+BEGIN_SRC emacs-lisp
-(defun twl/lispy-mode-hooks ()
+(defun twl//lispy-mode-hooks ()
   (rainbow-delimiters-mode))
 
 (dolist (_h '(emacs-lisp-mode-hook
               lisp-mode-hook
               scheme-mode-hook
               racket-mode-hook))
-  (add-hook _h 'twl/lispy-mode-hooks))
+  (add-hook _h 'twl//lispy-mode-hooks))
 #+END_SRC
 
 ** LaTeX mode
@@ -691,7 +648,7 @@ This is bad, as it somehow removes the prettify-symbols
 
 So I made my own? jk I copied this =^^=
 #+BEGIN_SRC emacs-lisp
-(defun twl/latexmk-setup ()
+(defun twl//latexmk-setup ()
   (add-to-list 'TeX-expand-list
                '("%(-PDF)"
                  (lambda ()
@@ -709,7 +666,7 @@ So I made my own? jk I copied this =^^=
 
 Also, heres a quick latex compile command
 #+BEGIN_SRC emacs-lisp
-(defun twl/latexmk-compile ()
+(defun twl//latexmk-compile ()
   (interactive)
   (TeX-command-select-master)
   (TeX-command "LatexMK"))
@@ -718,7 +675,7 @@ Also, heres a quick latex compile command
 *** Hooks
 
 #+BEGIN_SRC emacs-lisp
-(defun twl/latex-mode-hooks ()
+(defun twl//latex-mode-hooks ()
   (reftex-mode 1)
   (LaTeX-math-mode 1)
   (flyspell-mode 1)
@@ -729,7 +686,7 @@ Also, heres a quick latex compile command
                '(output-pdf "Zathura"))
   (TeX-source-correlate-mode 1)
 
-  (twl/latexmk-setup)
+  (twl//latexmk-setup)
   (setq TeX-command-default "LatexMK"))
 #+END_SRC
 
@@ -760,7 +717,7 @@ Also, heres a quick latex compile command
 #+BEGIN_SRC emacs-lisp
 (use-package tex
   :ensure auctex
-  :hook (LaTeX-mode . twl/latex-mode-hooks)
+  :hook (LaTeX-mode . twl//latex-mode-hooks)
   :general
   (normal LaTeX-mode-map "M-q" 'LaTeX-fill-paragraph)
   (visual LaTeX-mode-map "M-q" 'LaTeX-fill-region)
