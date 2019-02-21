@@ -4,11 +4,10 @@ cd
 
 ~/.dotfiles/bin/wallpaper.sh
 
-pulseaudio --kill
-pulseaudio --start
+echo 'pulseaudio --kill && sleep 3 && pulseaudio --start' | parallel &
 setsid -f emacs --daemon
 setsid -f rescuetime
-setsid -f redshift-gtk
+setsid -f redshift-qt
 setsid -f dunst
 CM_SELECTIONS=clipboard setsid -f clipmenud
 # setsid -f compton -b
