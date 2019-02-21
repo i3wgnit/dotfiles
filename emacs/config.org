@@ -51,12 +51,21 @@ and it was a bit painful.
 This is for having the most recent packages.
 
 #+BEGIN_SRC emacs-lisp
-(use-package auto-package-update
-  :config
-  (setq auto-package-update-delete-old-versions t)
-  (setq auto-package-update-hide-results t)
-  (auto-package-update-maybe))
+;; (use-package auto-package-update
+;;   :defer 1
+;;   :config
+;;   (setq auto-package-update-delete-old-versions t)
+;;   (setq auto-package-update-hide-results t)
+;;   (auto-package-update-maybe))
 #+END_SRC
+
+*** try
+
+#+BEGIN_SRC emacs-lisp
+(use-package try
+  :commands (try try-and-refresh))
+#+END_SRC
+
 ** quality of life
 
 #+BEGIN_SRC emacs-lisp
