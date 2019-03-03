@@ -262,14 +262,14 @@ however I have yet to use it.
 
 **** evil-matchit
 
-This seems like a must.
-Although I don't know much about it.
+This is not as useful as I thought it was.
+I do not like this.
 
 #+BEGIN_SRC emacs-lisp
-(use-package evil-matchit
-  :after evil
-  :config
-  (global-evil-matchit-mode 1))
+;; (use-package evil-matchit
+;;   :after evil
+;;   :config
+;;   (global-evil-matchit-mode 1))
 #+END_SRC
 
 **** evil-lion
@@ -281,6 +281,16 @@ This has a lot of potential, although I am not sure how often I will use this.
   :after evil
   :config
   (evil-lion-mode 1))
+#+END_SRC
+
+**** evil-anzu
+
+This might seem minor, but is actually such a life saver.
+#+BEGIN_SRC emacs-lisp
+(use-package evil-anzu
+  :after evil
+  :init
+  (setq anzu-cons-mode-line-p nil))
 #+END_SRC
 
 ** Display
@@ -348,6 +358,24 @@ I really like spaceline
 #+END_SRC
 
 ** Completion
+*** flx
+
+Better fuzzy find for =ivy=.
+Otherwise, it looks very rainbow-ish and unbearable.
+#+BEGIN_SRC emacs-lisp
+(use-package flx)
+#+END_SRC
+
+**** counsel
+
+#+BEGIN_SRC emacs-lisp
+(use-package counsel
+  :after ivy
+  :diminish counsel-mode
+  :config
+  (counsel-mode 1))
+#+END_SRC
+
 *** ivy
 
 #+BEGIN_SRC emacs-lisp
@@ -368,24 +396,6 @@ I really like spaceline
   (ivy-mode 1))
 #+END_SRC
 
-**** flx
-
-Better fuzzy find for =ivy=.
-Otherwise, it looks very rainbow-ish and unbearable.
-#+BEGIN_SRC emacs-lisp
-(use-package flx)
-#+END_SRC
-
-**** counsel
-
-#+BEGIN_SRC emacs-lisp
-(use-package counsel
-  :after ivy
-  :diminish counsel-mode
-  :config
-  (counsel-mode 1))
-#+END_SRC
-
 *** company
 
 #+BEGIN_SRC emacs-lisp
@@ -401,7 +411,7 @@ Otherwise, it looks very rainbow-ish and unbearable.
 
 #+BEGIN_SRC emacs-lisp
 (use-package company-flx
-  :after company
+  :after (company flx)
   :config
   (company-flx-mode 1))
 #+END_SRC
@@ -589,6 +599,13 @@ evil-mode is the best thing in the world.
   :after yasnippet)
 #+END_SRC
 
+** lsp-mode
+
+#+BEGIN_SRC emacs-lisp
+;; (use-package lsp-mode
+;;   )
+#+END_SRC
+
 * Minor modes
 ** flycheck
 
@@ -644,9 +661,7 @@ evil-mode is the best thing in the world.
 ** org mode
 
 #+BEGIN_SRC emacs-lisp
-(use-package org
-  :ensure org-plus-contrib
-  :pin org)
+(use-package org)
 #+END_SRC
 
 *** better defaults
@@ -671,8 +686,8 @@ evil-mode is the best thing in the world.
 
 #+BEGIN_SRC emacs-lisp
 (use-package evil-org
-  :diminish evil-org-mode
   :after org
+  :diminish evil-org-mode
   :hook
   (((org-mode org-agenda-mode) . evil-org-mode)
    (evil-org-mode . evil-org-set-key-theme))
@@ -693,7 +708,6 @@ evil-mode is the best thing in the world.
       org-default-notes-file "notes.org"
       org-refile-targets '((nil :maxlevel . 3)
                            ("school.org" :level . 2)
-                           ("assignments.org" :level . 2)
                            ("main.org" :maxlevel . 3))
       org-todo-keywords '((sequence "TODO" "DOING" "DONE"))
       org-todo-keyword-faces '(("IN_PROGRESS" . "#FF9900"))
@@ -737,8 +751,8 @@ evil-mode is the best thing in the world.
 **** ox-reveal
 
 #+BEGIN_SRC emacs-lisp
-(use-package ox-reveal
-  :init (setq org-reveal-root "~/src/reveal.js"))
+;; (use-package ox-reveal
+;;   :init (setq org-reveal-root "~/src/reveal.js"))
 #+END_SRC
 
 ** Lispy modes
@@ -824,10 +838,23 @@ Also, heres a quick latex compile command
       (apply orig-fun from to args)
       (setq from (point))
       (unless (or (bolp)
+                  (eolp)
                   (texmathp)
-                  (looking-at "\\s *$"))
+                  (looking-back "^ *")
+                  (looking-at ". *$"))
         (LaTeX-newline)))
     (set-marker to-marker nil)))
+#+END_SRC
+
+*** LaTeX-fill-prettify-toggle
+
+#+BEGIN_SRC emacs-lisp
+(defun LaTeX-fill--prettify-toggle
+    (orig-fun &rest args)
+  (let ((prettify-mode-initial (if prettify-symbols-mode 1 0)))
+    (prettify-symbols-mode 0)
+    (apply orig-fun args)
+    (prettify-symbols-mode prettify-mode-initial)))
 #+END_SRC
 
 *** AUCTeX
@@ -849,7 +876,13 @@ Also, heres a quick latex compile command
         LaTeX-math-list '(("v0" "varnothing")))
   :config
   (advice-add 'LaTeX-fill-region-as-paragraph
-              :around #'LaTeX-fill-region-as-paragraph--fill-sentence))
+              :around #'LaTeX-fill-region-as-paragraph--fill-sentence)
+  (advice-add 'LaTeX-fill-paragraph
+              :around #'LaTeX-fill--prettify-toggle)
+  (advice-add 'LaTeX-fill-region
+              :around #'LaTeX-fill--prettify-toggle)
+  (advice-add 'LaTeX-fill-environment
+              :around #'LaTeX-fill--prettify-toggle))
 #+END_SRC
 
 *** Auto completion
@@ -893,25 +926,28 @@ Also, heres a quick latex compile command
 #+END_SRC
 
 *** irony
+
+I thought this was nice at first, but then I discovered `lsp`s
+
 #+BEGIN_SRC emacs-lisp
-(use-package irony
-  :hook
-  (((c++-mode c-mode) . irony-mode)
-   (irony-mode . irony-cdb-autosetup-compile-options)))
+;; (use-package irony
+;;   :hook
+;;   (((c++-mode c-mode) . irony-mode)
+;;    (irony-mode . irony-cdb-autosetup-compile-options)))
 #+END_SRC
 
 **** company-irony
 
 #+BEGIN_SRC emacs-lisp
-(use-package company-irony
-  :after (irony company))
+;; (use-package company-irony
+;;   :after (irony company))
 
-(use-package company-irony-c-headers
-  :after company-irony
-  :hook
-  (irony-mode .
-              (lambda ()
-                (setq-local company-backends
-                     '((company-irony
-                        company-irony-c-headers))))))
+;; (use-package company-irony-c-headers
+;;   :after company-irony
+;;   :hook
+;;   (irony-mode .
+;;               (lambda ()
+;;                 (setq-local company-backends
+;;                      '((company-irony
+;;                         company-irony-c-headers))))))
 #+END_SRC

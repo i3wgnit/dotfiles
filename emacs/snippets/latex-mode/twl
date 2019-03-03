@@ -14,8 +14,8 @@ ${3:\author{${4:twl}}
 \maketitle
 ${5:
 \begin{description}
-\item[Professor] ${6:$$(capitalize yas-text)}
-$7
+\item[Professor] ${6:$$(capitalize yas-text)}${7:
+}
 \end{description}
 }
 \tableofcontents
