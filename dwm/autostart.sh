@@ -4,7 +4,6 @@ cd
 
 ~/.dotfiles/bin/wallpaper.sh
 
-echo 'pulseaudio --kill && sleep 3 && pulseaudio --start' | parallel &
 setsid -f emacs --daemon
 setsid -f rescuetime
 setsid -f redshift-qt
