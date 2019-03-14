@@ -237,6 +237,12 @@ Leader key
   "j" 'recentf-open-files)
 #+END_SRC
 
+This is by far the most painful thing to misclick.
+
+#+BEGIN_SRC emacs-lisp
+(general-unbind 'motion "K")
+#+END_SRC
+
 *** plug-ins
 **** evil-surround
 
@@ -403,7 +409,7 @@ Otherwise, it looks very rainbow-ish and unbearable.
   :diminish company-mode
   :hook (prog-mode . company-mode)
   :init
-  (setq company-idle-delay 0.1
+  (setq company-idle-delay 2
         company-minimum-prefix-length 3))
 #+END_SRC
 
@@ -479,7 +485,7 @@ Otherwise, it looks very rainbow-ish and unbearable.
 #+BEGIN_SRC emacs-lisp
 (setq twl/builtin-packages
       '((blink-cursor-mode . nil)
-        (display-time-mode . t)
+        (display-time-mode . nil)
         (electric-pair-mode . t)
         (global-prettify-symbols-mode . t)
         (global-hl-line-mode . t)
@@ -540,15 +546,11 @@ Otherwise, it looks very rainbow-ish and unbearable.
 *** flyspell
 
 #+BEGIN_SRC emacs-lisp
-(use-package flyspell
-  :diminish
-  :hook
-  ((prog-mode . flyspell-prog-mode)
-   (text-mode . flyspell-mode))
-  :config
-  (setq ispell-program-name "/usr/bin/aspell"
-        ispell-extra-args '("--sug-mode=ultra"))
-  (ispell-change-dictionary "en_CA"))
+(twl|diminish-minor-mode 'flyspell 'flyspell-mode)
+(setq flyspell-issue-message-flag nil
+      flyspell-default-dictionary "en_CA"
+      ispell-program-name "/usr/bin/aspell"
+      ispell-extra-args '("--sug-mode=ultra"))
 #+END_SRC
 
 * Packages
@@ -657,6 +659,12 @@ evil-mode is the best thing in the world.
 #+BeGIN_SRC emacs-lisp
 (add-hook 'text-mode #'flyspell-mode)
 #+EnD_SRC
+
+** prog mode
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'prog-mode #'flyspell-prog-mode)
+#+END_SRC
 
 ** org mode
 
@@ -812,7 +820,7 @@ Also, heres a quick latex compile command
   (LaTeX-math-mode 1)
   (flyspell-mode 1)
   (flycheck-mode 1)
-  (company-mode 1)
+  (company-mode)
 
   (add-to-list 'TeX-view-program-selection
                '(output-pdf "Zathura"))
