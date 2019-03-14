@@ -48,4 +48,4 @@ fi
 #exec /usr/bin/i3
 # -V -d all >> ~/.i3/logfile 2>&1
 
-exec /usr/local/bin/dwm
+exec /usr/bin/dwm
