@@ -1497,7 +1497,9 @@ c.url.searchengines = {
         'walph': 'https://www.wolframalpha.com/input/?i={}',
         'yt': 'https://youtube.com/results?search_query={}',
         'w': 'https://en.wikipedia.org/w/index.php?title=Special&search={}',
-        'uwcs': 'https://student.cs.uwaterloo.ca/~cs{}'
+        'uwcs': 'https://student.cs.uwaterloo.ca/~cs{}',
+        'gl': 'https://gitlab.com/search?search={}',
+        'gh': 'https://github.com/search?q={}'
         }
 
 # Page(s) to open at the start.
