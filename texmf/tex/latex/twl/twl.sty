@@ -1,5 +1,5 @@
 \ProvidesPackage{twl}
-%%fakesection Arguments
+%% fakesection Arguments
 
 % Default arguments
 \newif\iftwl@maketitle\twl@maketitletrue
@@ -18,7 +18,7 @@
 
 \ProcessOptions\relax
 
-%%fakesection Packages
+%% fakesection Packages
 \PassOptionsToPackage{utf8}{inputenc}
 \PassOptionsToPackage{T1}{fontenc}
 \RequirePackage{inputenc, fontenc, lmodern}
@@ -36,192 +36,233 @@
 \RequirePackage{setspace}
 \RequirePackage{etoolbox}
 \RequirePackage{xfrac}
-%\RequirePackage{wrapfig}
+% \RequirePackage{wrapfig}
 \RequirePackage{siunitx}
 \RequirePackage{physics}
 
 
-%%fakesection Theorems
+%% fakesection Theorems
 \PassOptionsToPackage{framemethod=TikZ}{mdframed}
-\PassOptionsToPackage{thmmarks, amsmath, thref}{ntheorem}
+\PassOptionsToPackage{amsmath, thmmarks, thref, hyperref}{ntheorem}
 \RequirePackage{framed}
 \RequirePackage{mdframed}
+\RequirePackage{hyperref}
 \RequirePackage{ntheorem}
-%\RequirePackage{thmtools}
-
-\mdfdefinestyle{mdbluebox}{%
-	%roundcorner=10pt,
-	linewidth=1pt,
-	skipabove=12pt,
-	innerbottommargin=9pt,
-	skipbelow=2pt,
-	linecolor=blue,
-	nobreak=true,
-	backgroundcolor=TealBlue!5,
-}
-\mdfdefinestyle{mdrecbox}{%
-	linewidth=0.5pt,
-	skipabove=12pt,
-	frametitleaboveskip=5pt,
-	frametitlebelowskip=0pt,
-	skipbelow=2pt,
-	frametitlefont=\bfseries,
-	innertopmargin=4pt,
-	innerbottommargin=8pt,
-	nobreak=true,
-	backgroundcolor=Salmon!5,
-}
+% \RequirePackage{thmtools}
 
 \newcommand{\mdfthm}[1]{%
-	\theoremprework{\begin{mdframed}[#1]}%
-	\theorempostwork{\end{mdframed}}%
+  \theoremprework{\begin{mdframed}[#1]}%
+    \theorempostwork{\end{mdframed}}%
 }
 
 \newtheoremstyle{bplain}%
-	{\item[\hskip\labelsep \theorem@headerfont ##1\ ##2\theorem@separator]}%
-	{\item[\rlap{\vbox{\hbox{\hskip\labelsep \theorem@headerfont
-	##1\ ##2\ (##3)\theorem@separator}\smallskip{}\hbox{\strut}}}]}
+{\item[\hskip\labelsep \theorem@headerfont ##1\ ##2\theorem@separator]}%
+{\item[\rlap{\vbox{\hbox{\hskip\labelsep \theorem@headerfont
+        ##1\ ##2\ (##3)\theorem@separator}\smallskip{}\hbox{\strut}}}]}
 
 \newtheoremstyle{nonumberbplain}%
 {\item[\hskip\labelsep \theorem@headerfont ##1\theorem@separator]}%
 {\item[\rlap{\vbox{\hbox{\hskip\labelsep \theorem@headerfont
-##1\ (##3)\theorem@separator}\smallskip{}\hbox{\strut}}}]}
+        ##1\ (##3)\theorem@separator}\smallskip{}\hbox{\strut}}}]}
 
 \newtheoremstyle{mybreak}%
 {\item[\rlap{\vbox{\hbox{\hskip\labelsep \theorem@headerfont
-##1\ ##2\theorem@separator}\smallskip{}\hbox{\strut}}}]}%
+        ##1\ ##2\theorem@separator}\smallskip{}\hbox{\strut}}}]}%
 {\item[\rlap{\vbox{\hbox{\hskip\labelsep \theorem@headerfont
-##1\ ##2\ (##3)\theorem@separator}\smallskip{}\hbox{\strut}}}]}
+        ##1\ ##2\ (##3)\theorem@separator}\smallskip{}\hbox{\strut}}}]}
 
 \newtheoremstyle{nonumbermybreak}%
 {\item[\rlap{\vbox{\hbox{\hskip\labelsep \theorem@headerfont
-##1\theorem@separator}\smallskip{}\hbox{\strut}}}]}%
+        ##1\theorem@separator}\smallskip{}\hbox{\strut}}}]}%
 {\item[\rlap{\vbox{\hbox{\hskip\labelsep \theorem@headerfont
-##1\ (##3)\theorem@separator}\smallskip{}\hbox{\strut}}}]}
+        ##1\ (##3)\theorem@separator}\smallskip{}\hbox{\strut}}}]}
+
+\mdfdefinestyle{mdbluebox}{%
+  nobreak=true,%
+  skipabove=8pt,%
+  innerbottommargin=9pt,%
+  skipbelow=4pt,%
+  leftline=true,%
+  rightline=false,%
+  topline=false,%
+  bottomline=false,%
+  linewidth=3pt,%
+  linecolor=NavyBlue!75,%
+  backgroundcolor=TealBlue!5,%
+}
+
+\mdfdefinestyle{mdredbox}{%
+  nobreak=true,%
+  skipabove=8pt,%
+  innertopmargin=4pt,%
+  innerbottommargin=8pt,%
+  skipbelow=4pt,%
+  leftline=true,%
+  rightline=false,%
+  topline=false,%
+  bottomline=false,%
+  linewidth=3pt,%
+  linecolor=BrickRed!60!Sepia,%
+  backgroundcolor=Salmon!5,%
+}
+
+\mdfdefinestyle{mdblackbox}{%
+  nobreak=true,%
+  skipabove=8pt,%
+  innertopmargin=4pt,%
+  innerbottommargin=8pt,%
+  skipbelow=4pt,%
+  leftline=true,%
+  rightline=false,%
+  topline=false,%
+  bottomline=false,%
+  linewidth=3pt,%
+  linecolor=Black,
+  backgroundcolor=Black!5,%
+}
 
 \newcommand{\thmplain}{%
-	\theoremstyle{bplain}
-	\theoremheaderfont{\bfseries}
-	\theorembodyfont{\normalfont}
-	\theoremseparator{}
-	\theoremprework{}
-	\theorempostwork{}
-	\theoremsymbol{}
+  \theoremstyle{bplain}
+  \theoremheaderfont{\bfseries}
+  \theorembodyfont{\normalfont}
+  \theoremseparator{}
+  \theoremprework{}
+  \theorempostwork{}
+  \theoremsymbol{}
 }
 
 \newcommand{\thmbluebox}{%
-	\theoremstyle{mybreak}
-	\theoremheaderfont{\sffamily\bfseries\color{MidnightBlue}}
-	\theorembodyfont{\normalfont}
-	\theoremnumbering{arabic}
-	\theoremseparator{}
-	\mdfthm{style=mdbluebox}
-	\theoremsymbol{}
+  \theoremstyle{mybreak}
+  \theoremheaderfont{\sffamily\bfseries\color{MidnightBlue}}
+  \theorembodyfont{\normalfont}
+  \theoremnumbering{arabic}
+  \theoremseparator{}
+  \mdfthm{style=mdbluebox}
+  \theoremsymbol{}
 }
 
-\newcommand{\thmrecbox}{%
-	\theoremstyle{bplain}
-	\theoremheaderfont{\bfseries\color{RawSienna}}
-	\theorembodyfont{\normalfont}
-	\theoremnumbering{arabic}
-	\theoremseparator{}
-	\mdfthm{style=mdrecbox}
-	\theoremsymbol{}
+\newcommand{\thmredbox}{%
+  \theoremstyle{bplain}
+  \theoremheaderfont{\bfseries\color{RawSienna}}
+  \theorembodyfont{\normalfont}
+  \theoremnumbering{arabic}
+  \theoremseparator{}
+  \mdfthm{style=mdredbox}
+  \theoremsymbol{}
+}
+
+\newcommand{\thmblackbox}{%
+  \theoremstyle{mybreak}
+  \theoremheaderfont{\bfseries}
+  \theorembodyfont{\normalfont}
+  \theoremseparator{}
+  \mdfthm{style=mdblackbox}
+  \theoremsymbol{}
 }
 
 \newcommand{\thmpbox}{%
-	\theoremstyle{bplain}
-	\theoremheaderfont{\bfseries}
-	\theorembodyfont{\normalfont}
-	\theoremnumbering{arabic}
-	\theoremseparator{}
-	\mdfthm{}
-	\theoremsymbol{}
+  \theoremstyle{bplain}
+  \theoremheaderfont{\bfseries}
+  \theorembodyfont{\normalfont}
+  \theoremnumbering{arabic}
+  \theoremseparator{}
+  \mdfthm{}
+  \theoremsymbol{}
 }
 
 \newcommand{\thmproof}{%
-	\theoremstyle{nonumberbplain}
-	\theoremheaderfont{\itshape}
-	\theorembodyfont{\normalfont}
-	\theoremseparator{.}
-	\theoremprework{}
-	\theorempostwork{}
-	\theoremsymbol{\ensuremath{\square}}
+  \theoremstyle{nonumberbplain}
+  \theoremheaderfont{\itshape}
+  \theorembodyfont{\normalfont}
+  \theoremseparator{.}
+  \theoremprework{}
+  \theorempostwork{}
+  \theoremsymbol{\ensuremath{\square}}
 }
 
-\thmbluebox
+\thmbluebox{}
 \newtheorem{theorem}{Theorem}[section]
 
-\thmplain
+\thmplain{}
 \newtheorem*{note}{Note}
+\thmplain{}
 \newtheorem*{recall}{Recall}
+\thmplain{}
 \renewtheorem{note*}[theorem]{Note}
+\thmplain{}
 \renewtheorem{recall*}[theorem]{Recall}
 
+\thmblackbox{}
 \newtheorem{remark}[theorem]{Remark}
-\newtheorem{notation}[theorem]{Notation}
-\newtheorem{exercise}[theorem]{Exercise}
+\thmblackbox{}
 \renewtheorem*{remark*}{Remark}
+
+\thmplain{}
+\newtheorem{notation}[theorem]{Notation}
+\thmplain{}
+\newtheorem{exercise}[theorem]{Exercise}
+\thmplain{}
 \renewtheorem*{notation*}{Notation}
+\thmplain{}
 \renewtheorem*{exercise*}{Exercise}
 
-\thmbluebox
+\thmbluebox{}
 \newtheorem{axiom}[theorem]{Axiom}
-\thmbluebox
+\thmbluebox{}
 \newtheorem{lemma}[theorem]{Lemma}
-\thmbluebox
+\thmbluebox{}
 \newtheorem{proposition}[theorem]{Proposition}
-\thmbluebox
+\thmbluebox{}
 \newtheorem{corollary}[theorem]{Corollary}
-\thmbluebox
+\thmbluebox{}
 \renewtheorem*{axiom*}[theorem]{Axiom}
-\thmbluebox
+\thmbluebox{}
 \renewtheorem*{lemma*}{Lemma}
-\thmbluebox
+\thmbluebox{}
 \renewtheorem*{proposition*}{Proposition}
-\thmbluebox
+\thmbluebox{}
 \renewtheorem*{corollary*}{Corollary}
 
-\thmrecbox
+\thmredbox{}
 \newtheorem{definition}[theorem]{Definition}
-\thmrecbox
+\thmredbox{}
 \renewtheorem*{definition*}{Definition}
-\newcommand{\vocab}[1]{\textbf{\color{red}#1}}
+\newcommand{\vocab}[1]{\textbf{\color{Red}#1}}
 
-\thmpbox
+\thmpbox{}
 \newtheorem{example}[theorem]{Example}
-\thmpbox
+\thmpbox{}
 \newtheorem{algorithm}[theorem]{Algorithm}
-\thmpbox
+\thmpbox{}
 \newtheorem{conjecture}[theorem]{Conjecture}
-\thmpbox
+\thmpbox{}
 \renewtheorem*{example*}{Example}
-\thmpbox
+\thmpbox{}
 \renewtheorem*{algorithm*}{Algorithm}
-\thmpbox
+\thmpbox{}
 \renewtheorem*{conjecture*}{Conjecture}
 
-\thmproof
+\thmproof{}
 \newtheorem{proof}{Proof}
-\thmproof
+\thmproof{}
 \newtheorem{solution}{Solution}
 
-\theoremsymbol{\ensuremath{_\blacksquare}}
+\theoremsymbol{\ensuremath{\blacksquare}}
 \newtheorem{subproof}{Proof}
 
 \theoremstyle{plain}
 
-%%fakesection some commands
+%% fakesection some commands
 \newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
-%\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
-%\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+% \newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
 \newcommand{\ii}{\item}
 \newcommand{\dg}{^\circ}
 \newcommand{\st}{^{\text{st}}}
 \newcommand{\nd}{^{\text{nd}}}
-%\newcommand{\th}{^{\text{th}}}
+% \newcommand{\th}{^{\text{th}}}
 
 \newcommand{\Tau}{\mathcal T} %Tau
 \newcommand{\CC}{\mathbb C} %Complex
@@ -232,7 +273,7 @@
 \newcommand{\FF}{\mathbb F} %Field
 
 
-%\DeclareMathOperator{\arcsec}{arcsec} %arcsec
+% \DeclareMathOperator{\arcsec}{arcsec} %arcsec
 \DeclareMathOperator*{\lcm}{lcm} %lcm
 
 
@@ -255,68 +296,68 @@
 \DeclareMathOperator{\Hom}{Hom} %homomorphism
 \DeclareMathOperator{\ch}{ch} %characteristic
 \DeclareMathOperator{\ord}{ord} %order
-%\DeclareMathOperator{\rk}{rk} %rank
-%\DeclareMathOperator{\nul}{nul} %null
-%\DeclareMathOperator{\rank}{rank} %rank
-%\DeclareMathOperator{\tr}{tr} %trace
-%\DeclareMathOperator{\null}{null} %null
-%\DeclareMathOperator{\ker}{ker} %kernel
+% \DeclareMathOperator{\rk}{rk} %rank
+% \DeclareMathOperator{\nul}{nul} %null
+% \DeclareMathOperator{\rank}{rank} %rank
+% \DeclareMathOperator{\tr}{tr} %trace
+% \DeclareMathOperator{\null}{null} %null
+% \DeclareMathOperator{\ker}{ker} %kernel
 
 \DeclareMathOperator{\GF}{GF} %galois field
 
 
 
 
-%%fakesection asymptote
+%% fakesection asymptote
 \iftwl@asy
-	\RequirePackage[dvips]{attachfile2}
-	\RequirePackage{asymptote}
-	\begin{asydef}
-		settings.prc=false;
-		settings.embed=true;
-		settings.tex="latex";
-		settings.outformat="pdf";
+\RequirePackage[dvips]{attachfile2}
+\RequirePackage{asymptote}
+\begin{asydef}
+  settings.prc=false;
+  settings.embed=true;
+  settings.tex="latex";
+  settings.outformat="pdf";
 
-		import olympiad;
-		import cse5;
+  import olympiad;
+  import cse5;
 
-		pointpen = black;
-		pathpen = black;
-		pathfontpen = black;
-		anglepen = black;
-		anglefontpen = black;
-		pointfontsize = 10;
-		defaultpen(fontsize(10pt));
+  pointpen = black;
+  pathpen = black;
+  pathfontpen = black;
+  anglepen = black;
+  anglefontpen = black;
+  pointfontsize = 10;
+  defaultpen(fontsize(10pt));
 
-		size(5cm);
+  size(5cm);
 
-		usepackage("amsmath");
-		usepackage("amssymb");
-	\end{asydef}
-	\def\asydir{asy}
+  usepackage("amsmath");
+  usepackage("amssymb");
+\end{asydef}
+\def\asydir{asy}
 \fi
 
 
-%%fakesection custom maketitle
-%\iftwl@maketitle
+%% fakesection custom maketitle
+% \iftwl@maketitle
 %	\renewcommand{\title}[1]{\def\tw@title{#1}}
 %	\renewcommand{\date}[1]{\def\tw@date{#1}}
 %	\renewcommand{\author}[1]{\def\tw@author{#1}}
 %
 %	\renewcommand{\maketitle}{%
-%		\begin{center}\textbf{\Large\tw@title}\\[1ex]%
+% \begin{center}\textbf{\Large\tw@title}\\[1ex]%
 %			\tw@date\hfill\tw@author\\[1ex]%
 %			\hrule%
-%		\end{center}
-%	}
-%\fi
+% \end{center}
+% }
+%   \fi
 
 
-%%fakesection Title
+%%   fakesection Title
 \RequirePackage{titling}
 \author{twl}
 \date{\today}
-%%fakesection Header
+%% fakesection Header
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
 \RequirePackage{scrlayer-scrpage}
 \renewcommand{\headfont}{}
@@ -334,22 +375,22 @@
 
 
 
-%%fakesection problem environment
-%\newcounter{probll}
-%\renewcommand{\theprobll}{\alph{probll})}
+%% fakesection problem environment
+% \newcounter{probll}
+% \renewcommand{\theprobll}{\alph{probll})}
 %
 %
-%\renewcommand{\labelenumi}{(\arabic{enumi})\;}
+% \renewcommand{\labelenumi}{(\arabic{enumi})\;}
 %
 %
-%\newcounter{probl}
-%\renewcommand{\theprobl}{P\arabic{probl}}
+% \newcounter{probl}
+% \renewcommand{\theprobl}{P\arabic{probl}}
 %
-%\iftwl@crowdmark
+% \iftwl@crowdmark
 %	\newenvironment{problem}{%
-%		\begin{list}
-%		{\Large\textbf{\theprobl}\hfill}
-%		{\usecounter{probl}%
+% \begin{list}
+%   {\Large\textbf{\theprobl}\hfill}
+%   {\usecounter{probl}%
 %			\let\my@olditem\item%
 %			\newcommand{\Item}{\pagebreak\my@olditem}%
 %			\renewcommand{\ii}{\Item}%
@@ -358,36 +399,36 @@
 %	} }{\end{list}}
 %
 %	\newenvironment{subproblem}{%
-%		\begin{list}
-%		{\textbf{\theprobll}\;}
-%		{\usecounter{probll}%
+% \begin{list}
+%   {\textbf{\theprobll}\;}
+%   {\usecounter{probll}%
 %	} }{\end{list}}
-%\else
+% \else
 %	\newenvironment{problem}{%
-%		\begin{list}
-%		{\Large\textbf{\theprobl}\hfill}
-%		{\usecounter{probl}%
+% \begin{list}
+%   {\Large\textbf{\theprobl}\hfill}
+%   {\usecounter{probl}%
 %			\let\my@olditem\item
 %			\newcommand{\Item}{%
-%				\filbreak\my@olditem
-%			}
+%   \filbreak\my@olditem
+% }
 %			\renewcommand{\ii}{\Item}
 %			\rightmargin=0mm\leftmargin=0em%
 %			\labelwidth=2.5em\labelsep=0em\itemsep=8ex%
 %	} }{\end{list}}
 %
 %	\newenvironment{subproblem}{%
-%		\begin{list}
-%		{\textbf{\theprobll}\;}
-%		{\usecounter{probll}%
+% \begin{list}
+%   {\textbf{\theprobll}\;}
+%   {\usecounter{probll}%
 %			\let\my@olditem\item
-%			%\renewcommand{\Item}{%
-%			%	%\my@closepage\my@olditem\minipage[t]{\linewidth}%
-%			%	%\let\my@closepage\endminipage%
+%			% \renewcommand{\Item}{%
+%			%	% \my@closepage\my@olditem\minipage[t]{\linewidth}%
+%			%	% \let\my@closepage\endminipage%
 %			%	\filbreak\my@olditem
-%			%}
-%			%\renewcommand{\ii}{\Item}%
-%			\rightmargin=0em\leftmargin=0.5em%
-%			\labelwidth=0em\labelsep=0.5em\itemsep=1.5ex%
-%	} }{\end{list}\medbreak}
-%\fi
+%			% }
+%			% \renewcommand{\ii}{\Item}%
+% \rightmargin=0em\leftmargin=0.5em%
+% \labelwidth=0em\labelsep=0.5em\itemsep=1.5ex%
+% } }{\end{list}\medbreak}
+% \fi
