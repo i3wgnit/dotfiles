@@ -408,8 +408,11 @@ Otherwise, it looks very rainbow-ish and unbearable.
 (use-package company
   :diminish company-mode
   :hook (prog-mode . company-mode)
+  :general
+  (:states 'insert
+           "M-<tab>" 'company-complete)
   :init
-  (setq company-idle-delay 2
+  (setq company-idle-delay 1
         company-minimum-prefix-length 3))
 #+END_SRC
 
@@ -820,7 +823,7 @@ Also, heres a quick latex compile command
   (LaTeX-math-mode 1)
   (flyspell-mode 1)
   (flycheck-mode 1)
-  (company-mode)
+  (company-mode 1)
 
   (add-to-list 'TeX-view-program-selection
                '(output-pdf "Zathura"))
