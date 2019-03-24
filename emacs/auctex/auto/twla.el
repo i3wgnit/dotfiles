@@ -69,6 +69,10 @@
     "probl"
     "probll"
     "problll")
+   (LaTeX-paragraph-commands-add-locally
+     '("problem"
+       "subproblem"
+       "subsubproblem"))
    (LaTeX-section-list-add-locally
      '(("problem" 2)
        ("subproblem" 3)

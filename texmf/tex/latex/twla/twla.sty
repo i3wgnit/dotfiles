@@ -5,12 +5,15 @@
 \newif\iftwl@maketitle\twl@maketitletrue
 \newif\iftwl@crowdmark\twl@crowdmarkfalse
 \newif\iftwl@asy\twl@asytrue
+\newif\iftwl@letterpaper\twl@letterpapertrue
 
 % Parse arguments
 \DeclareOption{nomaketitle}{\twl@maketitlefalse}
 \DeclareOption{noasy}{\twl@asyfalse}
 
 \DeclareOption{crowdmark}{\twl@maketitlefalse\twl@crowdmarktrue}
+
+\DeclareOption{a4paper}{\twl@letterpaperfalse}
 
 % Overrides
 \DeclareOption{maketitle}{\twl@maketitletrue}
@@ -22,7 +25,11 @@
 \PassOptionsToPackage{utf8}{inputenc}
 \PassOptionsToPackage{T1}{fontenc}
 \RequirePackage{inputenc, fontenc, lmodern}
-\PassOptionsToPackage{letterpaper, margin=1.25in, tmargin=1in}{geometry}
+\iftwl@letterpaper
+	\PassOptionsToPackage{letterpaper, margin=1.25in, tmargin=1in}{geometry}
+\else
+	\PassOptionsToPackage{a4paper, margin=1.25in, tmargin=1in}{geometry}
+\fi
 \RequirePackage{geometry}
 \RequirePackage{amsmath,amsfonts,amssymb}
 \RequirePackage{mathtools}
