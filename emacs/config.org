@@ -599,9 +599,11 @@ evil-mode is the best thing in the world.
 
 *** yasnippet-snippets
 
+I have my own snippets.
+
 #+BEGIN_SRC emacs-lisp
-(use-package yasnippet-snippets
-  :after yasnippet)
+;; (use-package yasnippet-snippets
+;;   :after yasnippet)
 #+END_SRC
 
 ** lsp-mode
