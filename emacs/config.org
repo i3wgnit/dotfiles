@@ -686,6 +686,7 @@ evil-mode is the best thing in the world.
       org-return-follows-link t
       org-confirm-elisp-link-function nil
       org-log-done t)
+(twl|diminish-minor-mode 'org 'org-indent-mode)
 #+END_SRC
 
 **** hooks
