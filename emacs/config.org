@@ -613,6 +613,20 @@ I have my own snippets.
 ;;   )
 #+END_SRC
 
+** projectile
+
+#+BEGIN_SRC emacs-lisp
+(use-package projectile
+  :diminish
+  :general
+  (:states 'motion :prefix *leader*
+           "p" 'projectile-command-map)
+  :init
+  (setq projectile-completion-system 'ivy)
+  :config
+  (projectile-mode 1))
+#+END_SRC
+
 * Minor modes
 ** flycheck
 
