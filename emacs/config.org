@@ -343,9 +343,38 @@ I really like spaceline
 (use-package spaceline
   :config
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-  (require 'spaceline-config)
   (setq powerline-default-separator 'arrow)
-  (spaceline-spacemacs-theme))
+  (spaceline-compile
+    ;; left side
+    '((evil-state
+       :face highlight-face
+       :priority 100)
+      (anzu :priority 95)
+      auto-compile
+      ((buffer-modified buffer-size buffer-id remote-host)
+       :priority 99)
+      (major-mode :priority 79)
+      ((flycheck-error flycheck-warning flycheck-info)
+       :when active
+       :priority 89)
+      (process :when active)
+      (minor-modes
+       :when active
+       :priority 9)
+      (projectile-root
+       :when active
+       :priority 78)
+      (version-control
+       :when active
+       :priority 77)
+      (org-clock :when active))
+    ;; right side
+    '((selection-info :priority 95)
+      (buffer-encoding-abbrev :priority 8)
+      (line-column :priority 98)
+      (global :when active)
+      (buffer-position :priority 97)
+      (hud :priority 97))))
 #+END_SRC
 
 *** diminish
