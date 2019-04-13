@@ -435,7 +435,7 @@ Otherwise, it looks very rainbow-ish and unbearable.
 
 #+BEGIN_SRC emacs-lisp
 (use-package company
-  :diminish company-mode
+  :diminish
   :hook (prog-mode . company-mode)
   :general
   (:states 'insert
@@ -731,7 +731,7 @@ I have my own snippets.
       org-return-follows-link t
       org-confirm-elisp-link-function nil
       org-log-done t)
-(twl|diminish-minor-mode 'org 'org-indent-mode)
+(twl|diminish-minor-mode 'org-indent 'org-indent-mode)
 #+END_SRC
 
 **** hooks
