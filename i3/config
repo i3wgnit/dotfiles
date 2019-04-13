@@ -187,7 +187,7 @@ client.background       $foregroundAlt
 # finds out, if available)
 bar {
     status_command i3blocks
-    font pango:Misc Ohsnap, Iosevka Nerd Font 14
+    font pango:Ohsnap, Iosevka Nerd Font 14
     position bottom
     height 25
     tray_output primary
