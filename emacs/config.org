@@ -344,6 +344,7 @@ I really like spaceline
   :config
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
   (setq powerline-default-separator 'arrow)
+  (require 'spaceline-segments)
   (spaceline-compile
     ;; left side
     '((evil-state
@@ -358,9 +359,6 @@ I really like spaceline
        :when active
        :priority 89)
       (process :when active)
-      (minor-modes
-       :when active
-       :priority 9)
       (projectile-root
        :when active
        :priority 78)
@@ -374,7 +372,8 @@ I really like spaceline
       (line-column :priority 98)
       (global :when active)
       (buffer-position :priority 97)
-      (hud :priority 97))))
+      (hud :priority 97)))
+  (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
 #+END_SRC
 
 *** diminish
