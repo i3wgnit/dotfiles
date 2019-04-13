@@ -1008,3 +1008,9 @@ I thought this was nice at first, but then I discovered `lsp`s
 ;;                      '((company-irony
 ;;                         company-irony-c-headers))))))
 #+END_SRC
+
+** Matlab-mode
+
+#+BEGIN_SRC emacs-lisp
+(use-package matlab-mode)
+#+END_SRC
