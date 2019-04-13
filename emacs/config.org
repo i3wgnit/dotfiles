@@ -303,9 +303,9 @@ This might seem minor, but is actually such a life saver.
 *** Font
 
 #+BEGIN_SRC emacs-lisp
-(set-frame-font "Iosevka Term-14")
+(set-frame-font "Iosevka Term-16")
 (add-hook 'focus-in-hook
-          (lambda () (set-frame-font "Iosevka Term-14")))
+          (lambda () (set-frame-font "Iosevka Term-16")))
 #+END_SRC
 
 *** Theme
