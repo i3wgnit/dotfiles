@@ -4,7 +4,7 @@ cd
 
 ~/.dotfiles/bin/wallpaper.sh
 
-# setsid -f emacs --daemon
+setsid -f emacs --daemon
 setsid -f rescuetime
 setsid -f redshift-qt
 setsid -f dunst

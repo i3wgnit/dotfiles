@@ -3,8 +3,8 @@
 #
 
 # == STARTUP ==
-if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
-    exec startx
+if [ $(tty) = '/dev/tty1' ]; then
+    pgrep -x dwm || exec startx
 fi
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc

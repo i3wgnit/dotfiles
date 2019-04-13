@@ -1562,9 +1562,9 @@ c.zoom.levels = [
 
 # Custom bindings
 # MPV
-config.bind(',m', 'spawn umpv {url}')
-config.bind(';M', 'hint --rapid links spawn umpv {hint-url}')
-config.bind(';m', 'hint links spawn umpv {hint-url}')
+config.bind(',m', 'spawn mpv {url}')
+config.bind(';M', 'hint --rapid links spawn mpv {hint-url}')
+config.bind(';m', 'hint links spawn mpv {hint-url}')
 
 # Bindings for normal mode
 config.bind("'", 'enter-mode jump_mark')

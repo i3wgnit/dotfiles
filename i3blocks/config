@@ -12,16 +12,9 @@ background=#000000a0
 command=~/.config/i3blocks/scripts/$BLOCK_NAME
 interval=5
 
-[wifi]
-instance=wlp2s0
+[ethernet]
+instance=enp0s31f6
 interval=1
-
-[battery]
-interval=30
-
-[i3backlight]
-interval=once
-signal=11
 
 [i3volume]
 interval=once

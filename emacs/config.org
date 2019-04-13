@@ -872,7 +872,7 @@ Also, heres a quick latex compile command
 
   (add-to-list 'TeX-view-program-selection
                '(output-pdf "Zathura"))
-  (TeX-source-correlate-mode 1)
+  ;; (TeX-source-correlate-mode 1)
 
   (twl//latexmk-setup)
   (setq TeX-command-default "LatexMK"))
