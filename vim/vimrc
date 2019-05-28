@@ -61,7 +61,7 @@ set hidden
 set ruler
 set showmode
 set showcmd
-set visualbell
+set novisualbell
 set backspace=indent,eol,start
 set number
 set relativenumber
