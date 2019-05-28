@@ -87,6 +87,13 @@ This is for having the most recent packages.
      (list start end)))
 #+END_SRC
 
+** server-mode
+
+#+BEGIN_SRC emacs-lisp
+(require 'server)
+(unless (server-running-p) (server-start))
+#+END_SRC
+
 * Custom functions
 ** Configs
 
@@ -227,14 +234,15 @@ Leader key
 #+BEGIN_SRC emacs-lisp
 (general-def 'motion 'override
   :prefix *leader*
-  "w" 'save-buffer
-  "q" 'twl//kill-cur-buffer
-  "e" 'find-file
-  "b" 'ibuffer
-  "h" 'dired-jump
+  ""  'nil
+  "w" '(save-buffer :repeat abort)
+  "q" '(twl//kill-cur-buffer :repeat abort)
+  "e" '(find-file :repeat abort)
+  "b" '(ibuffer :repeat abort)
+  "h" '(dired-jump :repeat abort)
   "x" 'execute-extended-command
-  "r" 'revert-buffer
-  "j" 'recentf-open-files)
+  "r" '(revert-buffer :repeat abort)
+  "j" '(counsel-recentf :package counsel :repeat abort))
 #+END_SRC
 
 This is by far the most painful thing to misclick.
@@ -358,6 +366,8 @@ I really like spaceline
       ((flycheck-error flycheck-warning flycheck-info)
        :when active
        :priority 89)
+      (minor-modes :when active
+                   :priority 9)
       (process :when active)
       (projectile-root
        :when active
@@ -391,6 +401,15 @@ I really like spaceline
 (twl|diminish-minor-mode 'eldoc 'eldoc-mode)
 #+END_SRC
 
+** Path Variable
+
+#+BEGIN_SRC emacs-lisp
+(use-package exec-path-from-shell
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
+#+END_SRC
+
 ** Completion
 *** flx
 
@@ -398,16 +417,6 @@ Better fuzzy find for =ivy=.
 Otherwise, it looks very rainbow-ish and unbearable.
 #+BEGIN_SRC emacs-lisp
 (use-package flx)
-#+END_SRC
-
-**** counsel
-
-#+BEGIN_SRC emacs-lisp
-(use-package counsel
-  :after ivy
-  :diminish counsel-mode
-  :config
-  (counsel-mode 1))
 #+END_SRC
 
 *** ivy
@@ -428,6 +437,20 @@ Otherwise, it looks very rainbow-ish and unbearable.
   (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
                                 (t . ivy--regex-fuzzy)))
   (ivy-mode 1))
+#+END_SRC
+
+*** counsel
+
+#+BEGIN_SRC emacs-lisp
+(use-package counsel
+  :after (ivy flx)
+  :demand
+  :general
+  (:states 'motion :prefix *leader*
+           "f" 'counsel-fzf)
+  :diminish counsel-mode
+  :config
+  (counsel-mode 1))
 #+END_SRC
 
 *** company
@@ -593,7 +616,7 @@ I do not actively use this, but this seems very efficient.
 (use-package avy
   :general
   (:states 'motion :prefix *leader*
-           "s" 'avy-goto-word-0)
+           "s" '(avy-goto-word-0 :jump t))
   :config
   (setq avy-all-windows t))
 #+END_SRC
@@ -636,6 +659,8 @@ I have my own snippets.
 
 ** lsp-mode
 
+I thought I needed this, but it is not so great.
+
 #+BEGIN_SRC emacs-lisp
 ;; (use-package lsp-mode
 ;;   )
@@ -648,7 +673,7 @@ I have my own snippets.
   :diminish
   :general
   (:states 'motion :prefix *leader*
-           "p" 'projectile-command-map)
+           "p" '(:keymap projectile-command-map))
   :init
   (setq projectile-completion-system 'ivy)
   :config
@@ -1011,5 +1036,5 @@ I thought this was nice at first, but then I discovered `lsp`s
 ** Matlab-mode
 
 #+BEGIN_SRC emacs-lisp
-(use-package matlab-mode)
+;;(use-package matlab-mode)
 #+END_SRC
