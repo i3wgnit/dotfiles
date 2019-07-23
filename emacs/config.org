@@ -13,9 +13,10 @@ because GNU is not enough.
 #+BEGIN_SRC emacs-lisp
 (require 'package)
 (setq package-enable-at-startup nil)
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(setq package-archives '(("org" . "https://orgmode.org/elpa/")
+                         ("melpa" . "https://melpa.org/packages/")
+                         ("melpa-stable" . "https://stable.melpa.org/packages/")
+                         ("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 #+END_SRC
 
@@ -90,8 +91,8 @@ This is for having the most recent packages.
 ** server-mode
 
 #+BEGIN_SRC emacs-lisp
-(require 'server)
-(unless (server-running-p) (server-start))
+;; (require 'server)
+;; (unless (server-running-p) (server-start))
 #+END_SRC
 
 * Custom functions
@@ -205,7 +206,7 @@ Leader key
 #+BEGIN_SRC emacs-lisp
 (use-package evil
   :init
-  (setq evil-want-integration t
+  (setq evil-want-integration nil
         evil-want-keybinding nil
         evil-emacs-state-modes nil
         evil-search-module 'evil-search
@@ -241,8 +242,7 @@ Leader key
   "b" '(ibuffer :repeat abort)
   "h" '(dired-jump :repeat abort)
   "x" 'execute-extended-command
-  "r" '(revert-buffer :repeat abort)
-  "j" '(counsel-recentf :package counsel :repeat abort))
+  "r" '(revert-buffer :repeat abort))
 #+END_SRC
 
 This is by far the most painful thing to misclick.
@@ -271,7 +271,9 @@ however I have yet to use it.
 
 #+BEGIN_SRC emacs-lisp
 (use-package evil-indent-plus
-  :after evil)
+  :after evil
+  :config
+  (evil-indent-plus-default-bindings))
 #+END_SRC
 
 **** evil-matchit
@@ -290,6 +292,8 @@ I do not like this.
 
 This has a lot of potential, although I am not sure how often I will use this.
 
+Edit: after some time with this, I love it.
+
 #+BEGIN_SRC emacs-lisp
 (use-package evil-lion
   :after evil
@@ -300,6 +304,7 @@ This has a lot of potential, although I am not sure how often I will use this.
 **** evil-anzu
 
 This might seem minor, but is actually such a life saver.
+
 #+BEGIN_SRC emacs-lisp
 (use-package evil-anzu
   :after evil
@@ -329,6 +334,7 @@ Load theme advice
 
 #+BEGIN_SRC emacs-lisp
 (use-package doom-themes
+  :pin melpa-stable
   :init
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
@@ -350,8 +356,8 @@ I really like spaceline
 #+BEGIN_SRC emacs-lisp
 (use-package spaceline
   :config
-  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-  (setq powerline-default-separator 'arrow)
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state
+        powerline-default-separator 'arrow)
   (require 'spaceline-segments)
   (spaceline-compile
     ;; left side
@@ -415,6 +421,7 @@ I really like spaceline
 
 Better fuzzy find for =ivy=.
 Otherwise, it looks very rainbow-ish and unbearable.
+
 #+BEGIN_SRC emacs-lisp
 (use-package flx)
 #+END_SRC
@@ -428,7 +435,7 @@ Otherwise, it looks very rainbow-ish and unbearable.
   :diminish ivy-mode
   :general
   (:states 'motion :prefix *leader*
-           "/" 'swiper)
+           "/" '(swiper :jump t))
   :init
   (setq ivy-use-virtual-buffers t
         ivy-count-format "%d/%d "
@@ -445,10 +452,11 @@ Otherwise, it looks very rainbow-ish and unbearable.
 (use-package counsel
   :after (ivy flx)
   :demand
+  :diminish counsel-mode
   :general
   (:states 'motion :prefix *leader*
-           "f" 'counsel-fzf)
-  :diminish counsel-mode
+           "f" '(counsel-fzf :repeat abort)
+           "j" '(counsel-recentf :repeat abort))
   :config
   (counsel-mode 1))
 #+END_SRC
@@ -538,19 +546,19 @@ Otherwise, it looks very rainbow-ish and unbearable.
 
 #+BEGIN_SRC emacs-lisp
 (setq twl/builtin-packages
-      '((blink-cursor-mode . nil)
-        (display-time-mode . nil)
-        (electric-pair-mode . t)
-        (global-prettify-symbols-mode . t)
-        (global-hl-line-mode . t)
-        (global-whitespace-mode . t)
-        (horizontal-scroll-bar-mode . nil)
-        (menu-bar-mode . nil)
-        (recentf-mode . t)
-        (save-place-mode . t)
-        (scroll-bar-mode . nil)
-        (show-paren-mode . t)
-        (tool-bar-mode . nil)))
+      `((,#'blink-cursor-mode . nil)
+        (,#'display-time-mode . nil)
+        (,#'electric-pair-mode . t)
+        (,#'global-prettify-symbols-mode . t)
+        (,#'global-hl-line-mode . t)
+        (,#'global-whitespace-mode . t)
+        (,#'horizontal-scroll-bar-mode . nil)
+        (,#'menu-bar-mode . nil)
+        (,#'recentf-mode . t)
+        (,#'save-place-mode . t)
+        (,#'scroll-bar-mode . nil)
+        (,#'show-paren-mode . t)
+        (,#'tool-bar-mode . nil)))
 (dolist (_bp twl/builtin-packages)
   (let ((mode (car _bp)))
     (if (cdr _bp)
@@ -605,6 +613,8 @@ Otherwise, it looks very rainbow-ish and unbearable.
       flyspell-default-dictionary "en_CA"
       ispell-program-name "/usr/bin/aspell"
       ispell-extra-args '("--sug-mode=ultra"))
+(add-hook 'text-mode-hook #'flyspell-mode)
+(add-hook 'prog-mode-hook #'flyspell-prog-mode)
 #+END_SRC
 
 * Packages
@@ -612,12 +622,13 @@ Otherwise, it looks very rainbow-ish and unbearable.
 
 This allows for jumping to whichever word on the screen I want.
 I do not actively use this, but this seems very efficient.
+
 #+BEGIN_SRC emacs-lisp
 (use-package avy
   :general
   (:states 'motion :prefix *leader*
            "s" '(avy-goto-word-0 :jump t))
-  :config
+  :init
   (setq avy-all-windows t))
 #+END_SRC
 
@@ -627,13 +638,14 @@ I do not actively use this, but this seems very efficient.
 (use-package magit
   :general
   (:states 'motion :prefix *leader*
-           "g" 'magit-status)
-  :config
+           "g" '(magit-status :repeat abort))
+  :init
   (setq magit-push-always-verify nil
         git-commit-summary-max-length 50))
 #+END_SRC
 
 evil-mode is the best thing in the world.
+
 #+BEGIN_SRC emacs-lisp
 (use-package evil-magit
   :after (evil magit))
@@ -686,7 +698,26 @@ I thought I needed this, but it is not so great.
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
   :diminish flycheck-mode
-  :hook (prog-mode . flycheck-mode))
+  :hook (prog-mode . flycheck-mode)
+  :general
+  (:states 'motion :prefix *leader*
+           "c" '(:keymap flycheck-command-map)))
+#+END_SRC
+
+*** flycheck-pos-tip
+
+#+BEGIN_SRC emacs-lisp
+;; (use-package flycheck-pos-tip
+;;   :after flycheck
+;;   :hook (flycheck-mode . flycheck-pos-tip-mode))
+#+END_SRC
+
+*** flycheck-inline
+
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck-inline
+  :after flycheck
+  :hook (flycheck-mode . flycheck-inline-mode))
 #+END_SRC
 
 ** which-key
@@ -694,6 +725,7 @@ I thought I needed this, but it is not so great.
 #+BEGIN_SRC emacs-lisp
 (use-package which-key
   :diminish which-key-mode
+  :defer 1
   :config
   (which-key-mode 1))
 #+END_SRC
@@ -708,40 +740,32 @@ I thought I needed this, but it is not so great.
 ** golden-ratio
 
 #+BEGIN_SRC emacs-lisp
+(setq twl/golden-ratio-commands
+      '(evil-window-left
+        evil-window-right
+        evil-window-up
+        evil-window-down
+        select-window-1
+        select-window-2
+        select-window-3
+        select-window-4
+        select-window-5))
 (use-package golden-ratio
   :diminish golden-ratio-mode
+  :defer 1
   :config
-  (setq golden-ratio-extra-commands
-        (append golden-ratio-extra-commands
-                '(evil-window-left
-                  evil-window-right
-                  evil-window-up
-                  evil-window-down
-                  select-window-1
-                  select-window-2
-                  select-window-3
-                  select-window-4
-                  select-window-5)))
+  (dolist (_c twl/golden-ratio-commands)
+    (cl-pushnew _c golden-ratio-extra-commands))
   (golden-ratio-mode 1))
 #+END_SRC
 
 * Major modes
-** text mode
-
-#+BeGIN_SRC emacs-lisp
-(add-hook 'text-mode #'flyspell-mode)
-#+EnD_SRC
-
-** prog mode
-
-#+BEGIN_SRC emacs-lisp
-(add-hook 'prog-mode #'flyspell-prog-mode)
-#+END_SRC
 
 ** org mode
 
 #+BEGIN_SRC emacs-lisp
-(use-package org)
+(use-package org
+  :pin org)
 #+END_SRC
 
 *** better defaults
@@ -756,11 +780,7 @@ I thought I needed this, but it is not so great.
       org-confirm-elisp-link-function nil
       org-log-done t)
 (twl|diminish-minor-mode 'org-indent 'org-indent-mode)
-#+END_SRC
-
-**** hooks
-#+BEGIN_SRC emacs-lisp
-(add-hook 'org-mode-hook 'org-indent-mode)
+(add-hook 'org-mode-hook #'org-indent-mode)
 #+END_SRC
 
 *** evil-org
@@ -769,6 +789,7 @@ I thought I needed this, but it is not so great.
 (use-package evil-org
   :after org
   :diminish evil-org-mode
+  :functions evil-org-agenda-set-keys
   :hook
   (((org-mode org-agenda-mode) . evil-org-mode)
    (evil-org-mode . evil-org-set-key-theme))
@@ -817,7 +838,8 @@ I thought I needed this, but it is not so great.
    (dot . t)
    (latex . t)
    (R . t)
-   (plantuml . t)))
+   (plantuml . t)
+   (emacs-lisp . t)))
 #+END_SRC
 
 *** Export Options
@@ -846,13 +868,15 @@ I thought I needed this, but it is not so great.
               lisp-mode-hook
               scheme-mode-hook
               racket-mode-hook))
-  (add-hook _h 'twl//lispy-mode-hooks))
+  (add-hook _h #'twl//lispy-mode-hooks))
 #+END_SRC
 
 ** LaTeX mode
+
 *** LatexMK
 
 This is bad, as it somehow removes the prettify-symbols
+
 #+BEGIN_SRC emacs-lisp
 ;(use-package auctex-latexmk
 ;  :config
@@ -875,14 +899,6 @@ So I made my own? jk I copied this =^^=
   (add-to-list 'TeX-command-list
                '("LatexMK" "latexmk %(-PDF)%S%(mode) %(file-line-error) %(extraopts) %t"
                  TeX-run-TeX nil t)))
-#+END_SRC
-
-Also, heres a quick latex compile command
-#+BEGIN_SRC emacs-lisp
-(defun twl//latexmk-compile ()
-  (interactive)
-  (TeX-command-select-master)
-  (TeX-command "LatexMK"))
 #+END_SRC
 
 *** Hooks
@@ -918,10 +934,12 @@ Also, heres a quick latex compile command
       (setq to (setq tmp-end (min (point) (marker-position to-marker))))
       (apply orig-fun from to args)
       (setq from (point))
+      (back-to-indentation)
+      (set-marker from nil)
       (unless (or (bolp)
                   (eolp)
                   (texmathp)
-                  (looking-back "^ *")
+                  (<= from (point))
                   (looking-at ". *$"))
         (LaTeX-newline)))
     (set-marker to-marker nil)))
@@ -943,6 +961,7 @@ Also, heres a quick latex compile command
 #+BEGIN_SRC emacs-lisp
 (use-package tex
   :ensure auctex
+  :defines (TeX-expand-list TeX-command-list)
   :hook (LaTeX-mode . twl//latex-mode-hooks)
   :general
   (normal LaTeX-mode-map "M-q" 'LaTeX-fill-paragraph)
@@ -979,7 +998,8 @@ Also, heres a quick latex compile command
 
 (use-package company-math
   :after (tex company)
-  :init (setq company-math-allow-unicode-symbols-in-faces nil))
+  :init
+  (setq company-math-allow-unicode-symbols-in-faces nil))
 
 (use-package company-auctex
   :after company-math)
@@ -993,17 +1013,29 @@ Also, heres a quick latex compile command
 
 #+BEGIN_SRC emacs-lisp
 (use-package plantuml-mode
-  :interpreter
-  ("plantuml" . plantuml-mode)
-  :config
-  (setq plantuml-jar-path (expand-file-name "~/src/plantuml/plantuml.jar"))
-  (setq org-plantuml-jar-path plantuml-jar-path))
+  :mode "//.uml//"
+  :interpreter "plantuml"
+  :init
+  (setq plantuml-jar-path (expand-file-name "~/src/plantuml/plantuml.jar")
+        plantuml-default-exec-mode 'jar))
+#+END_SRC
+
+*** flycheck-plantuml
+
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck-plantuml
+  :after (flycheck plantuml-mode)
+  :hook (plantuml-mode . flycheck-plantuml-setup))
 #+END_SRC
 
 ** C/C++ mode
 
 #+BEGIN_SRC emacs-lisp
-(setq-default c-basic-offset 4)
+(add-hook 'c++-hook
+          (lambda ()
+            (setq flycheck-clang-language-standard "c++17"
+                  flycheck-gcc-language-standard "c++17"
+                  flycheck-cppcheck-standards "c++17")))
 #+END_SRC
 
 *** irony
@@ -1033,8 +1065,19 @@ I thought this was nice at first, but then I discovered `lsp`s
 ;;                         company-irony-c-headers))))))
 #+END_SRC
 
-** Matlab-mode
+** Matlab mode
 
 #+BEGIN_SRC emacs-lisp
 ;;(use-package matlab-mode)
+#+END_SRC
+
+** Haskell mode
+
+#+BEGIN_SRC emacs-lisp
+(use-package haskell-mode
+  :mode "//.hs//"
+  :interpreter "Haskell")
+(use-package dante
+  :after (haskell-mode flycheck company)
+  :hook (haskell-mode . dante-mode))
 #+END_SRC
