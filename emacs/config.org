@@ -886,19 +886,19 @@ This is bad, as it somehow removes the prettify-symbols
 So I made my own? jk I copied this =^^=
 #+BEGIN_SRC emacs-lisp
 (defun twl//latexmk-setup ()
-  (add-to-list 'TeX-expand-list
-               '("%(-PDF)"
-                 (lambda ()
-                   (concat (if TeX-PDF-mode "-pdf " "")
-                           (cond
-                            ((eq TeX-engine 'default) "")
-                            ((eq TeX-engine 'xetex)
-                             (concat (if TeX-PDF-mode "-pdflatex=" "-") "xelatex "))
-                            ((eq TeX-engine 'luatex) "-lualatex ")
-                            (t ""))))))
-  (add-to-list 'TeX-command-list
-               '("LatexMK" "latexmk %(-PDF)%S%(mode) %(file-line-error) %(extraopts) %t"
-                 TeX-run-TeX nil t)))
+  (cl-pushnew '("%(-PDF)"
+                (lambda ()
+                  (concat (if TeX-PDF-mode "-pdf " "")
+                          (cond
+                           ((eq TeX-engine 'default) "")
+                           ((eq TeX-engine 'xetex)
+                            (concat (if TeX-PDF-mode "-pdflatex=" "-") "xelatex "))
+                           ((eq TeX-engine 'luatex) "-lualatex ")
+                           (t "")))))
+              TeX-expand-list)
+  (cl-pushnew '("LatexMK" "latexmk %(-PDF)%S%(mode) %(file-line-error) %(extraopts) %t"
+                TeX-run-TeX nil t)
+              TeX-command-list))
 #+END_SRC
 
 *** Hooks
@@ -910,10 +910,10 @@ So I made my own? jk I copied this =^^=
   (flyspell-mode 1)
   (flycheck-mode 1)
   (company-mode 1)
-
-  (add-to-list 'TeX-view-program-selection
-               '(output-pdf "Zathura"))
   (TeX-source-correlate-mode 1)
+
+  (cl-pushnew '(output-pdf "Zathura")
+              TeX-view-program-selection)
 
   (twl//latexmk-setup)
   (setq TeX-command-default "LatexMK"))
@@ -927,21 +927,23 @@ So I made my own? jk I copied this =^^=
   "Start each sentence on a new line."
   (let ((to-marker (set-marker (make-marker) to))
         tmp-end)
-    (while (< from (marker-position to-marker))
-      (forward-sentence)
-      (when (looking-at " ") (backward-char))
-      ;; might have gone beyond to-marker --- use whichever is smaller:
-      (setq to (setq tmp-end (min (point) (marker-position to-marker))))
-      (apply orig-fun from to args)
-      (setq from (point))
-      (back-to-indentation)
-      (set-marker from nil)
-      (unless (or (bolp)
-                  (eolp)
-                  (texmathp)
-                  (<= from (point))
-                  (looking-at ". *$"))
-        (LaTeX-newline)))
+    (save-excursion
+      (while (< from (marker-position to-marker))
+        (forward-sentence)
+        (when (looking-at " ") (backward-char))
+        ;; might have gone beyond to-marker --- use whichever is smaller:
+        (setq to (min (point) (marker-position to-marker)))
+        (apply orig-fun from to args)
+        (setq from (point))
+        (save-excursion
+          (back-to-indentation)
+          (setq tmp-end (point)))
+        (unless (or (bolp)
+                    (eolp)
+                    (texmathp)
+                    (<= from tmp-end)
+                    (looking-at ". *$"))
+          (LaTeX-newline))))
     (set-marker to-marker nil)))
 #+END_SRC
 
@@ -961,7 +963,10 @@ So I made my own? jk I copied this =^^=
 #+BEGIN_SRC emacs-lisp
 (use-package tex
   :ensure auctex
-  :defines (TeX-expand-list TeX-command-list)
+  :defines
+  (TeX-expand-list TeX-command-list)
+  :functions
+  (LaTeX-math-mode TeX-source-correlate-mode LaTeX-newline)
   :hook (LaTeX-mode . twl//latex-mode-hooks)
   :general
   (normal LaTeX-mode-map "M-q" 'LaTeX-fill-paragraph)
