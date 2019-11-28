@@ -1,0 +1,99 @@
+\RequirePackage{twlbase}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesExplPackage{twlmath}{11/27/2019}{}{}
+
+%% Parse Arguments
+% Boolean toggles
+\bool_new:N \l__twlmath_phys_bool
+\bool_set_true:N \l__twlmath_phys_bool
+
+\bool_new:N \l__twlmath_diag_bool
+\bool_set_true:N \l__twlmath_diag_bool
+
+% Options
+\DeclareOption{nodiag}{\bool_set_false:N \l__twlmath_diag_bool}
+\DeclareOption{diag}{\bool_set_true:N \l__twlmath_diag_bool}
+
+\DeclareOption{nophys}{\bool_set_false:N \l__twlmath_phys_bool}
+\DeclareOption{phys}{\bool_set_true:N \l__twlmath_phys_bool}
+
+\ProcessOptions\relax
+
+%%Package
+% Error messages
+
+% Logic
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+\RequirePackage{mathtools}
+\bool_if:NT \l__twlmath_phys_bool
+{
+  \RequirePackage{siunitx}
+  \RequirePackage{physics}
+}
+\bool_if:NT \l__twlmath_diag_bool {\RequirePackage{diagrams}}
+
+
+\bool_if:NF \l__twlmath_phys_bool
+{
+  \DeclarePairedDelimiter { \abs } {\lvert}{\rvert}
+  \DeclarePairedDelimiter { \norm } {\lVert}{\rVert}
+}
+\DeclarePairedDelimiter { \floor } {\lfloor}{\rfloor}
+\DeclarePairedDelimiter { \ceil } {\lceil}{\rceil}
+\DeclarePairedDelimiterX { \innerp }[2] {\langle}{\rangle}{#1, #2}
+
+
+\NewDocumentCommand { \Tau } {} { \mathcal T } %Tau
+\NewDocumentCommand { \NN } {} { \mathbb N } %Natural
+\NewDocumentCommand { \ZZ } {} { \mathbb Z } %Integer
+\NewDocumentCommand { \QQ } {} { \mathbb Q } %Rational
+\NewDocumentCommand { \RR } {} { \mathbb R } %Real
+\NewDocumentCommand { \CC } {} { \mathbb C } %Complex
+\NewDocumentCommand { \FF } {} { \mathbb F } %Field
+
+
+\DeclareMathOperator{\dom}{dom} %domain
+\DeclareMathOperator{\img}{img} %image
+\DeclareMathOperator{\ran}{ran} %range
+\DeclareMathOperator{\vspan}{span} %span
+
+\DeclareMathOperator{\Dom}{Dom} %domain
+\DeclareMathOperator{\Img}{Img} %image
+\DeclareMathOperator{\Ker}{Ker} %kernel
+\DeclareMathOperator{\Ran}{Ran} %range
+\DeclareMathOperator{\vSpan}{Span} %span
+
+\DeclareMathOperator{\id}{id} %identity
+\DeclareMathOperator{\ch}{ch} %characteristic
+\DeclareMathOperator{\ord}{ord} %order
+\DeclareMathOperator{\sign}{sign} %sign
+
+\DeclareMathOperator{\ext}{ext} %extension
+\DeclareMathOperator{\pr}{pr} %projection
+\DeclareMathOperator{\pred}{pred} %predecessor
+\DeclareMathOperator{\lcm}{lcm} %least common multiple
+
+\DeclareMathOperator{\Hom}{Hom} %homomorphism
+\DeclareMathOperator{\Iso}{Iso} %isomorphism
+\DeclareMathOperator{\End}{End} %endomorphism
+\DeclareMathOperator{\Aut}{Aut} %automorphism
+\DeclareMathOperator{\Inn}{Inn} %innermorphism
+\DeclareMathOperator{\Perm}{Perm} %permutation
+\DeclareMathOperator{\Fix}{Fix} %fix
+\DeclareMathOperator{\Orb}{Orb} %orbit
+\DeclareMathOperator{\Stab}{Stab} %stabilizer
+\DeclareMathOperator{\GL}{GL} %general linear
+\DeclareMathOperator{\SL}{SL} %special linear
+\DeclareMathOperator{\GF}{GF} %galois field
+
+\RenewDocumentCommand { \Re } {} { \operatorname{Re} }
+\RenewDocumentCommand { \Im } {} { \operatorname{Im} }
+
+\NewDocumentCommand { \liff } {} { \mathbin \leftrightarrow }
+\NewDocumentCommand { \lthen } {} { \mathbin \rightarrow }
+\NewDocumentCommand { \ot } {} { \leftarrow }
+
+\NewDocumentCommand { \dg } {} { ^{\circ} }
+\NewDocumentCommand { \inv } {} { ^{-1} }

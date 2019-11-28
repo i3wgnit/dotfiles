@@ -311,15 +311,12 @@
 %% fakesection asymptote
 \iftwl@asy
 \RequirePackage[dvips]{attachfile2}
+\PassOptionsToPackage{inline}{asymptote}
 \RequirePackage{asymptote}
 \begin{asydef}
-  settings.prc=false;
-  settings.embed=true;
-  settings.tex="latex";
-  settings.outformat="pdf";
-
   import olympiad;
   import cse5;
+  import graph;
 
   pointpen = black;
   pathpen = black;
@@ -329,7 +326,7 @@
   pointfontsize = 10;
   defaultpen(fontsize(10pt));
 
-  size(5cm);
+  // size(5cm);
 
   usepackage("amsmath");
   usepackage("amssymb");

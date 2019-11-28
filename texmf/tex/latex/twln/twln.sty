@@ -1,0 +1,72 @@
+\NeedsTeXFormat{LaTeX2e}
+\RequirePackage{twlbase}
+\ProvidesExplPackage{twln}{11/27/2019}{}{}
+
+%% Parse Arguments
+% Boolean toggles
+\bool_new:N \l__twln_colour_bool
+\bool_set_true:N \l__twln_colour_bool
+
+\bool_new:N \l__twln_math_bool
+\bool_set_true:N \l__twln_math_bool
+
+\bool_new:N \l__twln_asy_bool
+\bool_set_true:N \l__twln_asy_bool
+
+\bool_new:N \l__twln_thm_bool
+\bool_set_true:N \l__twln_thm_bool
+
+\bool_new:N \l__twln_alg_bool
+\bool_set_true:N \l__twln_alg_bool
+
+\bool_new:N \l__twln_style_bool
+\bool_set_true:N \l__twln_style_bool
+
+% Options
+\DeclareOption{nostyle}{\bool_set_false:N \l__twln_style_bool}
+\DeclareOption{style}{\bool_set_true:N \l__twln_style_bool}
+
+\DeclareOption{noalg}{\bool_set_false:N \l__twln_alg_bool}
+\DeclareOption{alg}{\bool_set_true:N \l__twln_alg_bool}
+
+\DeclareOption{nothm}{\bool_set_false:N \l__twln_thm_bool}
+\DeclareOption{thm}{\bool_set_true:N \l__twln_thm_bool}
+
+\DeclareOption{noasy}{\bool_set_false:N \l__twln_asy_bool}
+\DeclareOption{asy}{\bool_set_true:N \l__twln_asy_bool}
+
+\DeclareOption{nomath}{
+  \bool_set_false:N \l__twln_math_bool
+  \bool_set_false:N \l__twln_asy_bool
+  \bool_set_false:N \l__twln_thm_bool
+}
+\DeclareOption{math}{\bool_set_true:N \l__twln_math_bool}
+
+\DeclareOption{nocolor}{\bool_set_false:N \l__twln_colour_bool}
+\DeclareOption{color}{\bool_set_true:N \l__twln_colour_bool}
+\DeclareOption{nocolour}{\bool_set_false:N \l__twln_colour_bool}
+\DeclareOption{colour}{\bool_set_true:N \l__twln_colour_bool}
+
+\ProcessOptions\relax
+
+%% Package
+% Error messages
+
+% Logic
+\RequirePackage{booktabs}
+\RequirePackage{graphicx}
+\RequirePackage{hyperref}
+\RequirePackage{multirow}
+\RequirePackage{ulem}
+\bool_if:NT \l__twln_colour_bool
+{
+  \PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
+  \RequirePackage{xcolor}
+}
+
+
+\bool_if:NT \l__twln_math_bool {\RequirePackage{twlmath}}
+\bool_if:NT \l__twln_asy_bool {\RequirePackage{twlasy}}
+\bool_if:NT \l__twln_thm_bool {\RequirePackage{twlthm}}
+\bool_if:NT \l__twln_alg_bool {\RequirePackage{twlalg}}
+\bool_if:NT \l__twln_style_bool {\RequirePackage{twlstyle}}

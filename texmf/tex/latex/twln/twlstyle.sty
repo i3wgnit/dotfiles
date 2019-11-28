@@ -1,0 +1,151 @@
+\NeedsTeXFormat{LaTeX2e}
+\RequirePackage{twlbase}
+\ProvidesExplPackage{twlstyle}{11/27/2019}{}{}
+
+%% Parse Arguments
+% Boolean toggles
+\bool_new:N \l__twlstyle_header_bool
+\bool_set_true:N \l__twlstyle_header_bool
+
+\bool_new:N \l__twlstyle_mktitle_bool
+
+\bool_new:N \l__twlstyle_fancy_bool
+\bool_set_true:N \l__twlstyle_fancy_bool
+
+\bool_new:N \l__twlstyle_colour_bool
+\@ifpackageloaded{xcolor}{\bool_set_true:N \l__twlstyle_colour_bool}{}
+
+\bool_new:N \l__twlstyle_probl_bool
+
+% Options
+\DeclareOption{probl}{\bool_set_true:N \l__twlstyle_probl_bool}
+\DeclareOption{noprobl}{\bool_set_false:N \l__twlstyle_probl_bool}
+
+\DeclareOption{nocolor}{\bool_set_false:N \l__twlstyle_colour_bool}
+\DeclareOption{color}{\bool_set_true:N \l__twlstyle_colour_bool}
+\DeclareOption{nocolour}{\bool_set_false:N \l__twlstyle_colour_bool}
+\DeclareOption{colour}{\bool_set_true:N \l__twlstyle_colour_bool}
+
+\DeclareOption{nofancy}{
+  \bool_set_false:N \l__twlstyle_fancy_bool
+  \bool_set_false:N \l__twlstyle_mktitle_bool
+  \bool_set_false:N \l__twlstyle_header_bool
+}
+\DeclareOption{fancy}{\bool_set_true:N \l__twlstyle_fancy_bool}
+
+\DeclareOption{mktitle}{\bool_set_true:N \l__twlstyle_mktitle_bool}
+\DeclareOption{nomktitle}{\bool_set_false:N \l__twlstyle_mktitle_bool}
+
+\DeclareOption{noheader}{\bool_set_false:N \l__twlstyle_header_bool}
+\DeclareOption{header}{\bool_set_true:N \l__twlstyle_header_bool}
+
+\ProcessOptions\relax
+
+%% Package
+% Error messages
+
+% Logic
+\PassOptionsToPackage{utf8}{inputenc}
+\PassOptionsToPackage{T1}{fontenc}
+\RequirePackage{inputenc, fontenc, lmodern}
+\PassOptionsToPackage{letterpaper, margin=1.25in, tmargin=1in}{geometry}
+\RequirePackage{geometry}
+\RequirePackage{titling}
+
+\bool_if:NT \l__twlstyle_header_bool
+{
+  \RequirePackage{fancyhdr}
+  \pagestyle{fancy}
+  \fancyhead[L]{\footnotesize\textbf{\@author \hspace{1em} --- \hspace{1em} \@title}}
+  \fancyhead[C]{}
+  \fancyhead[R]{\footnotesize\textbf{\leftmark}}
+  \fancyfoot[C]{\thepage}
+}
+
+\bool_if:NT \l__twlstyle_mktitle_bool
+{
+  \RenewDocumentCommand {\maketitle} {}
+  {
+    \begin{center}
+      \textbf{\Large\@title} \\ [1ex]
+      \@date\hfill\@author \\ [1ex]
+      \hrule
+    \end{center}
+  }
+  \bool_if:NT \l__twlstyle_fancy_bool
+  {\pagestyle{plain}}
+}
+
+\bool_if:NT \l__twlstyle_fancy_bool
+{
+  \RequirePackage{titlesec}
+
+  \titleformat{\section}
+  {\normalfont\Large\bfseries}
+  {
+    \bool_if:NT \l__twlstyle_colour_bool
+    {\color{purple}}
+    \S\thesection
+  }
+  {1em} {}
+
+  \titleformat{\subsection}
+  {\normalfont\large\bfseries}
+  {
+    \bool_if:NT \l__twlstyle_colour_bool
+    {\color{purple}}
+    \S\thesubsection
+  }
+  {1em} {}
+
+  \titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries}
+  {
+    \bool_if:NT \l__twlstyle_colour_bool
+    {\color{purple}}
+    \S\thesubsubsection
+  }
+  {1em} {}
+}
+
+\bool_if:NT \l__twlstyle_probl_bool
+{
+  \newcounter{probl}
+  \RenewExpandableDocumentCommand { \theprobl } {} { Q\arabic{probl} }
+  \NewExpandableDocumentCommand { \problem } { m }
+  {
+    \noindent
+    \stepcounter{probl}
+    {\Large\textbf{\theprobl}}
+    \addcontentsline{toc}{section}{\theprobl}
+    \tl_if_blank:nF {#1}
+    {\hspace{1em}\normalfont\normalsize #1\newline}
+  }
+
+  \newcounter{probll}[probl]
+  \RenewExpandableDocumentCommand { \theprobll } {} { (\alph{probll}) }
+  \NewExpandableDocumentCommand { \subproblem } { m }
+  {
+    \noindent
+    \stepcounter{probll}
+    {\Large\textbf{\theprobll}}
+    \addcontentsline{toc}{subsection}{\theprobll}
+    \tl_if_blank:nF {#1}
+    {\hspace{1em}\normalfont\normalsize #1\newline}
+  }
+
+  \newcounter{problll}[probll]
+  \RenewExpandableDocumentCommand { \theproblll } {} { \roman{problll}. }
+  \NewExpandableDocumentCommand { \subsubproblem } { m }
+  {
+    \noindent
+    \stepcounter{problll}
+    {\Large\textbf{\theproblll}}
+    \addcontentsline{toc}{subsubsection}{\theproblll}
+    \tl_if_blank:nF {#1}
+    {\hspace{1em}\normalfont\normalsize #1\newline}
+  }
+}
+
+\author{twl}
+\date{\today}

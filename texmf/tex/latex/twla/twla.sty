@@ -198,13 +198,9 @@
 %%fakesection asymptote
 \iftwl@asy
 	\RequirePackage[dvips]{attachfile2}
+    \PassOptionsToPackage{inline}{asymptote}
 	\RequirePackage{asymptote}
 	\begin{asydef}
-		settings.prc=false;
-		settings.embed=true;
-		settings.tex="latex";
-		settings.outformat="pdf";
-
 		import olympiad;
 		import cse5;
 		import drawtree;

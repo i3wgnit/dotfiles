@@ -1,3 +1,2 @@
 import settings;
-psviewer="zathura";
-pdfviewer="zathura";
+include config_local;

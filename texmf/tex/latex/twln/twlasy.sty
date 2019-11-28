@@ -1,0 +1,45 @@
+\NeedsTeXFormat{LaTeX2e}
+\RequirePackage{twlbase}
+\ProvidesExplPackage{twlasy}{11/27/2019}{}{}
+
+%% Parse Arguments
+% Boolean toggles
+\bool_new:N \l__twlasy_include_bool
+\bool_set_true:N \l__twlasy_include_bool
+
+% Options
+\DeclareOption{noinclude}{\bool_set_false:N \l__twlasy_include_bool}
+\DeclareOption{include}{\bool_set_true:N \l__twlasy_include_bool}
+\DeclareOption{attach}{\bool_set_false:N \l__twlasy_include_bool}
+\DeclareOption{noattach}{\bool_set_true:N \l__twlasy_include_bool}
+
+\ProcessOptions\relax
+
+%% Package
+% Error messages
+
+% Logic
+\bool_if:NTF \l__twlasy_include_bool
+{\PassOptionsToPackage{inline}{asymptote}}
+{
+  \PassOptionsToPackage{dvips}{attachfile2}
+  \RequirePackage{attachfile2}
+  \PassOptionsToPackage{attach}{asymptote}
+}
+
+\RequirePackage{asymptote}
+\begin{asydef}
+  import cse5;
+
+  pointpen = black;
+  pathpen = black;
+  pathfontpen = black;
+  anglepen = black;
+  anglefontpen = black;
+  pointfontsize = 10;
+  defaultpen(fontsize(10pt));
+
+  usepackage("amsmath");
+  usepackage("amssymb");
+\end{asydef}
+\def\asydir{asy}

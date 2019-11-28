@@ -12,4 +12,4 @@ $pdf_mode = 1;
 $pdf_previewer = "zathura %O %S &";
 $pdf_update_method = 0;
 
-push @generated_exts, 'atfi', 'asy', 'pre', 'prc', 'prc', 'pbsdat', 'thm', 'synctex.gz';
+push @generated_exts, 'atfi', 'asy', 'fls', 'pbsdat', 'pre', 'prc', 'prv', 'synctex.gz', 'thm';

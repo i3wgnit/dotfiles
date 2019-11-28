@@ -52,3 +52,6 @@
 [submodule "vim/vim/bundle/ale"]
 	path = vim/vim/bundle/ale
 	url = https://github.com/w0rp/ale
+[submodule "asy/asy-graphtheory"]
+	path = asy/asy-graphtheory
+	url = https://github.com/taoari/asy-graphtheory.git
