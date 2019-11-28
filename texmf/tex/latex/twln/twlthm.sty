@@ -166,7 +166,7 @@
 
 \cs_new:Npn \__twlthm_plain_sty:
 {
-  \theoremstyle{\tl_use:N \l__twlthm_plain_tl}
+  \theoremstyle{\l__twlthm_plain_tl}
   \theoremheaderfont{\bfseries}
   \theorembodyfont{\normalfont}
   \theoremseparator{}
@@ -177,7 +177,7 @@
 
 \cs_new:Npn \__twlthm_thm_sty:
 {
-  \theoremstyle{\tl_use:N \l__twlthm_break_tl}
+  \theoremstyle{\l__twlthm_break_tl}
   \theoremheaderfont{\sffamily\bfseries
     \bool_if:NT \l__twlthm_colour_bool
     {\color{MidnightBlue}}
@@ -189,14 +189,14 @@
   {
     \tl_if_empty:NTF \l__twlthm_mdstyle_bluebox_tl
     {\__twlthm_mdfthm:}
-    {\__twlthm_mdfthm:n {\tl_use:N \l__twlthm_mdstyle_bluebox_tl}}
+    {\__twlthm_mdfthm:n {\l__twlthm_mdstyle_bluebox_tl}}
   }
   \theoremsymbol{}
 }
 
 \cs_new:Npn \__twlthm_def_sty:
 {
-  \theoremstyle{\tl_use:N \l__twlthm_plain_tl}
+  \theoremstyle{\l__twlthm_plain_tl}
   \theoremheaderfont{\bfseries
     \bool_if:NT \l__twlthm_colour_bool
     {\color{RawSienna}}
@@ -208,14 +208,14 @@
   {
     \tl_if_empty:NTF \l__twlthm_mdstyle_redbox_tl
     {\__twlthm_mdfthm:}
-    {\__twlthm_mdfthm:n {\tl_use:N \l__twlthm_mdstyle_redbox_tl}}
+    {\__twlthm_mdfthm:n {\l__twlthm_mdstyle_redbox_tl}}
   }
   \theoremsymbol{}
 }
 
 \cs_new:Npn \__twlthm_remark_sty:
 {
-  \theoremstyle{\tl_use:N \l__twlthm_break_tl}
+  \theoremstyle{\l__twlthm_break_tl}
   \theoremheaderfont{\bfseries}
   \theorembodyfont{\normalfont}
   \theoremseparator{}
@@ -223,14 +223,14 @@
   {
     \tl_if_empty:NTF \l__twlthm_mdstyle_blackbox_tl
     {\__twlthm_mdfthm:}
-    {\__twlthm_mdfthm:n {\tl_use:N \l__twlthm_mdstyle_blackbox_tl}}
+    {\__twlthm_mdfthm:n {\l__twlthm_mdstyle_blackbox_tl}}
   }
   \theoremsymbol{}
 }
 
 \cs_new:Npn \__twlthm_eg_sty:
 {
-  \theoremstyle{\tl_use:N \l__twlthm_plain_tl}
+  \theoremstyle{\l__twlthm_plain_tl}
   \theoremheaderfont{\bfseries}
   \theorembodyfont{\normalfont}
   \theoremnumbering{arabic}
@@ -242,7 +242,7 @@
 
 \cs_new:Npn \__twlthm_pf_sty:
 {
-  \theoremstyle{\tl_use:N \l__twlthm_plain_tl}
+  \theoremstyle{\l__twlthm_plain_tl}
   \theoremheaderfont{\itshape}
   \theorembodyfont{\normalfont}
   \theoremseparator{.}
@@ -280,7 +280,7 @@
     \renewtheorem*{#2*}{#3}
   }
 
-  \cs_new:Npn \__twlthm_newtheorem*:nnn #1#2#3
+  \cs_new:Npn \__twlthm_newtheorem_:nnn #1#2#3
   {
     #1
     \newtheorem*{#2}{#3}
@@ -289,19 +289,19 @@
   }
 
 
-  \__twlthm_newtheorem:nnn {\__twlthm_plain_sty:} {notation} {Notation}
+  \__twlthm_newtheorem:nnn \__twlthm_plain_sty: {notation} {Notation}
 
-  \__twlthm_newtheorem*:nnn {\__twlthm_plain_sty:} {note} {Note}
-  \__twlthm_newtheorem*:nnn {\__twlthm_plain_sty:} {recall} {Recall}
+  \__twlthm_newtheorem_:nnn \__twlthm_plain_sty: {note} {Note}
+  \__twlthm_newtheorem_:nnn \__twlthm_plain_sty: {recall} {Recall}
 
-  \__twlthm_newtheorem:nnn {\__twlthm_remark_sty:} {remark} {Remark}
+  \__twlthm_newtheorem:nnn \__twlthm_remark_sty: {remark} {Remark}
 
-  \__twlthm_newtheorem:nnn {\__twlthm_thm_sty:} {axiom} {Axiom}
-  \__twlthm_newtheorem:nnn {\__twlthm_thm_sty:} {lemma} {Lemma}
-  \__twlthm_newtheorem:nnn {\__twlthm_thm_sty:} {proposition} {Proposition}
-  \__twlthm_newtheorem:nnn {\__twlthm_thm_sty:} {corollary} {Corollary}
+  \__twlthm_newtheorem:nnn \__twlthm_thm_sty: {axiom} {Axiom}
+  \__twlthm_newtheorem:nnn \__twlthm_thm_sty: {lemma} {Lemma}
+  \__twlthm_newtheorem:nnn \__twlthm_thm_sty: {proposition} {Proposition}
+  \__twlthm_newtheorem:nnn \__twlthm_thm_sty: {corollary} {Corollary}
 
-  \__twlthm_newtheorem:nnn {\__twlthm_def_sty:} {definition} {Definition}
+  \__twlthm_newtheorem:nnn \__twlthm_def_sty: {definition} {Definition}
 
   \cs_new:Npn \__twlthm_vocab_colour:e #1 {\emph{#1}}
   \bool_if:NT \l__twlthm_colour_bool
@@ -324,15 +324,15 @@
     \__twlthm_vocab_index:ee {\IfValueTF {#1} {#1} {#2}} {#3}
   }
 
-  \__twlthm_newtheorem:nnn {\__twlthm_eg_sty:} {example} {Example}
-  \__twlthm_newtheorem:nnn {\__twlthm_eg_sty:} {conjecture} {Conjecture}
-  \__twlthm_newtheorem:nnn {\__twlthm_eg_sty:} {exercise} {Exercise}
+  \__twlthm_newtheorem:nnn \__twlthm_eg_sty: {example} {Example}
+  \__twlthm_newtheorem:nnn \__twlthm_eg_sty: {conjecture} {Conjecture}
+  \__twlthm_newtheorem:nnn \__twlthm_eg_sty: {exercise} {Exercise}
 
 
-  \__twlthm_newtheorem*:nnn {\__twlthm_pf_sty:} {proof} {Proof}
-  \__twlthm_newtheorem*:nnn {\__twlthm_pf_sty:} {solution} {Solution}
+  \__twlthm_newtheorem_:nnn \__twlthm_pf_sty: {proof} {Proof}
+  \__twlthm_newtheorem_:nnn \__twlthm_pf_sty: {solution} {Solution}
 
-  \__twlthm_newtheorem*:nnn
+  \__twlthm_newtheorem_:nnn
   {
     \__twlthm_pf_sty:
     \theoremsymbol{\ensuremath{\blacksquare}}
