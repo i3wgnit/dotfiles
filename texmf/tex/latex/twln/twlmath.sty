@@ -4,35 +4,40 @@
 
 %% Parse Arguments
 % Boolean toggles
-\bool_new:N \l__twlmath_phys_bool
-\bool_set_true:N \l__twlmath_phys_bool
+\bool_new:N \g__twlmath_phys_bool
+\bool_gset_true:N \g__twlmath_phys_bool
 
-\bool_new:N \l__twlmath_diag_bool
-\bool_set_true:N \l__twlmath_diag_bool
+\bool_new:N \g__twlmath_diag_bool
+\bool_gset_true:N \g__twlmath_diag_bool
 
 % Options
-\DeclareOption{nodiag}{\bool_set_false:N \l__twlmath_diag_bool}
-\DeclareOption{diag}{\bool_set_true:N \l__twlmath_diag_bool}
+\DeclareOption{nodiag}{\bool_gset_false:N \g__twlmath_diag_bool}
+\DeclareOption{diag}{\bool_gset_true:N \g__twlmath_diag_bool}
 
-\DeclareOption{nophys}{\bool_set_false:N \l__twlmath_phys_bool}
-\DeclareOption{phys}{\bool_set_true:N \l__twlmath_phys_bool}
+\DeclareOption{nophys}{\bool_gset_false:N \g__twlmath_phys_bool}
+\DeclareOption{phys}{\bool_gset_true:N \g__twlmath_phys_bool}
 
 \ProcessOptions\relax
 
 %% Package
+\bool_if:NT \g__twln_thm_bool
+{\PassOptionsToPackage{ntheorem}{empheq}}
+\PassOptionsToPackage{overload}{empheq}
 \RequirePackage{amsmath}
 \RequirePackage{amsfonts}
 \RequirePackage{amssymb}
+\RequirePackage{empheq}
+%\RequirePackage{bbold}
 \RequirePackage{mathtools}
-\bool_if:NT \l__twlmath_phys_bool
+\bool_if:NT \g__twlmath_phys_bool
 {
   \RequirePackage{siunitx}
   \RequirePackage{physics}
 }
-\bool_if:NT \l__twlmath_diag_bool {\RequirePackage{diagrams}}
+\bool_if:NT \g__twlmath_diag_bool {\RequirePackage{diagrams}}
 
 
-\bool_if:NF \l__twlmath_phys_bool
+\bool_if:NF \g__twlmath_phys_bool
 {
   \DeclarePairedDelimiter { \abs } {\lvert}{\rvert}
   \DeclarePairedDelimiter { \norm } {\lVert}{\rVert}
@@ -40,6 +45,7 @@
 \DeclarePairedDelimiter { \floor } {\lfloor}{\rfloor}
 \DeclarePairedDelimiter { \ceil } {\lceil}{\rceil}
 \DeclarePairedDelimiterX { \innerp }[2] {\langle}{\rangle}{#1, #2}
+\DeclarePairedDelimiter { \ideal } {\langle}{\rangle}
 
 
 \NewDocumentCommand { \Tau } {} { \mathcal T } %Tau
@@ -71,6 +77,8 @@
 \DeclareMathOperator{\pr}{pr} %projection
 \DeclareMathOperator{\pred}{pred} %predecessor
 \DeclareMathOperator{\lcm}{lcm} %least common multiple
+\DeclareMathOperator{\conv}{conv} %convex hull
+\DeclareMathOperator{\epi}{epi} %epigraph
 
 \DeclareMathOperator{\Hom}{Hom} %homomorphism
 \DeclareMathOperator{\Iso}{Iso} %isomorphism

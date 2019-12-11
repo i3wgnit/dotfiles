@@ -4,19 +4,19 @@
 
 %% Parse Arguments
 % Boolean toggles
-\bool_new:N \l__twlasy_include_bool
-\bool_set_true:N \l__twlasy_include_bool
+\bool_new:N \g__twlasy_include_bool
+\bool_gset_true:N \g__twlasy_include_bool
 
 % Options
-\DeclareOption{noinclude}{\bool_set_false:N \l__twlasy_include_bool}
-\DeclareOption{include}{\bool_set_true:N \l__twlasy_include_bool}
-\DeclareOption{attach}{\bool_set_false:N \l__twlasy_include_bool}
-\DeclareOption{noattach}{\bool_set_true:N \l__twlasy_include_bool}
+\DeclareOption{noinclude}{\bool_gset_false:N \g__twlasy_include_bool}
+\DeclareOption{include}{\bool_gset_true:N \g__twlasy_include_bool}
+\DeclareOption{attach}{\bool_gset_false:N \g__twlasy_include_bool}
+\DeclareOption{noattach}{\bool_gset_true:N \g__twlasy_include_bool}
 
 \ProcessOptions\relax
 
 %% Package
-\bool_if:NTF \l__twlasy_include_bool
+\bool_if:NTF \g__twlasy_include_bool
 {\PassOptionsToPackage{inline}{asymptote}}
 {
   \PassOptionsToPackage{dvips}{attachfile2}

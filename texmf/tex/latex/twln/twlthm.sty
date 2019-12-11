@@ -4,45 +4,45 @@
 
 %% Parse Arguments
 % Boolean toggles
-\bool_new:N \l__twlthm_frame_bool
-\bool_set_true:N \l__twlthm_frame_bool
+\bool_new:N \g__twlthm_frame_bool
+\bool_gset_true:N \g__twlthm_frame_bool
 
-\bool_new:N \l__twlthm_colour_bool
-\@ifpackageloaded{xcolor}{\bool_set_true:N \l__twlthm_colour_bool}{}
+\bool_new:N \g__twlthm_colour_bool
+\@ifpackageloaded{xcolor}{\bool_gset_true:N \g__twlthm_colour_bool}{}
 
-\bool_new:N \l__twlthm_thmsec_bool
-\bool_set_true:N \l__twlthm_thmsec_bool
+\bool_new:N \g__twlthm_thmsec_bool
+\bool_gset_true:N \g__twlthm_thmsec_bool
 
-\bool_new:N \l__twlthm_index_bool
-\bool_set_true:N \l__twlthm_index_bool
+\bool_new:N \g__twlthm_index_bool
+\bool_gset_true:N \g__twlthm_index_bool
 
-\bool_new:N \l__twlthm_thm_bool
-\bool_set_true:N \l__twlthm_thm_bool
+\bool_new:N \g__twlthm_thm_bool
+\bool_gset_true:N \g__twlthm_thm_bool
 
 % Options
 \DeclareOption{nothm}
 {
-  \bool_set_false:N \l__twlthm_thm_bool
-  \bool_set_false:N \l__twlthm_index_bool
-  \bool_set_false:N \l__twlthm_thmsec_bool
-  \bool_set_false:N \l__twlthm_colour_bool
-  \bool_set_false:N \l__twlthm_frame_bool
+  \bool_gset_false:N \g__twlthm_thm_bool
+  \bool_gset_false:N \g__twlthm_index_bool
+  \bool_gset_false:N \g__twlthm_thmsec_bool
+  \bool_gset_false:N \g__twlthm_colour_bool
+  \bool_gset_false:N \g__twlthm_frame_bool
 }
-\DeclareOption{thm}{\bool_set_false:N \l__twlthm_thm_bool}
+\DeclareOption{thm}{\bool_gset_false:N \g__twlthm_thm_bool}
 
-\DeclareOption{noindex}{\bool_set_false:N \l__twlthm_index_bool}
-\DeclareOption{index}{\bool_set_false:N \l__twlthm_index_bool}
+\DeclareOption{noindex}{\bool_gset_false:N \g__twlthm_index_bool}
+\DeclareOption{index}{\bool_gset_false:N \g__twlthm_index_bool}
 
-\DeclareOption{nothmsec}{\bool_set_false:N \l__twlthm_thmsec_bool}
-\DeclareOption{thmsec}{\bool_set_false:N \l__twlthm_thmsec_bool}
+\DeclareOption{nothmsec}{\bool_gset_false:N \g__twlthm_thmsec_bool}
+\DeclareOption{thmsec}{\bool_gset_false:N \g__twlthm_thmsec_bool}
 
-\DeclareOption{nocolor}{\bool_set_false:N \l__twlthm_colour_bool}
-\DeclareOption{color}{\bool_set_true:N \l__twlthm_colour_bool}
-\DeclareOption{nocolour}{\bool_set_false:N \l__twlthm_colour_bool}
-\DeclareOption{colour}{\bool_set_true:N \l__twlthm_colour_bool}
+\DeclareOption{nocolor}{\bool_gset_false:N \g__twlthm_colour_bool}
+\DeclareOption{color}{\bool_gset_true:N \g__twlthm_colour_bool}
+\DeclareOption{nocolour}{\bool_gset_false:N \g__twlthm_colour_bool}
+\DeclareOption{colour}{\bool_gset_true:N \g__twlthm_colour_bool}
 
-\DeclareOption{noframe}{\bool_set_false:N \l__twlthm_frame_bool}
-\DeclareOption{frame}{\bool_set_true:N \l__twlthm_frame_bool}
+\DeclareOption{noframe}{\bool_gset_false:N \g__twlthm_frame_bool}
+\DeclareOption{frame}{\bool_gset_true:N \g__twlthm_frame_bool}
 
 \ProcessOptions\relax
 
@@ -51,6 +51,7 @@
 \RequirePackage{amsmath}
 \RequirePackage{hyperref}
 \RequirePackage{ntheorem}
+\usetagform{default}
 
 \tl_new:N \l__twlthm_plain_tl
 \tl_set:Nn \l__twlthm_plain_tl {plain}
@@ -61,13 +62,13 @@
 \tl_new:N \l__twlthm_nonumber_break_tl
 \tl_set:Nn \l__twlthm_nonumber_break_tl {nonumberbreak}
 
-\bool_if:NT \l__twlthm_colour_bool
+\bool_if:NT \g__twlthm_colour_bool
 {
   \PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
   \RequirePackage{xcolor}
 }
 
-\bool_if:NT \l__twlthm_frame_bool
+\bool_if:NT \g__twlthm_frame_bool
 {
   \PassOptionsToPackage{framemethod=TikZ}{mdframed}
   \RequirePackage{framed}
@@ -87,7 +88,7 @@
   \tl_new:N \l__twlthm_mdstyle_redbox_tl
   \tl_new:N \l__twlthm_mdstyle_blackbox_tl
 
-  \bool_if:NT \l__twlthm_colour_bool
+  \bool_if:NT \g__twlthm_colour_bool
   {
     \mdfdefinestyle{mdbluebox}{
       nobreak=true,
@@ -179,13 +180,13 @@
 {
   \theoremstyle{\l__twlthm_break_tl}
   \theoremheaderfont{\sffamily\bfseries
-    \bool_if:NT \l__twlthm_colour_bool
+    \bool_if:NT \g__twlthm_colour_bool
     {\color{MidnightBlue}}
   }
   \theorembodyfont{\normalfont}
   \theoremnumbering{arabic}
   \theoremseparator{}
-  \bool_if:NT \l__twlthm_frame_bool
+  \bool_if:NT \g__twlthm_frame_bool
   {
     \tl_if_empty:NTF \l__twlthm_mdstyle_bluebox_tl
     {\__twlthm_mdfthm:}
@@ -198,13 +199,13 @@
 {
   \theoremstyle{\l__twlthm_plain_tl}
   \theoremheaderfont{\bfseries
-    \bool_if:NT \l__twlthm_colour_bool
+    \bool_if:NT \g__twlthm_colour_bool
     {\color{RawSienna}}
   }
   \theorembodyfont{\normalfont}
   \theoremnumbering{arabic}
   \theoremseparator{}
-  \bool_if:NT \l__twlthm_frame_bool
+  \bool_if:NT \g__twlthm_frame_bool
   {
     \tl_if_empty:NTF \l__twlthm_mdstyle_redbox_tl
     {\__twlthm_mdfthm:}
@@ -219,7 +220,7 @@
   \theoremheaderfont{\bfseries}
   \theorembodyfont{\normalfont}
   \theoremseparator{}
-  \bool_if:NT \l__twlthm_frame_bool
+  \bool_if:NT \g__twlthm_frame_bool
   {
     \tl_if_empty:NTF \l__twlthm_mdstyle_blackbox_tl
     {\__twlthm_mdfthm:}
@@ -235,7 +236,7 @@
   \theorembodyfont{\normalfont}
   \theoremnumbering{arabic}
   \theoremseparator{}
-  \bool_if:NT \l__twlthm_frame_bool
+  \bool_if:NT \g__twlthm_frame_bool
   {\__twlthm_mdfthm:}
   \theoremsymbol{}
 }
@@ -252,22 +253,17 @@
 }
 
 
-\bool_if:NT \l__twlthm_index_bool
-{
-  \RequirePackage{makeidx}
-  \makeindex
-}
-\bool_if:NT \l__twlthm_index_bool
+\bool_if:NT \g__twlthm_index_bool
 {
   \RequirePackage{makeidx}
   \makeindex
 }
 
 
-\bool_if:NTF \l__twlthm_thm_bool
+\bool_if:NTF \g__twlthm_thm_bool
 {
   \__twlthm_thm_sty:
-  \bool_if:NTF \l__twlthm_thmsec_bool
+  \bool_if:NTF \g__twlthm_thmsec_bool
   {\newtheorem{theorem}{Theorem}[section]}
   {\newtheorem{theorem}{Theorem}}
 
@@ -304,11 +300,11 @@
   \__twlthm_newtheorem:nnn \__twlthm_def_sty: {definition} {Definition}
 
   \cs_new:Npn \__twlthm_vocab_colour:e #1 {\emph{#1}}
-  \bool_if:NT \l__twlthm_colour_bool
+  \bool_if:NT \g__twlthm_colour_bool
   {\cs_set:Npn \__twlthm_vocab_colour:e #1 {\textbf{\color{Red} #1}}}
 
   \cs_new:Npn \__twlthm_vocab_index:ee #1#2 {}
-  \bool_if:NT \l__twlthm_index_bool
+  \bool_if:NT \g__twlthm_index_bool
   {
     \cs_set:Npn \__twlthm_vocab_index:ee #1#2
     {

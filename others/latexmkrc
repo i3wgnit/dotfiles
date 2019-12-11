@@ -12,4 +12,6 @@ $pdf_mode = 1;
 $pdf_previewer = "zathura %O %S &";
 $pdf_update_method = 0;
 
-push @generated_exts, 'atfi', 'asy', 'fls', 'pbsdat', 'pre', 'prc', 'prv', 'synctex.gz', 'thm';
+$makeindex = 'makeindex -s "~/texmf/tex/latex/twln/twlindex.ist" %O -o %D %S';
+
+push @generated_exts, 'atfi', 'asy', 'aux', 'fls', 'idx', 'ilg', 'ind', 'log', 'out', 'pbsdat', 'pre', 'prc', 'prv', 'synctex.gz', 'thm', 'toc';

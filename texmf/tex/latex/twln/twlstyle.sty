@@ -4,40 +4,40 @@
 
 %% Parse Arguments
 % Boolean toggles
-\bool_new:N \l__twlstyle_header_bool
-\bool_set_true:N \l__twlstyle_header_bool
+\bool_new:N \g__twlstyle_header_bool
+\bool_gset_true:N \g__twlstyle_header_bool
 
-\bool_new:N \l__twlstyle_mktitle_bool
+\bool_new:N \g__twlstyle_mktitle_bool
 
-\bool_new:N \l__twlstyle_fancy_bool
-\bool_set_true:N \l__twlstyle_fancy_bool
+\bool_new:N \g__twlstyle_fancy_bool
+\bool_gset_true:N \g__twlstyle_fancy_bool
 
-\bool_new:N \l__twlstyle_colour_bool
-\@ifpackageloaded{xcolor}{\bool_set_true:N \l__twlstyle_colour_bool}{}
+\bool_new:N \g__twlstyle_colour_bool
+\@ifpackageloaded{xcolor}{\bool_gset_true:N \g__twlstyle_colour_bool}{}
 
-\bool_new:N \l__twlstyle_probl_bool
+\bool_new:N \g__twlstyle_probl_bool
 
 % Options
-\DeclareOption{probl}{\bool_set_true:N \l__twlstyle_probl_bool}
-\DeclareOption{noprobl}{\bool_set_false:N \l__twlstyle_probl_bool}
+\DeclareOption{probl}{\bool_gset_true:N \g__twlstyle_probl_bool}
+\DeclareOption{noprobl}{\bool_gset_false:N \g__twlstyle_probl_bool}
 
-\DeclareOption{nocolor}{\bool_set_false:N \l__twlstyle_colour_bool}
-\DeclareOption{color}{\bool_set_true:N \l__twlstyle_colour_bool}
-\DeclareOption{nocolour}{\bool_set_false:N \l__twlstyle_colour_bool}
-\DeclareOption{colour}{\bool_set_true:N \l__twlstyle_colour_bool}
+\DeclareOption{nocolor}{\bool_gset_false:N \g__twlstyle_colour_bool}
+\DeclareOption{color}{\bool_gset_true:N \g__twlstyle_colour_bool}
+\DeclareOption{nocolour}{\bool_gset_false:N \g__twlstyle_colour_bool}
+\DeclareOption{colour}{\bool_gset_true:N \g__twlstyle_colour_bool}
 
 \DeclareOption{nofancy}{
-  \bool_set_false:N \l__twlstyle_fancy_bool
-  \bool_set_false:N \l__twlstyle_mktitle_bool
-  \bool_set_false:N \l__twlstyle_header_bool
+  \bool_gset_false:N \g__twlstyle_fancy_bool
+  \bool_gset_false:N \g__twlstyle_mktitle_bool
+  \bool_gset_false:N \g__twlstyle_header_bool
 }
-\DeclareOption{fancy}{\bool_set_true:N \l__twlstyle_fancy_bool}
+\DeclareOption{fancy}{\bool_gset_true:N \g__twlstyle_fancy_bool}
 
-\DeclareOption{mktitle}{\bool_set_true:N \l__twlstyle_mktitle_bool}
-\DeclareOption{nomktitle}{\bool_set_false:N \l__twlstyle_mktitle_bool}
+\DeclareOption{mktitle}{\bool_gset_true:N \g__twlstyle_mktitle_bool}
+\DeclareOption{nomktitle}{\bool_gset_false:N \g__twlstyle_mktitle_bool}
 
-\DeclareOption{noheader}{\bool_set_false:N \l__twlstyle_header_bool}
-\DeclareOption{header}{\bool_set_true:N \l__twlstyle_header_bool}
+\DeclareOption{noheader}{\bool_gset_false:N \g__twlstyle_header_bool}
+\DeclareOption{header}{\bool_gset_true:N \g__twlstyle_header_bool}
 
 \ProcessOptions\relax
 
@@ -49,7 +49,7 @@
 \RequirePackage{geometry}
 \RequirePackage{titling}
 
-\bool_if:NT \l__twlstyle_header_bool
+\bool_if:NT \g__twlstyle_header_bool
 {
   \RequirePackage{fancyhdr}
   \pagestyle{fancy}
@@ -59,8 +59,10 @@
   \fancyfoot[C]{\thepage}
 }
 
-\bool_if:NT \l__twlstyle_mktitle_bool
+\bool_if:NT \g__twlstyle_mktitle_bool
 {
+  \bool_if:NT \g__twlstyle_header_bool
+  {\thispagestyle{plain}}
   \RenewDocumentCommand {\maketitle} {}
   {
     \begin{center}
@@ -69,18 +71,16 @@
       \hrule
     \end{center}
   }
-  \bool_if:NT \l__twlstyle_fancy_bool
-  {\pagestyle{plain}}
 }
 
-\bool_if:NT \l__twlstyle_fancy_bool
+\bool_if:NT \g__twlstyle_fancy_bool
 {
   \RequirePackage{titlesec}
 
   \titleformat{\section}
   {\normalfont\Large\bfseries}
   {
-    \bool_if:NT \l__twlstyle_colour_bool
+    \bool_if:NT \g__twlstyle_colour_bool
     {\color{purple}}
     \S\thesection
   }
@@ -89,7 +89,7 @@
   \titleformat{\subsection}
   {\normalfont\large\bfseries}
   {
-    \bool_if:NT \l__twlstyle_colour_bool
+    \bool_if:NT \g__twlstyle_colour_bool
     {\color{purple}}
     \S\thesubsection
   }
@@ -98,14 +98,14 @@
   \titleformat{\subsubsection}
   {\normalfont\normalsize\bfseries}
   {
-    \bool_if:NT \l__twlstyle_colour_bool
+    \bool_if:NT \g__twlstyle_colour_bool
     {\color{purple}}
     \S\thesubsubsection
   }
   {1em} {}
 }
 
-\bool_if:NT \l__twlstyle_probl_bool
+\bool_if:NT \g__twlstyle_probl_bool
 {
   \newcounter{probl}
   \RenewExpandableDocumentCommand { \theprobl } {} { Q\arabic{probl} }
@@ -116,7 +116,7 @@
     {\Large\textbf{\theprobl}}
     \addcontentsline{toc}{section}{\theprobl}
     \tl_if_blank:nF {#1}
-    {\hspace{1em}\normalfont\normalsize #1\newline}
+    {\hspace{1em}\normalfont\normalsize #1}
   }
 
   \newcounter{probll}[probl]
@@ -125,10 +125,10 @@
   {
     \noindent
     \stepcounter{probll}
-    {\Large\textbf{\theprobll}}
+    {\large\textbf{\theprobll}}
     \addcontentsline{toc}{subsection}{\theprobll}
     \tl_if_blank:nF {#1}
-    {\hspace{1em}\normalfont\normalsize #1\newline}
+    {\hspace{1em}\normalfont\normalsize #1}
   }
 
   \newcounter{problll}[probll]
@@ -137,10 +137,10 @@
   {
     \noindent
     \stepcounter{problll}
-    {\Large\textbf{\theproblll}}
+    {\normalsize\textbf{\theproblll}}
     \addcontentsline{toc}{subsubsection}{\theproblll}
     \tl_if_blank:nF {#1}
-    {\hspace{1em}\normalfont\normalsize #1\newline}
+    {\hspace{1em}\normalfont\normalsize #1}
   }
 }
 
