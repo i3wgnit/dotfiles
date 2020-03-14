@@ -23,23 +23,23 @@ fish_vi_key_bindings ^ /dev/null
 #alias ....='cd ../../..'
 
 # c/c++
-alias gcc99="gcc -std=c99 -Wall"
-alias g++14="g++ -std=c++14 -Wall"
+abbr --add gcc99 'gcc -std=c99 -Wall'
+abbr --add g++14 'g++ -std=c++14 -Wall'
 
 # VIM
-alias v='vim'
+#alias v='vim'
 
 # Ranger
-alias ra='ranger'
+#abbr --add ra 'ranger'
 
 # Reload config.fish
-alias so='source ~/.config/fish/config.fish'
+abbr --add so 'source ~/.config/fish/config.fish'
 
 # Full system upgrade
-alias pSyyu='command yay --nouseask --noconfirm -Syyu'
+#alias pSyyu='command yay --nouseask --noconfirm -Syyu'
 
 # xclip
-alias xclip='xclip -selection c'
+#alias xclip='xclip -selection c'
 
 # latexmk
 #alias latexmks='grep -l \'\\documentclass\' *tex | xargs latexmk -f -pvc'
