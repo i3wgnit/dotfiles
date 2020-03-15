@@ -1,5 +1,18 @@
+# == Setup ==
+if not test -f "$HOME/.config/fish/.setup"
+    set -U fish_greeting ''
+
+    if test (uname -s) = 'Darwin'
+        add_to_user_path /opt/local/bin
+        add_to_user_path /opt/local/sbin
+    end
+
+    add_to_user_path "$HOME/.pyenv/bin"
+    add_to_user_path "$HOME/bin"
+    touch "$HOME/.config/fish/.setup"
+end
+
 # == Startup ==
-#set fish_greeting ""
 
 # Start X at login
 if status --is-login
@@ -16,30 +29,20 @@ and source "$HOME/.config/fish/shortcuts.fish"
 # Fish Vi-Mode
 fish_vi_key_bindings ^ /dev/null
 
+# pyenv
+set -gx PYENV_ROOT "$HOME/.pyenv"
+
+if status --is-interactive; and command -v pyenv >/dev/null 2>&1
+    pyenv init - | source
+    pyenv virtualenv-init - | source
+end
+
 
 # == Alias ==
-# cd
-#alias ...='cd ../..'
-#alias ....='cd ../../..'
 
 # c/c++
 abbr --add gcc99 'gcc -std=c99 -Wall'
 abbr --add g++14 'g++ -std=c++14 -Wall'
 
-# VIM
-#alias v='vim'
-
-# Ranger
-#abbr --add ra 'ranger'
-
 # Reload config.fish
 abbr --add so 'source ~/.config/fish/config.fish'
-
-# Full system upgrade
-#alias pSyyu='command yay --nouseask --noconfirm -Syyu'
-
-# xclip
-#alias xclip='xclip -selection c'
-
-# latexmk
-#alias latexmks='grep -l \'\\documentclass\' *tex | xargs latexmk -f -pvc'

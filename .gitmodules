@@ -55,3 +55,12 @@
 [submodule "asy/asy-graphtheory"]
 	path = asy/asy-graphtheory
 	url = https://github.com/taoari/asy-graphtheory.git
+[submodule "submodules/dot-emacs"]
+	path = submodules/dot-emacs
+	url = https://gitlab.com/i3wgnit/dot-emacs
+[submodule "submodules/pyenv"]
+	path = submodules/pyenv
+	url = https://github.com/pyenv/pyenv
+[submodule "submodules/pyenv-virtualenv"]
+	path = submodules/pyenv-virtualenv
+	url = https://github.com/pyenv/pyenv-virtualenv.git

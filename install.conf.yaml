@@ -43,11 +43,7 @@
     ~/.vimrc:                               vim/vimrc
     ~/.gvimrc:                              vim/gvimrc
     # emacs
-    ~/.emacs.d:                             emacs
-    # ~/.emacs.d/init.el:                     emacs/init.el
-    # ~/.emacs.d/config.org:                  emacs/config.org
-    # ~/.emacs.d/auctex:                      emacs/auctex/
-    # ~/.emacs.d/packages:                    emacs/packages/
+    ~/.emacs.d:                             submodules/dot-emacs
 
     # ===
     # Workflow
@@ -60,24 +56,11 @@
     # dwm
     ~/.config/dwm:
 
-    # # polybar
-    # ~/.config/polybar/config:               polybar/config
-    # ~/.config/polybar/scripts:              polybar/scripts
-    # ~/.config/polybar/launch.sh:            polybar/launch.sh
-
     # ranger
     ~/.config/ranger:
-    # ~/.config/ranger/rc.conf:               ranger/rc.conf
-    # ~/.config/ranger/rc.conf.shotcuts:      ranger/rc.conf.shortcuts
-    # ~/.config/ranger/rifle.conf:            ranger/rifle.conf
-    # ~/.config/ranger/commands.py:           ranger/commands.py
-    # ~/.config/ranger/plugins:               ranger/plugins
 
     # qutebrowser
     ~/.config/qutebrowser:
-    # ~/.config/qutebrowser/config.py:        qutebrowser/config.py
-    # ~/.config/qutebrowser/autoconfig.yml:   qutebrowser/autoconfig.yml
-    # ~/.config/qutebrowser/quickmarks:       qutebrowser/quickmarks
 
     # ===
     # Others
@@ -101,10 +84,10 @@
     ~/.config/redshift.conf:                others/redshift.conf
     # neofetch
     ~/.config/neofetch/config:              others/neofetch.conf
-    # # termite
-    # ~/.config/termite/config:               others/termite.conf
     # compton
     ~/.config/compton.conf:                 others/compton.conf
+    # pyenv
+    ~/.pyenv:                               submodules/pyenv
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
