@@ -88,6 +88,7 @@
     ~/.config/compton.conf:                 others/compton.conf
     # pyenv
     ~/.pyenv:                               submodules/pyenv
+    ~/.pyenv/plugins/pyenv-virtualenv:      submodules/pyenv-virtualenv
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
