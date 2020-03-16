@@ -7,6 +7,7 @@
 
 - shell:
     - [./shortcut]
+    - [git submodule update --init --recursive, Installing submodules]
 
 - link:
     ~/.dotfiles: ''
@@ -88,8 +89,6 @@
     ~/.config/compton.conf:                 others/compton.conf
     # pyenv
     ~/.pyenv:                               submodules/pyenv
-    ~/.pyenv/plugins/pyenv-virtualenv:      submodules/pyenv-virtualenv
-
-- shell:
-    - [git submodule update --init --recursive, Installing submodules]
+    ~/.pyenv/plugins/pyenv-virtualenv:      pyenv/plugins/pyenv-virtualenv
+    ~/.pyenv/plugins/pyenv-which-ext:       pyenv/plugins/pyenv-which-ext
 

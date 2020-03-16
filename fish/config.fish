@@ -3,12 +3,10 @@ if not test -f "$HOME/.config/fish/.setup"
     set -U fish_greeting ''
 
     if test (uname -s) = 'Darwin'
-        add_to_user_path /opt/local/bin
-        add_to_user_path /opt/local/sbin
+        add_to_user_path /opt/local/bin /opt/local/sbin
     end
 
-    add_to_user_path "$HOME/.pyenv/bin"
-    add_to_user_path "$HOME/bin"
+    add_to_user_path "$HOME/.pyenv/bin" "$HOME/bin"
     touch "$HOME/.config/fish/.setup"
 end
 
@@ -25,6 +23,9 @@ tput smkx
 
 test -s "$HOME/.config/fish/shortcuts.fish"
 and source "$HOME/.config/fish/shortcuts.fish"
+
+test -s "$HOME/.config/fish/config.local.fish"
+and source "$HOME/.config/fish/config.local.fish"
 
 # Fish Vi-Mode
 fish_vi_key_bindings ^ /dev/null
