@@ -1,0 +1,31 @@
+# -*- mode: snippet -*-
+# name: lecture
+# key: lec
+# --
+\documentclass[lecture]{twl}
+
+\title{[${1:$$(upcase yas-text)}] ${2:Course Name}}
+\author{${4:twl}}
+
+\begin{document}
+\maketitle
+
+\makeatletter
+\RenewDocumentCommand{\@title}{}{$1}
+\makeatother
+
+\begin{description}
+\item[Professor] ${6:$$(capitalize yas-text)}${7:
+}
+\end{description}
+
+\tableofcontents
+
+$0
+
+\clearpage
+\printindex
+\clearpage
+\theoremlisttype{opt}
+\listtheorems{theorem}
+\end{document}

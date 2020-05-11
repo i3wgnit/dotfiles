@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: newlecturemain
+# key: newlecmain                                   
+# --
+\input{lectures/`(format-time-string "%Y-%m-%d")`.tex}

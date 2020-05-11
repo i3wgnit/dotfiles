@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: newlecturesub
+# key: newlec
+# --
+\clearpage
+\subsection{`(format-time-string "%B %d, %Y")`}
