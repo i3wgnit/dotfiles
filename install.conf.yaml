@@ -44,7 +44,8 @@
     ~/.vimrc:                               vim/vimrc
     ~/.gvimrc:                              vim/gvimrc
     # emacs
-    ~/.emacs.d:                             submodules/dot-emacs
+    ~/.emacs.d:                             submodules/doom-emacs
+    ~/.config/doom:
 
     # ===
     # Workflow

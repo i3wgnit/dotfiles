@@ -4,3 +4,6 @@
 .#*
 
 *.pyo
+
+.auctex-auto/
+auto/
