@@ -62,3 +62,33 @@
 
 (map! :map doom-leader-toggle-map
       "F" 'toggle-frame-maximized)
+
+(setq evil-split-window-below t
+      evil-vsplit-window-right t)
+
+(setq sentence-end-double-space t)
+
+(after! latex
+  (defun twl+latex//fill-sentence (orig-fun from to &rest args)
+    "Start each sentence on a new line."
+    (let ((to-marker (set-marker (make-marker) to))
+          tmp-end)
+      (save-excursion
+        (while (< from (marker-position to-marker))
+          (forward-sentence)
+          (when (looking-at " ") (backward-char))
+          (setq to (min (point) (marker-position to-marker)))
+          (apply orig-fun from to args)
+          (setq from (point))
+          (save-excursion
+            (back-to-indentation)
+            (setq tmp-end (point)))
+          (unless (or (bolp)
+                      (eolp)
+                      (texmathp)
+                      (<= from tmp-end)
+                      (looking-at ". *$"))
+            (LaTeX-newline))))))
+  (advice-add #'LaTeX-fill-region-as-paragraph
+              :around #'twl+latex//fill-sentence)
+  (add-to-list 'LaTeX-indent-environment-list '("algorithmic")))
