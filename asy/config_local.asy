@@ -1,5 +1,3 @@
-import config_private;
-
 usepackage("amsmath");
 usepackage("amssymb");
 
