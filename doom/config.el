@@ -91,4 +91,6 @@
             (LaTeX-newline))))))
   (advice-add #'LaTeX-fill-region-as-paragraph
               :around #'twl+latex//fill-sentence)
-  (add-to-list 'LaTeX-indent-environment-list '("algorithmic")))
+  (add-to-list 'LaTeX-indent-environment-list '("algorithmic"))
+  (add-to-list 'LaTeX-indent-environment-list '("asy"))
+  (add-to-list 'LaTeX-indent-environment-list '("asydef")))
