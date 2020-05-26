@@ -1,3 +1,5 @@
+import config_private;
+
 usepackage("amsmath");
 usepackage("amssymb");
 
@@ -10,5 +12,3 @@ anglepen = black;
 anglefontpen = black;
 pointfontsize = 10;
 defaultpen(fontsize(10pt));
-
-import config_local;
