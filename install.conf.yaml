@@ -6,9 +6,9 @@
 - clean: ['~', '~/.config']
 
 - shell:
+    - [/bin/sh asy/config_private.default.sh]
     - [python shortcut]
     - [git submodule update --init --recursive, Installing submodules]
-    - [/bin/sh asy/config_private.default.sh]
 
 - link:
     ~/.dotfiles: ''
