@@ -1,4 +1,4 @@
 #!/bin/sh
 
 mkdir -p img
-convert -verbose -density 800 $1 -density 200 -quality 100 -background white -alpha off "img/$(basename $1 .pdf)-%02d.png"
+gs -dSAFER -dBATCH -dNOPAUSE -sDEVICE=png16m -r2400 -dDownScaleFactor=4 -sOutputFile="img/$(basename "$1" .pdf)-%02d.png" $1
