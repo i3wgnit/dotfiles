@@ -69,6 +69,8 @@
 (setq sentence-end-double-space t)
 
 (after! latex
+  (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode)
+
   (defun twl+latex//fill-sentence (orig-fun from to &rest args)
     "Start each sentence on a new line."
     (let ((to-marker (set-marker (make-marker) to))
