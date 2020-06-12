@@ -1,4 +1,4 @@
 import settings;
 import config_private;
-dir = asy_home + "/asy-graphtheory/modules";
-autoimport = "config_local.asy";
+dir = asy_home+"/asy-graphtheory/modules:" + asy_home+"/modules";
+autoimport = "defaults.asy";

@@ -74,7 +74,7 @@
     ~/.config/mpv/input.conf:               mpv/input.conf
     ~/.config/mpv/scripts:                  mpv/scripts
     # asymptote
-    ~/.asy:
+    ~/.config/asy:
     # latex
     ~/texmf/tex/latex:                      texmf/tex/latex
     # dunst

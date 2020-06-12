@@ -31,7 +31,10 @@ and source "$HOME/.config/fish/config.local.fish"
 fish_vi_key_bindings ^ /dev/null
 
 # pyenv
-set -gx PYENV_ROOT "$HOME/.pyenv"
+set -gx PYENV_ROOT "$HOME"/.pyenv
+
+# stuff
+set -gx ASYMPTOTE_HOME "$HOME"/.config/asy
 
 if status --is-interactive; and command -v pyenv >/dev/null 2>&1
     pyenv init - | source
