@@ -58,6 +58,8 @@
       doom-leader-alt-key "M-,"
       doom-localleader-alt-key "M-\\")
 
+(setq-default indent-tabs-mode nil)
+(setq-hook! '(c-mode-hook c++-mode-hook) indent-tabs-mode nil)
 (setq whitespace-style '(empty face indentation tabs trailing))
 
 (map! :map doom-leader-toggle-map
