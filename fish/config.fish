@@ -34,6 +34,9 @@ fish_vi_key_bindings ^ /dev/null
 set -gx PYENV_ROOT "$HOME"/.pyenv
 
 # stuff
+set -gx LESSHISTFILE -
+set -gx DOCKER_CONFIG "$HOME"/.config/docker
+set -gx GNUPGHOME "$HOME"/.config/gnupg
 set -gx ASYMPTOTE_HOME "$HOME"/.config/asy
 
 if status --is-interactive; and command -v pyenv >/dev/null 2>&1

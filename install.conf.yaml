@@ -82,7 +82,7 @@
     # zathura
     ~/.config/zathura/zathurarc:            others/zathurarc
     # latexmk
-    ~/.latexmkrc:                           others/latexmkrc
+    ~/.config/latexmk/latexmkrc:            others/latexmkrc
     # redshift
     ~/.config/redshift.conf:                others/redshift.conf
     # neofetch

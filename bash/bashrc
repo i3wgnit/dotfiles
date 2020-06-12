@@ -121,4 +121,7 @@ command -v pyenv 1>/dev/null 2>&1 &&\
     eval "$(pyenv virtualenv-init -)"
 
 # == stuff ==
+export LESSHISTFILE=-
+export DOCKER_CONFIG="$HOME"/.config/docker
+export GNUPGHOME="$HOME"/.config/gnupg
 export ASYMPTOTE_HOME="$HOME"/.config/asy
