@@ -33,8 +33,8 @@
     # ===
 
     # xorg
-    ~/.xinitrc:                             xorg/xinitrc
-    ~/.Xresources:                          xorg/Xresources
+    ~/.xinitrc:                             X11/xinitrc
+    ~/.config/X11:
 
     # ===
     # Editors
