@@ -25,21 +25,12 @@
 [submodule "vim/vim/bundle/vim-fish"]
 	path = vim/vim/bundle/vim-fish
 	url = https://github.com/dag/vim-fish.git
-[submodule "vim/vim/bundle/i3-vim-syntax"]
-	path = vim/vim/bundle/i3-vim-syntax
-	url = https://github.com/PotatoesMaster/i3-vim-syntax.git
 [submodule "vim/vim/bundle/vim-sensible"]
 	path = vim/vim/bundle/vim-sensible
 	url = git://github.com/tpope/vim-sensible.git
 [submodule "vim/vim/bundle/vim-surround"]
 	path = vim/vim/bundle/vim-surround
 	url = https://github.com/tpope/vim-surround.git
-[submodule "vim/vim/bundle/vim-pandoc-syntax"]
-	path = vim/vim/bundle/vim-pandoc-syntax
-	url = https://github.com/vim-pandoc/vim-pandoc-syntax.git
-[submodule "vim/vim/bundle/vim-pandoc"]
-	path = vim/vim/bundle/vim-pandoc
-	url = https://github.com/vim-pandoc/vim-pandoc.git
 [submodule "vim/vim/bundle/idris-vim"]
 	path = vim/vim/bundle/idris-vim
 	url = https://github.com/idris-hackers/idris-vim.git
@@ -49,9 +40,6 @@
 [submodule "emacs/packages/sensible-defaults.el"]
 	path = emacs/packages/sensible-defaults.el
 	url = https://github.com/hrs/sensible-defaults.el
-[submodule "vim/vim/bundle/ale"]
-	path = vim/vim/bundle/ale
-	url = https://github.com/w0rp/ale.git
 [submodule "asy/asy-graphtheory"]
 	path = asy/asy-graphtheory
 	url = https://github.com/taoari/asy-graphtheory.git
@@ -73,3 +61,9 @@
 [submodule "texmf/tex/latex/twl"]
 	path = texmf/tex/latex/twl
 	url = https://gitlab.com/i3wgnit/dot-latex.git
+[submodule "X11/nord-xresources"]
+	path = X11/nord-xresources
+	url = https://github.com/arcticicestudio/nord-xresources
+[submodule "vim/vim/bundle/nord-vim"]
+	path = vim/vim/bundle/nord-vim
+	url = https://github.com/arcticicestudio/nord-vim
