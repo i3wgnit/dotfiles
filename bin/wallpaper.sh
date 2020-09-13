@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 [ -f $HOME/Pictures/wallpaper ] && \
     feh --no-feh --bg-fill $HOME/Pictures/wallpaper

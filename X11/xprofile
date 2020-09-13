@@ -1,0 +1,16 @@
+xrandr --output DP-0 --mode 2560x1440 --rate 144 --pos 0x0 --output DP-4 --mode 1920x1080 --rate 144 --pos 2560x180
+# argyll-dispwin -d2 "$HOME"/.local/share/icc/mis_optix_g24c_user.icm
+xinput --set-prop 11 'libinput Accel Profile Enabled' 0, 1
+
+numlockx
+
+# audio
+qjackctl &
+mpd
+cadence &
+ardour6 &
+
+# style
+~/bin/wallpaper.sh
+dwmblocks &
+redshift-gtk &

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+while :
+do
+    if torsocks mpv "$@"
+    then
+        printf 'q?: '
+        read INPUT
+        [ -n "$INPUT" ] && exit 0
+    fi
+    sudo kill -HUP $(pidof tor)
+    sleep 1
+done

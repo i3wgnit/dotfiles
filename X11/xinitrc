@@ -1,30 +1,23 @@
 #!/bin/sh
 
-userresources=$HOME/.config/X11/Xresources
-usermodmap=$HOME/config/X11/Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
+sysxprofile=/etc/xprofile
+
+userresources=$HOME/.config/X11/Xresources
+usermodmap=$HOME/.config/X11/Xmodmap
+userxprofile=$HOME/.config/X11/xprofile
+
 
 # merge in defaults and keymaps
 
-if [ -f $sysresources ]; then
-    xrdb -merge $sysresources
-fi
+[ -f "$sysresources" ] && xrdb -merge "$sysresources"
+[ -f "$sysmodmap" ] && xmodmap "$sysmodmap"
+[ -f "$sysxprofile" ] && . "$sysxprofile"
 
-if [ -f $sysmodmap ]; then
-    xmodmap $sysmodmap
-fi
-
-if [ -f "$userresources" ]; then
-    xrdb -merge "$userresources"
-fi
-
-if [ -f "$usermodmap" ]; then
-    xmodmap "$usermodmap"
-fi
-
-[ -f /etc/xprofile ] && . /etc/xprofile
-[ -f ~/.config/X11/xprofile ] && . ~/.config/X11/xprofile
+[ -f "$userresources" ] && xrdb -merge "$userresources"
+[ -f "$usermodmap" ] && xmodmap "$usermodmap"
+[ -f "$userxprofile" ] && . "$userxprofile"
 
 #[ -f /etc/xsession ] && . /etc/xsession
 #[ -f ~/.xsession ] && . ~/.xsession
@@ -49,4 +42,4 @@ fi
 # -V -d all >> ~/.i3/logfile 2>&1
 
 # exec /usr/bin/dwm
-exec /Users/waigni/src/dwm-twl/dwm
+exec /usr/local/bin/dwm
