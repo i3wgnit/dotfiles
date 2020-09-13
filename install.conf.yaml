@@ -11,7 +11,7 @@
     - [git submodule update --init --recursive, Installing submodules]
 
 - link:
-    ~/.dotfiles: ''
+    # ~/.dotfiles: ''
     ~/bin:
     # Shortcuts
     ~/.config/Shortcuts:
@@ -21,10 +21,9 @@
     # ===
 
     # bash
+    ~/.config/bash:
     ~/.bashrc:                              bash/bashrc
-    ~/.bashrc.shortcuts:                    bash/bashrc.shortcuts
     ~/.bash_profile:                        bash/bash_profile
-    ~/.inputrc:                             bash/inputrc
     # fish
     ~/.config/fish:
 
@@ -33,7 +32,6 @@
     # ===
 
     # xorg
-    ~/.xinitrc:                             X11/xinitrc
     ~/.config/X11:
 
     # ===
@@ -53,8 +51,8 @@
     # ===
 
     # i3
-    ~/.config/i3:
-    ~/.config/i3blocks:
+    # ~/.config/i3:
+    # ~/.config/i3blocks:
 
     # dwm
     ~/.config/dwm:
@@ -90,7 +88,7 @@
     # compton
     ~/.config/compton.conf:                 others/compton.conf
     # pyenv
-    ~/.pyenv:                               submodules/pyenv
-    ~/.pyenv/plugins/pyenv-virtualenv:      pyenv/plugins/pyenv-virtualenv
-    ~/.pyenv/plugins/pyenv-which-ext:       pyenv/plugins/pyenv-which-ext
+    ~/src/pyenv:                            submodules/pyenv
+    ~/src/pyenv/plugins/pyenv-virtualenv:   pyenv/plugins/pyenv-virtualenv
+    ~/src/pyenv/plugins/pyenv-which-ext:    pyenv/plugins/pyenv-which-ext
 
