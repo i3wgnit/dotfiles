@@ -43,6 +43,6 @@ def writeFile(f, content):
         fi.close
 
 writeFile("./ranger/rc.conf.shortcuts", rang)
-writeFile("./bash/bashrc.shortcuts", bash)
+writeFile("./bash/shortcuts", bash)
 writeFile("./fish/shortcuts.fish", fish)
 

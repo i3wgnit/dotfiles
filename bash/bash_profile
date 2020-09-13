@@ -2,9 +2,9 @@
 # ~/.bash_profile
 #
 
-# == STARTUP ==
-if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
-    exec startx
-fi
+[ -f ~/.config/bash/bashrc ] && . ~/.config/bash/bashrc
 
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+# == STARTUP ==
+if [ -z "$DISPLAY" -a "$(tty)" = /dev/tty1 ] ; then
+    exec startx "$XDG_CONFIG_HOME"/X11/xinitrc
+fi
