@@ -72,7 +72,7 @@
     #  * foreground: use the same color as the foreground;
     #  * frame: use the same color as the frame;
     #  * anything else will be interpreted as a X color.
-    separator_color = "frame"
+    separator_color = frame
 
     # Sort messages by urgency.
     sort = yes
@@ -179,10 +179,10 @@
     ### Misc/Advanced ###
 
     # dmenu path.
-    dmenu = /usr/bin/rofi -dmenu -p dunst
+    dmenu = /usr/bin/dmenu -p dunst
 
     # Browser for opening urls in context menu.
-    browser = /usr/bin/qutebrowser
+    browser = /usr/bin/firefox -new-tab
 
     # Always run rule-defined scripts, even if the notification is suppressed
     always_run_script = true
@@ -196,7 +196,23 @@
     # Print a notification on startup.
     # This is mainly for error detection, since dbus (re-)starts dunst
     # automatically after a crash.
-    startup_notification = true
+    startup_notification = false
+
+    # Manage dunst's desire for talking
+    # Can be one of the following values:
+    #  crit: Critical features. Dunst aborts
+    #  warn: Only non-fatal warnings
+    #  mesg: Important Messages
+    #  info: all unimportant stuff
+    # debug: all less than unimportant stuff
+    verbosity = mesg
+
+    # Define the corner radius of the notification window
+    # in pixel size. If the radius is 0, you have no rounded
+    # corners.
+    # The radius will be automatically lowered if it exceeds half of the
+    # notification height to avoid clipping text and/or icons.
+    corner_radius = 0
 
     ### Legacy
 
@@ -209,6 +225,19 @@
     # is connected or disconnected which might break follow mode if the screen
     # layout changes.
     force_xinerama = false
+
+    ### mouse
+
+    # Defines action of mouse event
+    # Possible values are:
+    # * none: Don't do anything.
+    # * do_action: If the notification has exactly one action, or one is marked as default,
+    #              invoke it. If there are multiple and no default, open the context menu.
+    # * close_current: Close current notification.
+    # * close_all: Close all notifications.
+    mouse_left_click = close_current
+    mouse_middle_click = do_action
+    mouse_right_click = close_all
 
 # Experimental features that may or may not work correctly. Do not expect them
 # to have a consistent behaviour across releases.
@@ -228,25 +257,25 @@
     # Xev might be helpful to find names for keys.
 
     # Close notification.
-    close = mod1+space
+    close = ctrl+space
 
     # Close all notifications.
-    close_all = mod1+shift+space
+    close_all = ctrl+shift+space
 
     # Redisplay last message(s).
     # On the US keyboard layout "grave" is normally above TAB and left
     # of "1". Make sure this key actually exists on your keyboard layout,
     # e.g. check output of 'xmodmap -pke'
-    history = mod1+grave
+    history = ctrl+grave
 
     # Context menu.
-    context = mod1+period
+    context = ctrl+shift+period
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
     background = "#222222"
-    foreground = "#ffffff"
+    foreground = "#888888"
     timeout = 10
     # Icon for notifications with low urgency, uncomment to enable
     #icon = /path/to/icon
@@ -268,10 +297,35 @@
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.
-# Messages can be matched by "appname", "summary", "body", "icon", "category",
-# "msg_urgency" and you can override the "timeout", "urgency", "foreground",
-# "background", "new_icon" and "format".
+#
+# Messages can be matched by
+#    appname (discouraged, see desktop_entry)
+#    body
+#    category
+#    desktop_entry
+#    icon
+#    match_transient
+#    msg_urgency
+#    stack_tag
+#    summary
+#
+# and you can override the
+#    background
+#    foreground
+#    format
+#    frame_color
+#    fullscreen
+#    new_icon
+#    set_stack_tag
+#    set_transient
+#    timeout
+#    urgency
+#
 # Shell-like globbing will get expanded.
+#
+# Instead of the appname filter, it's recommended to use the desktop_entry filter.
+# GLib based applications export their desktop-entry name. In comparison to the appname,
+# the desktop-entry won't get localized.
 #
 # SCRIPTING
 # You can specify a script that gets run when the rule matches by
@@ -280,15 +334,40 @@
 #   script appname summary body icon urgency
 # where urgency can be "LOW", "NORMAL" or "CRITICAL".
 #
-# NOTE: if you don't want a notification to be displayed, set the format
-# to "".
-# NOTE: It might be helpful to run dunst -print in a terminal in order
-# to find fitting options for rules.
 
 [getMousePixel]
     category = "colour"
     format = "<b>%s</b>\n%b <span color='%b'>████</span>"
 
+#
+# NOTE: if you don't want a notification to be displayed, set the format
+# to "".
+# NOTE: It might be helpful to run dunst -print in a terminal in order
+# to find fitting options for rules.
+
+# Disable the transient hint so that idle_threshold cannot be bypassed from the
+# client
+#[transient_disable]
+#    match_transient = yes
+#    set_transient = no
+#
+# Make the handling of transient notifications more strict by making them not
+# be placed in history.
+#[transient_history_ignore]
+#    match_transient = yes
+#    history_ignore = yes
+
+# fullscreen values
+# show: show the notifications, regardless if there is a fullscreen window opened
+# delay: displays the new notification, if there is no fullscreen window active
+#        If the notification is already drawn, it won't get undrawn.
+# pushback: same as delay, but when switching into fullscreen, the notification will get
+#           withdrawn from screen again and will get delayed like a new notification
+#[fullscreen_delay_everything]
+#    fullscreen = delay
+#[fullscreen_show_critical]
+#    msg_urgency = critical
+#    fullscreen = show
 
 #[espeak]
 #    summary = "*"
@@ -307,6 +386,11 @@
 #    # This notification will not be saved in history
 #    summary = "foobar"
 #    history_ignore = yes
+
+#[skip-display]
+#    # This notification will not be displayed, but will be included in the history
+#    summary = "foobar"
+#    skip_display = yes
 
 #[signed_on]
 #    appname = Pidgin
@@ -327,5 +411,9 @@
 #    appname = Pidgin
 #    summary = *twitter.com*
 #    urgency = normal
+#
+#[stack-volumes]
+#    appname = "some_volume_notifiers"
+#    set_stack_tag = "volume"
 #
 # vim: ft=cfg
