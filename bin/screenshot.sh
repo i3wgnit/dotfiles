@@ -6,10 +6,10 @@ print_xclip() {
 }
 maim_cmd="maim"
 
-selection=${2:-"$(echo "screen\nwindow\nselect" | dmenu)"}
+selection=${2:-"$(printf 'screen\nwindow\nselect' | dmenu)"}
 [ -z "$selection" ] && exit
 
-output=${1:-"$(echo "file\nclip" | dmenu)"}
+output=${1:-"$(printf 'file\nclip' | dmenu)"}
 [ -z "$output" ] && exit
 
 case "$output" in

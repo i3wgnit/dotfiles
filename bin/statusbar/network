@@ -1,17 +1,35 @@
 #!/bin/sh
 
-DIFF_T=3
+TMP_RUNTIME_DIR="$XDG_RUNTIME_DIR"
+TMP_FILE_PREFIX='status-net-'
 
-PREV_T=$(date +%s)
-PREV_RX=$(( $(paste -d '+' /sys/class/net/[ew]*/statistics/rx_bytes) ))
-PREV_TX=$(( $(paste -d '+' /sys/class/net/[ew]*/statistics/tx_bytes) ))
-sleep "$DIFF_T"
+[ -z "$(ls /sys/class/net/[ew]*)" ] && printf 'no connection\n' && exit 0
+
+FILENAME_T="${TMP_RUNTIME_DIR}/${TMP_FILE_PREFIX}T"
+FILENAME_RX="${TMP_RUNTIME_DIR}/${TMP_FILE_PREFIX}RX"
+FILENAME_TX="${TMP_RUNTIME_DIR}/${TMP_FILE_PREFIX}TX"
+
 CUR_RX=$(( $(paste -d '+' /sys/class/net/[ew]*/statistics/rx_bytes) ))
 CUR_TX=$(( $(paste -d '+' /sys/class/net/[ew]*/statistics/tx_bytes) ))
 CUR_T=$(date +%s)
 
-DIFF_T=$(( CUR_T - PREV_T ))
-DIFF_RX=$(( CUR_RX - PREV_RX ))
-DIFF_TX=$(( CUR_TX - PREV_TX ))
+[ -f "$FILENAME_T" -a\
+    -f "$FILENAME_RX" -a\
+    -f "$FILENAME_TX" ] &&\
+    {
+        PREV_T=$(cat "$FILENAME_T")
+        PREV_RX=$(cat "$FILENAME_RX")
+        PREV_TX=$(cat "$FILENAME_TX")
 
-printf '%4sB/s %4sB/s\n' "$(numfmt --to=iec "$(( DIFF_RX / DIFF_T ))")" "$(numfmt --to=iec "$(( DIFF_TX / DIFF_T ))")"
+        DIFF_T=$(( CUR_T - PREV_T ))
+        DIFF_RX=$(( CUR_RX - PREV_RX ))
+        DIFF_TX=$(( CUR_TX - PREV_TX ))
+
+        printf '%4sB/s %4sB/s\n'\
+            "$(numfmt --to=iec "$(( DIFF_RX / DIFF_T ))")"\
+            "$(numfmt --to=iec "$(( DIFF_TX / DIFF_T ))")"
+        }
+
+echo "$CUR_T" > "$FILENAME_T"
+echo "$CUR_RX" > "$FILENAME_RX"
+echo "$CUR_TX" > "$FILENAME_TX"
