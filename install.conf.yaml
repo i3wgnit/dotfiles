@@ -54,9 +54,6 @@
     # ~/.config/i3:
     # ~/.config/i3blocks:
 
-    # dwm
-    ~/.config/dwm:
-
     # ranger
     ~/.config/ranger:
 
@@ -70,7 +67,6 @@
     # mpv
     ~/.config/mpv/mpv.conf:                 mpv/mpv.conf
     ~/.config/mpv/input.conf:               mpv/input.conf
-    ~/.config/mpv/scripts:                  mpv/scripts
     # asymptote
     ~/.config/asy:
     # latex
