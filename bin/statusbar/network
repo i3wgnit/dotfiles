@@ -3,7 +3,11 @@
 TMP_RUNTIME_DIR="$XDG_RUNTIME_DIR"
 TMP_FILE_PREFIX='status-net-'
 
-[ -z "$(ls /sys/class/net/[ew]*)" ] && printf 'no connection\n' && exit 0
+grep up /sys/class/net/[ew]*/operstate >- 2>- \
+    || {
+    echo no connection
+    exit 1
+}
 
 FILENAME_T="${TMP_RUNTIME_DIR}/${TMP_FILE_PREFIX}T"
 FILENAME_RX="${TMP_RUNTIME_DIR}/${TMP_FILE_PREFIX}RX"
