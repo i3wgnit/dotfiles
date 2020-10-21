@@ -3,8 +3,9 @@
 while :
 do
     torsocks -i mpv "$@" && {
-        printf 'q?: '
-        read INPUT
-        [ -n "$INPUT" ] && exit 0
+        printf 'Press Return to exit ... '
+        A=$(timeout --foreground 0.5 cat | sed 's/^$/a/')
+        [ -n "$A" ] \
+            && exit 0
     }
 done
