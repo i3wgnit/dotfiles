@@ -29,7 +29,8 @@
        ;;deft            ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
-       ;;doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       ;;doom-quit       ; DOOM quit-message prompts when you quit Emacs
+       (emoji +unicode)  ; 🙂
        fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
@@ -43,7 +44,7 @@
        (popup +defaults) ; tame sudden yet inevitable temporary windows
        ;;tabs            ; an tab bar for Emacs
        ;;treemacs        ; a project drawer, like neotree but cooler
-       unicode           ; extended unicode support for various languages
+       ;;unicode         ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        window-select     ; visually switch windows
@@ -53,7 +54,7 @@
        :editor
        (evil +everywhere) ; come to the dark side, we have cookies
        file-templates     ; auto-snippets for empty files
-       ;;fold               ; (nigh) universal code folding
+       ;;fold             ; (nigh) universal code folding
        ;;(format +onsave) ; automated prettiness
        ;;god              ; run Emacs commands without modifier keys
        ;;lispy            ; vim for lisp, for people who don't like vim
@@ -94,15 +95,15 @@
        lookup          ; navigate your code and its documentation
        lsp
        magit           ; a git porcelain for Emacs
-       make          ; run make tasks from Emacs
+       make            ; run make tasks from Emacs
        ;;pass          ; password manager for nerds
        ;;pdf           ; pdf enhancements
        ;;prodigy       ; FIXME managing external services & code builders
        rgb             ; creating color strings
-       ;;taskrunner        ; taskrunner for all your projects
+       ;;taskrunner    ; taskrunner for all your projects
        ;;terraform     ; infrastructure as code
        tmux            ; an API for interacting with tmux
-       upload        ; map local to remote projects via ssh/ftp
+       upload          ; map local to remote projects via ssh/ftp
 
        :os
        (:if IS-MAC macos) ; improve compatibility with macOS

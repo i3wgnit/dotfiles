@@ -7,7 +7,7 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Ting Wei Liu"
-      user-mail-address "i3wgnit@gmail.com")
+      user-mail-address "i3wgnit@pm.me")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -20,6 +20,7 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 (setq doom-font (font-spec :family "Iosevka" :size 16))
+(setq doom-unicode-font doom-font)
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -28,7 +29,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "~/Documents/org/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -53,22 +54,17 @@
 ;; they are implemented.
 ;;
 
-(setq doom-leader-key ","
-      doom-localleader-key "\\"
-      doom-leader-alt-key "M-,"
-      doom-localleader-alt-key "M-\\")
+(setq-default fill-column 120
+              indent-tabs-mode nil)
+(setq whitespace-style '(empty face indentation tabs trailing)
+      evil-split-window-below t
+      evil-vsplit-window-right t
+      sentence-end-double-space t)
 
-(setq-default indent-tabs-mode nil)
 (setq-hook! '(c-mode-hook c++-mode-hook) indent-tabs-mode nil)
-(setq whitespace-style '(empty face indentation tabs trailing))
 
 (map! :map doom-leader-toggle-map
       "F" 'toggle-frame-maximized)
-
-(setq evil-split-window-below t
-      evil-vsplit-window-right t)
-
-(setq sentence-end-double-space t)
 
 (after! latex
   (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode)
@@ -100,6 +96,6 @@
   (add-to-list 'LaTeX-indent-environment-list '("asy"))
   (add-to-list 'LaTeX-indent-environment-list '("asydef")))
 
-(setq LaTeX-paragraph-commands
-      '("documentclass" "usepackage" "title" "author" "date" "vspace" "hspace"
-        "problem" "subproblem" "subsubproblem"))
+;; (setq LaTeX-paragraph-commands
+;;       '("documentclass" "usepackage" "title" "author" "date" "vspace" "hspace"
+;;         "problem" "subproblem" "subsubproblem"))
