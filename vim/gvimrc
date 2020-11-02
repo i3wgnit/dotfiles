@@ -1,14 +1,21 @@
+" Plugins {{{
+
+" Airline {{{
+let g:airline_theme = 'nord'
+" }}}
+
+" }}}
 " General {{{
 
 set cursorline
 
-colorscheme luna
+colorscheme nord
 
 " }}}
 " Options {{{
 
 " Font
-set guifont=Iosevka\ Term\ 14
+set guifont=Iosevka\ 14
 
 " Gui options {{{
 
