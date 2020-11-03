@@ -19,8 +19,10 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Iosevka" :size 18))
-(setq doom-unicode-font doom-font)
+;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
+;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+(setq doom-font (font-spec :family "Iosevka" :size 18)
+      doom-variable-pitch-font (font-spec :family "Open Sans" :size 21))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -39,7 +41,7 @@
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
-;; - `use-package' for configuring packages
+;; - `use-package!' for configuring packages
 ;; - `after!' for running code after a package has loaded
 ;; - `add-load-path!' for adding directories to the `load-path', relative to
 ;;   this file. Emacs searches the `load-path' when you load packages with
@@ -61,11 +63,15 @@
       sentence-end-double-space t
       whitespace-style '(empty face indentation tabs trailing))
 
-(setq-hook! '(c-mode-hook c++-mode-hook) indent-tabs-mode nil)
+(setq-hook! '(c-mode-hook c++-mode-hook)
+  indent-tabs-mode nil)
 
-(setq minimap-window-location 'left)
+(after! minimap
+  (add-to-list 'minimap-major-modes 'text-mode)
+  (setq minimap-window-location 'left))
 
-(map! :map doom-leader-toggle-map
+(map! :when IS-MAC
+      :map doom-leader-toggle-map
       "F" 'toggle-frame-maximized)
 
 (map! :when (featurep! :lang latex)
@@ -81,7 +87,7 @@
       :desc "Fill buffer" "M-q" #'LaTeX-fill-buffer)
 
 (after! latex
-  (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode)
+  (add-hook! LaTeX-mode #'LaTeX-math-mode)
 
   (defun twl+latex//fill-sentence (orig-fun from to &rest args)
     "Start each sentence on a new line."
@@ -110,13 +116,11 @@
   (add-to-list 'LaTeX-indent-environment-list '("asy"))
   (add-to-list 'LaTeX-indent-environment-list '("asydef"))
 
-  (add-to-list 'TeX-style-path (concat doom-private-dir "auctex/auto")))
+  (setq TeX-style-private (concat doom-private-dir "auctex/style")
+        TeX-auto-private (concat doom-cache-dir "auctex/auto"))
+  (add-to-list 'TeX-style-path TeX-style-private)
 
-(customize-set-variable
- 'LaTeX-paragraph-commands
- '("documentclass" "usepackage" "title" "author" "date" "vspace" "hspace"
-   "problem" "subproblem" "subsubproblem"
-   "centering"))
-
-(setq TeX-style-private (concat doom-private-dir "auctex/auto")
-      TeX-auto-private TeX-style-private)
+  (customize-set-variable
+   'LaTeX-paragraph-commands
+   '("documentclass" "usepackage" "title" "author" "date" "vspace" "hspace" "centering"
+     "problem" "subproblem" "subsubproblem")))
