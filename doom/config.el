@@ -19,7 +19,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Iosevka" :size 16))
+(setq doom-font (font-spec :family "Iosevka" :size 18))
 (setq doom-unicode-font doom-font)
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -56,15 +56,29 @@
 
 (setq-default fill-column 120
               indent-tabs-mode nil)
-(setq whitespace-style '(empty face indentation tabs trailing)
-      evil-split-window-below t
+(setq evil-split-window-below t
       evil-vsplit-window-right t
-      sentence-end-double-space t)
+      sentence-end-double-space t
+      whitespace-style '(empty face indentation tabs trailing))
 
 (setq-hook! '(c-mode-hook c++-mode-hook) indent-tabs-mode nil)
 
+(setq minimap-window-location 'left)
+
 (map! :map doom-leader-toggle-map
       "F" 'toggle-frame-maximized)
+
+(map! :when (featurep! :lang latex)
+      :localleader
+      :map LaTeX-mode-map
+      :desc "Crossref" "&" #'reftex-view-crossref
+      :desc "Compile" "c" #'TeX-command-master
+      :desc "Compile all" "a" #'TeX-command-run-all
+      :desc "Environment" "e" #'LaTeX-environment
+      :desc "Font" "f" #'TeX-font
+      :desc "Macro" "m" #'TeX-insert-macro
+      :desc "Section" "s" #'LaTeX-section
+      :desc "Fill buffer" "M-q" #'LaTeX-fill-buffer)
 
 (after! latex
   (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode)
@@ -94,8 +108,15 @@
 
   (add-to-list 'LaTeX-indent-environment-list '("algorithmic"))
   (add-to-list 'LaTeX-indent-environment-list '("asy"))
-  (add-to-list 'LaTeX-indent-environment-list '("asydef")))
+  (add-to-list 'LaTeX-indent-environment-list '("asydef"))
 
-;; (setq LaTeX-paragraph-commands
-;;       '("documentclass" "usepackage" "title" "author" "date" "vspace" "hspace"
-;;         "problem" "subproblem" "subsubproblem"))
+  (add-to-list 'TeX-style-path (concat doom-private-dir "auctex/auto")))
+
+(customize-set-variable
+ 'LaTeX-paragraph-commands
+ '("documentclass" "usepackage" "title" "author" "date" "vspace" "hspace"
+   "problem" "subproblem" "subsubproblem"
+   "centering"))
+
+(setq TeX-style-private (concat doom-private-dir "auctex/auto")
+      TeX-auto-private TeX-style-private)
