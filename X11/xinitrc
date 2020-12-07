@@ -44,4 +44,7 @@ fi
 # -V -d all >> ~/.i3/logfile 2>&1
 
 # exec /usr/bin/dwm
+
+export XDG_SESSION_TYPE=x11
+
 exec /usr/local/bin/dwm
