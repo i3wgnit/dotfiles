@@ -43,7 +43,9 @@ set -gx GNUPGHOME "$XDG_CONFIG_HOME"/gnupg
 set -gx GTK2_RC_FILES "$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 set -gx LESSHISTFILE "$XDG_DATA_HOME"/less/history
 set -gx NODE_REPL_HISTORY "$XDG_DATA_HOME"/node_repl_history
-set -gx NUGET_PACKAGES "XDG_CACHE_HOME"/NuGetPackages
+set -gx NUGET_PACKAGES "$XDG_CACHE_HOME"/NuGetPackages
+set -gx OCTAVE_HISTFILE "$XDG_CACHE_HOME"/octave-hsts
+set -gx OCTAVE_SITE_INITFILE "$XDG_CONFIG_HOME"/octave/octaverc
 set -gx PULSE_COOKIE "$XDG_CACHE_HOME"/pulse_cookie
 # set -gx WGETRC "$XDG_CONFIG_HOME"/wgetrc
 abbr --add wget 'env WGETRC="$XDG_CONFIG_HOME"/wgetrc wget --hsts-file="$XDG_CACHE_HOME"/wget-hsts'
@@ -51,6 +53,7 @@ set -gx WINEPREFIX "$XDG_DATA_HOME"/wineprefixes/default
 set -gx XAUTHORITY "$XDG_RUNTIME_DIR"/Xauthority
 set -gx _JAVA_OPTIONS '-Djava.util.prefs.userRoot='"$XDG_CONFIG_HOME"/java
 
+set -gx DOTNET_CLI_TELEMETRY_OPTOUT 1
 
 # == Alias ==
 
