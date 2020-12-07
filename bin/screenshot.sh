@@ -1,31 +1,30 @@
 #!/bin/sh
 
-print_file="$HOME"/Pictures/screenshots/"$(date +%Y%m%d-%H%M%S)".png
+PRINT_FILE="$HOME"/Pictures/screenshots/"$(date +%Y%m%d-%H%M%S)".png
 print_xclip() {
     xclip -t image/png -selection c
 }
-maim_cmd="maim"
+MAIM_CMD='maim'
 
-selection=${2:-"$(printf 'screen\nwindow\nselect' | dmenu)"}
+SELECTION=${2:-"$(printf 'screen\nwindow\narea' | dmenu)"}
 [ -z "$selection" ] && exit
 
-output=${1:-"$(printf 'file\nclip' | dmenu)"}
-[ -z "$output" ] && exit
+OUTPUT=${1:-"$(printf 'file\nclip' | dmenu)"}
+[ -z "$OUTPUT" ] && exit
 
-case "$output" in
-    file) case "$selection" in
-        screen) maim -qud 1 "$print_file" ;;
-        window) maim -ui "$(xdotool getactivewindow)" "$print_file" ;;
-        select) maim -us "$print_file" ;;
+case "$OUTPUT" in
+    file) case "$SELECTION" in
+        screen) maim -qud 1 "$PRINT_FILE" ;;
+        window) maim -ui "$(xdotool getactivewindow)" "$PRINT_FILE" ;;
+        area) maim -us "$PRINT_FILE" ;;
         esac;;
-    clip) case "$selection" in
+    clip) case "$SELECTION" in
         screen) maim -qud 1 | print_xclip ;;
         window) maim -ui "$(xdotool getactivewindow)" | print_xclip ;;
-        select) maim -us | print_xclip ;;
+        area) maim -us | print_xclip ;;
         esac;;
 esac
 
-# notify-send \
-#     "Screenshot Captured" \
-#     "of ${selection} to ${output}"
-
+notify-send \
+    'Screenshot Captured' \
+    "of ${SELECTION} to ${OUTPUT}"
