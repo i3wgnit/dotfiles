@@ -4,14 +4,15 @@ $cleanup_includes_cusdep_generated = 1;
 
 # asy
 sub asy {return system("asy -o \"$_[0]\" \"$_[0]\"");}
-add_cus_dep("asy","eps",0,"asy");
-add_cus_dep("asy","pdf",0,"asy");
-add_cus_dep("asy","tex",0,"asy");
+add_cus_dep("asy", "eps", 0, "asy");
+add_cus_dep("asy", "pdf", 0, "asy");
+add_cus_dep("asy", "tex", 0, "asy");
 
 $pdf_mode = 1;
 $pdf_previewer = "zathura %O %S &";
 $pdf_update_method = 0;
 
-$makeindex = 'makeindex -s "~/texmf/tex/latex/twl/twlindex.ist" %O -o %D %S';
+$makeindex = 'makeindex -s "${HOME}/texmf/tex/latex/twl/twlindex.ist" %O -o %D %S';
 
-push @generated_exts, 'atfi', 'asy', 'aux', 'fls', 'idx', 'ilg', 'ind', 'log', 'out', 'pbsdat', 'pre', 'prc', 'prv', 'synctex.gz', 'thm', 'toc';
+push @generated_exts, 'atfi', 'asy', 'aux', 'fls', 'idx', 'ilg', 'ind', 'log', 'out', 'pbsdat', 'pre', 'prc', 'prv',
+    'synctex.gz', 'thm', 'toc';
