@@ -71,18 +71,20 @@
     ~/.config/asy:
     # latex
     ~/texmf/tex/latex:                      texmf/tex/latex
-    # dunst
-    ~/.config/dunst/dunstrc:                others/dunstrc
-    # zathura
-    ~/.config/zathura/zathurarc:            others/zathurarc
-    # latexmk
-    ~/.config/latexmk/latexmkrc:            others/latexmkrc
-    # redshift
-    ~/.config/redshift.conf:                others/redshift.conf
-    # neofetch
-    ~/.config/neofetch/config:              others/neofetch.conf
     # compton
     ~/.config/compton.conf:                 others/compton.conf
+    # dunst
+    ~/.config/dunst/dunstrc:                others/dunstrc
+    # latexmk
+    ~/.config/latexmk/latexmkrc:            others/latexmkrc
+    # mpd
+    ~/.config/mpd/mpd.conf:                   others/mpd.conf
+    # neofetch
+    ~/.config/neofetch/config:              others/neofetch.conf
+    # redshift
+    ~/.config/redshift.conf:                others/redshift.conf
+    # zathura
+    ~/.config/zathura/zathurarc:            others/zathurarc
     # pyenv
     ~/src/pyenv:                            submodules/pyenv
     ~/src/pyenv/plugins/pyenv-virtualenv:   pyenv/plugins/pyenv-virtualenv
