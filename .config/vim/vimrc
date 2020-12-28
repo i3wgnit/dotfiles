@@ -1,4 +1,5 @@
 " XDG compliant {{{
+
 set undodir=$XDG_DATA_HOME/vim/undo
 set backupdir=$XDG_DATA_HOME/vim/backup
 set directory=$XDG_DATA_HOME/vim/swap
@@ -18,6 +19,7 @@ Helptags
 " Plugins {{{
 
 " Vim-Latex {{{
+
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 let g:Tex_SmartKeyQuote=0
@@ -26,8 +28,11 @@ imap <c-\> <Plug>IMAP_JumpForward
 nmap <c-\> <Plug>IMAP_JumpForward
 vmap <c-\> <Plug>IMAP_JumpForward
 nmap <localleader>l :redraw!<cr>
+
 " }}}
+
 " Airline {{{
+
 " Required
 set laststatus=2
 let g:airline_powerline_fonts = 1
@@ -36,11 +41,17 @@ let g:airline_skip_empty_sections = 1
 
 " Theme
 let g:airline_theme = 'luna'
+
 " }}}
+
 " bufferline {{{
+
 let g:bufferline_echo = 0
+
 " }}}
+
 " Syntastic {{{
+
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*
@@ -49,14 +60,13 @@ let g:bufferline_echo = 0
 "let g:syntastic_auto_loc_list = 1
 "let g:syntastic_check_on_open = 1
 "let g:syntastic_check_on_wq = 0
+
 " }}}
+
 " NERDTree {{{
+
 nnoremap <C-n> :NERDTreeToggle<CR>
-" }}}
-" Ale {{{
-let g:ale_linters = {
-\   'javascript': ['standard'],
-\}
+
 " }}}
 
 " }}}
@@ -113,20 +123,20 @@ let maplocalleader = "\\"
 
 " }}}
 
-inoremap <leader>w <esc>:w<cr>a
+" inoremap <leader>w <esc>:w<cr>a
 " inoremap <leader>q <esc>:q!<cr>
 " inoremap <leader>z <esc>:wq!<cr>
 
-vnoremap <leader>w <esc>:w<cr>
+" vnoremap <leader>w <esc>:w<cr>
 " vnoremap <leader>q <esc>:q!<cr>
 " vnoremap <leader>z <esc>:wq!<cr>
 
-nnoremap <leader>w :w<cr>
+" nnoremap <leader>w :w<cr>
 " nnoremap <leader>q :q!<cr>
 " nnoremap <leader>z :wq!<cr>
 
-nnoremap <leader>e :w!<cr>:e %:h<cr>
-nnoremap <leader>so :so ~/.vimrc<cr>
+" nnoremap <leader>e :w!<cr>:e %:h<cr>
+" nnoremap <leader>so :so ~/.config/vim/vimrc<cr>
 
 inoremap <localleader>\ \\
 
@@ -299,7 +309,7 @@ nnoremap <leader>Z zMzvzz
 " Yank to clipboard
 vnoremap <c-c> "+y
 
-" Cancer
+" I Hate ViM
 vnoremap K k
 
 " Increment ordered list
@@ -340,27 +350,25 @@ iabbrev lsad ಥ_ಥ
 iabbrev lsmg ಸωಸ
 iabbrev lflo (◕‿◕✿)
 
-iabbrev i3@ i3wgnit@gmail.com
-
 " }}}
 " Quick edit {{{
 
-nnoremap <leader>ev <c-w>s<c-w>j<c-w>L:e $MYVIMRC<cr>
-nnoremap <leader>eg <c-w>s<c-w>j<c-w>L:e ~/.gvimrc<cr>
-nnoremap <leader>ee <c-w>s<c-w>j<c-w>L:Ex<cr>
+" nnoremap <leader>ev <c-w>s<c-w>j<c-w>L:e $MYVIMRC<cr>
+" nnoremap <leader>eg <c-w>s<c-w>j<c-w>L:e ~/.gvimrc<cr>
+" nnoremap <leader>ee <c-w>s<c-w>j<c-w>L:Ex<cr>
 
 " }}}
 " Languages {{{
 
 "Make calcurse notes markdown compatible
-autocmd BufRead,BufNewFile /tmp/calcurse* set filetype=markdown
-autocmd BufRead,BufNewFile ~/.calcurse/notes/* set filetype=markdown
+" autocmd BufRead,BufNewFile /tmp/calcurse* set filetype=markdown
+" autocmd BufRead,BufNewFile ~/.calcurse/notes/* set filetype=markdown
 
 " }}}
 " Idiot proof {{{
 
-" nnoremap :w :exe "silent !echo \"Retard Alert \"" \| wq
-" nnoremap :w :exe "silent !i3-nagbar -t warning -m \"Retard Alert\"" \| wq
+" nnoremap :w :exe "silent !echo \"Stupid Alert \"" \| wq
+" nnoremap :w :exe "silent !i3-nagbar -t warning -m \"Stupid Alert\"" \| wq
 " nnoremap :w :exe "silent !i3lock-fancy" \| wq
 " nnoremap :q :exe "silent !~/.config/i3/lock.sh" \| q
 
