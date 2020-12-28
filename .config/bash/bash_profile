@@ -1,0 +1,10 @@
+#
+# ~/.bash_profile
+#
+
+[ -f ~/.config/bash/bashrc ] && . ~/.config/bash/bashrc
+
+# == STARTUP ==
+if [ -z "$DISPLAY" -a "$(tty)" = /dev/tty1 ] ; then
+    exec startx "$XDG_CONFIG_HOME"/X11/xinitrc
+fi

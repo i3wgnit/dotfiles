@@ -1,0 +1,1 @@
+/home/waigni/.config/bash/bash_profile
