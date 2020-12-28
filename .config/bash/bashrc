@@ -5,7 +5,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias config='/usr/bin/git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME"'
+alias config="/usr/bin/git --git-dir='${HOME}/.dotfiles/' --work-tree='${HOME}'"
 
 # == IMPORT ==
 [ -s "$HOME"/.config/bash/inputrc ] && source "$HOME"/.config/bash/inputrc
@@ -35,8 +35,8 @@ export CM_SELECTIONS=clipboard
 export CM_LAUNCHER=rofi
 
 # c/c++
-alias gcc99="gcc -std=c99 -Wall"
-alias g++14="g++ -std=c++14 -Wall"
+alias gcc99='gcc -std=c99 -Wall'
+alias g++14='g++ -std=c++14 -Wall'
 
 # Enable aliases to be sudo'ed
 alias sudo="sudo -sE "
@@ -96,6 +96,7 @@ export NUGET_PACKAGES="$XDG_CACHE_HOME"/NuGetPackages
 export OCTAVE_HISTFILE="$XDG_CACHE_HOME"/octave-hsts
 export OCTAVE_SITE_INITFILE="$XDG_CONFIG_HOME"/octave/octaverc
 export PULSE_COOKIE="$XDG_CACHE_HOME"/pulse_cookie
+export VIMINIT='source '"$XDG_CONFIG_HOME"/vim/vimrc
 export WGETRC="$XDG_CONFIG_HOME"/wgetrc
 alias wget='wget --hsts-file="$XDG_CACHE_HOME"/wget-hsts'
 export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default

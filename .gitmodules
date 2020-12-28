@@ -1,0 +1,30 @@
+[submodule ".config/vim/bundle/vim-pathogen"]
+	path = .config/vim/bundle/vim-pathogen
+	url = https://github.com/tpope/vim-pathogen
+[submodule ".config/vim/bundle/vim-surround"]
+	path = .config/vim/bundle/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule ".config/vim/bundle/vim-sensible"]
+	path = .config/vim/bundle/vim-sensible
+	url = https://github.com/tpope/vim-sensible
+[submodule ".config/vim/bundle/vim-latex"]
+	path = .config/vim/bundle/vim-latex
+	url = https://github.com/vim-latex/vim-latex
+[submodule ".config/vim/bundle/vim-dispatch"]
+	path = .config/vim/bundle/vim-dispatch
+	url = https://github.com/tpope/vim-dispatch
+[submodule ".config/vim/bundle/vim-fish"]
+	path = .config/vim/bundle/vim-fish
+	url = https://github.com/dag/vim-fish
+[submodule ".config/vim/bundle/vim-colorschemes"]
+	path = .config/vim/bundle/vim-colorschemes
+	url = https://github.com/flazz/vim-colorschemes
+[submodule ".config/vim/bundle/vim-bufferline"]
+	path = .config/vim/bundle/vim-bufferline
+	url = https://github.com/bling/vim-bufferline
+[submodule ".config/vim/bundle/vim-airline"]
+	path = .config/vim/bundle/vim-airline
+	url = https://github.com/vim-airline/vim-airline
+[submodule ".config/vim/bundle/vim-airline-themes"]
+	path = .config/vim/bundle/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes
