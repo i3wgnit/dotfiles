@@ -34,6 +34,7 @@
 [submodule ".emacs.d"]
 	path = .emacs.d
 	url = https://github.com/hlissner/doom-emacs.git
+	branch = develop
 [submodule ".local/share/pyenv"]
 	path = .local/share/pyenv
 	url = https://github.com/pyenv/pyenv.git
