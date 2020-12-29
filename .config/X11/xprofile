@@ -1,0 +1,21 @@
+numlockx
+
+# audio
+pulseaudio --start &&\
+{
+    qjackctl &
+    mpd
+    cadence &
+    {
+        until jack_control status | grep 'started'
+        do sleep 1
+        done
+        ardour6 default
+    } &
+} &
+
+# style
+~/bin/wallpaper.sh
+dunst &
+dwmblocks &
+redshift-gtk &

@@ -1,0 +1,3 @@
+##include "~/.config/X11/nord-xresources/src/nord"
+Xcursor.theme: Neutral
+Xcursor.size: 32
