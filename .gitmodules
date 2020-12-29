@@ -40,3 +40,6 @@
 [submodule ".local/share/dotfiles/pyenv-virtualenv"]
 	path = .local/share/dotfiles/pyenv-virtualenv
 	url = https://github.com/pyenv/pyenv-virtualenv
+[submodule ".config/asy/asy-graphtheory"]
+	path = .config/asy/asy-graphtheory
+	url = https://github.com/taoari/asy-graphtheory
