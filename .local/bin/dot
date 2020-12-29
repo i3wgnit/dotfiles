@@ -17,6 +17,7 @@ usage() {
     printf '      - init -- generate default files\n'
     printf '      - shortcut -- generate shortcut files\n'
     printf '      - symlink -- generate symlinks\n'
+    printf '  - update -- update dotfiles and all submodules\n'
     printf '  - help -- print this message\n'
 }
 
@@ -25,15 +26,22 @@ config() {
 }
 
 init() {
-    "$DIRNAME"/dotfiles/init.sh "$@"
+    "$DIRNAME"/dotfiles/init.sh
 }
 
 shortcut() {
-    python3 "$DIRNAME"/dotfiles/shortcut.py "$@"
+    python3 "$DIRNAME"/dotfiles/shortcut.py
 }
 
 symlink() {
-    "$DIRNAME"/dotfiles/symlink.sh "$@"
+    "$DIRNAME"/dotfiles/symlink.sh
+}
+
+sync() {
+    init
+    shortcut
+    symlink
+    config submodule update --init --recursive
 }
 
 [ "$#" -le 0 ] && {
@@ -47,14 +55,18 @@ shift 1
 case "$COMMAND" in
     git) config "$@" ;;
 
-    sync) init "$@"
-        shortcut "$@"
-        symlink "$@"
-        config submodule update --init --recursive ;;
+    sync) sync ;;
 
-    init) init "$@" ;;
-    short*) shortcut "$@" ;;
-    sym*) symlink "$@" ;;
+    up*) config pull --rebase origin master \
+        && sync \
+        && config submodule update --remote --rebase \
+        || die update failed ;;
+
+
+    init) init ;;
+    short*) shortcut ;;
+    sym*) symlink ;;
+
 
     h*) usage ;;
     *) config "$COMMAND" "$@"
