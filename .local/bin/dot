@@ -1,0 +1,31 @@
+#!/bin/sh
+
+PROG="$(basename "$0")"
+DIRNAME="$(dirname "$0")"
+
+die() {
+    echo
+    echo error: "$@"
+    exit 1
+}
+
+usage() {
+    printf 'usage: %s <command>\n' "$PROG"
+    printf '\n'
+    printf '    git\n'
+    printf '    symlink\n'
+    printf '    help\n'
+}
+
+COMMAND="$1"
+shift 1
+
+case "$COMMAND" in
+    git) command git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@" ;;
+
+    link|symlink) "$DIRNAME"/dotfiles/symlink.sh ;;
+
+    *h*) usage ;;
+    *) usage
+        die command not found "$COMMAND" ;;
+esac

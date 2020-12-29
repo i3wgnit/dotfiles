@@ -2,10 +2,6 @@
 # ~/.bashrc
 #
 
-config() {
-    command git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@"
-}
-
 # == IMPORT ==
 [ -s "$HOME"/.config/bash/inputrc ] && source "$HOME"/.config/bash/inputrc
 [ -s "$HOME"/.config/bash/bashrc.local ] && source "$HOME"/.config/bash/bashrc.local
