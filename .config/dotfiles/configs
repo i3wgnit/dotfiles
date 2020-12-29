@@ -1,4 +1,4 @@
-cfb         ~/.config/bashrc
+cfb         ~/.config/bash/bashrc
 cfd         ~/.local/share/bin/dot
 cfe         ~/.config/doom/config.el
 cff         ~/.config/fish/config.fish

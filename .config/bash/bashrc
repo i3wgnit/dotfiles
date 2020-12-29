@@ -21,7 +21,9 @@ export VISUAL=vim
 export TERMINAL=st-256color
 export BROWSER=firefox
 
-export PATH="$HOME"/bin:"$HOME"/.local/bin:/usr/local/bin:"$PATH"
+[ "$(uname -s)" = Darwin ] \
+    && export PATH=/opt/local/bin:/opt/local/sbin:"$PATH"
+export PATH="$HOME"/.local/bin:"$PATH"
 
 set -o vi
 
