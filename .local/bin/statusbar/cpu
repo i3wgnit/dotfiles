@@ -1,0 +1,5 @@
+#!/bin/sh
+
+printf 'CPU %0.0f°C\n' \
+    "$(cat /sys/class/thermal/*/temp | \
+    awk '{ s += $1 } END { print s / NR / 1000 }')"

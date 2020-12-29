@@ -9,7 +9,7 @@ border_left=0
 border_right=0
 background=#000000a0
 
-command=~/.config/i3blocks/scripts/$BLOCK_NAME
+command=~/.local/bin/statusbar/$BLOCK_NAME
 interval=5
 
 [wifi]
