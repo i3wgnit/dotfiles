@@ -13,7 +13,7 @@ usage() {
     printf 'usage: %s <command>\n' "$PROG"
     printf '\n'
     printf '  - git -- direct access to git\n'
-    printf '  - sync -- run all the following\n'
+    printf '  - sync -- run all the following and pull submodules\n'
     printf '      - init -- generate default files\n'
     printf '      - shortcut -- generate shortcut files\n'
     printf '      - symlink -- generate symlinks\n'
@@ -49,7 +49,8 @@ case "$COMMAND" in
 
     sync) init "$@"
         shortcut "$@"
-        symlink "$@" ;;
+        symlink "$@"
+        config submodule update --init --recursive ;;
 
     init) init "$@" ;;
     short*) shortcut "$@" ;;

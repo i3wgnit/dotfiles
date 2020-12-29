@@ -39,3 +39,6 @@ rang_file.write_text(rang)
 bash_file.write_text(bash)
 fish_file.write_text(fish)
 
+print('Generated {}'.format(rang_file))
+print('Generated {}'.format(bash_file))
+print('Generated {}'.format(fish_file))

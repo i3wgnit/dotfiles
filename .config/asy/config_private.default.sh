@@ -2,7 +2,10 @@
 
 DIRNAME="$(dirname "$0")"
 
-[ -f "$DIRNAME"/config_private.asy ] ||\
+if [ -f "$DIRNAME"/config_private.asy ]; then
+    echo "$DIRNAME"/config_private.asy already exists
+else
     tee "$DIRNAME"/config_private.asy >/dev/null <<EOF
 string asy_home="${XDG_CONFIG_HOME}/asy";
 EOF
+fi
