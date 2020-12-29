@@ -46,9 +46,9 @@ unset dot
   - [x] bash
   - [x] fish
   - [x] asymptote
-  - ~~[ ] i3~~
+  - [ ] ~~i3~~
   - [x] X11
-- ~~[ ] customize git commands~~
+- [ ] ~~customize git commands~~
 - [x] switch to git bare repo
 - [x] de-cluter home directory
 - [x] switch to dwm
