@@ -1,30 +1,30 @@
 # == Setup ==
-if not test -f "$HOME/.config/fish/.setup"
+if not test -f "$HOME"/.config/fish/.setup
     set -U fish_greeting ''
 
     if test (uname -s) = 'Darwin'
         add_to_user_path /opt/local/bin /opt/local/sbin
     end
 
-    add_to_user_path "$HOME/src/pyenv/bin" "$HOME/bin" "$HOME/.local/bin"
-    touch "$HOME/.config/fish/.setup"
+    add_to_user_path "$HOME"/.local/share/pyenv/bin "$HOME"/.local/bin
+    touch "$HOME"/.config/fish/.setup
 end
 
 # == Startup ==
 
 tput smkx
 
-test -s "$HOME/.config/fish/shortcuts.fish"
-and source "$HOME/.config/fish/shortcuts.fish"
+test -s "$HOME"/.config/fish/shortcuts.fish
+and source "$HOME"/.config/fish/shortcuts.fish
 
-test -s "$HOME/.config/fish/config.local.fish"
-and source "$HOME/.config/fish/config.local.fish"
+test -s "$HOME"/.config/fish/config.local.fish
+and source "$HOME"/.config/fish/config.local.fish
 
 # Fish Vi-Mode
 fish_vi_key_bindings ^ /dev/null
 
 # pyenv
-set -gx PYENV_ROOT "$HOME"/src/pyenv
+set -gx PYENV_ROOT "$HOME"/.local/share/pyenv
 if status --is-interactive; and command -v pyenv >/dev/null 2>&1
     pyenv init - | source
     pyenv virtualenv-init - | source

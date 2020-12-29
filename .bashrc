@@ -1,1 +1,0 @@
-/home/waigni/.config/bash/bashrc
