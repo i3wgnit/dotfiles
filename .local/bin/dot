@@ -14,6 +14,7 @@ usage() {
     printf '\n'
     printf '    git\n'
     printf '    symlink\n'
+    printf '    shortcut\n'
     printf '    help\n'
 }
 
@@ -32,6 +33,7 @@ shift 1
 case "$COMMAND" in
     git) config "$@" ;;
     sym*) "$DIRNAME"/dotfiles/symlink.sh ;;
+    short*) python3 "$DIRNAME"/dotfiles/shortcut.py ;;
     h*) usage ;;
     *) config "$COMMAND" "$@"
 esac
