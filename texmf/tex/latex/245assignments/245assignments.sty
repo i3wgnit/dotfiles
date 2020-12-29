@@ -1,0 +1,1035 @@
+\ProvidesPackage{245assignments}
+
+\providecommand*{\thispkgname}{245assignments}
+
+% Math styles
+\def\CCXLV@amsmath{%
+  \RequirePackage{amsmath}
+  \DeclareRobustCommand{\@ifdisplay}[2]{\if@display##1\relax\else##2\relax\fi}%
+}
+
+\DeclareOption{noamsmath}{%
+  \gdef\CCXLV@amsmath{%
+  \providecommand*{\text}{\textrm}
+  \DeclareRobustCommand{\@ifdisplay}[2]{\mathchoice{##1}{##2}{##2}{##2}}
+  }%
+}
+
+\newcounter{CCXLV@style@ctr}
+
+\DeclareOption{huthryan}{\setcounter{CCXLV@style@ctr}{0}}
+\DeclareOption{lu}{\setcounter{CCXLV@style@ctr}{1}}
+\DeclareOption{benari}{\setcounter{CCXLV@style@ctr}{2}}
+
+\DeclareOption{toman}{% D. Toman's notation for substitution
+  \AtEndOfPackage{\renewcommand*{\subsinforby}[3]{{#1}^{#2}_{#3}}}%
+}
+
+
+\DeclareOption{legacymacros}{\newenvironment{legacies}{}{}}
+
+% Set defaults, and then user's requests
+
+\ExecuteOptions{huthryan}
+
+\ProcessOptions\relax
+
+\CCXLV@amsmath
+\let\CCXLV@amsmath\relax%Clean up
+
+\IfFileExists{mleftright.sty}%
+{\RequirePackage{mleftright}\mleftright}%
+{\let\mleft\left\let\mright\right}
+
+\RequirePackage{ifthen,verbatim}
+
+\@ifundefined{legacies}{\let\legacies\comment\let\endlegacies\endcomment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Notational conventions, with hooks to vary options
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Definitions that vary by style
+
+\newcommand*{\hr@tru}{\text{\ttfamily\upshape T}}
+\newcommand*{\hr@fals}{\text{\ttfamily\upshape F}}
+\newcommand*{\hr@ccxlv@eq@sym}{=}
+\newcommand*{\hr@ccxlv@neq@sym}{\neq}
+\newcommand*{\hr@entailedby}[2]{#1\asmeta{\ccxlv@ent@sym_{#2}}}
+\newcommand*{\hr@notentailedby}[2]{#1\asmeta{\ccxlv@notent@sym_{#2}}}
+\newcommand*{\hr@subsinforby}[3]{{#1}[{#3}/{#2}]}
+\newcommand*{\hr@ccxlv@intro}[1]{\text{${#1}\mkern0.5mu$i}}
+\newcommand*{\hr@ccxlv@elim}[1]{\text{${#1}\mkern0.5mu$e}}
+
+\newcommand*{\lu@tru}{1}
+\newcommand*{\lu@fals}{0}
+\newcommand*{\lu@ccxlv@eq@sym}{\approx}
+\newcommand*{\lu@ccxlv@neq@sym}{\napprox}
+\newcommand*{\lu@entailedby}[2]{(#1,#2)\entails}
+\newcommand*{\lu@notentailedby}[2]{(#1,#2)\notentails}
+\newcommand*{\lu@subsinforby}[3]{{#1}[{#2}/{#3}]}
+\newcommand*{\lu@ccxlv@intro}[1]{\text{${#1}$-intro}}
+\newcommand*{\lu@ccxlv@elim}[1]{\text{${#1}$-elim}}
+
+
+\ifcase\value{CCXLV@style@ctr}%
+% 0 = Huth & Ryan
+  \let\tru\hr@tru
+  \let\fals\hr@fals
+  \let\ccxlv@eq@sym\hr@ccxlv@eq@sym
+  \let\ccxlv@neq@sym\hr@ccxlv@neq@sym
+  \let\entailedby\hr@entailedby
+  \let\notentailedby\hr@notentailedby
+  \let\subsinforby\hr@subsinforby
+  \let\ccxlv@intro\hr@ccxlv@intro
+  \let\ccxlv@elim\hr@ccxlv@elim
+\or % 1 = Lu
+  \let\tru\lu@tru
+  \let\fals\lu@fals
+  \let\ccxlv@eq@sym\lu@ccxlv@eq@sym
+  \let\ccxlv@neq@sym\lu@ccxlv@neq@sym
+  \let\entailedby\lu@entailedby
+  \let\notentailedby\lu@notentailedby
+  \let\subsinforby\lu@subsinforby
+  \let\ccxlv@intro\lu@ccxlv@intro
+  \let\ccxlv@elim\lu@ccxlv@elim
+  \providecommand*{\luhilbertproves}{\assert} % 
+  \providecommand*{\lunatdedproves}{\vdash}
+\or % 2 = Ben Ari
+  \renewcommand*{\tru}{\ensuremath{T}}
+  \renewcommand*{\fals}{\ensuremath{F}}
+  \renewcommand*{\ccxlv@eq@sym}{=}
+  \renewcommand*{\ccxlv@neq@sym}{\neq}
+\or\relax
+\fi
+
+\let\proptrue\tru
+\let\propfalse\fals
+\providecommand*{\subsinbyfor}[3]{\subsinforby{#1}{#3}{#2}}
+
+%% These are the same in all styles
+\providecommand*{\ccxlv@and@sym}{\land}
+\providecommand*{\ccxlv@or@sym}{\lor}
+\providecommand*{\ccxlv@neg@sym}{\neg}
+\providecommand*{\ccxlv@impl@sym}{\rightarrow}
+\providecommand*{\ccxlv@iff@sym}{\leftrightarrow}
+\providecommand*{\ccxlv@xor@sym}{\oplus}
+
+\providecommand*{\ccxlv@prv@sym}{\vdash}
+\providecommand*{\ccxlv@notprv@sym}{\nvdash}
+
+\providecommand*{\modelof}[2]{\entailedby{{\modelfont{#1}}}{#2}}
+\providecommand*{\notmodelof}[2]{\notentailedby{{\modelfont{#1}}}{#2}}
+
+
+% The choice of character for ``entails'' is user-specific.
+% \vDash has longer horizontals than \models.
+\providecommand*{\ccxlv@ent@sym}{\vDash}
+\providecommand*{\ccxlv@notent@sym}{\nvDash}
+
+\providecommand*{\entailsismodels}{% Note: local re-definitions
+  \def\ccxlv@ent@sym{\models}%
+  \def\ccxlv@notent@sym{\not\models}%
+}
+\providecommand*{\entailsisvDash}{% Note: local re-definitions
+  \def\ccxlv@ent@sym{\vDash}%
+  \def\ccxlv@notent@sym{\nvDash}%
+}
+
+% [So what?  Who CAN spell?]
+\AtBeginDocument{
+  \let\substinforby\subsinforby
+  \let\substinbyfor\subsinbyfor
+  \let\sifb\subsinforby
+  \let\sibf\subsinbyfor
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% USER-LEVEL definitions (and macros to create them)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Various levels of operator/function/... symbols.
+
+\DeclareRobustCommand*{\aslogopr}[1]{\mathrel{#1}}
+\DeclareRobustCommand*{\aslogrel}[1]{\mathbin{#1}}
+\DeclareRobustCommand*{\asmeta}[1]{\mathrel{\mkern1mu#1\mkern1mu}}
+
+\DeclareRobustCommand*{\asqfr}[2]%
+{\mathop{\ccxlv@begqfr{#1}\ccxlv@midqfr{#2}\ccxlv@endqfr}}
+\newcommand*{\plainquantifiers}%
+{\def\ccxlv@begqfr{}\def\ccxlv@midqfr{}\def\ccxlv@endqfr{\,}}
+\newcommand*{\dotquantifiers}%
+{\def\ccxlv@begqfr{}\def\ccxlv@midqfr{}\def\ccxlv@endqfr{.\mkern2mu}}
+\newcommand*{\cdotquantifiers}%
+{\def\ccxlv@begqfr{}\def\ccxlv@midqfr{}%
+  \def\ccxlv@endqfr{{\mkern2mu\cdot\mkern2mu}}}
+\newcommand*{\parenquantifiers}%
+{\def\ccxlv@begqfr{(}\def\ccxlv@midqfr{}\def\ccxlv@endqfr{)\,}}
+\providecommand*{\ccxlv@begqfr}{}
+\providecommand*{\ccxlv@midqfr}{}
+\providecommand*{\ccxlv@endqfr}{\,}
+
+
+\newcommand*{\newlogopr}[2]{\@ifdefinable{#1}%
+  {\newcommand*{#1}{\aslogopr{#2}}}}
+\newcommand*{\newlogrel}[2]{\@ifdefinable{#1}%
+  {\newcommand*{#1}{\aslogrel{#2}}}}
+\newcommand*{\newmeta}[2]{\@ifdefinable{#1}%
+  {\newcommand*{#1}{\asmeta{#2}}}}
+\newcommand*{\newqfr}[2]{\@ifdefinable{#1}%
+  {\newcommand*{#1}[1]{\asqfr{#2}{##1}}}}
+\let\newlogqfr\newqfr\relax
+
+\newcommand*{\ccxlv@warn@undef}[2]%
+{\@ifundefined{\expandafter\@gobble\string#2}%
+  {\PackageWarning{\thispkgname}{#1 error ---
+      no previous definition of \string#2}}%
+  {}%
+}
+
+\newcommand*{\renewlogopr}[2]%
+            {\renewcommand*{#1}{\aslogopr{#2}}}%
+\newcommand*{\renewlogrel}[2]%
+            {\renewcommand*{#1}{\aslogrel{#2}}}%
+\newcommand*{\renewqfr}[2]%
+            {\renewcommand*{#1}{\asqfr{#2}}}%
+\let\renewlogqfr\renewqfr\relax
+\newcommand*{\renewmeta}[2]%
+            {\renewcommand{#1}{\asmeta{#2}}}%
+
+\let\And\relax
+\newlogopr{\And}{\ccxlv@and@sym}
+\newlogopr{\Or}{\ccxlv@or@sym}
+\newlogopr{\Impl}{\ccxlv@impl@sym}
+\newlogopr{\Iff}{\ccxlv@iff@sym}
+\newlogopr{\Xor}{\ccxlv@xor@sym}
+\def\Biimpl{\Iff}
+
+\newcommand*{\Neg}{\ccxlv@neg@sym}
+\newcommand*{\bottom}{\mathord{\perp}}
+
+\newlogrel{\eqrel}{\ccxlv@eq@sym}
+\newlogrel{\neqrel}{\ccxlv@neq@sym}
+\newlogrel{\Lt}{<}
+\newlogrel{\LT}{<}
+\newlogrel{\Leq}{\leq}
+\newlogrel{\Gt}{>}
+\newlogrel{\GT}{>}
+\newlogrel{\Geq}{\geq}
+
+\newqfr{\Forall}{\forall\mkern-0.5mu}
+\newqfr{\nForall}{\nforall}
+\newqfr{\Exists}{\exists}
+\newqfr{\nExists}{\nexists}
+\newqfr{\Genqfr}{\ccxlvgenqfrsym}
+\providecommand*{\ccxlvgenqfrsym}{\symsf{Q}}
+
+
+\newmeta{\Equiv}{\equiv}
+\newmeta{\nEquiv}{\nequiv}
+\newmeta{\Equivq}{\questeq}
+
+\newmeta{\proves}{\ccxlv@prv@sym}
+\newmeta{\notproves}{\ccxlv@notprv@sym}
+\newcommand*{\provesin}[1]{\asmeta{\ccxlv@prv@sym_{\textit{#1}}}}
+\newcommand*{\notprovesin}[1]{\asmeta{\ccxlv@notprv@sym_{\textit{#1}}}}
+\newcommand*{\axproves}[1]{#1\proves}
+
+\newmeta{\entails}{\ccxlv@ent@sym}
+\newmeta{\notentails}{\ccxlv@notent@sym}
+
+\newcommand*{\underenv}[2]{\ensuremath{#1^{#2}}}
+\newcommand*{\undermod}[2]{\underenv{#1}{{\modelfont{#2}}}}
+\newcommand*{\undermodenv}[3]{\underenv{#1}{({\modelfont{#2}},#3)}}
+\newcommand*{\undervaluation}[2]{\underenv{#1}{#2}}
+
+\newcommand*{\envsubsinforby}[3]{#1[#2\mapsto\domelmt#3]}
+
+\providecommand*{\pfm}[1]{\mleft(#1\mright)}
+\newcommand*{\andof}[2]{\pfm{#1 \And#2}}
+\newcommand*{\orof}[2]{\pfm{#1 \Or#2}}
+\newcommand*{\implof}[2]{\pfm{#1 \Impl#2}}
+\newcommand*{\iffof}[2]{\pfm{#1 \Iff#2}}
+\newcommand*{\negof}[1]{\pfm{\Neg#1}}
+\newcommand*{\dblnegof}[1]{\negof{\negof{#1}}}
+\newcommand*{\existsof}[2]{\pfm{\Exists{#1}#2}}
+\newcommand*{\forallof}[2]{\pfm{\Forall{#1}#2}}
+\newcommand*{\eqof}[2]{\pfm{#1\eqrel#2}}
+\let\equalof\eqof
+\providecommand*{\ptm}[1]{\pfm{#1}}
+
+% Macros for names of deduction rules.
+% An invocation \dedrulename{<name>}{<symbol>} defines two macros,
+% \<name>intro and \<name>elim .
+\newcommand*{\dedrule}[2]%
+{\@namedef{#1intro}{\ccxlv@intro{{\mathbf{#2}}}}%
+ \@namedef{#1elim}{\ccxlv@elim{{\mathbf{#2}}}}%
+}%
+\dedrule{impl}{\Impl}
+\dedrule{and}{\And}
+\dedrule{or}{\Or}
+\dedrule{neg}{\neg}
+\dedrule{not}{\neg}
+\dedrule{dblneg}{\neg\neg}
+\dedrule{iff}{\Iff}
+\dedrule{biimpl}{\Iff}
+\dedrule{perp}{\perp}
+\dedrule{bottom}{\perp}
+\dedrule{falsum}{\perp}
+\dedrule{fls}{\perp}
+\dedrule{bot}{\perp}
+\dedrule{fa}{\forall}
+\dedrule{ex}{\exists}
+\dedrule{eq}{\eqrel}
+
+\newcommand*{\multided}[2]{\ensuremath{#1\,({\times}#2)}}%\,^{#2}}}
+
+% For Hoare states
+\newlength{\parenht}\settoheight{\parenht}{$($}
+\newlength{\parendp}\settodepth{\parendp}{$($}
+\newcommand*{\hsopen}{\llparenthesis}%
+\newcommand*{\hsclose}{\rrparenthesis}
+
+
+\AtBeginDocument{% Provide symbols if the chosen font packages do not.
+  \providecommand*{\nequiv}{\not\equiv}%
+  \providecommand*{\napprox}{\not\approx}%
+  \providecommand*{\nvdash}{\not\vdash}%
+  \providecommand*{\nvDash}{\not\vDash}%
+  \providecommand*{\nforall}{\not\forall\mkern-0.5mu}%
+  \providecommand*{\nexists}{\not\exists}%
+  \providecommand*{\questeq}{\overset{\small?}{\equiv}}
+
+  \providecommand*{\llparenthesis}{\mathopen{(\mkern-4mu|}}%
+  \providecommand*{\rrparenthesis}{\mathclose{|\mkern-4mu)}}%
+
+  \@ifundefined{symbf}{\let\symbf\mathbf\let\symsf\mathsf}
+
+  % And some over-rides in case unicode-math-table is loaded....
+  \renewlogrel{\Lt}{<}%
+  \renewlogrel{\Gt}{>}%
+  \renewmeta{\Equiv}{\equiv}%
+  \renewmeta{\nEquiv}{\nequiv}%
+  \renewmeta{\Equivq}{\questeq}%
+  % YUCCKK!!
+  \@ifundefined{@@phi}{\global\let\@@phi\phi}{}\global\let\phi\varphi%
+}
+
+
+\def\noouter@pfm#1{{\let\pfm\innerpfm#1}}
+\def\paren@pfm#1{\mleft(#1\mright)}
+\let\innerpfm\paren@pfm
+
+% Print "math" for program code
+\newenvironment{codemath}{%
+  \annotecodefont%
+  \renewcommand*{\And}{\&\&\xspace }%
+  \renewcommand*{\Or}{||\xspace }%
+  \renewcommand*{\Neg}{\mbox{!}}% Hide the punctuation from any \xspace
+  \let\pfm\noouter@pfm
+  %\renewcommand*{\pfm}[1]{##1}%
+  \renewcommand*{\Leq}{<=\xspace }%
+  \renewcommand*{\Lt}{<\xspace }%
+  \renewcommand*{\LT}{<\xspace }%
+  \renewcommand*{\Geq}{>=\xspace }%
+  \renewcommand*{\Gt}{>\xspace }%
+  \renewcommand*{\GT}{>\xspace }%
+  \renewcommand*{\eqrel}{=\xspace }%
+  \renewcommand*{\neqrel}{\mbox{!=}\xspace }%
+  \renewcommand*{\Forall}[1]{}%
+  \renewcommand*{\relsym}[1]{##1}%
+  \def\@gobble@dot{\@ifnextchar.\expandafter\@gobble\fi}%
+  \let\left\@gobble@dot\let\right\@gobble@dot
+  \let\mleft\@gobble@dot\let\mright\@gobble@dot
+}{%
+}
+\newcommand{\ascode}[1]{\begin{codemath}#1\end{codemath}}
+
+
+
+
+
+%% If invoked in text mode, sets the text font for any "\text"
+%% commands in the argument to the document default (\normalfont), which
+%% is important in code environments.  To prevent this (keeping the
+%% current text font), invoke in math mode: $\hoarstate{..}$.
+%% You may then over-ride, or not, as you wish.
+\DeclareRobustCommand*{\hoarestate}[1]%
+{{\ifmmode\else\hoaretextfont\fi\ensuremath{\hsopen\,#1\,\hsclose}}}
+\DeclareRobustCommand*{\hoaretriple}[3]%
+{\hoarestate{#1}\hskip\hoareskip#2\hskip\hoareskip\hoarestate{#3}}
+\newlength{\hoareskip} \settowidth{\hoareskip}{\texttt{~}}
+\let\hoare\hoaretriple
+\let\hstate\hoarestate
+
+\providecommand*{\hoaretextfont}{\normalfont}
+
+\newcommand*{\hoarebegin}[1]{\ensuremath{\hsopen\,#1\,\phantom{\hsclose}}}
+\newcommand*{\hoaremid  }[1]{\ensuremath{\phantom{\hsopen}\,#1\,\phantom{\hsclose}}}
+\newcommand*{\hoareend  }[1]{\ensuremath{\phantom{\hsopen}\,#1\,\hsclose}}
+
+\newcommand*{\slhstate}[2]{\hstate{#1#2}}
+\newcommand*{\mlhstate}[2]%
+{%
+  \settowidth{\ccxlv@wd@i}{\hoarebegin{#1}}%
+  \settowidth{\ccxlv@wd@ii}{\hoareend{#2}}%
+  \ifnum\ccxlv@wd@i<\ccxlv@wd@ii\setlength{\ccxlv@wd@i}{\ccxlv@wd@ii}\fi
+  \ensuremath{\genfrac{}{}{0pt}{0}%
+    {\makebox[\ccxlv@wd@i][l]{\hoarebegin{#1}}}%
+    {\makebox[\ccxlv@wd@i][r]{\hoareend{#2}}}}}
+\let\mlhoare\mlhstate
+\newcommand*{\iiihstate}[3]%  Should this be a \gathered ?
+{%
+  \settowidth{\ccxlv@wd@i}{\hoarebegin{#1}}%
+  \settowidth{\ccxlv@wd@ii}{\hoaremid{#2}}%
+  \settowidth{\ccxlv@wd@iii}{\hoareend{#3}}%
+  \ifnum\ccxlv@wd@i<\ccxlv@wd@ii\setlength{\ccxlv@wd@i}{\ccxlv@wd@ii}\fi
+  \ifnum\ccxlv@wd@i<\ccxlv@wd@iii\setlength{\ccxlv@wd@i}{\ccxlv@wd@iii}\fi
+  \ensuremath{\genfrac{}{}{0pt}{0}%
+    %\vbox
+    {\makebox[\ccxlv@wd@i][l]{\hoarebegin{#1}}}%
+    {\genfrac{}{}{0pt}{0}%
+      {\makebox[\ccxlv@wd@i][c]{\hoaremid{#2}}}%
+      {\makebox[\ccxlv@wd@i][r]{\hoareend{#3}}}%
+  }}
+}
+
+\newlength{\ccxlv@wd@i}\newlength{\ccxlv@wd@ii}\newlength{\ccxlv@wd@iii}
+
+
+\newcommand*{\arrayrepl}[3]%
+{\ensuremath{#1\lbrace#2\mathrel{\leftarrow}#3\rbrace}}
+
+
+% Miscellaneous commands, not actually required by the package.
+% May be pre-empted or over-ridden to your taste.
+
+\providecommand*{\mathcanonfont}{\symbb}
+\providecommand*{\nats}{\mathcanonfont{N}}
+\providecommand*{\rats}{\mathcanonfont{Q}}
+\providecommand*{\ints}{\mathcanonfont{Z}}
+
+
+\providecommand*{\mstop}{\mepunct{.}}
+\providecommand*{\mepunct}[1]%
+{\relax\@ifdisplay{\mbox{\rlap{\enspace#1}}}{\mbox{#1}}}
+
+\providecommand*{\code}[1]{\PackageWarning{\thispkgname}{Mapping
+    "\string\code" to "\string\tuple".}\tuple{#1}\global\let\code\tuple}
+\providecommand*{\tuple}[1]{\mathord{\mleft\langle#1\mright\rangle}}
+\providecommand*{\setst}[2]{\mleft\{\,#1\mid#2\,\mright\}}
+
+\providecommand*{\dom}{\mathit{dom}}
+\providecommand*{\ran}{\mathit{ran}}
+
+\providecommand*{\domelmt}[1]{\mathrm{#1}}
+
+\providecommand*{\modelfont}[1]{\mathcal{#1}}
+
+% to get a tilde
+\catcode`~=12
+\providecommand*{\tilde}{~}
+\providecommand*{\tildeize}[1]{~#1}
+\catcode`~=\active
+
+\newcommand{\eg}{e.g., }
+\newcommand{\ie}{i.e., }
+
+\hyphenation{non-deter-min-ism non-deter-min-is-tic}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%  Proof environments
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Not always available -- and sometimes not wanted.
+\IfFileExists{proof.sty}%
+{\RequirePackage{proof}%
+}{\providecommand{\infer}{\PackageError{\thispkgname}{%
+      Help! I didn't find ``proof.sty'' on this system.}%
+    {Hit "return" to continue.}%
+    \global\let\infer\relax
+  }
+}
+\newcommand*{\inferby}[1]{\infer[\text{\small#1}]}
+
+
+
+\IfFileExists{logicproof.sty}{%
+  \RequirePackage{logicproof}
+  % Add a hook for the line label
+  \renewcommand{\lp@start@proof@line}{%
+    \stepcounter{lp@line}%
+    \mk@hrpf@label{lp@line}%
+    \global\let\mk@hrpf@label\hrdefaultlabel%
+    &%
+    \lp@continue@proof@line%
+  }
+}{\AtEndOfPackage{%
+    \gdef\hrproof@error{\PackageError{\thispkgname}{%
+        Use of the "\string\hrproof" environment requires package "logicproofs",
+        which I didn't find on this system.}{Hit "return" to
+        continue (it might work OK), or 'x' to abort.%
+      }%
+    }%
+    \renewenvironment{hrproof}[1]{%
+      \hrproof@error\global\let\hrproof@error\relax
+      \begin{center}\begin{math}\begin{array}{>{$}l<{$}ll@{\hspace*{1cm}}l}%
+    }{\end{array}\end{math}\end{center}}%
+    \renewenvironment{hrsubproof}{%
+      \hb@xt@1ex{}\vrule 2pt\hb@xt@1ex{}\begin{array}{>{$}l<{$}ll@{\hspace*{1cm}}l}
+    }{\end{array}}%
+  }
+}
+
+\newcommand*{\hrdefaultlabel}[1]{\arabic{#1}.}
+\let\mk@hrpf@label\hrdefaultlabel
+
+\newcommand*{\replacenextlnno}[1]{\gdef\mk@hrpf@label##1{#1}}
+
+\newif\ifhr@eol@reqd
+\newcommand*{\do@hr@eol}{\ifhr@eol@reqd\lp@cr\fi}
+
+\newenvironment{hrproof}[1][\hrmaxdepth]%
+{\begin{logicproof}{#1}\hr@eol@reqdfalse\setlength{\itemsep}{0pt}}%
+{\end{logicproof}}
+
+\newenvironment{hrsubproof}%
+{\endgroup\do@hr@eol\begin{subproof}\hr@eol@reqdfalse}%
+{\end{subproof}\begingroup\def\@currenvir{hrsubproof}\hr@eol@reqdfalse\relax}
+
+\newcommand*{\hrline}[3][]%
+{\do@hr@eol%
+ #1{\mbox{#2}} \lp@amper %
+ #1{\parbox[t]{0.3\linewidth}{\raggedright\hangindent1em{#3}}}%
+ \hr@eol@reqdtrue%
+}
+
+\providecommand*{\hrmaxdepth}{1}
+
+\newcommand*{\hrsetline}[1]{\setcounter{lp@line}{#1}}
+
+\newenvironment{nprf}[1][\hrmaxdepth]%
+{\begin{logicproof}{#1}}{\end{logicproof}}
+\newenvironment{prf}[1][\hrmaxdepth]%
+{\begin{center}\begin{nprf}[#1]}{\end{nprf}\end{center}}
+
+\newenvironment{sprf}%
+{\endgroup\begin{subproof}}{\end{subproof}\begingroup\setcurrenvir{sprf}}
+
+\newcommand*{\setcurrenvir}[1]{\def\@currenvir{#1}}
+
+
+
+
+
+
+\newbox{\rulenamebox}
+\newbox{\provebox}
+\newenvironment{ndruletable}[3]{%
+  \savebox{\rulenamebox}{#1}\savebox{\provebox}{#2}
+  \begin{tabular}%
+    {>{\centering}m{\widthof{\usebox{\rulenamebox}}}|>{\centering}m{\widthof{\usebox{\provebox}}}|c}%
+    \bfseries Name & \bfseries $\proves$-notation
+    & \bfseries inference notation \cr\hline
+    \multicolumn{1}{c|}{}&\multicolumn{1}{c|}{}&\multicolumn{1}{c}{}\\[-2ex]
+}%
+{\end{tabular}}
+
+\newcommand*{\atfirstline}[1]%
+{\raisebox{\heightof{X}-\height}{#1}}
+\newcommand*{\raisehalf}[1]%
+{\relax\ifmmode\vcenter#1
+\else%\fbox{$\vcenter{\mbox{#1}}$}
+\raisebox{-0.5\totalheight}{#1}
+\fi}
+
+
+\IfFileExists{bussproofs.sty}%
+{\RequirePackage{bussproofs}%
+ \renewcommand*{\extraVskip}{4pt}% Space above & below deduction bars
+ \renewcommand*{\labelSpacing}{5pt}% Space betw. deduction bars & label
+}{\providecommand{\DisplayProof}{\PackageError{\thispkgname}{
+      Use of the ``boxproof...'' macros requires bussproofs.sty,
+      which I didn't find on this system.}{Hit "return" to continue.
+    }%
+    \global\let\DisplayProof\relax
+  }
+}
+
+\newenvironment{boxprooftree}%
+{}%
+{\raisebox{\heightof{X}-\height}{\DisplayProof}}
+
+\newcommand*{\boxproof}[1]%
+{\raisebox{1ex+\baselineskip-\height}{#1\DisplayProof}}%
+\newcommand*{\fboxproof}[1]%
+{\raisebox{1ex+\baselineskip-\height}{\fbox{#1\DisplayProof}}}
+
+%\newcommand*{\pfdots}{\UnaryInfC{\vphantom{X}\smash{\ensuremath{\vdots}}}}
+
+\newbox{\pfbx}
+\newbox{\pfbxb}
+\newcommand*{\savesubprf}[3]%
+{\sbox{#1}{%
+   \renewcommand*{\extraVskip}{2pt}\alwaysNoLine%
+   \AxiomC{\ensuremath{#2}}%
+   \UnaryInfC{\vphantom{X}\smash{\ensuremath{\vdots}}}% "\pfdots"
+   \UnaryInfC{\ensuremath{#3}}%
+   \DisplayProof}%
+}
+\newcommand*{\usesubprf}[1]%
+{\raisebox{-\fboxsep-\fboxrule}{\fbox{\hspace*{-0.6em}\usebox{#1}\hspace*{-0.6em}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%  Miscellaneous symbol conventions
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\providecommand*{\fmlai}{\alpha}
+\providecommand*{\fmlaii}{\beta}
+\providecommand*{\fmlaiii}{\gamma}
+\providecommand*{\fmlaiv}{\delta}
+
+\providecommand*{\fmlai}{\smash[b]{\varphi}}
+\providecommand*{\fmlaii}{\smash[b]{\eta}}
+\providecommand*{\fmlaiii}{\smash[b]{\zeta}}
+\providecommand*{\fmlaiv}{\smash[b]{\alpha}}
+
+\@ifundefined{fmla}{\let\fmla\fmli}{}
+\@ifundefined{fmlb}{\let\fmlb\fmlii}{}
+\@ifundefined{fmlc}{\let\fmlc\fmliii}{}
+\@ifundefined{fmld}{\let\fmld\fmliv}{}
+
+\providecommand*{\vari}{x}
+\providecommand*{\varii}{\smash[b]{y}}
+\providecommand*{\variii}{z}
+\providecommand*{\variv}{u}
+
+\@ifundefined{vara}{\let\vara\vari}{}
+\@ifundefined{varb}{\let\varb\varii}{}
+\@ifundefined{varc}{\let\varc\variii}{}
+\@ifundefined{vard}{\let\vard\variv}{}
+
+\providecommand*{\condi}{\ensuremath{P}}
+\providecommand*{\condii}{\ensuremath{Q}}
+\providecommand*{\condiii}{\ensuremath{R}}
+\@ifundefined{conda}{\let\conda\condi}{}
+\@ifundefined{condb}{\let\condb\condii}{}
+\@ifundefined{condc}{\let\condc\condiii}{}
+
+\providecommand*{\fmlan}[1]{\@nameuse{fmla\romannumeral{#1}}}
+\providecommand*{\varn}[1]{\@nameuse{var\romannumeral{#1}}}
+\providecommand*{\condn}[1]{\@nameuse{cond\romannumeral{#1}}}
+
+\providecommand*{\univax}[2]{\Forall{#1}{#2}}
+\providecommand*{\openaxioms}{\renewcommand*{\univax}[2]{##2}}
+\providecommand*{\qfraxioms}{\renewcommand*{\univax}[2]{\Forall{##1}{##2}}}
+
+%%% Colors
+
+\providecommand*{\defncolor}{\itshape\red}
+\providecommand*{\emcolor}{\itshape\red}
+\providecommand*{\emblue}{\itshape\blue}
+\providecommand*{\red}{\color[rgb]{0.98,0.00,0.00}}
+\providecommand*{\blue}{\color[rgb]{0.00,0.00,0.63}}
+
+\providecommand*{\colteal}{\color{teal!70!black}}
+\providecommand*{\colblue}{\color{blue!60!black}}
+
+\providecommand*{\matchteal}{\color{magenta!60!blue}}
+\providecommand*{\matchblue}{\color{blue!80!yellow}}
+\providecommand*{\matchthird}{\color{green!70!yellow!60!black}}
+\providecommand*{\matchviolet}{\color{violet}}
+
+\providecommand*{\emphcolor}[1]{\textcolor[rgb]{0.75,0.00,0.00}{#1}}
+
+\providecommand*{\annotecolor}[1]{\textcolor[rgb]{0.00,0.00,0.60}{#1}}
+\providecommand*{\backupcolor}[1]{\textcolor[rgb]{0.00,0.75,0.}{#1}}
+\providecommand*{\impliedcolor}[1]{\textcolor[rgb]{0.98,0.00,0.25}{#1}}
+
+\newcommand*{\revision}[1]{\bgroup\color[rgb]{0.9,0.3,0}#1\egroup}
+
+
+% "Specialization of <arg>''.
+% Optional argument is clarification of how rule applies
+\newcommand*{\specof}[2][\empty]{\ccxlv@specoffmla{#1}{#2}}
+\newcommand*{\specofref}[2][\empty]{\specof[#1]{\ref{#2}}}
+\let\spec\specofref
+
+\newcommand*{\ccxlv@specof}[1]{#1\ensuremath{\mbox{}+\faelim}}
+%\newcommand*{\ccxlv@specof}[1]{#1/spec}
+\newcommand*{\ccxlv@specoffmla}[2]%
+{\ccxlv@specof{#2\ifx\empty#1\empty\else\,[{#1}]\fi}}
+
+\newcommand*{\showspecformulas}%
+{\renewcommand*{\specof}[2][\empty]{\ccxlv@specoffmla{##1}{##2}}}
+\newcommand*{\noshowspecformulas}%
+{\renewcommand*{\specof}[2][\empty]{\ccxlv@specoffmla{\empty}{##2}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%  Scheme in FOL
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{xspace}
+
+\providecommand*{\folnamefont}{\normalfont\mdseries\itshape}
+\providecommand*{\lispnamefont}{\normalfont\ttfamily\upshape\mdseries\spaceskip=0.7\fontdimen2\font\relax}
+\providecommand*{\lispmathfont}{\normalfont\ttfamily\slshape}
+\providecommand*{\setlisp}{\def\currnamefont{\lispnamefont}}
+\providecommand*{\setfol}{\def\currnamefont{\folnamefont}}
+\setlisp
+
+\DeclareRobustCommand*{\relsym}[1]%
+{\ifmmode\mathord{\text{\folnamefont#1\/}}%\nolimits
+  \else{\folnamefont#1\/}\expandafter\xspace\fi}
+\DeclareRobustCommand*{\codesym}[1]%
+{\ifmmode\mathord{\text{\lispmathfont#1\/}}%\nolimits
+  \else{\lispnamefont#1}\expandafter\xspace\fi}
+\DeclareRobustCommand*{\dualsym}[1]%
+{\ifmmode\mathord{\text{\folnamefont#1\/}}%\nolimits
+  \else{\lispnamefont#1\mbox{}}\expandafter\xspace\fi}
+
+\providecommand*{\cons}{\relsym{cons}}
+\providecommand*{\cond}{\dualsym{cond}}
+
+\providecommand*{\relof}[1]{{\ensuremath{\smash[b]{\mathscr{R}_{\text{\lispmathfont#1}}}}}}
+
+\DeclareRobustCommand*{\lisp}[1]%
+{\ifmmode\text{\lispmathfont#1\/}\else\mbox{\lispnamefont#1}\fi}
+
+\newenvironment*{lispdef}%
+{\lispnamefont\let\sym\codesym\begin{tabbing}}%
+{\end{tabbing}}
+\newenvironment*{lispdefstd}%
+{\begin{lispdef}%
+\hspace*{1.5em}\=\hspace*{1.5em}\=\hspace*{1.5em}\=\hspace*{1.5em}\=\kill
+}
+{\end{lispdef}}
+
+\providecommand*{\dualnilname}[2]%
+{\gdef\nil%
+    {\relax\ifmmode\text{\folnamefont#1\/}%
+      \else{\lispnamefont#2}\expandafter\xspace\fi
+    }%
+}
+\dualnilname{e}{'()}
+
+
+\providecommand*{\listof}[1]{\mleft\langle#1\mright\rangle}
+\@ifundefined{exenum}{\newenvironment{exenum}{\unskip\mbox{}\begin{enumerate}}{\end{enumerate}}}{}
+\providecommand*{\lisptrue}{\codesym{\#t}}
+\providecommand*{\lispfalse}{\codesym{\#f}}
+\providecommand*{\cons}{\funcsym{cons}}
+\providecommand*{\first}{\funcsym{first}}
+\providecommand*{\rest}{\funcsym{rest}}
+\providecommand*{\true}{\constsym{true}}
+\providecommand*{\eq}{\dualsym{equal?\@}}
+\providecommand*{\sorted}{\codesym{Sorted}}
+\providecommand*{\err}{\constsym{error}}
+\providecommand*{\atom}{\funcsym{atom}}
+\providecommand*{\lambdaconst}{\ensuremath{\lambda}}
+\providecommand*{\name}{\constsym{name}}
+
+\providecommand*{\funcsym}[1]{\relsym{#1}}
+\providecommand*{\constsym}[1]{\relsym{#1}}
+\providecommand*{\sym}[1]{\relsym{#1}}
+
+\providecommand*{\firstrel}{\relof{first}}
+\providecommand*{\restrel}{\relof{rest}}
+\providecommand*{\appendrel}{\relof{Append}}
+
+\providecommand*{\conspair}[1]{\cons\mleft(#1\mright)}
+\providecommand*{\abbrpair}[1]{\mleft\langle\smash[b]{#1}\right\mrangle}
+\providecommand*{\pairof}{}
+\@ifundefined{consof}{\def\consof(#1){\pairof{\smash{#1}}}}{}
+\providecommand*{\conspairs}{\let\pairof\conspair}
+\providecommand*{\abbrpairs}{\let\pairof\abbrpair}
+\conspairs
+
+\providecommand*{\listnametext}[1]%
+%{\mbox{\smash{\underline{\smash{\small\slshape#1}}}}}
+{\mbox{\smash{\underline{\smash{\small\lispnamefont#1}}}}}
+\providecommand*{\listnamemath}[1]%
+{\underline{\ensuremath{#1}}}
+\gdef\listname{\listnametext}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%  Floyd-Hoare annotations
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{annotecode}[1][1]{%
+  \renewcommand*{\>}{\codeindent\ignorespaces}%
+  \begin{tabular}[t]{@{}>{\annotecodefont}l*{#1}{@{\hspace*{\annotesep}}l}@{}}%
+}%
+{\end{tabular}}
+
+\providecommand*{\annotecodefont}{\ttfamily\upshape}
+\providecommand*{\codeindent}{\hspace*{\codeindentamount}}
+
+\newlength{\annotesep}\setlength{\annotesep}{2\columnsep}
+\newlength{\codeindentamount}\setlength{\codeindentamount}{2em}
+
+\newlength{\blankheight}\setlength{\blankheight}{0.7cm}
+\newlength{\blankwidth}\setlength{\blankwidth}{5cm}
+\providecommand*{\blank}[1][\blankwidth]%
+{\raisebox{\depth}{\fillblank[#1]{\rule{0pt}{\blankheight}}}}
+\providecommand*{\fillblank}[2][\blankwidth]%
+{\rule{0pt}{\blankheight}\underline{\makebox[#1][c]{\vphantom{Xy}#2}}}
+\providecommand*{\solblank}[2][\blankwidth]%
+{\underline{\makebox[#1][c]{\raisebox{\depth}{\vphantom{Xy}#2}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%%
+%%%  ASSIGNMENTS, exams, etc.
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcounter{quesnum}\setcounter{quesnum}{0}
+
+\newenvironment{queslistenum}[1][0]%
+{\setlength{\leftmargini}{\z@}%
+\renewcommand*{\labelenumi}{}%{{\bfseries\questiontype\ \arabic{enumi}}}%
+\renewcommand*{\labelenumii}{{\upshape(\alph{enumii})}}%
+\let\question\enumquestion
+\let\endquestion\endenumquestion
+\begin{enumerate}
+%\renewcommand*{\makelabel}[1]{\hfill{\bfseries\questiontype\ #1}}%
+}{\end{enumerate}}%\label{numquestions}
+
+\newenvironment{queslistsect}[1][0]%
+{\setcounter{quesnum}{#1}%
+\let\question\sectquestion
+\let\endquestion\endsectquestion
+\renewcommand*{\labelenumi}{{\upshape(\alph{enumi})}}%
+\renewcommand*{\labelenumii}{\roman{enumii}.}%
+}{}
+
+\newcommand*{\enumquestion}[1][]%
+{\item\relax\leavevmode{\bfseries\questiontype\ \arabic{enumi}}%
+  \ifx\@empty#1\@empty\expandafter%
+    \ifx\csname marks\roman{enumi}\endcsname\relax%
+      \PackageWarningNoLine{\thispkgname}{No marks found for question \arabic{enumi}}%
+    \else\ (\csname marks\roman{enumi}\endcsname\ marks)%
+    \fi%
+  \else\ifnum#1<0\else\ (#1 marks)\fi%
+  \fi%
+  .\ccxlv@enumq@break\ignorespaces%
+}
+\newcommand*{\enumqrunin}{\gdef\ccxlv@enumq@break{ }}
+\newcommand*{\enumqnewline}{\gdef\ccxlv@enumq@break{\\\nopagebreak}}
+\enumqnewline
+
+\newcommand*{\sectquestion}[1][]%
+{\refstepcounter{quesnum}%
+  \subsubsection*{\questiontype\ \arabic{quesnum}\normalsize\normalfont
+    \ifx\empty#1\empty%
+      \expandafter\ifx\csname marks\roman{quesnum}\endcsname\relax%
+        \PackageWarningNoLine{\thispkgname}{No marks found for question \arabic{quesnum}}%
+      \else%
+        \ (\csname marks\roman{quesnum}\endcsname\ marks)%
+      \fi%
+    \else\ ({#1 marks})%
+    \fi
+  }%
+}
+
+\newcommand*{\enumquestions}{%
+  \global\let\queslist\queslistenum%
+  \global\let\endqueslist\endqueslistenum%
+  \global\let\question\enumquestion%
+}
+\newcommand*{\sectquestions}{%
+  \global\let\queslist\queslistsect%
+  \global\let\endqueslist\endqueslistsect%
+  \global\let\question\sectquestion
+}
+\enumquestions
+
+\providecommand*{\questiontype}{Question}
+\providecommand*{\qbreak}{\medskip}
+
+%% SOLUTIONS, or not
+
+\providecommand*{\dosolution}{\relax}%
+\newenvironment{questiononly}{\relax}{\relax}
+
+\newcommand*{\nosolutions}%
+{\renewenvironment{questiononly}{\relax}{\relax}
+ \global\let\solution\comment%
+ \global\let\endsolution\endcomment%
+ \gdef\maybesolution{\qbreak}%
+}
+
+\nosolutions
+
+\newcommand*{\showsolutions}{%
+  \renewenvironment{solution}{%
+    \par\vspace{\abovedisplayskip}%
+    \noindent\solnfont{\solnstrongfont\solnintrotext\space}%
+  }{\par\vspace{\belowdisplayskip}}%
+  \global\let\maybesolution\dosolution%
+  \global\let\questiononly\comment%
+  \global\let\endquestiononly\endcomment%
+  \global\let\qbreak\relax%
+}
+\providecommand*{\solnintrotext}{Solution:}
+\providecommand*{\solnfont}{\normalfont}
+\providecommand*{\solnstrongfont}{\upshape\bfseries}
+
+
+\newif\ifmarking
+\markingfalse
+\newcommand{\marking}[1]{\ifmarking \noindent {\solnstrongfont Marking:}  #1\fi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   A template for assignment headers
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\providecommand*{\coursename}{CS~245}
+\providecommand*{\ccxlv@default@term}{Spring 2017}
+
+% Either define before package loading, or re-define after.
+\providecommand*{\termandyear}%
+{\ccxlv@defaultterm\PackageWarning{\thispkgname}{Term and Year defaulted to
+    \ccxlv@default@term!!\MessageBreak}}
+\providecommand*{\term}{\termandyear}
+\providecommand*{\asmtno}%
+{\rule[-2pt]{0.5cm}{1pt}%
+  \PackageWarning{\thispkgname}{Assignment number left blank!}}
+\providecommand*{\datedue}%
+{???\PackageWarning{\thispkgname}{Date Due needed!!}}
+
+% OK to leave undefined.
+\providecommand*{\daydue}{\relax}
+\providecommand*{\timedue}{\relax}
+\providecommand*{\locationdue}{\relax}
+\providecommand*{\numprobs}{\relax}
+
+\providecommand*{\coverinfo}{%
+\begin{center}
+\normalsize
+
+\bigskip
+\duedateinfo
+\end{center}
+}% \coverinfo
+
+\providecommand*{\workingpolicy}{All submitted work must be the student's own.}
+
+\providecommand{\duedateinfo}{\bfseries%
+Due \ifthenelse{\equal\daydue\relax}{}{\daydue, }%
+\datedue\ifthenelse{\equal\timedue\relax}{}{, by \timedue}%
+\ifthenelse{\equal\locationdue\relax}{}{, to \locationdue}.
+
+\workingpolicy
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% For legacy code....
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{legacies}
+\gdef\ntentails{\notentails}
+\gdef\provesDef{\provesin}
+\gdef\liff{\Iff}
+\gdef\qand{\And}
+\gdef\qor{\Or}
+\gdef\qimplies{\Impl}
+\gdef\qnot{\Neg}
+\gdef\qiff{\Iff}
+\gdef\qxor{\Xor}
+\gdef\qtv{\tru}
+\gdef\qfv{\fals}
+\gdef\qforall#1{\Forall{#1}}
+\gdef\qexists#1{\Exists{#1}}
+
+\gdef\tpProves{\Equiv}
+\gdef\tpProvesq{\Equivq}
+
+\gdef\qspec{\hoarestate}
+
+\gdef\mwfont{\em}
+\gdef\mw#1{\mbox{\mwfont#1}}
+
+\gdef\suc{\mw{suc}}
+\gdef\qsuc{\mw{suc}}
+
+\gdef\qt{\tru}
+\gdef\qf{\fals}
+\gdef\qfalse{\bot}
+
+\gdef\qnat{\nats}
+\gdef\qint{\ints}
+
+\gdef\prop{\varphi}
+\gdef\model{{\modelfont{M}}}
+
+\gdef\ndProves{\provesin{ND}}
+\gdef\ndProvesq{\asmeta{\overset{?}{\ccxlv@prv@sym}}_{\textit{ND}}}
+\gdef\resProves{\provesin{Res}}
+\gdef\resProvesq{\asmeta{\overset{?}{\ccxlv@prv@sym}}_{\textit{Res}}}
+
+\gdef\ndcopy{\mbox{copy of}}
+\gdef\ndcheat{\mbox{\bf CHEAT}}
+
+\gdef\ndandi{\andintro}%
+\gdef\ndande{\andelim}%
+
+\gdef\ndori{\orintro}%
+\gdef\ndore{\orelim}%
+
+\gdef\ndimpliesi{\implintro}%
+\gdef\ndimpliese{\implelim}%
+
+\gdef\ndnoti{\notintro}%
+\gdef\ndnote{\negelim}
+
+\gdef\ndfalsee{\flselim}%
+\gdef\ndfalsei{\flsintro}%
+
+\gdef\ndnotnote{\dblnegelim}
+\gdef\ndnotnoti{\dblnegintro}
+
+\gdef\ndforalle{\faelim}
+\gdef\ndforalli{\faintro}
+
+\gdef\ndexistse{\exelim}
+\gdef\ndexistsi{\exintro}
+
+\gdef\ndequalsi{\eqintro}
+\gdef\ndequalse{\eqelim}
+
+\gdef\ndiffe{\iffelim}
+\gdef\ndiffi{\iffintro}
+
+\gdef\ndiffmp{\text{IFF--MP}}
+\gdef\ndprem{\text{premise}}
+\gdef\ndassump{\text{assumption}}
+\gdef\ndmt{\text{MT}}
+\gdef\ndraa{\text{RAA}}
+\gdef\ndlem{\text{LEM}}
+\gdef\ndtrans{\text{trans}}
+\gdef\ndcas{\text{cases}}
+\gdef\ndind{\text{induction}}
+\gdef\ndbase{\text{(B.C.)}}
+\gdef\ndih{\text{I.H.}}
+\gdef\ndis{\text{(I.S.)}}
+\gdef\ndalgebra{\text{algebra}}
+\end{legacies}
