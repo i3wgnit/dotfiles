@@ -9,6 +9,9 @@ dot() {
 
 dot checkout
 dot config status.showUntrackedFiles no
+unset dot
+
+~/.local/bin/dot sync
 ```
 
 ## Dependencies
