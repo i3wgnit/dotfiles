@@ -17,15 +17,21 @@ usage() {
     printf '    help\n'
 }
 
+config() {
+    command git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@"
+}
+
+[ "$#" -le 0 ] && {
+    usage
+    exit 1
+}
+
 COMMAND="$1"
 shift 1
 
 case "$COMMAND" in
-    git) command git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@" ;;
-
-    link|symlink) "$DIRNAME"/dotfiles/symlink.sh ;;
-
-    *h*) usage ;;
-    *) usage
-        die command not found "$COMMAND" ;;
+    git) config "$@" ;;
+    sym*) "$DIRNAME"/dotfiles/symlink.sh ;;
+    h*) usage ;;
+    *) config "$COMMAND" "$@"
 esac
