@@ -12,14 +12,28 @@ die() {
 usage() {
     printf 'usage: %s <command>\n' "$PROG"
     printf '\n'
-    printf '    git\n'
-    printf '    symlink\n'
-    printf '    shortcut\n'
-    printf '    help\n'
+    printf '  - git -- direct access to git\n'
+    printf '  - sync -- run all the following\n'
+    printf '      - init -- generate default files\n'
+    printf '      - shortcut -- generate shortcut files\n'
+    printf '      - symlink -- generate symlinks\n'
+    printf '  - help -- print this message\n'
 }
 
 config() {
     command git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@"
+}
+
+init() {
+    "$DIRNAME"/dotfiles/init.sh "$@"
+}
+
+shortcut() {
+    python3 "$DIRNAME"/dotfiles/shortcut.py "$@"
+}
+
+symlink() {
+    "$DIRNAME"/dotfiles/symlink.sh "$@"
 }
 
 [ "$#" -le 0 ] && {
@@ -32,8 +46,15 @@ shift 1
 
 case "$COMMAND" in
     git) config "$@" ;;
-    sym*) "$DIRNAME"/dotfiles/symlink.sh ;;
-    short*) python3 "$DIRNAME"/dotfiles/shortcut.py ;;
+
+    sync) init "$@"
+        shortcut "$@"
+        symlink "$@" ;;
+
+    init) init "$@" ;;
+    short*) shortcut "$@" ;;
+    sym*) symlink "$@" ;;
+
     h*) usage ;;
     *) config "$COMMAND" "$@"
 esac

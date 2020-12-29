@@ -1,5 +1,5 @@
 cfb         ~/.config/bash/bashrc
-cfd         ~/.local/share/bin/dot
+cfd         ~/.local/bin/dot
 cfe         ~/.config/doom/config.el
 cff         ~/.config/fish/config.fish
 cfib        ~/.config/i3blocks/config
