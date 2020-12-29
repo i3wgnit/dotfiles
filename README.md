@@ -18,7 +18,7 @@ unset dot
 
 - [st](https://gitlab.com/i3wgnit/st-twl)
 - [dwm](https://gitlab.com/i3wgnit/dwm-twl)
-  - [dwm](https://gitlab.com/i3wgnit/dwmblocks-twl)
+  - [dwmblocks](https://gitlab.com/i3wgnit/dwmblocks-twl)
 - dmenu
 - fonts
   - misc ohsnap
