@@ -33,18 +33,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-#twm &
-#xclock -geometry 50x50-1+1 &
-#xterm -geometry 80x50+494+51 &
-#xterm -geometry 80x20+494-0 &
-#exec xterm -geometry 80x66+0+0 -name login
-
-#echo "Starting at $(date)" >> ~/.i3/logfile
-#exec /usr/bin/i3
-# -V -d all >> ~/.i3/logfile 2>&1
-
-# exec /usr/bin/dwm
-
 export XDG_SESSION_TYPE=x11
 
 exec /usr/local/bin/dwm
