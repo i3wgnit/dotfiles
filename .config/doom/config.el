@@ -21,7 +21,7 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-font (font-spec :family "Iosevka" :size 18)
+(setq doom-font (font-spec :family "Iosevka" :size 21)
       doom-variable-pitch-font (font-spec :family "Open Sans" :size 21))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -55,6 +55,10 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 ;;
+
+(setq doom-leader-alt-key "C-SPC"
+      doom-localleader-alt-key "C-,"
+      doom-localleader-key ",")
 
 (setq-default fill-column 120
               indent-tabs-mode nil)
