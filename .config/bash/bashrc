@@ -78,9 +78,9 @@ export ASYMPTOTE_PDFVIEWER=zathura
 export QT_QPA_PLATFORMTHEME='qt5ct'
 
 # == stuff ==
-export XDG_CACHE_HOME="$HOME"/.cache
-export XDG_CONFIG_HOME="$HOME"/.config
-export XDG_DATA_HOME="$HOME"/.local/share
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-"$HOME"/.cache}
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME"/.config}
+export XDG_DATA_HOME=${XDG_DATA_HOME:-"$HOME"/.local/share}
 
 export ASYMPTOTE_HOME="$XDG_CONFIG_HOME"/asy
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
