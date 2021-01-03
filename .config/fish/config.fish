@@ -33,11 +33,11 @@ end
 set -gx QT_QPA_PLATFORMTHEME 'qt5ct'
 
 # stuff
-test -n "$XDG_CACHE_HOME"
+test -z "$XDG_CACHE_HOME"
 and set -gx XDG_CACHE_HOME "$HOME"/.cache
-test -n "$XDG_CONFIG_HOME"
+test -z "$XDG_CONFIG_HOME"
 and set -gx XDG_CONFIG_HOME "$HOME"/.config
-test -n "$XDG_DATA_HOME"
+test -z "$XDG_DATA_HOME"
 and set -gx XDG_DATA_HOME "$HOME"/.local/share
 
 set -gx ASYMPTOTE_HOME "$XDG_CONFIG_HOME"/asy
