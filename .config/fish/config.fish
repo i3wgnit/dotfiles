@@ -71,6 +71,6 @@ abbr --add so 'source ~/.config/fish/config.fish'
 # Start X at login
 if status --is-login
     if test -z "$DISPLAY" -a (tty) = /dev/tty1
-        exec startx "$XDG_CONFIG_HOME"/X11/xinitrc
+        exec startx
     end
 end

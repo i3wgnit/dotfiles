@@ -31,4 +31,6 @@ link() {
 link ~/.config/bash/bashrc ~/.bashrc
 link ~/.config/bash/bash_profile ~/.bash_profile
 
+link ~/.config/X11/xinitrc ~/.xinitrc
+
 link ~/.local/share/dotfiles/pyenv-virtualenv ~/.local/share/pyenv/plugins
