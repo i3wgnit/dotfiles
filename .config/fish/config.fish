@@ -30,6 +30,7 @@ if status --is-interactive; and command -v pyenv >/dev/null 2>&1
     pyenv virtualenv-init - | source
 end
 
+set -gx TERM 'xterm-256color'
 set -gx QT_QPA_PLATFORMTHEME 'qt5ct'
 
 # stuff

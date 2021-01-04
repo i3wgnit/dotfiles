@@ -18,7 +18,7 @@ export PS1="${PS1}${RANGER_LEVEL:+[ranger] }${SSH_TTY:+(ssh) }"
 # == EXPORT ==
 export EDITOR=vim
 export VISUAL=vim
-export TERMINAL=st-256color
+export TERM=st-256color
 export BROWSER=firefox
 
 [ "$(uname -s)" = Darwin ] \
