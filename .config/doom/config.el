@@ -91,7 +91,7 @@
       :desc "Fill buffer" "M-q" #'LaTeX-fill-buffer)
 
 (after! latex
-  (add-hook! LaTeX-mode #'LaTeX-math-mode)
+  (add-hook! LaTeX-mode #'LaTeX-math-mode #'turn-on-cdlatex)
 
   (defun twl+latex//fill-sentence (orig-fun from to &rest args)
     "Start each sentence on a new line."
@@ -128,3 +128,19 @@
    'LaTeX-paragraph-commands
    '("documentclass" "usepackage" "title" "author" "date" "vspace" "hspace" "centering"
      "problem" "subproblem" "subsubproblem")))
+
+(after! cdlatex
+  (setq
+   cdlatex-math-symbol-alist
+   '((?0 ("\\emptyset" "\\varnothing"))
+     (?{ ("\\subset" "\\subseteq"))
+     (?} ("\\supset" "\\supseteq")))
+   cdlatex-env-alist
+   '(("example" "\\begin{example}\n?\n\\end{example}" nil)
+     ("lemma" "\\begin{lemma}\n?\n\\end{lemma}" nil)
+     ("proposition" "\\begin{proposition}\n?\n\\end{proposition}" nil))
+   cdlatex-command-alist
+   '(("eg" "Insert example env" "" cdlatex-environment ("example") t nil)
+     ("lemm" "Insert lemma env" "" cdlatex-environment ("lemma") t nil)
+     ("prop" "Insert proposition env" "" cdlatex-environment ("proposition") t nil))
+   cdlatex-paired-parens "$([{"))
