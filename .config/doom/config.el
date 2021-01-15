@@ -22,7 +22,8 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 (setq doom-font (font-spec :family "Iosevka" :size 21)
-      doom-variable-pitch-font (font-spec :family "Open Sans" :size 21))
+      doom-variable-pitch-font doom-font
+      doom-big-font (font-spec :family "Iosevka" :size 36))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -35,7 +36,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type 'visual)
+(setq display-line-numbers-type 'relative)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
@@ -62,9 +63,11 @@
       doom-localleader-alt-key "C-,"
       doom-localleader-key ",")
 
+(map! :m [tab] nil)
+
 (map! :when IS-MAC
       :map doom-leader-toggle-map
-      "F" 'toggle-frame-maximized)
+      "F" #'toggle-frame-maximized)
 
 (setq-default fill-column 120
               indent-tabs-mode nil)
@@ -81,7 +84,7 @@
   indent-tabs-mode nil)
 
 (after! minimap
-  (add-to-list 'minimap-major-modes 'text-mode)
+  (add-to-list 'minimap-major-modes #'text-mode)
   (setq minimap-window-location 'left))
 
 ;; :lang latex
@@ -99,7 +102,9 @@
       :desc "Fill buffer" "M-q" #'LaTeX-fill-buffer)
 
 (after! latex
-  (add-hook! LaTeX-mode #'(LaTeX-math-mode cdlatex-mode))
+  (add-hook! LaTeX-mode #'LaTeX-math-mode)
+  (if (featurep! :lang latex +cdlatex)
+      (add-hook! LaTeX-mode #'cdlatex-mode))
 
   (defun twl+latex//fill-sentence (orig-fun from to &rest args)
     "Start each sentence on a new line."
