@@ -23,9 +23,6 @@
 
 $0
 
-\clearpage
-\printindex
-\clearpage
-\theoremlisttype{opt}
-\listtheorems{theorem}
+\PrintIndex
+\PrintTheorems
 \end{document}

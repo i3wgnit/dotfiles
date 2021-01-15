@@ -88,10 +88,11 @@
       :desc "Font" "f" #'TeX-font
       :desc "Macro" "m" #'TeX-insert-macro
       :desc "Section" "s" #'LaTeX-section
+      :desc "View" "v" #'TeX-view
       :desc "Fill buffer" "M-q" #'LaTeX-fill-buffer)
 
 (after! latex
-  (add-hook! LaTeX-mode #'LaTeX-math-mode #'turn-on-cdlatex)
+  (add-hook! LaTeX-mode #'(LaTeX-math-mode cdlatex-mode))
 
   (defun twl+latex//fill-sentence (orig-fun from to &rest args)
     "Start each sentence on a new line."
@@ -124,8 +125,8 @@
         TeX-auto-private (concat doom-cache-dir "auctex/auto"))
   (add-to-list 'TeX-style-path TeX-style-private)
 
-  (customize-set-variable
-   'LaTeX-paragraph-commands
+  (setq!
+   LaTeX-paragraph-commands
    '("documentclass" "usepackage" "title" "author" "date" "vspace" "hspace" "centering"
      "problem" "subproblem" "subsubproblem")))
 
@@ -134,13 +135,4 @@
    cdlatex-math-symbol-alist
    '((?0 ("\\emptyset" "\\varnothing"))
      (?{ ("\\subset" "\\subseteq"))
-     (?} ("\\supset" "\\supseteq")))
-   cdlatex-env-alist
-   '(("example" "\\begin{example}\n?\n\\end{example}" nil)
-     ("lemma" "\\begin{lemma}\n?\n\\end{lemma}" nil)
-     ("proposition" "\\begin{proposition}\n?\n\\end{proposition}" nil))
-   cdlatex-command-alist
-   '(("eg" "Insert example env" "" cdlatex-environment ("example") t nil)
-     ("lemm" "Insert lemma env" "" cdlatex-environment ("lemma") t nil)
-     ("prop" "Insert proposition env" "" cdlatex-environment ("proposition") t nil))
-   cdlatex-paired-parens "$([{"))
+     (?} ("\\supset" "\\supseteq")))))

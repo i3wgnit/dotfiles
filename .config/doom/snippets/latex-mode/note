@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: note
+# key: nb
+# --
+\begin{note}
+`%`$0
+\end{note}
