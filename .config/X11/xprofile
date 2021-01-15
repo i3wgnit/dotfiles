@@ -16,6 +16,8 @@ pulseaudio --start &&\
 
 # style
 ~/bin/wallpaper.sh
+xbindkeys -f "$XDG_CONFIG_HOME"/xbindkeys/config
+xset -r 121
 dunst &
 dwmblocks &
 redshift-gtk &
