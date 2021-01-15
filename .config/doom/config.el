@@ -56,17 +56,27 @@
 ;; they are implemented.
 ;;
 
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
+
 (setq doom-leader-alt-key "C-SPC"
       doom-localleader-alt-key "C-,"
       doom-localleader-key ",")
 
+(map! :when IS-MAC
+      :map doom-leader-toggle-map
+      "F" 'toggle-frame-maximized)
+
 (setq-default fill-column 120
               indent-tabs-mode nil)
-(setq evil-split-window-below t
+
+(setq company-idle-delay nil
+      evil-ex-substitute-global t
+      evil-split-window-below t
       evil-vsplit-window-right t
       sentence-end-double-space t
       whitespace-style '(empty face indentation tabs trailing))
 
+;; :lang cc
 (setq-hook! '(c-mode-hook c++-mode-hook)
   indent-tabs-mode nil)
 
@@ -74,10 +84,7 @@
   (add-to-list 'minimap-major-modes 'text-mode)
   (setq minimap-window-location 'left))
 
-(map! :when IS-MAC
-      :map doom-leader-toggle-map
-      "F" 'toggle-frame-maximized)
-
+;; :lang latex
 (map! :when (featurep! :lang latex)
       :localleader
       :map LaTeX-mode-map
