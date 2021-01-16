@@ -10,14 +10,17 @@ pulseaudio --start &&\
         until jack_control status | grep 'started'
         do sleep 1
         done
+        pactl set-source-mute @DEFAULT_SOURCE@ 0
         ardour6 default
     } &
 } &
 
-# style
-~/bin/wallpaper.sh
 xbindkeys -f "$XDG_CONFIG_HOME"/xbindkeys/config
+# turn auto-repeat off for mute key
 xset -r 121
+
+~/bin/wallpaper.sh
+
 dunst &
 dwmblocks &
 redshift-gtk &

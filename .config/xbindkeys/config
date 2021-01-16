@@ -1,0 +1,5 @@
+"mic-push-to-talk on"
+       c:121
+
+"mic-push-to-talk off"
+       release+c:121

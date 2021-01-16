@@ -1,0 +1,8 @@
+#!/bin/sh
+
+case "$1" in
+    on) pactl set-source-mute @DEFAULT_SOURCE@ 0 ;;
+    off) pactl set-source-mute @DEFAULT_SOURCE@ 1 ;;
+esac
+
+kill -35 $(pidof dwmblocks)
