@@ -10,7 +10,7 @@ pulseaudio --start &&\
         until jack_control status | grep 'started'
         do sleep 1
         done
-        pactl set-source-mute @DEFAULT_SOURCE@ 0
+        pactl set-source-mute @DEFAULT_SOURCE@ 1
         ardour6 default
     } &
 } &
