@@ -23,6 +23,6 @@
 
 $0
 
-\PrintIndex
-\PrintTheorems
+\PrintIndex{}
+\PrintTheorems{}
 \end{document}
