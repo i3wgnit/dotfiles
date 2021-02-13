@@ -2,4 +2,5 @@
 # name: newlecturemain
 # key: newlecmain                                   
 # --
-\input{lectures/`(format-time-string "%Y-%m-%d")`.tex}
+\include{lectures/${1:`(format-time-string "%Y-%m-%d")`}.tex}
+$0

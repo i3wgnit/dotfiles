@@ -2,5 +2,7 @@
 # name: newlecturesub
 # key: newlec
 # --
-\clearpage
-\subsection{`(format-time-string "%B %d, %Y")`}
+%% -*- TeX-master: "../main"; TeX-engine: xetex -*-
+
+\\${1:sub}section{${2:`(format-time-string "%B %d, %Y")`}}
+$0

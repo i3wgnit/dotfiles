@@ -73,6 +73,7 @@
               indent-tabs-mode nil)
 
 (setq company-idle-delay nil
+      diary-file (concat org-directory "diary")
       evil-ex-substitute-global t
       evil-split-window-below t
       evil-vsplit-window-right t
@@ -89,8 +90,8 @@
 
 ;; :lang latex
 (map! :when (featurep! :lang latex)
-      :localleader
       :map LaTeX-mode-map
+      :localleader
       :desc "Crossref" "&" #'reftex-view-crossref
       :desc "Compile" "c" #'TeX-command-master
       :desc "Compile all" "a" #'TeX-command-run-all
@@ -99,12 +100,27 @@
       :desc "Macro" "m" #'TeX-insert-macro
       :desc "Section" "s" #'LaTeX-section
       :desc "View" "v" #'TeX-view
-      :desc "Fill buffer" "M-q" #'LaTeX-fill-buffer)
+      :desc "Fill buffer" "M-Q" #'LaTeX-fill-buffer
+      :desc "Fill region" "M-q" #'LaTeX-fill-region)
 
 (after! latex
+  (setq TeX-style-private (concat doom-private-dir "auctex/style")
+        TeX-auto-private (concat doom-cache-dir "auctex/auto"))
+  (add-to-list 'TeX-style-path TeX-style-private)
+
   (add-hook! LaTeX-mode #'LaTeX-math-mode)
   (if (featurep! :lang latex +cdlatex)
       (add-hook! LaTeX-mode #'cdlatex-mode))
+
+  (add-to-list 'LaTeX-indent-environment-list '("algorithmic"))
+  (add-to-list 'LaTeX-indent-environment-list '("asy"))
+  (add-to-list 'LaTeX-indent-environment-list '("asydef"))
+  (add-to-list 'LaTeX-indent-environment-list '("circuitikz"))
+
+  (setq!
+   LaTeX-paragraph-commands
+   '("documentclass" "usepackage" "title" "author" "date" "vspace" "hspace" "centering"
+     "problem" "subproblem" "subsubproblem"))
 
   (defun twl+latex//fill-sentence (orig-fun from to &rest args)
     "Start each sentence on a new line."
@@ -127,24 +143,16 @@
                       (looking-at ". *$"))
             (LaTeX-newline))))))
   (advice-add #'LaTeX-fill-region-as-paragraph
-              :around #'twl+latex//fill-sentence)
-
-  (add-to-list 'LaTeX-indent-environment-list '("algorithmic"))
-  (add-to-list 'LaTeX-indent-environment-list '("asy"))
-  (add-to-list 'LaTeX-indent-environment-list '("asydef"))
-
-  (setq TeX-style-private (concat doom-private-dir "auctex/style")
-        TeX-auto-private (concat doom-cache-dir "auctex/auto"))
-  (add-to-list 'TeX-style-path TeX-style-private)
-
-  (setq!
-   LaTeX-paragraph-commands
-   '("documentclass" "usepackage" "title" "author" "date" "vspace" "hspace" "centering"
-     "problem" "subproblem" "subsubproblem")))
+              :around #'twl+latex//fill-sentence))
 
 (after! cdlatex
+  (map! :when (featurep! :lang latex)
+        :map LaTeX-mode-map
+        "TAB" #'cdlatex-tab)
+
   (setq
    cdlatex-math-symbol-alist
    '((?0 ("\\emptyset" "\\varnothing"))
      (?{ ("\\subset" "\\subseteq"))
-     (?} ("\\supset" "\\supseteq")))))
+     (?} ("\\supset" "\\supseteq"))
+     (?F ("\\Phi")))))
