@@ -83,6 +83,7 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME"/.config}
 export XDG_DATA_HOME=${XDG_DATA_HOME:-"$HOME"/.local/share}
 
 export ASYMPTOTE_HOME="$XDG_CONFIG_HOME"/asy
+export CHKTEXRC="$XDG_CONFIG_HOME"/chktex
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 export GNUPGHOME="$XDG_CONFIG_HOME"/gnupg
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc

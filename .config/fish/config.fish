@@ -42,6 +42,7 @@ test -z "$XDG_DATA_HOME"
 and set -gx XDG_DATA_HOME "$HOME"/.local/share
 
 set -gx ASYMPTOTE_HOME "$XDG_CONFIG_HOME"/asy
+set -gx CHKTEXRC "$XDG_CONFIG_HOME"/chktex
 set -gx DOCKER_CONFIG "$XDG_CONFIG_HOME"/docker
 set -gx GNUPGHOME "$XDG_CONFIG_HOME"/gnupg
 set -gx GTK2_RC_FILES "$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
