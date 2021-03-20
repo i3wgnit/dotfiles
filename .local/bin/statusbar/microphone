@@ -1,0 +1,9 @@
+#!/bin/sh
+
+STATE=$(pactl list sources | grep -A6 'alsa_input' | sed -n '/Mute/ s/[^y]//g p')
+
+if [ -n "$STATE" ]; then
+    echo mic
+else
+    echo Mic
+fi
