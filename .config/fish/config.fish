@@ -52,7 +52,7 @@ set -gx NUGET_PACKAGES "$XDG_CACHE_HOME"/NuGetPackages
 set -gx OCTAVE_HISTFILE "$XDG_CACHE_HOME"/octave-hsts
 set -gx OCTAVE_SITE_INITFILE "$XDG_CONFIG_HOME"/octave/octaverc
 set -gx PASSWORD_STORE_DIR "$XDG_DATA_HOME"/pass
-set -gx PULSE_COOKIE "$XDG_CACHE_HOME"/pulse_cookie
+set -gx PULSE_COOKIE "$XDG_RUNTIME_HOME"/pulse_cookie
 set -gx VIMINIT 'source '"$XDG_CONFIG_HOME"/vim/vimrc
 set -gx WGETRC "$XDG_CONFIG_HOME"/wgetrc
 abbr --add wget 'wget --hsts-file="$XDG_CACHE_HOME"/wget-hsts'

@@ -94,7 +94,7 @@ export NUGET_PACKAGES="$XDG_CACHE_HOME"/NuGetPackages
 export OCTAVE_HISTFILE="$XDG_CACHE_HOME"/octave-hsts
 export OCTAVE_SITE_INITFILE="$XDG_CONFIG_HOME"/octave/octaverc
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
-export PULSE_COOKIE="$XDG_CACHE_HOME"/pulse_cookie
+export PULSE_COOKIE="$XDG_RUNTIME_HOME"/pulse_cookie
 export VIMINIT='source '"$XDG_CONFIG_HOME"/vim/vimrc
 export WGETRC="$XDG_CONFIG_HOME"/wgetrc
 alias wget='wget --hsts-file="$XDG_CACHE_HOME"/wget-hsts'
