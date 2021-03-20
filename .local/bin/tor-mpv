@@ -1,8 +1,10 @@
 #!/bin/sh
 
+LINK="${@:-$(xclip -selection c -o)}"
+
 while :
 do
-    torsocks -i mpv "$@" && {
+    torsocks -i mpv "$LINK" && {
         printf 'Press Return to exit ... '
         TMP=$(timeout --foreground 0.5 cat | sed 's/^$/a/')
         [ -n "$TMP" ] \
