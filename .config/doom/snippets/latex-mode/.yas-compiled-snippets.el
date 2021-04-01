@@ -2,7 +2,7 @@
 ;;; Snippet definitions:
 ;;;
 (yas-define-snippets 'latex-mode
-                     '(("prop" "\\begin{proposition}\n`%`$0\n\\end{proposition}" "proposition" nil nil nil "/home/waigni/.config/doom/snippets/latex-mode/proposition" nil nil)
+                     '(("prp" "\\begin{proposition}\n`%`$0\n\\end{proposition}" "proposition" nil nil nil "/home/waigni/.config/doom/snippets/latex-mode/proposition" nil nil)
                        ("nb" "\\begin{note}\n`%`$0\n\\end{note}" "note" nil nil nil "/home/waigni/.config/doom/snippets/latex-mode/note" nil nil)
                        ("newlec" "%% -*- TeX-master: \"../main\"; TeX-engine: xetex -*-\n\n\\\\${1:sub}section{${2:`(format-time-string \"%B %d, %Y\")`}}\n$0" "newlecturesub" nil nil nil "/home/waigni/.config/doom/snippets/latex-mode/newlecturesub" nil nil)
                        ("newlecmain" "\\include{lectures/${1:`(format-time-string \"%Y-%m-%d\")`}.tex}\n$0" "newlecturemain" nil nil nil "/home/waigni/.config/doom/snippets/latex-mode/newlecturemain" nil nil)
@@ -11,4 +11,4 @@
                        ("asg" "%% -*- TeX-engine: xetex -*-\n\n\\documentclass[assignment]{twl}\n\n\\title{[${1:$$(upcase yas-text)}] ${2:Assignment} \\texttt{\\#}${3:Number}}\n\\author{${4:twl}}\n\\date{${5:`(format-time-string \"%B %d, %Y\")`}}\n\n\\begin{document}\n\\maketitle\n\n\\tableofcontents\n\\clearpage\n\n\\problem{}\n\n$0\n\\end{document}" "assignment" nil nil nil "/home/waigni/.config/doom/snippets/latex-mode/assignment" nil nil)))
 
 
-;;; Do not edit! File generated at Mon Feb  8 15:54:52 2021
+;;; Do not edit! File generated at Mon Mar  8 18:01:04 2021

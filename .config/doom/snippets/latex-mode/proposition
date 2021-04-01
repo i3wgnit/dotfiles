@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: proposition
-# key: prop
+# key: prp
 # --
 \begin{proposition}
 `%`$0

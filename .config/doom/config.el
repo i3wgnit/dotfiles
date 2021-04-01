@@ -63,6 +63,8 @@
       doom-localleader-alt-key "C-,"
       doom-localleader-key ",")
 
+(setq ispell-dictionary "en")
+
 (map! :m [tab] nil)
 
 (map! :when IS-MAC
@@ -120,7 +122,23 @@
   (setq!
    LaTeX-paragraph-commands
    '("documentclass" "usepackage" "title" "author" "date" "vspace" "hspace" "centering"
-     "problem" "subproblem" "subsubproblem"))
+     "problem" "subproblem" "subsubproblem")
+   reftex-label-alist
+   '(("axiom"       ?a "ax:"  "~\\thref{%s}" t ("axiom")       nil)
+     ("conjecture"  ?j "cnj:" "~\\thref{%s}" t ("conjecture")  nil)
+     ("corollary"   ?c "clr:" "~\\thref{%s}" t ("corollary")   nil)
+     ("example"     ?g "eg:"  "~\\thref{%s}" t ("example")     nil)
+     ("exercise"    ?x "ex:"  "~\\thref{%s}" t ("exercise")    nil)
+     ("lemma"       ?l "lmm:" "~\\thref{%s}" t ("lemma")       nil)
+     ("proposition" ?p "prp:" "~\\thref{%s}" t ("proposition") nil)
+     ("remark"      ?r "rmk:" "~\\thref{%s}" t ("remark")      nil)
+     ("theorem"     ?t "thm:" "~\\thref{%s}" t ("theorem")     nil))
+   reftex-insert-label-flags
+   '("s" "f")
+   reftex-derive-label-parameters
+   '(10 50 t 1 "-"
+       ("the" "on" "in" "off" "a" "for" "by" "of" "and" "is" "to")
+       t))
 
   (defun twl+latex//fill-sentence (orig-fun from to &rest args)
     "Start each sentence on a new line."
@@ -153,6 +171,6 @@
   (setq
    cdlatex-math-symbol-alist
    '((?0 ("\\emptyset" "\\varnothing"))
-     (?{ ("\\subset" "\\subseteq"))
-     (?} ("\\supset" "\\supseteq"))
+     (?{ ("\\subset" "\\subseteq" "\\vartriangleleft"))
+     (?} ("\\supset" "\\supseteq" "\\vartriangleright"))
      (?F ("\\Phi")))))
