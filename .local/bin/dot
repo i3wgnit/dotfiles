@@ -58,8 +58,8 @@ case "$COMMAND" in
     sync) sync ;;
 
     up*) config pull --rebase origin master \
-        && sync \
         && config submodule update --remote --rebase \
+        && sync \
         || die update failed ;;
 
 
