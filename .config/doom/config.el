@@ -76,6 +76,7 @@
 
 (setq company-idle-delay nil
       diary-file (concat org-directory "diary")
+      enable-local-variables t
       evil-ex-substitute-global t
       evil-split-window-below t
       evil-vsplit-window-right t
@@ -110,7 +111,9 @@
         TeX-auto-private (concat doom-cache-dir "auctex/auto"))
   (add-to-list 'TeX-style-path TeX-style-private)
 
-  (add-hook! LaTeX-mode #'LaTeX-math-mode)
+  (add-hook! LaTeX-mode
+             #'LaTeX-math-mode
+             #'hack-local-variables) ; hack to enable local variables in latex-mode
   (if (featurep! :lang latex +cdlatex)
       (add-hook! LaTeX-mode #'cdlatex-mode))
 
