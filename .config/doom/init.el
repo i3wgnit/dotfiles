@@ -20,10 +20,10 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       company               ; the ultimate code completion backend
-       ;;helm                ; the *other* search engine for love and life
-       ;;ido                 ; the other *other* search engine...
-       (ivy +fuzzy)          ; a search engine for love and life
+       company          ; the ultimate code completion backend
+       ;;helm           ; the *other* search engine for love and life
+       ;;ido            ; the other *other* search engine...
+       (ivy +prescient) ; a search engine for love and life
 
        :ui
        ;;deft                 ; notational velocity for Emacs
@@ -44,7 +44,7 @@
        (popup +all +defaults) ; tame sudden yet inevitable temporary windows
        ;;tabs                 ; an tab bar for Emacs
        treemacs               ; a project drawer, like neotree but cooler
-       ;;unicode              ; extended unicode support for various languages
+       unicode                ; extended unicode support for various languages
        vc-gutter              ; vcs diff in the fringe
        vi-tilde-fringe        ; fringe tildes to mark beyond EOB
        window-select          ; visually switch windows
