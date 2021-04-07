@@ -39,9 +39,9 @@ symlink() {
 
 sync() {
     init
+    config submodule update --init --recursive
     shortcut
     symlink
-    config submodule update --init --recursive
 }
 
 [ "$#" -le 0 ] && {
