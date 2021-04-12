@@ -92,21 +92,21 @@
   (setq minimap-window-location 'left))
 
 ;; :lang latex
-(map! :when (featurep! :lang latex)
-      :map LaTeX-mode-map
-      :localleader
-      :desc "Crossref" "&" #'reftex-view-crossref
-      :desc "Compile" "c" #'TeX-command-master
-      :desc "Compile all" "a" #'TeX-command-run-all
-      :desc "Environment" "e" #'LaTeX-environment
-      :desc "Font" "f" #'TeX-font
-      :desc "Macro" "m" #'TeX-insert-macro
-      :desc "Section" "s" #'LaTeX-section
-      :desc "View" "v" #'TeX-view
-      :desc "Fill buffer" "M-Q" #'LaTeX-fill-buffer
-      :desc "Fill region" "M-q" #'LaTeX-fill-region)
-
 (after! latex
+  (map! :when (featurep! :lang latex)
+        :map LaTeX-mode-map
+        :localleader
+        :desc "Crossref" "&" #'reftex-view-crossref
+        :desc "Compile" "c" #'TeX-command-master
+        :desc "Compile all" "a" #'TeX-command-run-all
+        :desc "Environment" "e" #'LaTeX-environment
+        :desc "Font" "f" #'TeX-font
+        :desc "Macro" "m" #'TeX-insert-macro
+        :desc "Section" "s" #'LaTeX-section
+        :desc "View" "v" #'TeX-view
+        :desc "Fill buffer" "M-Q" #'LaTeX-fill-buffer
+        :desc "Fill region" "M-q" #'LaTeX-fill-region)
+
   (setq TeX-style-private (concat doom-private-dir "auctex/style")
         TeX-auto-private (concat doom-cache-dir "auctex/auto"))
   (add-to-list 'TeX-style-path TeX-style-private)
@@ -117,6 +117,7 @@
   (if (featurep! :lang latex +cdlatex)
       (add-hook! LaTeX-mode #'cdlatex-mode))
 
+  (add-to-list 'LaTeX-indent-environment-list '("AmSalign*"))
   (add-to-list 'LaTeX-indent-environment-list '("algorithmic"))
   (add-to-list 'LaTeX-indent-environment-list '("asy"))
   (add-to-list 'LaTeX-indent-environment-list '("asydef"))
