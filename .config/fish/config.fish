@@ -61,6 +61,7 @@ set -gx XAUTHORITY "$XDG_RUNTIME_DIR"/Xauthority
 set -gx _JAVA_OPTIONS '-Djava.util.prefs.userRoot='"$XDG_CONFIG_HOME"/java
 
 set -gx DOTNET_CLI_TELEMETRY_OPTOUT 1
+set -gx _JAVA_AWT_WM_NONREPARENTING 1
 
 # == Alias ==
 
