@@ -93,8 +93,7 @@
 
 ;; :lang latex
 (after! latex
-  (map! :when (featurep! :lang latex)
-        :map LaTeX-mode-map
+  (map! :map LaTeX-mode-map
         :localleader
         :desc "Crossref" "&" #'reftex-view-crossref
         :desc "Compile" "c" #'TeX-command-master
@@ -117,11 +116,13 @@
   (if (featurep! :lang latex +cdlatex)
       (add-hook! LaTeX-mode #'cdlatex-mode))
 
-  (add-to-list 'LaTeX-indent-environment-list '("AmSalign*"))
+  (add-to-list 'LaTeX-indent-environment-list '("AmSalign" LaTeX-indent-tabular))
+  (add-to-list 'LaTeX-indent-environment-list '("AmSalign*" LaTeX-indent-tabular))
   (add-to-list 'LaTeX-indent-environment-list '("algorithmic"))
   (add-to-list 'LaTeX-indent-environment-list '("asy"))
   (add-to-list 'LaTeX-indent-environment-list '("asydef"))
   (add-to-list 'LaTeX-indent-environment-list '("circuitikz"))
+  (add-to-list 'LaTeX-indent-environment-list '("quantikz" LaTeX-indent-tabular))
 
   (setq!
    LaTeX-paragraph-commands
@@ -168,8 +169,7 @@
               :around #'twl+latex//fill-sentence))
 
 (after! cdlatex
-  (map! :when (featurep! :lang latex)
-        :map LaTeX-mode-map
+  (map! :map LaTeX-mode-map
         "TAB" #'cdlatex-tab)
 
   (setq
