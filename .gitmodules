@@ -32,7 +32,7 @@
 	path = .config/vim/bundle/nerdtree
 	url = https://github.com/preservim/nerdtree.git
 [submodule ".emacs.d"]
-	path = .emacs.d
+	path = .config/emacs
 	url = https://github.com/hlissner/doom-emacs.git
 	branch = develop
 [submodule ".local/share/pyenv"]
