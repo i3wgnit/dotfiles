@@ -6,7 +6,7 @@
 
 \documentclass[lecture]{twl}
 
-\title{[${1:$$(upcase yas-text)}] ${2:Course Name}}
+\title{${1:$$(upcase yas-text)}: ${2:Course Name}}
 \author{${4:Ting Wei Liu}}
 
 \begin{document}
