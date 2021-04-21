@@ -7,7 +7,7 @@
 \documentclass[assignment]{twl}
 
 \title{[${1:$$(upcase yas-text)}] ${2:Assignment} \texttt{\#}${3:Number}}
-\author{${4:Ting Wei Liu}}
+\author{${4:twl}}
 \date{${5:`(format-time-string "%B %d, %Y")`}}
 
 \begin{document}
