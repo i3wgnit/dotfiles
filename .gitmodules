@@ -45,10 +45,10 @@
 	path = .config/asy/asy-graphtheory
 	url = https://github.com/taoari/asy-graphtheory.git
 [submodule "texmf/tex/latex/twl"]
-	path = texmf/tex/latex/twl
+	path = .local/share/texmf/tex/latex/twl
 	url = https://gitlab.com/i3wgnit/dot-latex.git
 [submodule "texmf/tex/latex/declpkg"]
-	path = texmf/tex/latex/declpkg
+	path = .local/share/texmf/tex/latex/declpkg
 	url = https://gitlab.com/i3wgnit/declpkg.git
 [submodule ".local/share/zsh/fast-syntax-highlighting"]
 	path = .local/share/zsh/fast-syntax-highlighting

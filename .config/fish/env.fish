@@ -32,6 +32,9 @@ set -gx PASSWORD_STORE_DIR "$XDG_DATA_HOME"/pass
 set -gx PULSE_COOKIE "$XDG_RUNTIME_HOME"/pulse_cookie
 set -gx TERMINFO "$XDG_DATA_HOME"/terminfo
 set -gx TERMINFO_DIRS "$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
+set -gx TEXMFCONFIG "$XDG_CONFIG_HOME"/texlive/texmf-config
+set -gx TEXMFHOME "$XDG_DATA_HOME"/texmf
+set -gx TEXMFVAR "$XDG_CACHE_HOME"/texlive/texmf-var
 set -gx VIMINIT 'source '"$XDG_CONFIG_HOME"/vim/vimrc
 set -gx WGETRC "$XDG_CONFIG_HOME"/wgetrc
 set -gx WINEPREFIX "$XDG_DATA_HOME"/wineprefixes/default
