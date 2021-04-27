@@ -21,24 +21,25 @@ unset dot
   - [dwmblocks](https://gitlab.com/i3wgnit/dwmblocks-twl)
 - dmenu
 - fonts
-  - misc ohsnap
+  - ~~misc ohsnap~~
   - iosevka
-  - iosevka term
-  - iosevka nerd font
+  - ~~iosevka term~~
+  - ~~iosevka nerd font~~
   - hermit
 
 ### Optional
 
 - R
-- emacs
 - dunst
+- emacs
 - firefox
-- fish shell
+- ~~fish shell~~
 - htop
 - latex
 - mpv
 - redshift
 - torsocks
+- zsh
 
 ## TODO
 
