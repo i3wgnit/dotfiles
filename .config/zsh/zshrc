@@ -28,7 +28,7 @@ setopt interactive_comments
 
 # vi mode
 bindkey -v
-bindkey -v '^?' backward-delete-char
+bindkey '^?' backward-delete-char
 export KEYTIMEOUT=1
 zle-keymap-select() {
     case "$KEYMAP" in
