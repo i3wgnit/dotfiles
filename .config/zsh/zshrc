@@ -19,6 +19,10 @@ PROMPT="${PROMPT}${RANGER_LEVEL:+[ranger] }${SSH_TTY:+(ssh) }"
 HISTSIZE=1000000
 HISTFILE="$XDG_CACHE_HOME"/zsh/history
 
+unalias run-help
+autoload -U run-help
+alias help=run-help
+
 stty stop undef
 
 # unsetopt beep
