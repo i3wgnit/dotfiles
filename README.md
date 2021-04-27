@@ -7,10 +7,17 @@ dot() {
     command git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@"
 }
 
+# fetch and checkout bare repository
+dot fetch
 dot checkout
+
+# hide unsightly untracked files
 dot config status.showUntrackedFiles no
+
+# unalias bootstrap function
 unset dot
 
+# full sync
 ~/.local/bin/dot sync
 ```
 
