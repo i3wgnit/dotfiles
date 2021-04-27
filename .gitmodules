@@ -1,55 +1,73 @@
 [submodule ".config/vim/bundle/vim-pathogen"]
 	path = .config/vim/bundle/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen.git
+    shallow = true
 [submodule ".config/vim/bundle/vim-surround"]
 	path = .config/vim/bundle/vim-surround
 	url = https://github.com/tpope/vim-surround.git
+    shallow = true
 [submodule ".config/vim/bundle/vim-sensible"]
 	path = .config/vim/bundle/vim-sensible
 	url = https://github.com/tpope/vim-sensible.git
+    shallow = true
 [submodule ".config/vim/bundle/vim-latex"]
 	path = .config/vim/bundle/vim-latex
 	url = https://github.com/vim-latex/vim-latex.git
+    shallow = true
 [submodule ".config/vim/bundle/vim-dispatch"]
 	path = .config/vim/bundle/vim-dispatch
 	url = https://github.com/tpope/vim-dispatch.git
+    shallow = true
 [submodule ".config/vim/bundle/vim-fish"]
 	path = .config/vim/bundle/vim-fish
 	url = https://github.com/dag/vim-fish.git
+    shallow = true
 [submodule ".config/vim/bundle/vim-colorschemes"]
 	path = .config/vim/bundle/vim-colorschemes
 	url = https://github.com/flazz/vim-colorschemes.git
+    shallow = true
 [submodule ".config/vim/bundle/vim-bufferline"]
 	path = .config/vim/bundle/vim-bufferline
 	url = https://github.com/bling/vim-bufferline.git
+    shallow = true
 [submodule ".config/vim/bundle/vim-airline"]
 	path = .config/vim/bundle/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
+    shallow = true
 [submodule ".config/vim/bundle/vim-airline-themes"]
 	path = .config/vim/bundle/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
+    shallow = true
 [submodule ".config/vim/bundle/nerdtree"]
 	path = .config/vim/bundle/nerdtree
 	url = https://github.com/preservim/nerdtree.git
-[submodule ".emacs.d"]
+    shallow = true
+[submodule ".config/emacs"]
 	path = .config/emacs
 	url = https://github.com/hlissner/doom-emacs.git
 	branch = develop
+    shallow = true
 [submodule ".local/share/pyenv"]
 	path = .local/share/pyenv
 	url = https://github.com/pyenv/pyenv.git
+    shallow = true
 [submodule ".local/share/dotfiles/pyenv-virtualenv"]
 	path = .local/share/dotfiles/pyenv-virtualenv
 	url = https://github.com/pyenv/pyenv-virtualenv.git
+    shallow = true
 [submodule ".config/asy/asy-graphtheory"]
 	path = .config/asy/asy-graphtheory
 	url = https://github.com/taoari/asy-graphtheory.git
-[submodule "texmf/tex/latex/twl"]
+    shallow = true
+[submodule ".local/share/texmf/tex/latex/twl"]
 	path = .local/share/texmf/tex/latex/twl
 	url = https://gitlab.com/i3wgnit/dot-latex.git
-[submodule "texmf/tex/latex/declpkg"]
+    shallow = true
+[submodule ".local/share/texmf/tex/latex/declpkg"]
 	path = .local/share/texmf/tex/latex/declpkg
 	url = https://gitlab.com/i3wgnit/declpkg.git
+    shallow = true
 [submodule ".local/share/zsh/fast-syntax-highlighting"]
 	path = .local/share/zsh/fast-syntax-highlighting
-	url = https://github.com/zdharma/fast-syntax-highlighting
+	url = https://github.com/zdharma/fast-syntax-highlighting.git
+    shallow = true
