@@ -10,15 +10,18 @@ die() {
 }
 
 usage() {
-    printf 'usage: %s <command>\n' "$PROG"
-    printf '\n'
-    printf '  - git -- direct access to git\n'
-    printf '  - sync -- run all the following and pull submodules\n'
-    printf '      - init -- generate default files\n'
-    printf '      - shortcut -- generate shortcut files\n'
-    printf '      - symlink -- generate symlinks\n'
-    printf '  - update -- update dotfiles and all submodules\n'
-    printf '  - help -- print this message\n'
+    cat <<EOF
+usage: ${PROG} <command>
+
+commands:
+  - git -- direct access to git
+  - sync -- run all the following commands and pull submodules
+      - init -- generate default files
+      - shortcut -- generate shortcut files
+      - symlink -- generate symlinks
+  - update -- update dotfiles and all submodules
+  - help -- print this message
+EOF
 }
 
 config() {
