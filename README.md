@@ -1,7 +1,7 @@
 # dotfiles
 
 To install my dotfiles, clone a bare copy of the repo to `$HOME/.dotfiles` and run the
-following command
+following commands
 ```sh
 dot() {
     command git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@"
