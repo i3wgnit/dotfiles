@@ -53,4 +53,8 @@ if status --is-login
     end
 end
 
+function on_exit --on-process %self
+    clear
+end
+
 source_if_exists "$XDG_CONFIG_HOME"/fish/config.local.fish

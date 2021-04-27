@@ -39,11 +39,14 @@ link() {
     printf '%s %s -> %s\n' "$MESSAGE" "$SOURCE" "$TARGET"
 }
 
-link ~/.config/shell/profile ~/.profile
-link ~/.config/shell/profile ~/.config/zsh/.zprofile
+link "$XDG_CONFIG_HOME"/shell/profile "$HOME"/.profile
+link "$XDG_CONFIG_HOME"/shell/profile "$XDG_CONFIG_HOME"/zsh/.zprofile
 
-link ~/.config/zsh/zshrc ~/.config/zsh/.zshrc
+link "$XDG_CONFIG_HOME"/shell/logout "$HOME"/.bash_logout
+link "$XDG_CONFIG_HOME"/shell/logout "$XDG_CONFIG_HOME"/zsh/.zlogout
 
-link ~/.local/share/dotfiles/pyenv-virtualenv ~/.local/share/pyenv/plugins
+link "$XDG_CONFIG_HOME"/zsh/zshrc ~/.config/zsh/.zshrc
+
+link "$XDG_DATA_HOME"/dotfiles/pyenv-virtualenv ~/.local/share/pyenv/plugins
 
 unset REALPATH

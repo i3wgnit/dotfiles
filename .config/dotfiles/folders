@@ -1,6 +1,7 @@
 c           ~/.config
 cb          ~/.config/bash
 cf          ~/.config/fish
+cs          ~/.config/shell
 cz          ~/.config/zsh
 s           ~/.config/dotfiles
 d           ~/Documents
