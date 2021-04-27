@@ -1,0 +1,6 @@
+#!/bin/sh
+
+. .config/shell/env
+
+[ -z "$DISPLAY" ] && [ "$(tty)" = /dev/tty1 ] &&\
+    exec startx "$XINITRC"

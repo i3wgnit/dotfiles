@@ -1,0 +1,62 @@
+#!/bin/zsh
+
+source_if_exists() {
+    [ -s "$1" ] && source "$1"
+}
+
+source_if_exists "$XDG_CONFIG_HOME"/shell/aliases
+source_if_exists "$XDG_CONFIG_HOME"/shell/shortcuts
+
+# == PS1 ==
+autoload -U colors && colors
+case "$USER" in
+    waigni) PROMPT="%{${reset_color}%}%F{7}w%F{250}a%F{245}i%F{81}g%F{45}n%F{38}i%F{7}%B %1~%{${reset_color}%} " ;;
+    root)   PROMPT="%{${reset_color}%}%S%F{1}[root]%s%F{7}%B %/%{${reset_color}%} " ;;
+    *)      PROMPT="%{${reset_color}%}%n%B %/%{${reset_color}%} " ;;
+esac
+PROMPT="${PROMPT}${RANGER_LEVEL:+[ranger] }${SSH_TTY:+(ssh) }"
+
+HISTSIZE=1000000
+HISTFILE="$XDG_CACHE_HOME"/zsh/history
+
+stty stop undef
+
+# unsetopt beep
+setopt autocd
+setopt globdots
+setopt interactive_comments
+
+# vi mode
+bindkey -v
+bindkey -v '^?' backward-delete-char
+export KEYTIMEOUT=1
+zle-keymap-select() {
+    case "$KEYMAP" in
+        vicmd) echo -ne '\e[1 q' ;;
+        viins|main) echo -ne '\e[5 q' ;;
+    esac
+}
+zle -N zle-keymap-select
+zle-line-init() { zle -K viins ; }
+zle -N zle-line-init
+preexec() { echo -ne '\e[1 q' ; }
+
+autoload edit-command-line
+zle -N edit-command-line
+bindkey '^e' edit-command-line
+
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit
+
+# == pyenv ==
+command -v pyenv >/dev/null 2>&1 && \
+    eval "$(pyenv init - --no-rehash zsh)" && \
+    eval "$(pyenv virtualenv-init - zsh)"
+
+# == plugins ==
+source "$XDG_DATA_HOME"/zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+fast-theme clean > /dev/null
+
+source_if_exists "$XDG_CONFIG_HOME"/zsh/zshrc.local

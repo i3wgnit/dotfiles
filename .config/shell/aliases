@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Use neovim instead of vim
+command -v nvim >/dev/null 2>&1 && \
+    alias vim='nvim' vimdiff='nvim -d'
+
+# Commands should be more verbose
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias rm='rm -vI'
+alias bc='bc -lq'
+alias ffmpeg='ffmpeg -hide_banner'
+
+# Colours are nice
+alias ls='ls --color=auto --group-directories-first'
+alias grep='grep --color=auto'
+alias diff='diff --color=auto'
+
+# TLDR
+alias ka='killall'
+alias g='git'
+alias trem='transmission-remote'
+alias ts='taskset 0xFFFFFFFE '
+alias z='zathura'
+
+alias ranger='[ -n "$RANGER_LEVEL" ] && exit || ranger'

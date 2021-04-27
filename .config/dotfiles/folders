@@ -1,10 +1,12 @@
 c           ~/.config
-f           ~/.config/fish
+cb          ~/.config/bash
+cf          ~/.config/fish
+cz          ~/.config/zsh
+s           ~/.config/dotfiles
 d           ~/Documents
 D           ~/Downloads
 p           ~/Pictures
 b           ~/Documents/books
-s           ~/.config/dotfiles
 S           ~/Documents/school
 
 uw          ~/Documents/school/uwat

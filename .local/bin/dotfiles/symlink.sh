@@ -39,11 +39,8 @@ link() {
     printf '%s %s -> %s\n' "$MESSAGE" "$SOURCE" "$TARGET"
 }
 
-link ~/.config/bash/bashrc ~/.bashrc
-link ~/.config/bash/bash_profile ~/.bash_profile
-
-link ~/.config/X11/xinitrc ~/.xinitrc
-
+link ~/.config/shell/profile ~/.profile
+link ~/.config/zsh/zshrc ~/.config/zsh/.zshrc
 link ~/.local/share/dotfiles/pyenv-virtualenv ~/.local/share/pyenv/plugins
 
 unset REALPATH
