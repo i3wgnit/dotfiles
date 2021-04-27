@@ -35,7 +35,7 @@ xbindkeys -f "$XDG_CONFIG_HOME"/xbindkeys/config
 # turn auto-repeat off for mute key
 xset -r 121
 
-~/bin/wallpaper.sh
+wallpaper.sh
 
 dunst &
 dwmblocks &

@@ -49,7 +49,7 @@ end
 # Start X at login
 if status --is-login
     if test -z "$DISPLAY" -a (tty) = /dev/tty1
-        exec startx
+        exec startx "$XINITRC"
     end
 end
 

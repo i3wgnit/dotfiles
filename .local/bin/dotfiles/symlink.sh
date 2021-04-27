@@ -40,7 +40,10 @@ link() {
 }
 
 link ~/.config/shell/profile ~/.profile
+link ~/.config/shell/profile ~/.config/zsh/.zprofile
+
 link ~/.config/zsh/zshrc ~/.config/zsh/.zshrc
+
 link ~/.local/share/dotfiles/pyenv-virtualenv ~/.local/share/pyenv/plugins
 
 unset REALPATH
