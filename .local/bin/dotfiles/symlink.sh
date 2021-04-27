@@ -45,8 +45,9 @@ link "$XDG_CONFIG_HOME"/shell/profile "$XDG_CONFIG_HOME"/zsh/.zprofile
 link "$XDG_CONFIG_HOME"/shell/logout "$HOME"/.bash_logout
 link "$XDG_CONFIG_HOME"/shell/logout "$XDG_CONFIG_HOME"/zsh/.zlogout
 
-link "$XDG_CONFIG_HOME"/zsh/zshrc ~/.config/zsh/.zshrc
+link "$XDG_CONFIG_HOME"/bash/bashrc "$HOME"/.bashrc
+link "$XDG_CONFIG_HOME"/zsh/zshrc "$XDG_CONFIG_HOME"/zsh/.zshrc
 
-link "$XDG_DATA_HOME"/dotfiles/pyenv-virtualenv ~/.local/share/pyenv/plugins
+link "$XDG_DATA_HOME"/dotfiles/pyenv-virtualenv "$XDG_DATA_HOME"/pyenv/plugins
 
 unset REALPATH
