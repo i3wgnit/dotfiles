@@ -16,8 +16,13 @@ case "$USER" in
 esac
 PROMPT="${PROMPT}${RANGER_LEVEL:+[ranger] }${SSH_TTY:+(ssh) }"
 
-HISTSIZE=1000000
 HISTFILE="$XDG_CACHE_HOME"/zsh/history
+HISTSIZE=1000000
+SAVEHIST=1000000
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_reduce_blanks
+setopt inc_append_history_time
 
 unalias run-help
 autoload -U run-help
