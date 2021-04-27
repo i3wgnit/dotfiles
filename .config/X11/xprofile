@@ -12,7 +12,7 @@ pulseaudio --start && \
                 sleep 1
             done
             pactl set-source-mute "$(pactl list short sources | grep 'alsa_input' | cut -f 1)" 1
-            ardour6 default
+            pactl set-source-volume "$(pactl list short sources | grep 'alsa_input' | cut -f 1)" 50% 50%
         } &
     } &
 
