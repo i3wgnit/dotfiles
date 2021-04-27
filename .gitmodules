@@ -53,6 +53,3 @@
 [submodule ".local/share/zsh/fast-syntax-highlighting"]
 	path = .local/share/zsh/fast-syntax-highlighting
 	url = https://github.com/zdharma/fast-syntax-highlighting
-[submodule ".local/share/zsh/zsh-autocomplete"]
-	path = .local/share/zsh/zsh-autocomplete
-	url = https://github.com/marlonrichert/zsh-autocomplete
