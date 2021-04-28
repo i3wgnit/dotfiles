@@ -20,11 +20,13 @@ set -gx CM_SELECTIONS 'clipboard'
 # == stuff ==
 set -gx ASYMPTOTE_HOME "$XDG_CONFIG_HOME"/asy
 set -gx CHKTEXRC "$XDG_CONFIG_HOME"/chktex
+set -gx CUDA_CACHE_PATH "$XDG_CACHE_HOME"/nv
 set -gx DOCKER_CONFIG "$XDG_CONFIG_HOME"/docker
 set -gx GNUPGHOME "$XDG_CONFIG_HOME"/gnupg
 set -gx GTK2_RC_FILES "$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 set -gx LESSHISTFILE "$XDG_DATA_HOME"/less/history
 set -gx NODE_REPL_HISTORY "$XDG_DATA_HOME"/node_repl_history
+set -gx NPM_CONFIG_USERCONFIG "$XDG_CONFIG_HOME"/npm/npmrc
 set -gx NUGET_PACKAGES "$XDG_CACHE_HOME"/NuGetPackages
 set -gx OCTAVE_HISTFILE "$XDG_CACHE_HOME"/octave-hsts
 set -gx OCTAVE_SITE_INITFILE "$XDG_CONFIG_HOME"/octave/octaverc

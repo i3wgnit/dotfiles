@@ -30,12 +30,14 @@ export CM_SELECTIONS=clipboard
 # == stuff ==
 export ASYMPTOTE_HOME="$XDG_CONFIG_HOME"/asy
 export CHKTEXRC="$XDG_CONFIG_HOME"/chktex
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 export GNUPGHOME="$XDG_CONFIG_HOME"/gnupg
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 export LESSHISTFILE="$XDG_DATA_HOME"/less/history
 export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
 export NUGET_PACKAGES="$XDG_CACHE_HOME"/NuGetPackages
 export OCTAVE_HISTFILE="$XDG_CACHE_HOME"/octave-hsts
 export OCTAVE_SITE_INITFILE="$XDG_CONFIG_HOME"/octave/octaverc
