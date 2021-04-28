@@ -55,8 +55,9 @@ bindkey '^e' edit-command-line
 
 autoload -U compinit
 zstyle ':completion:*' menu select
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME"/zsh/zcompcache
 zmodload zsh/complist
-compinit
+compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 
 # == pyenv ==
 command -v pyenv >/dev/null 2>&1 && \
