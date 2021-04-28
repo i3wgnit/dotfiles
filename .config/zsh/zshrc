@@ -67,4 +67,10 @@ command -v pyenv >/dev/null 2>&1 && \
 source "$XDG_DATA_HOME"/zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 fast-theme free > /dev/null
 
+source "$XDG_DATA_HOME"/zsh/zsh-history-substring-search/zsh-history-substring-search.plugin.zsh
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
 source_if_exists "$XDG_CONFIG_HOME"/zsh/zshrc.local
