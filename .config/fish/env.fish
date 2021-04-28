@@ -28,6 +28,7 @@ set -gx LESSHISTFILE "$XDG_DATA_HOME"/less/history
 set -gx NODE_REPL_HISTORY "$XDG_DATA_HOME"/node_repl_history
 set -gx NPM_CONFIG_USERCONFIG "$XDG_CONFIG_HOME"/npm/npmrc
 set -gx NUGET_PACKAGES "$XDG_CACHE_HOME"/NuGetPackages
+set -gx NVM_DIR "$XDG_DATA_HOME"/nvm
 set -gx OCTAVE_HISTFILE "$XDG_CACHE_HOME"/octave-hsts
 set -gx OCTAVE_SITE_INITFILE "$XDG_CONFIG_HOME"/octave/octaverc
 set -gx PASSWORD_STORE_DIR "$XDG_DATA_HOME"/pass
