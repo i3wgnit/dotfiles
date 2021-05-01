@@ -32,7 +32,7 @@ CUR_T=$(date +%s)
     printf '%4sB/s %4sB/s\n' \
         "$(numfmt --to=iec "$(( DIFF_RX / DIFF_T ))")" \
         "$(numfmt --to=iec "$(( DIFF_TX / DIFF_T ))")"
-    }
+}
 
 echo "$CUR_T" > "$FILENAME_T"
 echo "$CUR_RX" > "$FILENAME_RX"
