@@ -19,6 +19,8 @@ alias diff='diff --color=auto'
 # TLDR
 alias ka='killall'
 alias g='git'
+alias nwsb='newsboat'
+alias tors='torsocks -i '
 alias trem='transmission-remote'
 alias ts='taskset 0xFFFFFFFE '
 alias z='zathura'
