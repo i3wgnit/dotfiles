@@ -39,4 +39,8 @@ wallpaper.sh
 
 dunst &
 dwmblocks &
-redshift-gtk &
+if command -v redshift-qt >/dev/null 2>&1; then
+    redshift-qt &
+elif command -v redshift-gtk >/dev/null 2>&1; then
+    redshift-gtk &
+fi
