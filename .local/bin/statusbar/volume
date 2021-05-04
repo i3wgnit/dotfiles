@@ -15,5 +15,5 @@ pactl list sinks | \
 if [ -n "$(sed -n '/^[[:space:]]Mute/s/[^y]//g p' "$FILENAME_S")" ]; then
     echo muted
 else
-    echo "$(awk '/^[[:space:]]Volume/{print $5}' "$FILENAME_S")"
+    awk '/^[[:space:]]Volume/{print $5}' "$FILENAME_S"
 fi
