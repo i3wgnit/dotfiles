@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SINK="$(pactl list short sinks | grep 'alsa_output' | cut -f 1)"
+SINK="$(pacmd stat | sed -n '/^Default sink name/s/.*: // p')"
 SKIP=
 
 case "$1" in
