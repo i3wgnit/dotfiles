@@ -7,4 +7,4 @@ case "$1" in
     off) pactl set-source-mute "$SOURCE" 1 ;;
 esac
 
-kill -35 $(pidof dwmblocks)
+kill -35 "$(pidof dwmblocks)"
