@@ -33,9 +33,6 @@ set convert-meta off
 # vi mode
 set -o vi
 
-# Enable aliases to be sudo'ed
-alias sudo="sudo "
-
 # == pyenv ==
 command -v pyenv >/dev/null 2>&1 && \
     eval "$(pyenv init - --no-rehash bash)" && \

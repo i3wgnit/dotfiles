@@ -4,6 +4,9 @@
 command -v nvim >/dev/null 2>&1 && \
     alias vim='nvim' vimdiff='nvim -d'
 
+# Enable aliases to be sudo'ed
+alias sudo='sudo '
+
 # Commands should be more verbose
 alias cp='cp -iv'
 alias mv='mv -iv'
