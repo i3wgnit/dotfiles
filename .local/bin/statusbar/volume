@@ -1,0 +1,17 @@
+#!/bin/sh
+
+TMP_RUNTIME_DIR="$XDG_RUNTIME_DIR"
+TMP_FILE_PREFIX='status-vol-'
+
+FILENAME_S="${TMP_RUNTIME_DIR}/${TMP_FILE_PREFIX}S"
+
+pactl list sinks | \
+    awk '/^[[:space:]]Name: alsa_output/{}
+    /^[[:space:]](Mute|Volume)/{print $0;++i} i==2 {exit}' > \
+    "$FILENAME_S"
+
+if [ -n "$(sed -n '/^[[:space:]]Mute/s/[^y]//g p' "$FILENAME_S")" ]; then
+    echo muted
+else
+    echo "$(awk '/^[[:space:]]Volume/{print $5}' "$FILENAME_S")"
+fi
