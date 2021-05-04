@@ -3,6 +3,9 @@ numlockx
 # audio
 pulseaudio --start && \
 {
+    pactl set-source-mute "$(pactl list short sources | grep 'alsa_input' | cut -f 1)" 1
+    pactl set-source-volume "$(pactl list short sources | grep 'alsa_input' | cut -f 1)" 50% 50%
+
     command -v qjackctl >/dev/null 2>&1 && \
     {
         qjackctl &
@@ -11,8 +14,6 @@ pulseaudio --start && \
             until jack_control status | grep 'started' ; do
                 sleep 1
             done
-            pactl set-source-mute "$(pactl list short sources | grep 'alsa_input' | cut -f 1)" 1
-            pactl set-source-volume "$(pactl list short sources | grep 'alsa_input' | cut -f 1)" 50% 50%
         } &
     } &
 

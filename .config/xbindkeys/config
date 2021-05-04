@@ -1,5 +1,5 @@
-"mic-push-to-talk on"
+"mic-push-to-talk.sh on"
        c:121
 
-"mic-push-to-talk off"
+"mic-push-to-talk.sh off"
        release + c:121
