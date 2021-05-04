@@ -44,4 +44,3 @@ fi
 
 
 i3lock -fec 000000 -i "$IMAGE"
-trap - EXIT

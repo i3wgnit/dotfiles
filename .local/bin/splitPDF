@@ -22,5 +22,4 @@ gs -dSAFER -dBATCH -dNOPAUSE -sDEVICE="$DEVICE" \
     -sOutputFile="${TEMP}/$(basename "$1" .pdf)-%02d.${EXT}" \
     "$1"
 
-mv "$TEMP" img
-trap - EXIT
+mv "$TEMP" img && trap - EXIT
