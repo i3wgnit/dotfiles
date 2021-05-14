@@ -6,14 +6,22 @@
 
 \documentclass[lecture]{twl}
 
-\title{${1:$$(upcase yas-text)}: ${2:Course Name}}
+\title{${1:$$(upcase yas-text)}}
 \author{${4:Ting Wei Liu}}
 
+\input{preamble}
+\usepackage{subfiles}
+
 \begin{document}
+\makeatletter
+\let\@shorttitle\@title
+\RenewDocumentCommand{\@title}{}{\@shorttitle{}: ${2:Course Name}}
+\makeatother
+
 \maketitle
 
 \makeatletter
-\RenewDocumentCommand{\@title}{}{$1}
+\let\@title\@shorttitle
 \makeatother
 
 \begin{description}

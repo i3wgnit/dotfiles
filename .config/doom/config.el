@@ -177,4 +177,5 @@
    '((?0 ("\\emptyset" "\\varnothing"))
      (?{ ("\\subset" "\\subseteq" "\\vartriangleleft"))
      (?} ("\\supset" "\\supseteq" "\\vartriangleright"))
+     (?\\ ("\\setminus" "\\symdiff"))
      (?F ("\\Phi")))))

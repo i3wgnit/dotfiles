@@ -2,7 +2,9 @@
 # name: newlecturesub
 # key: newlec
 # --
-%% -*- TeX-master: "../main"; TeX-engine: xetex -*-
+%% -*- TeX-master: "../main.tex" ; TeX-engine: xetex -*-
+\documentclass[../main.tex]{subfile}
 
-\\${1:sub}section{${2:`(format-time-string "%B %d, %Y")`}}
+\begin{document}
 $0
+\end{document}

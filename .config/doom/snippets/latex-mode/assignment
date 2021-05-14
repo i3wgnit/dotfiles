@@ -10,6 +10,8 @@
 \author{${4:twl}}
 \date{${5:`(format-time-string "%B %d, %Y")`}}
 
+\input{../../preamble}
+
 \begin{document}
 \maketitle
 
