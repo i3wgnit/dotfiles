@@ -42,7 +42,7 @@ symlink() {
 
 sync() {
     init
-    config submodule update --init --recursive
+    config submodule update --depth 1 --init --recursive
     shortcut
     symlink
 }
@@ -62,7 +62,7 @@ case "$COMMAND" in
 
     up*) config pull --rebase origin master \
         && sync \
-        && config submodule update --remote --rebase \
+        && config submodule update --depth 1 --remote --rebase \
         || die update failed ;;
 
 
