@@ -13,6 +13,7 @@ alias mv='mv -iv'
 alias rm='rm -vI'
 alias bc='bc -lq'
 alias ffmpeg='ffmpeg -hide_banner'
+alias ffprobe='ffprobe -hide_banner'
 
 # Colours are nice
 alias ls='ls --color=auto --group-directories-first'
