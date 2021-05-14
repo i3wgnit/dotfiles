@@ -2,5 +2,5 @@
 # name: newlecturemain
 # key: newlecmain                                   
 # --
-\include{lectures/${1:`(format-time-string "%Y-%m-%d")`}.tex}
+\include{lectures/${1:`(format-time-string "%Y-%m-%d")`}}
 $0
