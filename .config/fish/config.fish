@@ -15,6 +15,7 @@ end
 source_if_exists "$XDG_CONFIG_HOME"/fish/env.fish
 
 source_if_exists "$XDG_CONFIG_HOME"/shell/aliases
+source_if_exists "$XDG_CONFIG_HOME"/shell/aliases.local
 source_if_exists "$XDG_CONFIG_HOME"/fish/shortcuts.fish
 
 # == Setup ==

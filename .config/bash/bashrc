@@ -5,6 +5,7 @@ source_if_exists() {
 }
 
 source_if_exists "$XDG_CONFIG_HOME"/shell/aliases
+source_if_exists "$XDG_CONFIG_HOME"/shell/aliases.local
 source_if_exists "$XDG_CONFIG_HOME"/shell/shortcuts
 
 # == PS1 ==
