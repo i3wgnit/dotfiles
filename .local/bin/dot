@@ -62,7 +62,7 @@ case "$COMMAND" in
 
     up*) config pull --rebase origin master \
         && sync \
-        && config submodule update --depth 1 --remote --rebase \
+        && config submodule update --depth 1 --remote --checkout \
         || die update failed ;;
 
 
