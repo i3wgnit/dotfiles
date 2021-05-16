@@ -16,7 +16,7 @@ FILENAME_TMP="${TMP_RUNTIME_DIR}/${TMP_FILE_PREFIX}TMP"
 
 cat /sys/class/power_supply/B*/capacity | numfmt --padding=2 > "$FILENAME_C"
 cat /sys/class/power_supply/B*/status | \
-    sed 's/$/ /;s/^Discharging $//;s/^Charging $/+ /;s/^\(Full\|Not charging\) $/* /' > "$FILENAME_S"
+    sed 's/$/ /;s/^Discharging $//;s/^Charging $/+/;s/^\(Full\|Not charging\) $/*/' > "$FILENAME_S"
 acpi | cut -d ' ' -f 5 | tr -dc ':[0-9]' | \
     grep -o '^[0-9]*:[0-9]*' > "$FILENAME_T"
 
