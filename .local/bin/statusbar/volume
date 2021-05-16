@@ -4,7 +4,7 @@ TMP_RUNTIME_DIR="$XDG_RUNTIME_DIR"
 TMP_FILE_PREFIX='status-vol-'
 
 FILENAME_S="${TMP_RUNTIME_DIR}/${TMP_FILE_PREFIX}S"
-SINK="$(pacmd stat | sed -n '/^Default sink name/s/^[^:]*: // p')"
+SINK="$(pactl info | sed -n '/^Default Sink/s/^[^:]*: //p')"
 
 pactl list sinks | \
     awk "/^[[:space:]]Name: ${SINK}\$/ { d=1 }

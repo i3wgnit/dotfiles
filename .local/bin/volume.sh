@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SINK="$(pacmd stat | sed -n '/^Default sink name/s/.*: // p')"
+SINK="$(pactl info | sed -n '/^Default Sink/s/^[^:]*: //p')"
 SKIP=
 
 case "$1" in
