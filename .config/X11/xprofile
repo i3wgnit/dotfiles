@@ -1,47 +1,71 @@
-numlockx
+#!/bin/sh
+
+if_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+run_if_exists() {
+    CMD="$1"
+    shift
+    if_exists "$CMD" && "$CMD" "$@" &
+}
 
 # audio
-pulseaudio --start && \
-{
-    pactl set-source-mute "$(pactl list short sources | grep 'alsa_input' | cut -f 1)" 1
-    pactl set-source-volume "$(pactl list short sources | grep 'alsa_input' | cut -f 1)" 50% 50%
+if if_exists pactl ; then
+    if if_exists pipewire; then
+        pipewire &
+    else
+        run_if_exists pulseaudio --start
+    fi
 
-    command -v qjackctl >/dev/null 2>&1 && \
-    {
+    until pactl info >/dev/null 2>&1 ; do
+        sleep 1
+    done
+
+    mic-push-to-talk.sh off
+    pactl set-source-volume "$(pactl list short sources | grep 'alsa_input' | cut -f 1)" '50%' '50%'
+
+    if if_exists qjackctl ; then
         qjackctl &
-        command -v cadence >/dev/null 2>&1 && cadence &
-        {
-            until jack_control status | grep 'started' ; do
-                sleep 1
-            done
-        } &
-    } &
+        run_if_exists cadence
+        until jack_control status | grep 'started' >/dev/null 2>&1 ; do
+            sleep 1
+        done
+    else
+        "$XDG_CONFIG_HOME"/pulse/pulse-nonjack.sh
+    fi
 
-    command -v mpd >/dev/null 2>&1 && mpd
-} &
+    kill -36 "$(pidof dwmblocks)"
+
+    run_if_exists mpd
+fi &
 
 # transmission
-command -v transmission-daemon >/dev/null 2>&1 && \
-{
+if if_exists transmission-daemon ; then
     transmission-daemon
 
-    if command -v transmission-qt >/dev/null 2>&1; then
+    if if_exists transmission-qt ; then
         transmission-qt &
-    elif command -v transmission-gtk >/dev/null 2>&1; then
+    elif if_exists transmission-gtk ; then
         transmission-gtk &
     fi
-} &
+fi &
 
-xbindkeys -f "$XDG_CONFIG_HOME"/xbindkeys/config
+# Push To Talk
+run_if_exists xbindkeys -f "$XDG_CONFIG_HOME"/xbindkeys/config
 # turn auto-repeat off for mute key
-xset -r 121
+run_if_exists xset -r 121
 
-wallpaper.sh
-
-dunst &
-dwmblocks &
-if command -v redshift-qt >/dev/null 2>&1; then
+if if_exists redshift-qt ; then
     redshift-qt &
-elif command -v redshift-gtk >/dev/null 2>&1; then
+elif if_exists redshift-gtk ; then
     redshift-gtk &
 fi
+
+run_if_exists blueman-applet
+run_if_exists dunst
+run_if_exists dwmblocks
+run_if_exists numlockx
+
+# Hang the system until we have set the wallpaper
+wallpaper.sh

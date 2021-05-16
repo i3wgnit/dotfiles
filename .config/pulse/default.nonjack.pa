@@ -1,8 +1,0 @@
-.include /etc/pulse/default.pa
-
-load-module module-null-sink sink_name=duplex_out sink_properties=device.description="Duplex_Output"
-load-module module-null-sink sink_name=loopback_out sink_properties=device.description="Loopback_Output"
-load-module module-loopback source=loopback_out.monitor
-load-module module-loopback source=loopback_out.monitor sink=duplex_out
-load-module module-loopback source=1 sink=duplex_out
-set-default-source duplex_out.monitor
