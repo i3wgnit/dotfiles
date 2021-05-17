@@ -58,11 +58,18 @@ run_if_exists xset -r 121
 
 if if_exists redshift-qt ; then
     redshift-qt &
-elif if_exists redshift-gtk ; then
-    redshift-gtk &
+else
+    run_if_exists redshift-gtk
 fi
 
-run_if_exists blueman-applet
+if if_exists connman-gtk ; then
+    connman-gtk &
+elif if_exists cmst ; then
+    cmst --minimized &
+else
+    run_if_exists blueman-applet
+fi
+
 run_if_exists dunst
 run_if_exists dwmblocks
 run_if_exists numlockx
