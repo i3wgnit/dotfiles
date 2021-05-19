@@ -3,22 +3,23 @@
 To install my dotfiles, clone a bare copy of the repo to `$HOME/.dotfiles` and run the
 following commands
 ```sh
-dot() {
+dotf() {
     command git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@"
 }
 
 # fetch and checkout bare repository
-dot fetch
-dot checkout
+dotf fetch
+dotf checkout
 
 # hide unsightly untracked files
-dot config status.showUntrackedFiles no
+dotf config status.showUntrackedFiles no
 
 # unalias bootstrap function
-unset dot
+unset dotf
 
 # full sync
-~/.local/bin/dot sync
+. $HOME/.config/shell/env
+dotf sync
 ```
 
 ## Dependencies
