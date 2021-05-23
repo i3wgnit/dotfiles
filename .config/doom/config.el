@@ -93,6 +93,11 @@
 
 ;; :lang latex
 (after! latex
+  ;; Declutter
+  (setq TeX-style-private (concat doom-private-dir "auctex/style")
+        TeX-auto-private (concat doom-cache-dir "auctex/auto"))
+  (add-to-list 'TeX-style-path TeX-style-private)
+
   (map! :map LaTeX-mode-map
         :localleader
         :desc "Crossref" "&" #'reftex-view-crossref
@@ -106,16 +111,14 @@
         :desc "Fill buffer" "M-Q" #'LaTeX-fill-buffer
         :desc "Fill region" "M-q" #'LaTeX-fill-region)
 
-  (setq TeX-style-private (concat doom-private-dir "auctex/style")
-        TeX-auto-private (concat doom-cache-dir "auctex/auto"))
-  (add-to-list 'TeX-style-path TeX-style-private)
-
+  ;; LaTeX-mode hooks
   (add-hook! LaTeX-mode
              #'LaTeX-math-mode
              #'hack-local-variables) ; hack to enable local variables in latex-mode
-  (if (featurep! :lang latex +cdlatex)
-      (add-hook! LaTeX-mode #'cdlatex-mode))
+  (when (featurep! :lang latex +cdlatex)
+    (add-hook! LaTeX-mode #'cdlatex-mode))
 
+  ;; Customization
   (add-to-list 'LaTeX-indent-environment-list '("AmSalign" LaTeX-indent-tabular))
   (add-to-list 'LaTeX-indent-environment-list '("AmSalign*" LaTeX-indent-tabular))
   (add-to-list 'LaTeX-indent-environment-list '("algorithmic"))

@@ -1,18 +1,25 @@
 # vim: ft=perl
 $cleanup_includes_cusdep_generated = 1;
-# $cleanup_includes_generated = 1;
+$cleanup_includes_generated = 0;
+
+$pdf_previewer = 'zathura %O %S &';
+$pdf_update_method = 0;
 
 # asy
 sub asy {return system("asy -o \"$_[0]\" \"$_[0]\"");}
-add_cus_dep("asy", "eps", 0, "asy");
-add_cus_dep("asy", "pdf", 0, "asy");
-add_cus_dep("asy", "tex", 0, "asy");
+add_cus_dep('asy', 'eps', 0, 'asy');
+add_cus_dep('asy', 'pdf', 0, 'asy');
+add_cus_dep('asy', 'tex', 0, 'asy');
+push @generated_exts, 'asy';
 
-$pdf_mode = 1;
-$pdf_previewer = "zathura %O %S &";
-$pdf_update_method = 0;
+sub ext_dot2tex {return system("dot2tex --prog=\"$_[0]\" --figonly -o \"$_[2]\".tex \"$_[2]\".dot\"$_[1]\"");}
+sub dot2tex {return ext_dot2tex 'dot', '', "$_[0]";}
+sub neato2tex {return ext_dot2tex 'neato', '.neato', "$_[0]";}
+add_cus_dep('dot', 'tex', 0, 'dot2tex');
+add_cus_dep('neato', 'tex', 0, 'neato2tex');
+push @generated_exts, 'dot', 'neato';
 
 $makeindex = 'makeindex -s "$XDG_DATA_HOME"/texmf/tex/latex/twl/twlindex.ist %O -o %D %S';
 
-push @generated_exts, 'atfi', 'asy', 'aux', 'fls', 'idx', 'ilg', 'ind', 'log', 'out', 'pbsdat', 'pre', 'prc', 'prv',
-    'synctex.gz', 'thm', 'toc';
+push @generated_exts, 'atfi', 'fls', 'ilg', 'log', 'pbsdat', 'pre', 'prc', 'prv',
+    'synctex.gz', 'thm';
