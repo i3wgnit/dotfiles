@@ -75,3 +75,7 @@
 	path = .local/share/zsh/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search
 	shallow = true
+[submodule ".local/share/texmf/tex/latex/dot2texi"]
+	path = .local/share/texmf/tex/latex/dot2texi
+	url = https://gitlab.com/i3wgnit/dot2texi.git
+    shallow = true
