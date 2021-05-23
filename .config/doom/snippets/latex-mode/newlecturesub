@@ -3,7 +3,7 @@
 # key: newlec
 # --
 %% -*- TeX-master: "../main.tex" ; TeX-engine: xetex -*-
-\documentclass[../main.tex]{subfile}
+\documentclass[../main.tex]{subfiles}
 
 \begin{document}
 $0
