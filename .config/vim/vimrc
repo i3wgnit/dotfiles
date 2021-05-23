@@ -5,7 +5,7 @@ set backupdir=$XDG_DATA_HOME/vim/backup
 set directory=$XDG_DATA_HOME/vim/swap
 set viewdir=$XDG_DATA_HOME/vim/view
 set viminfo+='1000,n$XDG_DATA_HOME/vim/viminfo
-set runtimepath=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
+set runtimepath=$XDG_DATA_HOME/vim,$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
 
 " }}}
 " Pathogen {{{
@@ -155,7 +155,7 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set wrap
-set textwidth=90
+set textwidth=120
 set colorcolumn=+1
 set formatoptions=qrn1
 
