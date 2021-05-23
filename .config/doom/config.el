@@ -65,11 +65,11 @@
 
 (setq ispell-dictionary "en")
 
-(map! :m [tab] nil)
-
-(map! :when IS-MAC
-      :map doom-leader-toggle-map
-      "F" #'toggle-frame-maximized)
+(map! :m [tab] nil
+      :n "Q" #'evil-fill-and-move
+      (:when IS-MAC
+       :map doom-leader-toggle-map
+       "F" #'toggle-frame-maximized))
 
 (setq-default fill-column 120
               indent-tabs-mode nil)
@@ -91,25 +91,28 @@
   (add-to-list 'minimap-major-modes #'text-mode)
   (setq minimap-window-location 'left))
 
+(map! :when (featurep! :lang latex)
+      :after latex
+      :map LaTeX-mode-map
+      :desc "Fill buffer" "M-Q" #'LaTeX-fill-buffer
+      :desc "Fill paragraph" :n "M-q" #'LaTeX-fill-paragraph
+      :desc "Fill region" :v "M-q" #'LaTeX-fill-region
+      (:localleader
+       :desc "Crossref" "&" #'reftex-view-crossref
+       :desc "Compile" "c" #'TeX-command-master
+       :desc "Compile all" "a" #'TeX-command-run-all
+       :desc "Environment" "e" #'LaTeX-environment
+       :desc "Font" "f" #'TeX-font
+       :desc "Macro" "m" #'TeX-insert-macro
+       :desc "Section" "s" #'LaTeX-section
+       :desc "View" "v" #'TeX-view))
+
 ;; :lang latex
 (after! latex
   ;; Declutter
   (setq TeX-style-private (concat doom-private-dir "auctex/style")
         TeX-auto-private (concat doom-cache-dir "auctex/auto"))
   (add-to-list 'TeX-style-path TeX-style-private)
-
-  (map! :map LaTeX-mode-map
-        :localleader
-        :desc "Crossref" "&" #'reftex-view-crossref
-        :desc "Compile" "c" #'TeX-command-master
-        :desc "Compile all" "a" #'TeX-command-run-all
-        :desc "Environment" "e" #'LaTeX-environment
-        :desc "Font" "f" #'TeX-font
-        :desc "Macro" "m" #'TeX-insert-macro
-        :desc "Section" "s" #'LaTeX-section
-        :desc "View" "v" #'TeX-view
-        :desc "Fill buffer" "M-Q" #'LaTeX-fill-buffer
-        :desc "Fill region" "M-q" #'LaTeX-fill-region)
 
   ;; LaTeX-mode hooks
   (add-hook! LaTeX-mode
@@ -130,7 +133,8 @@
   (setq!
    LaTeX-paragraph-commands
    '("documentclass" "usepackage" "title" "author" "date" "vspace" "hspace" "centering"
-     "problem" "subproblem" "subsubproblem")
+     "problem" "subproblem" "subsubproblem"
+     "PrintTheorems" "PrintIndex" "PrintAcronyms")
    reftex-label-alist
    '(("axiom"       ?a "ax:"  "~\\thref{%s}" t ("axiom")       nil)
      ("conjecture"  ?j "cnj:" "~\\thref{%s}" t ("conjecture")  nil)
@@ -171,10 +175,12 @@
   (advice-add #'LaTeX-fill-region-as-paragraph
               :around #'twl+latex//fill-sentence))
 
-(after! cdlatex
-  (map! :map LaTeX-mode-map
-        "TAB" #'cdlatex-tab)
+(map! :when (featurep! :lang (latex +cdlatex))
+      :after cdlatex
+      :map LaTeX-mode-map
+      "TAB" #'cdlatex-tab)
 
+(after! cdlatex
   (setq
    cdlatex-math-symbol-alist
    '((?0 ("\\emptyset" "\\varnothing"))
