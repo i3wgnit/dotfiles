@@ -20,34 +20,34 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       company          ; the ultimate code completion backend
-       ;;helm           ; the *other* search engine for love and life
-       ;;ido            ; the other *other* search engine...
-       (ivy +prescient) ; a search engine for love and life
+       (company +childframe) ; the ultimate code completion backend
+       ;;helm                ; the *other* search engine for love and life
+       ;;ido                 ; the other *other* search engine...
+       (ivy +prescient)      ; a search engine for love and life
 
        :ui
        ;;deft                 ; notational velocity for Emacs
        doom                   ; what makes DOOM look the way it does
        doom-dashboard         ; a nifty splash screen for Emacs
        ;;doom-quit            ; DOOM quit-message prompts when you quit Emacs
-       emoji                  ; 🙂
+       (emoji +unicode)     ; 🙂
        fill-column            ; a `fill-column' indicator
        hl-todo                ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
        ;;indent-guides        ; highlighted indent columns
        ;;ligatures            ; ligatures and symbols to make your code pretty again
-       minimap                ; show a map of the code on the side
-       modeline               ; snazzy, Atom-inspired modeline, plus API
+       ;;minimap              ; show a map of the code on the side
+       (modeline +light)               ; snazzy, Atom-inspired modeline, plus API
        nav-flash              ; blink the current line after jumping
        ;;neotree              ; a project drawer, like NERDTree for vim
        ophints                ; highlight the region an operation acts on
        (popup +all +defaults) ; tame sudden yet inevitable temporary windows
        ;;tabs                 ; an tab bar for Emacs
-       treemacs               ; a project drawer, like neotree but cooler
-       ;;unicode              ; extended unicode support for various languages
+       ;;treemacs             ; a project drawer, like neotree but cooler
+       unicode              ; extended unicode support for various languages
        vc-gutter              ; vcs diff in the fringe
-       vi-tilde-fringe        ; fringe tildes to mark beyond EOB
-       window-select          ; visually switch windows
+       ;;vi-tilde-fringe      ; fringe tildes to mark beyond EOB
+       ;;window-select        ; visually switch windows
        workspaces             ; tab emulation, persistence & separate workspaces
        zen                    ; distraction-free coding or writing
 
@@ -79,7 +79,7 @@
        ;;vterm ; another terminals in Emacs
 
        :checkers
-       (syntax +childframe)        ; tasing you for every semicolon you forget
+       syntax                      ; tasing you for every semicolon you forget
        (spell +aspell +everywhere) ; tasing you for misspelling mispelling
        grammar                     ; tasing grammar mistake every you make
 
