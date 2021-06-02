@@ -175,7 +175,7 @@
   (advice-add #'LaTeX-fill-region-as-paragraph
               :around #'twl+latex//fill-sentence))
 
-(map! :when (featurep! :lang (latex +cdlatex))
+(map! :when (featurep! :lang latex +cdlatex)
       :after cdlatex
       :map LaTeX-mode-map
       "TAB" #'cdlatex-tab)
