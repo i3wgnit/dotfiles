@@ -7,7 +7,7 @@ if_exists() {
 run_if_exists() {
     CMD="$1"
     shift
-    if_exists "$CMD" && "$CMD" "$@" &
+    if_exists "$CMD" && "$CMD" "$@" >/dev/null 2>&1 &
 }
 
 # audio
@@ -73,6 +73,7 @@ fi
 run_if_exists dunst
 run_if_exists dwmblocks
 run_if_exists numlockx
+run_if_exists signal-desktop --use-tray-icon --start-in-tray
 
 # Hang the system until we have set the wallpaper
 wallpaper.sh
