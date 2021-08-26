@@ -5,7 +5,7 @@ STATE="$(pactl list sources | \
     grep -o 'y')"
 
 if [ -n "$STATE" ]; then
-    echo mic
-else
     echo Mic
+else
+    echo MIC
 fi
