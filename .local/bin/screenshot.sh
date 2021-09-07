@@ -7,10 +7,10 @@ print_xclip() {
 MAIM_CMD='maim'
 
 SELECTION=${2:-"$(printf 'screen\nwindow\narea' | dmenu)"}
-[ -z "$SELECTION" ] && exit 1
+[ -z "$SELECTION" ] && exit
 
 OUTPUT=${1:-"$(printf 'file\nclip' | dmenu)"}
-[ -z "$OUTPUT" ] && exit 1
+[ -z "$OUTPUT" ] && exit
 
 case "$OUTPUT" in
     file) case "$SELECTION" in
