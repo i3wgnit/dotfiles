@@ -1,0 +1,61 @@
+#!/bin/sh
+
+DMENU=dmenu
+XDOTOOL='xdotool type --clearmodifiers --file -'
+XCLIP='xclip -selection c'
+
+die() {
+    echo Error: "$@" >&2
+    exit 1
+}
+
+output_pass() {
+    pass "$@" 2>/dev/null
+}
+
+IS_OTP=''
+if [ "$1" = '--otp' ]; then
+    IS_OTP=1
+    shift
+fi
+
+IS_USER=''
+if [ "$1" = '--user' ]; then
+    IS_USER=1
+    shift
+fi
+
+[ -n "$IS_OTP" ] && [ -n "$IS_USER" ] &&\
+    die --otp is incompatible with --user
+
+IS_TYPE=''
+if [ "$1" = '--type' ]; then
+    IS_TYPE=1
+    shift
+fi
+
+PREFIX="${PASSWORD_STORE_DIR:-'~/.password-store'}"
+PASSWORD="$(find "$PREFIX" -iname '*.gpg' | sed "s;^${PREFIX}/\?;; ; s;.gpg\$;;" | $DMENU "$@")"
+
+[ -z "$PASSWORD" ] && exit
+
+if [ -n "$IS_USER" ]; then
+    echo "$PASSWORD" | sed 's;^.*/;;' | tr -d '\n' |\
+        if [ -n "$IS_TYPE" ]; then
+            $XDOTOOL
+        else
+            $XCLIP
+        fi
+elif [ -n "$IS_OTP" ]; then
+    if [ -n "$IS_TYPE" ]; then
+        output_pass otp "$PASSWORD" | tr -d '\n' | $XDOTOOL
+    else
+        output_pass otp -c "$PASSWORD"
+    fi
+else
+    if [ -n "$IS_TYPE" ]; then
+        output_pass show "$PASSWORD" | sed '1q' | tr -d '\n' | $XDOTOOL
+    else
+        output_pass show -c "$PASSWORD"
+    fi
+fi
