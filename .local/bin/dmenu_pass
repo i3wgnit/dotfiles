@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Blatantly plagiarized and improved from passmenu
+
 DMENU=dmenu
 XDOTOOL='xdotool type --clearmodifiers --file -'
 XCLIP='xclip -selection c'
