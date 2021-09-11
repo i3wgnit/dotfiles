@@ -82,6 +82,7 @@ dotf sync
 
 - R
 - emacs
+- feh
 - firefox
 - gimp
 - htop
