@@ -2,5 +2,7 @@
 
 . "$HOME"/.config/shell/env
 
-[ -z "$DISPLAY" ] && [ "$(tty)" = /dev/tty1 ] &&\
-    exec startx "$XINITRC"
+if [ -z "$DISPLAY" ] && [ "$(tty)" = /dev/tty1 ]; then
+    startx "$XINITRC"
+    exit
+fi
