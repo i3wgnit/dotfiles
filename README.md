@@ -28,26 +28,72 @@ dotf sync
 - [dwm](https://gitlab.com/i3wgnit/dwm-twl)
   - [dwmblocks](https://gitlab.com/i3wgnit/dwmblocks-twl)
 - dmenu
+- pulseaudio
+  - alsa
 - fonts
   - ~~misc ohsnap~~
   - iosevka
   - ~~iosevka term~~
   - ~~iosevka nerd font~~
   - hermit
+- gtk
+  - papirus-icon-theme
+  - xcursor-neutral++
 
 ### Optional
 
+#### UI/UX
+
+- file manager
+  - spacefm
+- image viewer
+  - sxiv
+- notifications
+  - dunst
+- redshift
+- screenshot
+  - maim
+- shell
+  - ~~fish shell~~
+  - zsh
+- torrent
+  - transmission
+
+#### Daemons
+
+- auto-lock
+  - xss-lock
+  - gllock
+- bluetooth
+  - blueman
+  - bluez
+- cronjobs
+  - fcron
+- music player
+  - mpd
+  - ncmpcpp
+- ntp
+  - chrony
+- tor
+  - torbrowser
+  - torsocks
+
+#### Misc
+
 - R
-- dunst
 - emacs
 - firefox
-- ~~fish shell~~
+- gimp
 - htop
+- jack2
+- krita
 - latex
+  - texlive
 - mpv
-- redshift
-- torsocks
-- zsh
+- neofetch
+- piper
+- tmux
+- ungoogled-chromium
 
 ## TODO
 
