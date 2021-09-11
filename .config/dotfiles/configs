@@ -1,9 +1,8 @@
 cfb         ~/.config/bash/bashrc
 cfd         ~/.local/bin/dot
-cfec        ~/.config/doom/config.el
-cfei        ~/.config/doom/init.el
+cfdc        ~/.config/doom/config.el
+cfdi        ~/.config/doom/init.el
 cff         ~/.config/fish/config.fish
-cfib        ~/.config/i3blocks/config
-cfic        ~/.config/i3/config
+cfse        ~/.config/shell/env
 cfv         ~/.config/vim/vimrc
 cfz         ~/.config/zsh/zshrc
