@@ -12,8 +12,8 @@ run_if_exists() {
 
 # audio
 if if_exists pactl ; then
-    if if_exists pipewire; then
-        pipewire &
+    if if_exists pipewire ; then
+        run_if_exists pipewire
     else
         run_if_exists pulseaudio --start
     fi
@@ -26,7 +26,7 @@ if if_exists pactl ; then
     pactl set-source-volume "$(pactl list short sources | grep 'alsa_input' | cut -f 1)" '50%' '50%'
 
     if if_exists qjackctl ; then
-        qjackctl &
+        run_if_exists qjackctl
         run_if_exists cadence
         until jack_control status | grep 'started' >/dev/null 2>&1 ; do
             sleep 1
@@ -45,9 +45,9 @@ if if_exists transmission-daemon ; then
     transmission-daemon
 
     if if_exists transmission-qt ; then
-        transmission-qt &
-    elif if_exists transmission-gtk ; then
-        transmission-gtk &
+        run_if_exists transmission-qt
+    else
+        run_if_exists transmission-gtk
     fi
 fi &
 
@@ -57,15 +57,15 @@ run_if_exists xbindkeys -f "$XDG_CONFIG_HOME"/xbindkeys/config
 run_if_exists xset -r 121
 
 if if_exists redshift-qt ; then
-    redshift-qt &
+    run_if_exists redshift-qt
 else
     run_if_exists redshift-gtk
 fi
 
 if if_exists connman-gtk ; then
-    connman-gtk &
+    run_if_exists connman-gtk
 elif if_exists cmst ; then
-    cmst --minimized &
+    run_if_exists cmst --minimized
 else
     run_if_exists blueman-applet
 fi
