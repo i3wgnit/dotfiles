@@ -1,3 +1,4 @@
 ##include "~/.config/X11/nord-xresources/src/nord"
 Xcursor.theme: Neutral_Plus
 Xcursor.size: 32
+Xft.dpi: 120
