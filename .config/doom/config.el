@@ -128,6 +128,7 @@
   (add-to-list 'LaTeX-indent-environment-list '("asy"))
   (add-to-list 'LaTeX-indent-environment-list '("asydef"))
   (add-to-list 'LaTeX-indent-environment-list '("circuitikz"))
+  (add-to-list 'LaTeX-indent-environment-list '("dot2tex"))
   (add-to-list 'LaTeX-indent-environment-list '("quantikz" LaTeX-indent-tabular))
 
   (setq!
