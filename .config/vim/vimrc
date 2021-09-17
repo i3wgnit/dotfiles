@@ -99,6 +99,7 @@ set title
 set linebreak
 set mouse=a
 set nojoinspaces
+set notitle
 
 " }}}
 

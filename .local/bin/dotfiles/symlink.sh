@@ -5,7 +5,7 @@ if command -v realpath >/dev/null; then
 elif command -v grealpath >/dev/null; then
     REALPATH=grealpath
 else
-    echo Error: realpath command not found
+    echo Error: realpath command not found >&2
     exit 1
 fi
 

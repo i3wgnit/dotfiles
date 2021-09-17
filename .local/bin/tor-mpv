@@ -1,6 +1,6 @@
 #!/bin/sh
 
-LINK="${@:-$(xclip -selection c -o)}"
+LINK="${1:-"$(xclip -selection c -o)"}"
 
 while :
 do
