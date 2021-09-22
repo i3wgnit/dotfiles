@@ -2,7 +2,7 @@
 
 # Blatantly plagiarized and improved from passmenu
 
-DMENU=dmenu
+DMENU='dmenu -i'
 XDOTOOL='xdotool type --clearmodifiers --file -'
 XCLIP='xclip -selection c'
 
