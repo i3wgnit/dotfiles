@@ -70,12 +70,15 @@ else
     run_if_exists blueman-applet
 fi
 
+if if_exists gllock ; then
+    run_if_exists xss-lock -- gllock
+fi
+
 run_if_exists dunst
 run_if_exists dwmblocks
 run_if_exists fcitx
 run_if_exists numlockx
 run_if_exists signal-desktop --use-tray-icon --start-in-tray
-run_if_exists xss-lock -- gllock
 
 # Hang the system until we have set the wallpaper
 wallpaper.sh
