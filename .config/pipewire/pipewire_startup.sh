@@ -1,14 +1,5 @@
 #!/bin/sh
 
-if pactl info >/dev/null 2>&1 ; then
-    killall pipewire
-fi
-
-pipewire >/dev/null 2>&1 &
-until pactl info >/dev/null 2>&1 ; do
-    sleep 1
-done
-
 pactl set-default-source "$(pactl get-default-source)"
 
 pw-cli create-node adapter factory.name='support.null-audio-sink' media.class='Audio/Sink' object.linger='true' monitor.channel-volumes='true' node.name='loopback_out' node.description='Loopback_Out'
