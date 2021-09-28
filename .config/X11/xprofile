@@ -75,6 +75,11 @@ if if_exists gllock ; then
     run_if_exists xss-lock -- gllock
 fi
 
+if if_exists xcape ; then
+    run_if_exists setxkbmap -option 'caps:ctrl_modifier'
+    run_if_exists xcape -e 'Caps_Lock=Escape'
+fi
+
 run_if_exists dunst
 run_if_exists dwmblocks
 run_if_exists fcitx
