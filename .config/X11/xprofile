@@ -13,27 +13,28 @@ run_if_exists() {
 # audio
 if if_exists pactl ; then
     if if_exists pipewire ; then
-        run_if_exists pipewire
+        "$XDG_CONFIG_HOME"/pipewire/pipewire_startup.sh
     else
         run_if_exists pulseaudio --start
-    fi
 
-    until pactl info >/dev/null 2>&1 ; do
-        sleep 1
-    done
-
-    mic-push-to-talk.sh off
-    pactl set-source-volume "$(pactl list short sources | grep 'alsa_input' | cut -f 1)" '50%' '50%'
-
-    if if_exists qjackctl ; then
-        run_if_exists qjackctl
-        run_if_exists cadence
-        until jack_control status | grep 'started' >/dev/null 2>&1 ; do
+        until pactl info >/dev/null 2>&1 ; do
             sleep 1
         done
-    else
-        "$XDG_CONFIG_HOME"/pulse/pulse-nonjack.sh
+
+        if if_exists qjackctl ; then
+            run_if_exists qjackctl
+            run_if_exists cadence
+            until jack_control status | grep 'started' >/dev/null 2>&1 ; do
+                sleep 1
+            done
+        else
+            "$XDG_CONFIG_HOME"/pulse/pulse-nonjack.sh
+        fi
     fi
+
+    mic-push-to-talk.sh off
+    pactl list short sources | grep 'alsa_input' | cut -f 1 | \
+        xargs -d '\n' -I '{}' pactl set-source-volume '{}' '50%' '50%'
 
     kill -36 "$(pidof dwmblocks)"
 

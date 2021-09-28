@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SINK="$(pactl info | sed -n '/^Default Sink/s/^[^:]*: //p')"
+SINK="$(pactl get-default-sink)"
 SKIP=
 
 case "$1" in

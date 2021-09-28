@@ -21,9 +21,10 @@ alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 
 # TLDR
-alias ka='killall'
 alias g='git'
+alias ka='killall'
 alias nwsb='newsboat'
+alias pm='pulsemixer'
 alias tors='torsocks -i '
 alias trem='transmission-remote'
 alias ts='taskset 0xFFFFFFFE '
