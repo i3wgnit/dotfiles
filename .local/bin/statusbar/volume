@@ -2,7 +2,7 @@
 
 SINK="$(pactl get-default-sink)"
 
-if [ -n "$(pactl get-sink-mute "$SINK" | sed 's/[^y]//g')" ] ; then
+if [ -n "$(pactl get-sink-mute "$SINK" | grep -o 'y')" ] ; then
     echo muted
 else
     pactl get-sink-volume "$SINK" | awk 'NR==1 { print $5 }'

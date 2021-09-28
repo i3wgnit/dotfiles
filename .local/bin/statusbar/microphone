@@ -1,10 +1,8 @@
 #!/bin/sh
 
-STATE="$(pactl list sources | \
-    sed -n '1,/^[[:space:]]Name: alsa_input/d;/^[[:space:]]Mute/p;/^[[:space:]]Mute/q' | \
-    grep -o 'y')"
+SOURCE="$(pactl list short sources | grep -m 1 alsa_input | cut -f 2)"
 
-if [ -n "$STATE" ]; then
+if [ -n "$(pactl get-source-mute "$SOURCE" | grep -o 'y')" ]; then
     echo Mic
 else
     echo MIC
