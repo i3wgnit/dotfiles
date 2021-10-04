@@ -3,4 +3,4 @@
 eval $(xdotool getmouselocation --shell)
 notify-send -c colour \
     'Cursor pixel colour' \
-    $(maim -u -i root -g "1x1+$X+$Y" | magick - txt:- | grep -om 1 '#\w\+')
+    "$(maim -u -i root -g "1x1+$X+$Y" | magick - txt:- | grep -om 1 '#\w\+')"
