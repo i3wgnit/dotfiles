@@ -21,7 +21,7 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-font (font-spec :family "Iosevka" :size 21)
+(setq doom-font (font-spec :family "Iosevka" :size 18)
       doom-variable-pitch-font doom-font
       doom-big-font (font-spec :family "Iosevka" :size 36))
 
@@ -104,8 +104,7 @@
        :desc "Environment" "e" #'LaTeX-environment
        :desc "Font" "f" #'TeX-font
        :desc "Macro" "m" #'TeX-insert-macro
-       :desc "Section" "s" #'LaTeX-section
-       :desc "View" "v" #'TeX-view))
+       :desc "Section" "s" #'LaTeX-section))
 
 ;; :lang latex
 (after! latex
@@ -118,8 +117,6 @@
   (add-hook! LaTeX-mode
              #'LaTeX-math-mode
              #'hack-local-variables) ; hack to enable local variables in latex-mode
-  (when (featurep! :lang latex +cdlatex)
-    (add-hook! LaTeX-mode #'cdlatex-mode))
 
   ;; Customization
   (add-to-list 'LaTeX-indent-environment-list '("AmSalign" LaTeX-indent-tabular))
