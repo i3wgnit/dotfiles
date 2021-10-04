@@ -3,7 +3,7 @@
 TMP_RUNTIME_DIR="$XDG_RUNTIME_DIR"
 TMP_FILE_PREFIX='status-net-'
 
-grep up /sys/class/net/[ew][nl]*/operstate >/dev/null 2>&1 \
+grep up /sys/class/net/[ew][lnt]*/operstate >/dev/null 2>&1 \
     || {
     echo no connection
     exit 1
@@ -13,8 +13,8 @@ FILENAME_T="${TMP_RUNTIME_DIR}/${TMP_FILE_PREFIX}T"
 FILENAME_RX="${TMP_RUNTIME_DIR}/${TMP_FILE_PREFIX}RX"
 FILENAME_TX="${TMP_RUNTIME_DIR}/${TMP_FILE_PREFIX}TX"
 
-CUR_RX=$(( $(paste -d '+' /sys/class/net/[ew][nl]*/statistics/rx_bytes) ))
-CUR_TX=$(( $(paste -d '+' /sys/class/net/[ew][nl]*/statistics/tx_bytes) ))
+CUR_RX=$(( $(paste -d '+' /sys/class/net/[ew][lnt]*/statistics/rx_bytes) ))
+CUR_TX=$(( $(paste -d '+' /sys/class/net/[ew][lnt]*/statistics/tx_bytes) ))
 CUR_T=$(date +%s)
 
 [ -f "$FILENAME_T" ] \
