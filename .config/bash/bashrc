@@ -16,8 +16,8 @@ case "$USER" in
 esac
 PS1="${PS1}${RANGER_LEVEL:+[ranger] }${SSH_TTY:+(ssh) }"
 
+HISTFILE="$XDG_STATE_HOME"/bash_history
 HISTSIZE=1000000
-HISTFILE="$XDG_CACHE_HOME"/bash/history
 
 set completion-ignore-case on
 set completion-query-items 200
