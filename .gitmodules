@@ -1,44 +1,44 @@
-[submodule ".config/vim/bundle/vim-pathogen"]
+[submodule ".local/share/vim/bundle/vim-pathogen"]
 	path = .local/share/vim/bundle/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen.git
 	shallow = true
-[submodule ".config/vim/bundle/vim-surround"]
+[submodule ".local/share/vim/bundle/vim-surround"]
 	path = .local/share/vim/bundle/vim-surround
 	url = https://github.com/tpope/vim-surround.git
 	shallow = true
-[submodule ".config/vim/bundle/vim-sensible"]
+[submodule ".local/share/vim/bundle/vim-sensible"]
 	path = .local/share/vim/bundle/vim-sensible
 	url = https://github.com/tpope/vim-sensible.git
 	shallow = true
-[submodule ".config/vim/bundle/vim-latex"]
+[submodule ".local/share/vim/bundle/vim-latex"]
 	path = .local/share/vim/bundle/vim-latex
 	url = https://github.com/vim-latex/vim-latex.git
 	shallow = true
-[submodule ".config/vim/bundle/vim-dispatch"]
+[submodule ".local/share/vim/bundle/vim-dispatch"]
 	path = .local/share/vim/bundle/vim-dispatch
 	url = https://github.com/tpope/vim-dispatch.git
 	shallow = true
-[submodule ".config/vim/bundle/vim-fish"]
+[submodule ".local/share/vim/bundle/vim-fish"]
 	path = .local/share/vim/bundle/vim-fish
 	url = https://github.com/dag/vim-fish.git
 	shallow = true
-[submodule ".config/vim/bundle/vim-colorschemes"]
+[submodule ".local/share/vim/bundle/vim-colorschemes"]
 	path = .local/share/vim/bundle/vim-colorschemes
 	url = https://github.com/flazz/vim-colorschemes.git
 	shallow = true
-[submodule ".config/vim/bundle/vim-bufferline"]
+[submodule ".local/share/vim/bundle/vim-bufferline"]
 	path = .local/share/vim/bundle/vim-bufferline
 	url = https://github.com/bling/vim-bufferline.git
 	shallow = true
-[submodule ".config/vim/bundle/vim-airline"]
+[submodule ".local/share/vim/bundle/vim-airline"]
 	path = .local/share/vim/bundle/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
 	shallow = true
-[submodule ".config/vim/bundle/vim-airline-themes"]
+[submodule ".local/share/vim/bundle/vim-airline-themes"]
 	path = .local/share/vim/bundle/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
 	shallow = true
-[submodule ".config/vim/bundle/nerdtree"]
+[submodule ".local/share/vim/bundle/nerdtree"]
 	path = .local/share/vim/bundle/nerdtree
 	url = https://github.com/preservim/nerdtree.git
 	shallow = true
