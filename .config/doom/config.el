@@ -125,7 +125,7 @@
   (add-to-list 'LaTeX-indent-environment-list '("asy"))
   (add-to-list 'LaTeX-indent-environment-list '("asydef"))
   (add-to-list 'LaTeX-indent-environment-list '("circuitikz"))
-  (add-to-list 'LaTeX-indent-environment-list '("dot2tex"))
+  (add-to-list 'LaTeX-indent-environment-list '("dottotex"))
   (add-to-list 'LaTeX-indent-environment-list '("quantikz" LaTeX-indent-tabular))
 
   (setq!
@@ -180,9 +180,15 @@
 
 (after! cdlatex
   (setq
+   cdlatex-math-modify-alist
+   '((?B "\\mathbb"   nil t nil nil)
+     (?f "\\mathfrak" nil t nil nil))
    cdlatex-math-symbol-alist
-   '((?0 ("\\emptyset" "\\varnothing"))
-     (?{ ("\\subset" "\\subseteq" "\\vartriangleleft"))
-     (?} ("\\supset" "\\supseteq" "\\vartriangleright"))
+   '((?*  ("\\times"    "\\otimes"))
+     (?+  ("\\cup"      "\\oplus"))
+     (?.  ("\\cdot"     "\\cdots"    "\\ldots"))
+     (?0  ("\\emptyset" "\\varnothing"))
+     (?F  ("\\Phi"))
      (?\\ ("\\setminus" "\\symdiff"))
-     (?F ("\\Phi")))))
+     (?{  ("\\subset"   "\\subseteq" "\\vartriangleleft"))
+     (?}  ("\\supset"   "\\supseteq" "\\vartriangleright")))))
