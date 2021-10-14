@@ -3,6 +3,7 @@ cfd         ~/.local/bin/dot
 cfdc        ~/.config/doom/config.el
 cfdi        ~/.config/doom/init.el
 cff         ~/.config/fish/config.fish
+cfsa        ~/.config/shell/aliases
 cfse        ~/.config/shell/env
 cfv         ~/.config/vim/vimrc
 cfz         ~/.config/zsh/zshrc
