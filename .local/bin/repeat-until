@@ -1,7 +1,6 @@
 #!/bin/sh
 
-
-torsocks -i "$@"
+$*
 while [ "$?" -ne 0 ] ; do
-    torsocks -i "$@"
+    $*
 done
