@@ -31,6 +31,7 @@ dotf sync
 - pulseaudio
   - alsa
 - fonts
+  - fira
   - ~~misc ohsnap~~
   - iosevka
   - ~~iosevka term~~
@@ -39,6 +40,8 @@ dotf sync
 - gtk
   - papirus-icon-theme
   - xcursor-neutral++
+- qt
+  - breeze
 
 ### Optional
 
