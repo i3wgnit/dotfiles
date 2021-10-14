@@ -41,7 +41,7 @@ SwitchKey=Disabled
 # Include Inactivate when scrolling between Input Method
 # Available Value:
 # True False
-#IMSwitchIncludeInactive=False
+IMSwitchIncludeInactive=True
 # Scroll between Input Method
 # Available Value:
 # CTRL_SHIFT
