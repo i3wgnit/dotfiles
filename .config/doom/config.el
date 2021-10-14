@@ -119,8 +119,7 @@
              #'hack-local-variables) ; hack to enable local variables in latex-mode
 
   ;; Customization
-  (add-to-list 'LaTeX-indent-environment-list '("AmSalign" LaTeX-indent-tabular))
-  (add-to-list 'LaTeX-indent-environment-list '("AmSalign*" LaTeX-indent-tabular))
+  (add-to-list 'LaTeX-indent-environment-list '("empheq" LaTeX-indent-tabular))
   (add-to-list 'LaTeX-indent-environment-list '("algorithmic"))
   (add-to-list 'LaTeX-indent-environment-list '("asy"))
   (add-to-list 'LaTeX-indent-environment-list '("asydef"))
