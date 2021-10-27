@@ -50,9 +50,9 @@ if [ -n "$IS_USER" ]; then
         fi
 elif [ -n "$IS_OTP" ]; then
     if [ -n "$IS_TYPE" ]; then
-        output_pass otp "$PASSWORD" | tr -d '\n' | $XDOTOOL
+        output_pass otp "$PASSWORD" | tail -1 | tr -d '\n' | $XDOTOOL
     else
-        output_pass otp -c "$PASSWORD"
+        output_pass otp -c "$PASSWORD" | tail -1
     fi
 else
     if [ -n "$IS_TYPE" ]; then
