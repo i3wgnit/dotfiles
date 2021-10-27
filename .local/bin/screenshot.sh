@@ -28,5 +28,6 @@ case "$OUTPUT" in
 esac
 
 notify-send \
+    -c transient \
     'Screenshot Captured' \
     "of ${SELECTION} to ${OUTPUT}"
