@@ -61,6 +61,7 @@ case "$COMMAND" in
     sync) sync ;;
 
     up*) config pull --rebase origin master \
+        && . "${XDG_CONFIG_HOME:-~/.config}"/shell/env \
         && sync \
         && config submodule update --depth 1 --remote --checkout \
         || die update failed ;;
