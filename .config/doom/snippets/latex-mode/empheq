@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: empheq
+# key: eq
+# --
+\begin{empheq}${2:[$3]}{${1:align*}}
+`%`$0
+\end{empheq}

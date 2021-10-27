@@ -4,14 +4,14 @@
 ;; Remember to run 'doom sync' after modifying it!
 
 ;; NOTE Press 'SPC h d h' (or 'C-h d h' for non-vim users) to access Doom's
-;;      documentation. There you'll find information about all of Doom's modules
-;;      and what flags they support.
+;;      documentation. There you'll find a "Module Index" link where you'll find
+;;      a comprehensive list of Doom's modules and what flags they support.
 
 ;; NOTE Move your cursor over a module's name (or its flags) and press 'K' (or
-;;      'C-c g k' for non-vim users) to view its documentation. This works on
+;;      'C-c c k' for non-vim users) to view its documentation. This works on
 ;;      flags as well (those symbols that start with a plus).
 ;;
-;;      Alternatively, press 'gd' (or 'C-c g d') on a module to browse its
+;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
 (doom! :input
@@ -55,7 +55,7 @@
        (evil +everywhere) ; come to the dark side, we have cookies
        file-templates     ; auto-snippets for empty files
        ;;fold             ; (nigh) universal code folding
-       ;;format           ; automated prettiness
+       ;;(format +onsave) ; automated prettiness
        ;;god              ; run Emacs commands without modifier keys
        ;;lispy            ; vim for lisp, for people who don't like vim
        ;;multiple-cursors ; editing in many places at once
@@ -161,7 +161,7 @@
        ;;(ruby +rails)           ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        rust                      ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala                   ; java, but good
-       ;;scheme                  ; a fully conniving family of lisps
+       ;;(scheme +guile)         ; a fully conniving family of lisps
        sh                        ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
        ;;solidity                ; do you need a blockchain? No.

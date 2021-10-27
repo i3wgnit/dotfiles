@@ -130,6 +130,7 @@
   (setq!
    LaTeX-paragraph-commands
    '("documentclass" "usepackage" "title" "author" "date" "vspace" "hspace" "centering"
+     "includegraphics"
      "problem" "subproblem" "subsubproblem"
      "PrintTheorems" "PrintIndex" "PrintAcronyms")
    reftex-label-alist
