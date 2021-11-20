@@ -69,7 +69,7 @@
 	shallow = true
 [submodule ".local/share/zsh/fast-syntax-highlighting"]
 	path = .local/share/zsh/fast-syntax-highlighting
-	url = https://github.com/zdharma/fast-syntax-highlighting.git
+	url = https://github.com/zdharma-continuum/fast-syntax-highlighting.git
 	shallow = true
 [submodule ".local/share/zsh/zsh-history-substring-search"]
 	path = .local/share/zsh/zsh-history-substring-search
