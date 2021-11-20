@@ -74,9 +74,9 @@
 
        :term
        ;;eshell ; the elisp shell that works everywhere
-       ;;shell  ; a terminal REPL for Emacs
-       ;;term   ; terminals in Emacs
-       vterm    ; another terminals in Emacs
+       ;;shell  ; simple shell REPL for Emacs
+       ;;term   ; basic terminal emulator for Emacs
+       vterm    ; the best terminal emulation in Emacs
 
        :checkers
        (syntax +childframe)        ; tasing you for every semicolon you forget
@@ -93,7 +93,7 @@
        (eval +overlay)               ; run code, run (also, repls)
        ;;gist                        ; interacting with github gists
        (lookup +dictionary +offline) ; navigate your code and its documentation
-       ;;lsp
+       ;;lsp                         ; M-x vscode
        magit                         ; a git porcelain for Emacs
        make                          ; run make tasks from Emacs
        ;;pass                        ; password manager for nerds
@@ -132,7 +132,7 @@
        ;;fstar                   ; (dependent) types and (monadic) effects and Z3
        ;;gdscript                ; the language you waited for
        ;;(go +lsp)               ; the hipster dialect
-       (haskell +dante)          ; a language that's lazier than I am
+       (haskell +lsp)            ; a language that's lazier than I am
        ;;hy                      ; readability of scheme w/ speed of python
        ;;idris                   ; a language you can depend on
        json                      ; At least it ain't XML
