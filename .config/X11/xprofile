@@ -82,10 +82,14 @@ if if_exists xcape ; then
     run_if_exists xcape -e 'Caps_Lock=Escape'
 fi
 
+if if_exists fcitx ; then
+    run_if_exists fcitx -d
+else
+    run_if_exists fcitx5 -d
+fi
+
 run_if_exists dunst
 run_if_exists dwmblocks
-run_if_exists fcitx -d
-run_if_exists fcitx5 -d
 run_if_exists numlockx
 run_if_exists signal-desktop --use-tray-icon --start-in-tray
 run_if_exists wallpaper.sh
