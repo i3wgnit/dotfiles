@@ -42,7 +42,8 @@ symlink() {
 
 sync() {
     init
-    config submodule update --depth 1 --init --recursive
+    config submodule sync --recursive
+    config submodule update --init --recursive --force --depth 1
     shortcut
     symlink
 }
@@ -63,7 +64,6 @@ case "$COMMAND" in
     up*) config pull --rebase origin master \
         && . "${XDG_CONFIG_HOME:-~/.config}"/shell/env \
         && sync \
-        && config submodule update --depth 1 --remote --checkout \
         || die update failed ;;
 
 
