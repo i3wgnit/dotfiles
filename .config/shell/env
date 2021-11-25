@@ -60,6 +60,7 @@ export OCTAVE_HISTFILE="$XDG_STATE_HOME"/octave_history
 export OCTAVE_SITE_INITFILE="$XDG_CONFIG_HOME"/octave/octaverc
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
 export PULSE_COOKIE="$XDG_RUNTIME_HOME"/pulse_cookie
+export PYTHONSTARTUP="$XDG_CONFIG_HOME"/python/pythonstartup.py
 export TERMINFO="$XDG_DATA_HOME"/terminfo
 export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
 export TEXMFCONFIG="$XDG_CONFIG_HOME"/texlive/texmf-config
