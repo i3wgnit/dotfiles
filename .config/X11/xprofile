@@ -14,6 +14,13 @@ run_if_exists() {
 if if_exists pactl ; then
     if if_exists pipewire ; then
         run_if_exists pipewire
+        # timing hack
+        sleep 1
+        if if_exists wireplumber ; then
+            run_if_exists wireplumber
+        else
+            run_if_exists pipewire-media-session
+        fi
     else
         run_if_exists pulseaudio --start
     fi
