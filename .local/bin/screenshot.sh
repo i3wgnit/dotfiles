@@ -4,7 +4,6 @@ PRINT_FILE="$HOME"/Pictures/screenshots/"$(date +%Y%m%d-%H%M%S)".png
 print_xclip() {
     xclip -t image/png -selection c
 }
-MAIM_CMD='maim'
 
 SELECTION=${2:-"$(printf 'screen\nwindow\narea' | dmenu)"}
 [ -z "$SELECTION" ] && exit

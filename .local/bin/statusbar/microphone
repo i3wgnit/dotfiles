@@ -2,7 +2,7 @@
 
 SOURCE="$(pactl list short sources | grep -m 1 alsa_input | cut -f 2)"
 
-if [ -n "$(pactl get-source-mute "$SOURCE" | grep -o 'y')" ]; then
+if pactl get-source-mute "$SOURCE" | grep -q 'y' ; then
     echo Mic
 else
     echo MIC
