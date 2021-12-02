@@ -20,7 +20,7 @@ if if_exists pactl ; then
         sleep 1
     done
 
-    if ! if_exists pipewire ; then
+    if if_exists pipewire ; then
         "$XDG_CONFIG_HOME"/pipewire/pipewire_startup.sh
     elif if_exists qjackctl ; then
         run_if_exists qjackctl
