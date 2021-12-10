@@ -43,7 +43,7 @@ symlink() {
 sync() {
     init
     config submodule sync --recursive
-    config submodule update --init --recursive --force --depth 1
+    config submodule update --depth 1 --force --init --remote --recursive 
     shortcut
     symlink
 }
