@@ -1,8 +1,8 @@
 #!/bin/sh
 
-if command -v realpath >/dev/null; then
+if command -v realpath >/dev/null 2>&1 ; then
     REALPATH=realpath
-elif command -v grealpath >/dev/null; then
+elif command -v grealpath >/dev/null 2>&1 ; then
     REALPATH=grealpath
 else
     echo Error: realpath command not found >&2
@@ -15,14 +15,15 @@ link() {
     SOURCE="$1"
     TARGET="$2"
 
-    [ -d "$TARGET" ] \
-        && TARGET="${TARGET}/$(basename "$SOURCE")"
+    if [ -d "$TARGET" ] ; then
+        TARGET="${TARGET}/$(basename "$SOURCE")"
+    fi
 
-    if [ -e "$SOURCE" ]; then
+    if [ -e "$SOURCE" ] ; then
         if ln -n -s "$SOURCE" "$TARGET" >/dev/null 2>&1 ; then
             MESSAGE="Created link"
-        elif [ -L "$TARGET" ]; then
-            if [ "$("$REALPATH" "$SOURCE")" = "$("$REALPATH" "$TARGET")" ]; then
+        elif [ -L "$TARGET" ] ; then
+            if [ "$("$REALPATH" "$SOURCE")" = "$("$REALPATH" "$TARGET")" ] ; then
                 MESSAGE="Link exists"
             else
                 printf '%s already exists but is a symlink to a different file' "$TARGET"

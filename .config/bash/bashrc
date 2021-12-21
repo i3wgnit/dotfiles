@@ -35,8 +35,9 @@ set convert-meta off
 set -o vi
 
 # == pyenv ==
-command -v pyenv >/dev/null 2>&1 && \
-    eval "$(pyenv init - --no-rehash bash)" && \
-    eval "$(pyenv virtualenv-init - bash)"
+#if command -v pyenv >/dev/null 2>&1 ; then
+#    eval "$(pyenv init - --no-rehash bash)" && \
+#        eval "$(pyenv virtualenv-init - bash)"
+#fi
 
 source_if_exists "$XDG_CONFIG_HOME"/bash/bashrc.local

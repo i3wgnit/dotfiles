@@ -61,9 +61,10 @@ zmodload zsh/complist
 compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 
 # == pyenv ==
-#command -v pyenv >/dev/null 2>&1 && \
+#if command -v pyenv >/dev/null 2>&1 ; then
 #    eval "$(pyenv init - --no-rehash zsh)" && \
-#    eval "$(pyenv virtualenv-init - zsh)"
+#        eval "$(pyenv virtualenv-init - zsh)"
+#fi
 
 # == plugins ==
 source "$XDG_DATA_HOME"/zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
