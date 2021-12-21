@@ -8,15 +8,23 @@ command -v nvim >/dev/null 2>&1 && \
 alias sudo='sudo '
 
 # Commands should be more verbose
+if [ "$(uname -s)" = Darwin ] ; then
+    alias rm='rm -v'
+else
+    alias rm='rm -vI'
+fi
 alias cp='cp -iv'
 alias mv='mv -iv'
-alias rm='rm -vI'
 alias bc='bc -lq'
 alias ffmpeg='ffmpeg -hide_banner'
 alias ffprobe='ffprobe -hide_banner'
 
 # Colours are nice
-alias ls='ls --color=auto --group-directories-first'
+if [ "$(uname -s)" = Darwin ] ; then
+    alias ls='ls -G'
+else
+    alias ls='ls --color=auto --group-directories-first'
+fi
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 

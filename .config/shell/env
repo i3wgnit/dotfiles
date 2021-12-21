@@ -6,20 +6,22 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME"/.config}
 export XDG_DATA_HOME=${XDG_DATA_HOME:-"$HOME"/.local/share}
 export XDG_STATE_HOME=${XDG_STATE_HOME:-"$HOME"/.local/state}
 
+export BROWSER=firefox
 export EDITOR=vim
 export VISUAL=vim
-export TERM=st-256color
-export BROWSER=firefox
+if command -v st >/dev/null 2>&1 ; then
+    export TERM=st-256color
+else
+    export TERM=xterm-256color
+fi
 
 export QT_QPA_PLATFORMTHEME='qt5ct'
 
-[ "$(uname -s)" = Darwin ] &&\
+if [ "$(uname -s)" = Darwin ] ; then
+    export PATH=/Users/admin/homebrew/bin:/Users/admin/homebrew/sbin:"$PATH"
     export PATH=/opt/local/bin:/opt/local/sbin:"$PATH"
+fi
 export PATH="$HOME"/.local/bin:"$PATH"
-
-# == asymptote ==
-export ASYMPTOTE_PSVIEWER=zathura
-export ASYMPTOTE_PDFVIEWER=zathura
 
 # == clipmenu ==
 #export CM_SELECTIONS=clipboard
