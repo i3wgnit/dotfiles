@@ -43,3 +43,6 @@ alias ts='taskset 0xFFFFFFFE '
 alias z='zathura'
 
 alias ranger='[ -n "$RANGER_LEVEL" ] && exit || ranger'
+
+# stuff
+alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME/nvidia/settings"'
