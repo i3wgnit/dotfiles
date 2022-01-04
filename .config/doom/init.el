@@ -85,6 +85,7 @@
 
        :tools
        ;;ansible
+       ;;biblio                      ; Writes a PhD for you (citation needed)
        ;;debugger                    ; FIXME stepping through code, to help you add bugs
        ;;direnv
        ;;docker
@@ -129,6 +130,8 @@
        ;;factor
        ;;faust                   ; dsp, but you get to keep your soul
        ;;fsharp                  ; ML stands for Microsoft's Language
+       ;;fortran                 ; in FORTRAN, GOD is REAL (unless declared INTEGER)
+       ;;fsharp                  ; ML stands for Microsoft's Language
        ;;fstar                   ; (dependent) types and (monadic) effects and Z3
        ;;gdscript                ; the language you waited for
        ;;(go +lsp)               ; the hipster dialect
@@ -156,7 +159,7 @@
        ;;qt                      ; the 'cutest' gui framework ever
        racket                    ; a DSL for DSLs
        ;;raku                    ; the artist formerly known as perl6
-       ;;rest                    ; Emacs as a REST client
+       rest                      ; Emacs as a REST client
        ;;rst                     ; ReST in peace
        ;;(ruby +rails)           ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        rust                      ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
@@ -177,7 +180,7 @@
        ;;(wanderlust +gmail)
 
        :app
-       ;;calendar
+       calendar
        ;;emms
        ;;everywhere ; *leave* Emacs!? You must be joking
        ;;irc        ; how neckbeards socialize
