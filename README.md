@@ -1,6 +1,6 @@
 # dotfiles
 
-To install my dotfiles, clone a bare copy of the repo to `$HOME/.dotfiles` and run the
+To install my dotfiles, clone a bare copy of the repository to `$HOME/.dotfiles`, and run the
 following commands
 ```sh
 dotf() {
