@@ -77,6 +77,7 @@
 (setq company-idle-delay nil
       diary-file (concat org-directory "diary")
       enable-local-variables t
+      evil-escape-key-sequence nil
       evil-ex-substitute-global t
       evil-split-window-below t
       evil-vsplit-window-right t
@@ -116,7 +117,7 @@
   ;; LaTeX-mode hooks
   (add-hook! LaTeX-mode
              #'LaTeX-math-mode
-             #'hack-local-variables) ; hack to enable local variables in latex-mode
+             #'hack-local-variables)    ; hack to enable local variables in latex-mode
 
   ;; Customization
   (add-to-list 'LaTeX-indent-environment-list '("empheq" LaTeX-indent-tabular))
@@ -192,3 +193,23 @@
      (?\\ ("\\setminus" "\\symdiff"))
      (?{  ("\\subset"   "\\subseteq" "\\vartriangleleft"))
      (?}  ("\\supset"   "\\supseteq" "\\vartriangleright")))))
+
+(after! latex
+  (add-hook! LaTeX-mode #'laas-mode))
+(after! laas
+  (setq laas-enable-auto-space nil)
+  (aas-set-snippets 'laas-mode
+    :cond #'texmathp
+    "..." "\\cdots"
+    ",,," "\\ldots"
+
+    ";*" "\\times"              ";;*" "\\otimes"
+    ";+" "\\cup"                ";;+" "\\oplus"
+    ";0" "\\emptyset"           ";;0" "\\varnothing"
+    ";F" "\\Phi"
+    ";\\" "\\setminus"          ";;\\" "\\symdiff"
+    ";{" "\\subset"             ";;{" "\\subseteq"              ";;{" "\\vartriangleleft"
+    ";}" "\\supset"             ";;}" "\\supseteq"              ";;;}" "\\vartriangleright"
+    ";;;~" "\\cong"
+    :cond #'laas-object-on-left-condition
+    "hat" (lambda () (interactive) (laas-wrap-previous-object "widehat"))))

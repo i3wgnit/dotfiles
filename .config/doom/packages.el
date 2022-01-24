@@ -53,3 +53,5 @@
 (package! auctex-latexmk
   :recipe (:host gitlab :repo "i3wgnit/auctex-latexmk"))
 (unpin! auctex-latexmk)
+
+(package! laas)
