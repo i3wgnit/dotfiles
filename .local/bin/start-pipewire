@@ -4,7 +4,7 @@ killall pipewire
 killall pipewire-media-session
 killall wireplumber
 
-setsid -f pipewire &
+setsid -f pipewire >/dev/null 2>&1 &
 sleep 1
 
 "$XDG_CONFIG_HOME"/pipewire/pipewire_startup.sh
