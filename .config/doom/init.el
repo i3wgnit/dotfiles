@@ -81,7 +81,7 @@
        :checkers
        (syntax +childframe)        ; tasing you for every semicolon you forget
        (spell +aspell +everywhere) ; tasing you for misspelling mispelling
-       ;;grammar                   ; tasing grammar mistake every you make
+       grammar                     ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
