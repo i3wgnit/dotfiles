@@ -48,6 +48,12 @@ sync() {
     symlink
 }
 
+update() {
+    config pull --rebase \
+        && . "${XDG_CONFIG_HOME:-~/.config}"/shell/env \
+        && sync
+}
+
 [ "$#" -le 0 ] && {
     usage
     exit 1
@@ -61,11 +67,7 @@ case "$COMMAND" in
 
     sync) sync ;;
 
-    up*) {
-        config pull --rebase \
-            && . "${XDG_CONFIG_HOME:-~/.config}"/shell/env \
-            && sync
-        } || die update failed ;;
+    up*) update || die update failed ;;
 
 
     init) init ;;
