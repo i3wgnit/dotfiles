@@ -45,7 +45,6 @@
 [submodule ".config/emacs"]
 	path = .config/emacs
 	url = https://github.com/hlissner/doom-emacs.git
-	branch = develop
 	shallow = true
 [submodule ".local/share/pyenv"]
 	path = .local/share/pyenv
