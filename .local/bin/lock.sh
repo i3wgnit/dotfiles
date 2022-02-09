@@ -15,7 +15,7 @@ trap 'rm "$IMAGE"' EXIT
 
 maim "$IMAGE" -d 0.1 --quiet
 
-if [ -f "$LOCK" ]; then
+if [ -f "$LOCK" ] ; then
     read -r IMAGE_WIDTH IMAGE_HEIGHT <<EOF
 $(identify -format '%w %h' -- "$LOCK")
 EOF

@@ -2,7 +2,7 @@
 
 DIRNAME="$(dirname "$0")"
 
-if [ -f "$DIRNAME"/wgetrc ]; then
+if [ -f "$DIRNAME"/wgetrc ] ; then
     echo "$DIRNAME"/wgetrc already exists
 else
     cat >"$DIRNAME"/wgetrc <<EOF

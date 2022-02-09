@@ -42,7 +42,7 @@ fish_vi_key_bindings ^ /dev/null
 fish_vi_cursor
 
 # == pyenv ==
-if status --is-interactive; and command -v pyenv >/dev/null 2>&1
+if status --is-interactive; and command -v pyenv > /dev/null
     pyenv init - --no-rehash fish | source
     pyenv virtualenv-init - fish | source
 end

@@ -1,13 +1,13 @@
 #!/bin/sh
 
 # Use neovim instead of vim
-if command -v nvim >/dev/null 2>&1 ; then
+if command -v nvim > /dev/null ; then
     alias vim='nvim'
     alias vimdiff='nvim -d'
 fi
 
 # Enable aliases to be sudo'ed
-alias sudo='sudo '
+alias sudo='/usr/bin/sudo '
 
 # Commands should be more verbose
 if [ "$(uname -s)" = Darwin ] ; then
