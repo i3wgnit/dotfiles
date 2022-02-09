@@ -33,6 +33,7 @@ alias diff='diff --color=auto'
 # TLDR
 alias clip='clipboard-arg '
 alias ka='killall'
+alias lctl='loginctl'
 alias nwsb='newsboat'
 alias pm='pulsemixer'
 alias rep='repeat-until '
