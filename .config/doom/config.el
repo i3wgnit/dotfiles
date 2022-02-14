@@ -128,29 +128,6 @@
   (add-to-list 'LaTeX-indent-environment-list '("dottotex"))
   (add-to-list 'LaTeX-indent-environment-list '("quantikz" LaTeX-indent-tabular))
 
-  (setq!
-   LaTeX-paragraph-commands
-   '("documentclass" "usepackage" "title" "author" "date" "vspace" "hspace" "centering"
-     "includegraphics"
-     "problem" "subproblem" "subsubproblem"
-     "PrintTheorems" "PrintIndex" "PrintAcronyms")
-   reftex-label-alist
-   '(("axiom"       ?a "ax:"  "~\\thref{%s}" t ("axiom")       nil)
-     ("conjecture"  ?j "cnj:" "~\\thref{%s}" t ("conjecture")  nil)
-     ("corollary"   ?c "clr:" "~\\thref{%s}" t ("corollary")   nil)
-     ("example"     ?g "eg:"  "~\\thref{%s}" t ("example")     nil)
-     ("exercise"    ?x "ex:"  "~\\thref{%s}" t ("exercise")    nil)
-     ("lemma"       ?l "lmm:" "~\\thref{%s}" t ("lemma")       nil)
-     ("proposition" ?p "prp:" "~\\thref{%s}" t ("proposition") nil)
-     ("remark"      ?r "rmk:" "~\\thref{%s}" t ("remark")      nil)
-     ("theorem"     ?t "thm:" "~\\thref{%s}" t ("theorem")     nil))
-   reftex-insert-label-flags
-   '("s" "f")
-   reftex-derive-label-parameters
-   '(10 50 t 1 "-"
-       ("the" "on" "in" "off" "a" "for" "by" "of" "and" "is" "to")
-       t))
-
   (defun twl+latex//fill-sentence (orig-fun from to &rest args)
     "Start each sentence on a new line."
     (let ((to-marker (set-marker (make-marker) to))
@@ -173,12 +150,34 @@
             (LaTeX-newline))))))
   (advice-add #'LaTeX-fill-region-as-paragraph
               :around #'twl+latex//fill-sentence))
+(when (featurep! :lang latex)
+  (setq
+   LaTeX-paragraph-commands
+   '("documentclass" "usepackage" "title" "author" "date" "vspace" "hspace" "centering"
+     "includegraphics"
+     "problem" "subproblem" "subsubproblem"
+     "PrintTheorems" "PrintIndex" "PrintAcronyms")
+   reftex-label-alist
+   '(("axiom"       ?a "ax:"  "~\\thref{%s}" t ("axiom")       nil)
+     ("conjecture"  ?j "cnj:" "~\\thref{%s}" t ("conjecture")  nil)
+     ("corollary"   ?c "clr:" "~\\thref{%s}" t ("corollary")   nil)
+     ("example"     ?g "eg:"  "~\\thref{%s}" t ("example")     nil)
+     ("exercise"    ?x "ex:"  "~\\thref{%s}" t ("exercise")    nil)
+     ("lemma"       ?l "lmm:" "~\\thref{%s}" t ("lemma")       nil)
+     ("proposition" ?p "prp:" "~\\thref{%s}" t ("proposition") nil)
+     ("remark"      ?r "rmk:" "~\\thref{%s}" t ("remark")      nil)
+     ("theorem"     ?t "thm:" "~\\thref{%s}" t ("theorem")     nil))
+   reftex-insert-label-flags
+   '("s" "f")
+   reftex-derive-label-parameters
+   '(10 50 t 1 "-"
+        ("the" "on" "in" "off" "a" "for" "by" "of" "and" "is" "to")
+        t)))
 
 (map! :when (featurep! :lang latex +cdlatex)
       :after cdlatex
       :map LaTeX-mode-map
       "TAB" #'cdlatex-tab)
-
 (after! cdlatex
   (setq
    cdlatex-math-modify-alist
@@ -198,8 +197,18 @@
   (add-hook! LaTeX-mode #'laas-mode))
 (after! laas
   (setq laas-enable-auto-space nil)
+
   (aas-set-snippets 'laas-mode
-    :cond #'texmathp
+    :cond #'laas-mathp
+    ;; Shorthands
+    "acos" "\\arccos"
+    "acot" "\\arccot"
+    "acot" "\\arccot"
+    "acsc" "\\arccsc"
+    "asec" "\\arcsec"
+    "asin" "\\arcsin"
+    "atan" "\\arctan"
+
     "..." "\\cdots"
     ",,," "\\ldots"
 
@@ -211,5 +220,34 @@
     ";{" "\\subset"             ";;{" "\\subseteq"              ";;{" "\\vartriangleleft"
     ";}" "\\supset"             ";;}" "\\supseteq"              ";;;}" "\\vartriangleright"
     ";;;~" "\\cong"
+
+    ;; Disable
+    "!=" "!="
+    "!>" "!>"
+    "**" "**"
+    "+-" "+-"
+    "-+" "-+"
+    "->" "->"
+    "=>" "=>"
+    "=<" "=<"
+    "AA" "AA"
+    "EE" "EE"
+    "iff" "iff"
+    "inn" "inn"
+    "notin" "notin"
+    "xx" "xx"
+    "|->" "|->"
+    "|=" "|="
+    "||" "||"
+    "~=" "~="
+    "CC" "CC"
+    "FF" "FF"
+    "HH" "HH"
+    "NN" "NN"
+    "PP" "PP"
+    "QQ" "QQ"
+    "RR" "RR"
+    "ZZ" "ZZ"
+
     :cond #'laas-object-on-left-condition
     "hat" (lambda () (interactive) (laas-wrap-previous-object "widehat"))))
