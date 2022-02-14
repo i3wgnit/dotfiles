@@ -2,8 +2,12 @@
 
 # Blatantly plagiarized and improved from passmenu
 
-DMENU="$(command -v dmenu)"
 PREFIX="${PASSWORD_STORE_DIR:-'~/.password-store'}"
+
+DMENU="$(command -v dmenu)"
+PASS="$(command -v pass)"
+XCLIP="$(command -v xclip)"
+XDOTOOL="$(command -v xdotool)"
 
 # helpers
 
@@ -17,7 +21,23 @@ do_dmenu() {
 }
 
 do_pass() {
-    pass "$@" 2>/dev/null
+    "$PASS" "$@" 2>/dev/null
+}
+
+do_xclip() {
+    "$XCLIP" -selection c
+}
+
+do_xdotool() {
+    tr -d '\n' | "$XDOTOOL" type --clearmodifiers --file -
+}
+
+get_special_match() {
+    if MATCH="$(do_pass show "$1" | grep -i "^${2}:" 2>/dev/null)" ; then
+        printf '%s' "$MATCH" | sed "s;^${2}:;;i"
+    else
+        printf '%s' "$3"
+    fi
 }
 
 usage() {
@@ -29,51 +49,61 @@ EOF
 # Options
 
 case "$1" in
-    -h*|--h*|-?) usage
-              exit ;;
+    -h*|--h*|-?)
+        usage
+        exit ;;
 esac
 
 CONTENT="${2:-"$(printf 'password\notp\nusername' | "$DMENU")"}"
 [ -z "$CONTENT" ] && die CONTENT was not provided
 case "$CONTENT" in
     user*|pass*|otp) : ;;
-    *) die CONTENT `"$CONTENT"` is invalid
+    *) die CONTENT "\`${CONTENT}\`" is invalid
 esac
 
 ACTION="${1:-"$(printf 'type\nclipboard' | "$DMENU")"}"
 [ -z "$ACTION" ] && die ACTION was not provided
 case "$ACTION" in
     type|clip*) : ;;
-    *) die ACTION `"$ACTION"` is invalid
+    *) die ACTION "\`${ACTION}\`" is invalid
 esac
 
 ENTRY="$(find "$PREFIX" -name '*.gpg' | sed "s;^${PREFIX}/\?;; ; s;.gpg\$;;" | do_dmenu)"
 [ -z "$ENTRY" ] && die ENTRY was not provided
 
+case "$ACTION" in
+    clip*) DO_PASS_ARGS='-c' ;;
+    type) DO_PASS_ARGS='' ;;
+esac
+
 case "$CONTENT" in
-    user*)
-        if ! do_pass show "$ENTRY" | grep -i '^user\(name\)\?:' 2>/dev/null | sed 's;^user\(name\)\?:\(.*\)$;\2;i' ; then
-            printf '%s' "$ENTRY" | sed 's;.*/;;'
-        fi ;;
-    pass*)
-        if PASSWORD="$(do_pass show "$ENTRY" | grep -i '^pass\(word\)\?:' 2>/dev/null)" ; then
-            printf '%s' "$PASSWORD" |
-        else
-        { do_pass show "$ENTRY" | grep -i '^pass\(word\)\?:' 2>/dev/null } | sed 's;^pass\(word\)\?:\(.*\)$;\2;i'
-        echo "$?"
-        if ! : ; then
-            do_pass show "$ENTRY" 1>&2 | head -n 1 1>&2
-        fi ;;
-    otp) do_pass otp "$ENTRY" | tail -n 1 ;;
+    pass*) do_pass show $DO_PASS_ARGS "$ENTRY" | head -n 1 ;;
+    otp) do_pass otp $DO_PASS_ARGS "$ENTRY" | tail -n 1 ;;
+    user*) get_special_match "$ENTRY" 'user\(name\)\?' "$(printf '%s' "$ENTRY" | sed 's;.*/;;')" | \
+        case "$ACTION" in
+            clip*) do_xclip ;;
+            type) do_xdotool ;;
+        esac ;;
 esac | \
     case "$ACTION" in
-        clip*) xclip -selection c ;;
-        type) tr -d '\n' | xdotool type --clearmodifiers --file - ;;
+        clip*) : ;;
+        type) do_xdotool ;;
     esac
 
 # Notification
 
+case "$CONTENT" in
+    pass*) PRETTY_CONTENT='Password' ;;
+    otp) PRETTY_CONTENT='OTP' ;;
+    user*) PRETTY_CONTENT='Username' ;;
+esac
+
+case "$ACTION" in
+    clip*) PRETTY_ACTION='Copied' ;;
+    type) PRETTY_ACTION='Typed' ;;
+esac
+
 notify-send \
     -c transient \
-    "${ACTION} ${CONTENT}" \
+    "${PRETTY_ACTION} ${PRETTY_CONTENT}" \
     "$ENTRY"
