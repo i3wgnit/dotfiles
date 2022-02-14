@@ -8,7 +8,7 @@ print_xclip() {
 SELECTION=${2:-"$(printf 'screen\nwindow\narea' | dmenu)"}
 [ -z "$SELECTION" ] && exit
 
-OUTPUT=${1:-"$(printf 'file\nclip' | dmenu)"}
+OUTPUT=${1:-"$(printf 'file\nclipboard' | dmenu)"}
 [ -z "$OUTPUT" ] && exit
 
 case "$OUTPUT" in
@@ -18,7 +18,7 @@ case "$OUTPUT" in
         area) maim -us "$PRINT_FILE" ;;
         *) exit 1 ;;
         esac;;
-    clip) case "$SELECTION" in
+    clip*) case "$SELECTION" in
         screen) maim -qud 1 | print_xclip ;;
         window) maim -ui "$(xdotool getactivewindow)" | print_xclip ;;
         area) maim -us | print_xclip ;;
