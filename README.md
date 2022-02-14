@@ -24,9 +24,9 @@ dotf sync
 
 ## Dependencies
 
-- [st](https://gitlab.com/i3wgnit/st-twl)
-- [dwm](https://gitlab.com/i3wgnit/dwm-twl)
-  - [dwmblocks](https://gitlab.com/i3wgnit/dwmblocks-twl)
+- [st](https://git.sr.ht/~i3wgnit/st)
+- [dwm](https://git.sr.ht/~i3wgnit/dwm)
+  - [dwmblocks](https://git.sr.ht/~i3wgnit/dwmblocks)
 - dmenu
 - pulseaudio
   - alsa
