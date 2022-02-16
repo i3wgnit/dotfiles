@@ -1,14 +1,9 @@
-c           ~/.config
-cb          ~/.config/bash
-cf          ~/.config/fish
-cs          ~/.config/shell
-cz          ~/.config/zsh
-s           ~/.config/dotfiles
-d           ~/Documents
+conf        ~/.config
+dots        ~/.config/dotfiles
+doc         ~/Documents
 D           ~/Downloads
-p           ~/Pictures
-b           ~/Documents/books
-S           ~/Documents/school
+pics        ~/Pictures
+skl         ~/Documents/school
 
 uw          ~/Documents/school/uwat
 uwcs145     ~/Documents/school/uwat/1a/cs145
