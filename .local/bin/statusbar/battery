@@ -26,6 +26,7 @@ paste -d '%' "$FILENAME_TMP" "$FILENAME_T" | sed 's/%/% /' | tr '\n' '  ' | sed 
 
 if grep -v '+' "$FILENAME_S" > /dev/null && [ "$(cat "$FILENAME_C")" -le "$LOW_BATTERY_THRESHOLD" ] ; then
     notify-send -u critical \
+        -c transient \
         'LOW BATTERY' \
         -h int:value:"$(cat "$FILENAME_C")"
 fi
