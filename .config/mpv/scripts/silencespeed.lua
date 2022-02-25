@@ -8,37 +8,34 @@ utils = require 'mp.utils'
 
 -- Max noise (dB) and min silence duration to trigger
 opts = {
-    quietness = -45,
-    duration = 1/2,
-    start_offset = 1/10,
-    end_offset = 1/2,
+    quietness = -50,
+    quietness_inc = 1,
+    duration = 1/6,
+    start_offset = 1/6,
+    end_offset = 1/3,
     speed_mult = 1.10,
     silence_speed = 3
-}
-keybinds = {
-    toggle_key = 'Ctrl+M',
-    speedup_key = 'Ctrl+]',
-    speeddown_key = 'Ctrl+['
 }
 
 doing_silence = false
 enabled = false
 in_silence = false
-silence_queued = false
+silence_queued = nil
 old_speed = 1
 silence_start = -1
-silence_end = -2
+silence_end = -1
 
 function setSpeed(speed)
     msg.verbose('setting speed:', speed)
     mp.set_property('speed', speed)
 end
 
-function setSilentSpeed(speed)
+function setSilenceSpeed(speed)
     opts.silence_speed = speed
     if enabled and in_silence then
         setSpeed(opts.silence_speed)
     end
+    setAudioFilterParams()
 end
 
 function getSpeed()
@@ -47,25 +44,24 @@ end
 
 function queueSilence()
     msg.trace('queued silence')
-    if not silence_queued then
-        silence_queued = true
-        mp.observe_property('time-pos', 'string', updateSilence)
+    if silence_queued == nil then
+        silence_queued = mp.add_periodic_timer(0.05, updateSilence)
+    end
+
+    if not silence_queued:is_enabled() then
+        silence_queued:resume()
     end
 end
 
 function unqueueSilence()
     msg.trace('unqueued silence')
-    if silence_queued then
-        silence_queued = false
-        mp.unobserve_property(updateSilence)
+    if silence_queued ~= nil then
+        silence_queued:stop()
     end
 end
 
-function updateSilence(name, value)
+function updateSilence()
     msg.trace('update silence')
-    if value == "{}" or value == nil then
-        return
-    end
 
     -- Return if no silences were queued
     if not silence_queued or silence_start < 0 then
@@ -73,21 +69,25 @@ function updateSilence(name, value)
         return
     end
 
-    local timestamp = tonumber(value)
+    local timestamp = mp.get_property_native('time-pos')
+    if timestamp == nil then
+        return
+    end
     msg.trace('update silence:', silence_start, timestamp, silence_end)
 
-    if silence_start + opts.start_offset < timestamp then
+    if silence_start + (opts.start_offset * old_speed) < timestamp then
         local ad_infinitum = silence_end <= silence_start
-        local do_silence = timestamp < silence_end - opts.end_offset
+        local do_silence = timestamp < silence_end - (opts.end_offset * opts.silence_speed)
 
         in_silence = ad_infinitum or do_silence
         maybeSetSilence()
 
         if ad_infinitum or not do_silence then
-            silence_start = -1
-            silence_end = -2
             unqueueSilence()
         end
+    else
+        in_silence = false
+        maybeSetSilence()
     end
 end
 
@@ -106,6 +106,7 @@ function foundSilence(name, value)
 
     msg.debug('found silence:', silence_start, silence_end)
     queueSilence()
+    updateSilence()
 end
 
 function maybeSetSilence()
@@ -134,18 +135,29 @@ end
 function init()
     local af_table = mp.get_property_native('af')
     table.insert(
-        af_table, {
+        af_table, 1, {
             enabled = false,
             label   = script_name,
             name    = 'lavfi',
-            params  = { graph = 'silencedetect=noise=' .. opts.quietness .. 'dB:duration=' .. opts.duration }
+            params  = { graph = 'silencedetect=noise=' .. opts.quietness .. 'dB:duration=' .. opts.duration * opts.silence_speed }
     })
     mp.set_property_native('af', af_table)
 end
 
+function setAudioFilterParams()
+    local af_table = mp.get_property_native('af')
+    for i, _ in ipairs(af_table) do
+        if af_table[i].label == script_name then
+            af_table[i].params = { graph = 'silencedetect=noise=' .. opts.quietness .. 'dB:duration=' .. opts.duration * opts.silence_speed }
+            mp.set_property_native('af', af_table)
+            break
+        end
+    end
+end
+
 function setAudioFilter(enabled)
     local af_table = mp.get_property_native('af')
-    for i = #af_table, 1, -1 do
+    for i, _ in ipairs(af_table) do
         if af_table[i].label == script_name then
             af_table[i].enabled = enabled
             mp.set_property_native('af', af_table)
@@ -180,11 +192,28 @@ function silenceSlowdown()
     showSilenceSpeed()
 end
 
+function showQuietness()
+    mp.commandv("show-text", string.format('Silence quietness: %2ddB', opts.quietness))
+end
+
+function quietnessUp()
+    opts.quietness = opts.quietness + opts.quietness_inc
+    setAudioFilterParams()
+    showQuietness()
+end
+
+function quietnessDown()
+    opts.quietness = opts.quietness - opts.quietness_inc
+    setAudioFilterParams()
+    showQuietness()
+end
+
 options.read_options(opts)
-options.read_options(keybinds)
 init()
 
 mp.observe_property('af-metadata/' .. script_name, 'string', foundSilence)
-mp.add_key_binding(keybinds.toggle_key, 'toggle-skip-silence', toggleKeypress)
-mp.add_key_binding(keybinds.speedup_key, 'silence-speedup', silenceSpeedup)
-mp.add_key_binding(keybinds.speeddown_key, 'silence-slowdown', silenceSlowdown)
+mp.add_key_binding('Ctrl+M', 'toggle-skip-silence', toggleKeypress)
+mp.add_key_binding('Ctrl+]', 'silence-speedup', silenceSpeedup)
+mp.add_key_binding('Ctrl+[', 'silence-slowdown', silenceSlowdown)
+mp.add_key_binding('Ctrl+}', 'silence-quietnessup', quietnessUp)
+mp.add_key_binding('Ctrl+{', 'silence-quietnessdown', quietnessDown)
