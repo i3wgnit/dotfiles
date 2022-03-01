@@ -41,6 +41,7 @@ if if_exists pactl ; then
     kill -36 "$(pidof dwmblocks)"
 
     run_if_exists mpd
+    run_if_exists signal-desktop --use-tray-icon --start-in-tray
 fi &
 
 # transmission
@@ -91,5 +92,5 @@ fi
 run_if_exists dunst
 run_if_exists dwmblocks
 run_if_exists numlockx
-run_if_exists signal-desktop --use-tray-icon --start-in-tray
+run_if_exists syncthing
 run_if_exists wallpaper.sh
