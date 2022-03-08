@@ -127,6 +127,7 @@ function setSilence(enabled)
             setSpeed(opts.silence_speed)
         end
     elseif doing_silence then
+        updateOldSpeed()
         doing_silence = false
         setSpeed(old_speed)
     end
@@ -183,13 +184,21 @@ function showSilenceSpeed()
 end
 
 function silenceSpeedup()
+    updateOldSpeed()
     setSilenceSpeed(opts.silence_speed * opts.speed_mult)
     showSilenceSpeed()
 end
 
 function silenceSlowdown()
+    updateOldSpeed()
     setSilenceSpeed(opts.silence_speed / opts.speed_mult)
     showSilenceSpeed()
+end
+
+function updateOldSpeed()
+    if doing_silence then
+        old_speed = old_speed * getSpeed() / opts.silence_speed
+    end
 end
 
 function showQuietness()
