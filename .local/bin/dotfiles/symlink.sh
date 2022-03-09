@@ -43,7 +43,7 @@ link() {
 link "$XDG_CONFIG_HOME"/shell/profile "$HOME"/.profile
 link "$XDG_CONFIG_HOME"/shell/logout "$HOME"/.bash_logout
 link "$XDG_CONFIG_HOME"/bash/bashrc "$HOME"/.bashrc
- 
+
 link "$XDG_CONFIG_HOME"/shell/profile "$XDG_CONFIG_HOME"/zsh/.zprofile
 link "$XDG_CONFIG_HOME"/shell/logout "$XDG_CONFIG_HOME"/zsh/.zlogout
 link "$XDG_CONFIG_HOME"/zsh/zshrc "$XDG_CONFIG_HOME"/zsh/.zshrc
