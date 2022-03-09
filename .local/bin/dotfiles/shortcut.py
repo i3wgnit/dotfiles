@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from pathlib import Path
 
 configs = Path.home() / '.config' / 'dotfiles' / 'configs'

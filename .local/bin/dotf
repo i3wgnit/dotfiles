@@ -33,7 +33,7 @@ init() {
 }
 
 shortcut() {
-    python3 "$DIRNAME"/dotfiles/shortcut.py
+    "$DIRNAME"/dotfiles/shortcut.py
 }
 
 symlink() {
