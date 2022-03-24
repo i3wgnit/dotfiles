@@ -32,7 +32,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Documents/org/")
+(setq org-directory "~/Documents/sync/org/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -75,23 +75,34 @@
               indent-tabs-mode nil)
 
 (setq company-idle-delay nil
-      diary-file (concat org-directory "diary")
+      diary-file (concat org-directory "diary.gpg")
       enable-local-variables t
-      evil-escape-key-sequence nil
-      evil-ex-substitute-global t
-      evil-split-window-below t
-      evil-vsplit-window-right t
       sentence-end-double-space t
       whitespace-style '(empty face indentation tabs trailing))
+
+(setq evil-escape-key-sequence nil
+      evil-ex-substitute-global t
+      evil-split-window-below t
+      evil-vsplit-window-right t)
+
+;; :ui minimap
+(after! minimap
+  (add-to-list 'minimap-major-modes #'text-mode)
+  (setq minimap-window-location 'left))
+
+;; :tools lsp
+(after! lsp-mode
+  (setq lsp-enable-symbol-highlighting nil
+        lsp-enable-suggest-server-download nil))
+(after! lsp-ui
+  (setq lsp-ui-sideline-enable nil
+        lsp-ui-doc-enable nil))
 
 ;; :lang cc
 (setq-hook! '(c-mode-hook c++-mode-hook)
   indent-tabs-mode nil)
 
-(after! minimap
-  (add-to-list 'minimap-major-modes #'text-mode)
-  (setq minimap-window-location 'left))
-
+;; :lang latex
 (map! :when (featurep! :lang latex)
       :after latex
       :map LaTeX-mode-map
@@ -107,7 +118,6 @@
        :desc "Macro" "m" #'TeX-insert-macro
        :desc "Section" "s" #'LaTeX-section))
 
-;; :lang latex
 (after! latex
   ;; Declutter
   (setq TeX-style-private (concat doom-private-dir "auctex/style")
@@ -128,7 +138,7 @@
   (add-to-list 'LaTeX-indent-environment-list '("dottotex"))
   (add-to-list 'LaTeX-indent-environment-list '("quantikz" LaTeX-indent-tabular))
 
-  (defun twl+latex//fill-sentence (orig-fun from to &rest args)
+  (defun +latex//fill-sentence (orig-fun from to &rest args)
     "Start each sentence on a new line."
     (let ((to-marker (set-marker (make-marker) to))
           tmp-end)
@@ -149,7 +159,7 @@
                       (looking-at ". *$"))
             (LaTeX-newline))))))
   (advice-add #'LaTeX-fill-region-as-paragraph
-              :around #'twl+latex//fill-sentence))
+              :around #'+latex//fill-sentence))
 (when (featurep! :lang latex)
   (setq
    LaTeX-paragraph-commands
@@ -180,6 +190,7 @@
       "TAB" #'cdlatex-tab)
 (after! cdlatex
   (setq
+   cdlatex-command-alist-default nil
    cdlatex-math-modify-alist
    '((?B "\\mathbb"   nil t nil nil)
      (?f "\\mathfrak" nil t nil nil))
@@ -194,9 +205,44 @@
      (?}  ("\\supset"   "\\supseteq" "\\vartriangleright")))))
 
 (after! latex
-  (add-hook! LaTeX-mode #'laas-mode))
+  (add-hook! LaTeX-mode #'laas-mode)
+  (add-hook! LaTeX-mode :append (cdlatex-mode -1)))
+(setq laas-accent-snippets nil)
 (after! laas
   (setq laas-enable-auto-space nil)
+
+  (setq +laas--accent-snippets
+        '(("'-" . "overline")           ; bar
+          ("'." . "dot")
+          ("':" . "ddot")
+          ("'>" . "overrightarrow")     ; vec
+          ("'^" . "widehat")            ; hat
+          ("'_" . "ul")                 ; underline
+          ("'{" . "overbrace")
+          ("'}" . "underbrace")
+          ("'~" . "widetilde")          ; tilde
+          ("'/" . "grave")
+          ("'\\" . "acute")
+          ("'v" . "check")
+          ("'u" . "breve")
+
+          ("'b" . ("mathbf" . "textbf"))
+          ("'c" . "mathcal")
+          ("'e" . ("mathem" . "emph"))
+          ("'f" . "mathfrak")
+          ("'i" . ("mathit" . "textit"))
+          ("'r" . ("mathrm" . "textrm"))
+          ("'s" . ("mathsf" . "textsf"))
+          ("'y" . ("mathtt" . "texttt"))
+
+          ("bar" . "overline")
+          ("hat" . "widehat")
+          ("vec" . "overrightarrow")
+
+          ;; physics package
+          ("vb" . "vb")
+          ("ket" . "ket")
+          ("bra" . "bra")))
 
   (aas-set-snippets 'laas-mode
     :cond #'laas-mathp
@@ -217,7 +263,7 @@
     ";0" "\\emptyset"           ";;0" "\\varnothing"
     ";F" "\\Phi"
     ";\\" "\\setminus"          ";;\\" "\\symdiff"
-    ";{" "\\subset"             ";;{" "\\subseteq"              ";;{" "\\vartriangleleft"
+    ";{" "\\subset"             ";;{" "\\subseteq"              ";;;{" "\\vartriangleleft"
     ";}" "\\supset"             ";;}" "\\supseteq"              ";;;}" "\\vartriangleright"
     ";;;~" "\\cong"
 
@@ -247,7 +293,42 @@
     "PP" "PP"
     "QQ" "QQ"
     "RR" "RR"
-    "ZZ" "ZZ"
+    "ZZ" "ZZ")
 
-    :cond #'laas-object-on-left-condition
-    "hat" (lambda () (interactive) (laas-wrap-previous-object "widehat"))))
+  (defun +laas//object-on-left-cond ()
+    (or (<= ?a (char-before) ?z)
+        (<= ?A (char-before) ?Z)
+        (<= ?0 (char-before) ?9)
+        (memq (char-before) '(?\) ?\] ?}))))
+
+  (apply #'aas-set-snippets 'laas-mode
+         (cl-loop
+          for (key . exp) in +laas--accent-snippets
+          collect :cond
+          if (consp exp)
+          collect #'laas-latex-accent-cond
+          and collect :expansion-desc
+          and collect (concat "Wrap in \\" (car exp) "{} or \\" (cdr exp) "{}")
+          else
+          collect #'laas-mathp
+          and collect :expansion-desc
+          and collect (concat "Wrap in \\" exp "{}")
+
+          collect key
+
+          if (consp exp)
+          collect (let ((expm (car exp))
+                        (expl (cdr exp)))
+                    (lambda () (interactive)
+                      (let ((expp (if (laas-mathp) expm expl)))
+                        (if (+laas//object-on-left-cond)
+                            (laas-wrap-previous-object expp)
+                          (yas-expand-snippet (concat "\\" expp "{$0}"))
+                          (laas--shut-up-smartparens)))))
+          else
+          collect (let ((expp exp))
+                    (lambda () (interactive)
+                      (if (laas-object-on-left-condition)
+                          (laas-wrap-previous-object expp)
+                        (yas-expand-snippet (concat "\\" expp "{$0}"))
+                        (laas--shut-up-smartparens)))))))

@@ -43,7 +43,7 @@
        ophints            ; highlight the region an operation acts on
        (popup +defaults)  ; tame sudden yet inevitable temporary windows
        ;;tabs             ; an tab bar for Emacs
-       treemacs           ; a project drawer, like neotree but cooler
+       ;;treemacs         ; a project drawer, like neotree but cooler
        ;;unicode          ; extended unicode support for various languages
        vc-gutter          ; vcs diff in the fringe
        vi-tilde-fringe    ; fringe tildes to mark beyond EOB
@@ -54,16 +54,16 @@
        :editor
        (evil +everywhere) ; come to the dark side, we have cookies
        file-templates     ; auto-snippets for empty files
-       ;;fold             ; (nigh) universal code folding
-       ;;(format +onsave) ; automated prettiness
+       fold               ; (nigh) universal code folding
+       format             ; automated prettiness
        ;;god              ; run Emacs commands without modifier keys
        ;;lispy            ; vim for lisp, for people who don't like vim
-       ;;multiple-cursors ; editing in many places at once
+       multiple-cursors   ; editing in many places at once
        ;;objed            ; text object editing for the innocent
-       parinfer           ; turn lisp into python, sort of
+       ;;parinfer         ; turn lisp into python, sort of
        rotate-text        ; cycle region at point between text candidates
        snippets           ; my elves. They type so I don't have to
-       word-wrap          ; soft wrapping with language-aware indent
+       ;;word-wrap        ; soft wrapping with language-aware indent
 
        :emacs
        (dired +ranger) ; making dired pretty [functional]
@@ -79,7 +79,7 @@
        vterm   ; the best terminal emulation in Emacs
 
        :checkers
-       (syntax +childframe)        ; tasing you for every semicolon you forget
+       syntax                      ; tasing you for every semicolon you forget
        (spell +aspell +everywhere) ; tasing you for misspelling mispelling
        grammar                     ; tasing grammar mistake every you make
 
@@ -89,12 +89,12 @@
        ;;debugger                    ; FIXME stepping through code, to help you add bugs
        ;;direnv
        ;;docker
-       ;;editorconfig                ; let someone else argue about tabs vs spaces
+       editorconfig                  ; let someone else argue about tabs vs spaces
        ein                           ; tame Jupyter notebooks with emacs
        (eval +overlay)               ; run code, run (also, repls)
        ;;gist                        ; interacting with github gists
        (lookup +dictionary +offline) ; navigate your code and its documentation
-       (lsp +eglot)                  ; M-x vscode
+       lsp                           ; M-x vscode
        magit                         ; a git porcelain for Emacs
        make                          ; run make tasks from Emacs
        ;;pass                        ; password manager for nerds
@@ -103,8 +103,8 @@
        rgb                           ; creating color strings
        ;;taskrunner                  ; taskrunner for all your projects
        ;;terraform                   ; infrastructure as code
-       tmux                          ; an API for interacting with tmux
-       upload                        ; map local to remote projects via ssh/ftp
+       ;;tmux                        ; an API for interacting with tmux
+       ;;upload                      ; map local to remote projects via ssh/ftp
 
        :os
        (:if IS-MAC macos) ; improve compatibility with macOS
@@ -135,7 +135,7 @@
        ;;fstar                        ; (dependent) types and (monadic) effects and Z3
        ;;gdscript                     ; the language you waited for
        ;;(go +lsp)                    ; the hipster dialect
-       (haskell +lsp)                 ; a language that's lazier than I am
+       ;;(haskell +lsp)               ; a language that's lazier than I am
        ;;hy                           ; readability of scheme w/ speed of python
        ;;idris                        ; a language you can depend on
        json                           ; At least it ain't XML
@@ -180,11 +180,11 @@
        ;;(wanderlust +gmail)
 
        :app
-       calendar
+       ;;calendar
        ;;emms
        ;;everywhere ; *leave* Emacs!? You must be joking
        ;;irc        ; how neckbeards socialize
-       (rss +org)   ; emacs as an RSS reader
+       ;;(rss +org) ; emacs as an RSS reader
        ;;twitter    ; twitter client https://twitter.com/vnought
 
        :config

@@ -50,8 +50,13 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
+(package! doom-snippets
+  :recipe (:host nil
+           :repo "https://git.sr.ht/~i3wgnit/doom-snippets"
+           :files (:defaults "*")))
+(unpin! doom-snippets)
+
+(package! laas)
 (package! auctex-latexmk
   :recipe (:host gitlab :repo "i3wgnit/auctex-latexmk"))
 (unpin! auctex-latexmk)
-
-(package! laas)
