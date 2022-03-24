@@ -20,7 +20,7 @@ with configs.open() as f:
         ln = line.split()
 
         rang += "map {} shell vim {}\n".format(*ln)
-        shell += "alias {}=\"vim {}\"\n".format(*ln)
+        shell += "alias {}='${{EDITOR}} {}'\n".format(*ln)
         fish += "abbr --add {} 'vim {}'\n".format(*ln)
 
 with folders.open() as f:
@@ -34,7 +34,7 @@ with folders.open() as f:
         rang += "map m{} shell mv %s {}\n".format(*ln)
         rang += "map Y{} shell cp -r %s {}\n".format(*ln)
 
-        shell += "{0}(){{ if [ -z \"$*\" ] ; then pushd {1} && ls ; else \"$@\" {1} ; fi ; }}\n".format(*ln)
+        shell += "_{0}(){{ if [ -z \"$*\" ] ; then pushd {1} && ls ; else \"$@\" {1} ; fi ; }}\nalias {0}='_{0} '\n".format(*ln)
         fish += "abbr --add {} 'cd {}; ls'\n".format(*ln)
 
 rang_file.write_text(rang)
