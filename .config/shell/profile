@@ -9,6 +9,5 @@ if [ -s "$HOME"/.config/shell/env.local ] ; then
 fi
 
 if [ -z "$DISPLAY" ] && [ "$(tty)" = /dev/tty1 ] && command -v startx > /dev/null ; then
-    startx "$XINITRC"
-    exit
+    exec startx "$XINITRC"
 fi

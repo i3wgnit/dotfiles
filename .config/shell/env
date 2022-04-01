@@ -7,8 +7,13 @@ export XDG_DATA_HOME=${XDG_DATA_HOME:-"$HOME"/.local/share}
 export XDG_STATE_HOME=${XDG_STATE_HOME:-"$HOME"/.local/state}
 
 export BROWSER=firefox
-export EDITOR=vim
-export VISUAL=vim
+if command -v nvim > /dev/null ; then
+    export EDITOR=nvim
+    export VISUAL=nvim
+else
+    export EDITOR=vim
+    export VISUAL=vim
+fi
 if command -v st > /dev/null ; then
     export TERM=st-256color
 else
