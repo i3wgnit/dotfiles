@@ -230,9 +230,9 @@
           ("'c" . "mathcal")
           ("'e" . ("mathem" . "emph"))
           ("'f" . "mathfrak")
+          ("''f" . ("mathsf" . "textsf"))
           ("'i" . ("mathit" . "textit"))
           ("'r" . ("mathrm" . "textrm"))
-          ("'s" . ("mathsf" . "textsf"))
           ("'y" . ("mathtt" . "texttt"))
 
           ("bar" . "overline")
