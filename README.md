@@ -14,12 +14,9 @@ dotf checkout
 # hide unsightly untracked files
 dotf config status.showUntrackedFiles no
 
-# unalias bootstrap function
-unset dotf
-
 # full sync
 . $HOME/.config/shell/env
-dotf sync
+command dotf sync
 ```
 
 ## Dependencies
