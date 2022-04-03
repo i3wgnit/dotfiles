@@ -1,13 +1,5 @@
 #!/bin/sh
 
-[ -e img ] && {
-    echo ./img already exists
-    exit 1
-}
-
-TEMP=$(mktemp -d)
-trap 'rm -rf "$TEMP"' EXIT
-
 case "${2:-png}" in
     png) EXT=png
         DEVICE=png16m ;;
@@ -19,7 +11,5 @@ esac
 
 gs -dSAFER -dBATCH -dNOPAUSE -sDEVICE="$DEVICE" \
     -r2400 -dDownScaleFactor=4 \
-    -sOutputFile="${TEMP}/$(basename "$1" .pdf)-%02d.${EXT}" \
+    -sOutputFile="$(basename "$1" .pdf)-%02d.${EXT}" \
     "$1"
-
-mv "$TEMP" img && trap - EXIT
