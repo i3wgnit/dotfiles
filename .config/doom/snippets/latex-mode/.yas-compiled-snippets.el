@@ -4,7 +4,6 @@
 (yas-define-snippets 'latex-mode
                      '(("sol" "\\begin{solution}\n`%`$0\n\\end{solution}" "solution" nil nil nil "/home/waigni/.config/doom/snippets/latex-mode/solution" nil nil)
                        ("prp" "\\begin{proposition}\n`%`$0\n\\end{proposition}" "proposition" nil nil nil "/home/waigni/.config/doom/snippets/latex-mode/proposition" nil nil)
-                       ("prf" "\\begin{proof}\n`%`$0\n\\end{proof}" "proof" nil nil nil "/home/waigni/.config/doom/snippets/latex-mode/proof" nil nil)
                        ("nb" "\\begin{note}\n`%`$0\n\\end{note}" "note" nil nil nil "/home/waigni/.config/doom/snippets/latex-mode/note" nil nil)
                        ("newlec" "%% -*- TeX-master: \"../main.tex\" ; TeX-engine: xetex -*-\n\\documentclass[../main.tex]{subfiles}\n\n\\begin{document}\n$0\n\\end{document}" "newlecturesub" nil nil nil "/home/waigni/.config/doom/snippets/latex-mode/newlecturesub" nil nil)
                        ("newlecmain" "\\subfileinclude{lectures/${1:`(format-time-string \"%Y-%m-%d\")`}}\n$0" "newlecturemain" nil nil nil "/home/waigni/.config/doom/snippets/latex-mode/newlecturemain" nil nil)
@@ -14,4 +13,4 @@
                        ("asg" "%% -*- TeX-engine: xetex -*-\n\n\\documentclass[assignment]{twl}\n\n\\title{${1:$$(upcase yas-text)}: ${2:Assignment} \\texttt{\\#}${3:Number}}\n\\author{${4:twl}}\n\\date{${5:`(format-time-string \"%B %d, %Y\")`}}\n\n\\input{../../preamble}\n\n\\begin{document}\n\\maketitle\n\n\\tableofcontents\n\\clearpage\n\n\\problem{}\n\n$0\n\\end{document}" "assignment" nil nil nil "/home/waigni/.config/doom/snippets/latex-mode/assignment" nil nil)))
 
 
-;;; Do not edit! File generated at Thu Mar 24 16:25:15 2022
+;;; Do not edit! File generated at Sat Apr  2 02:18:36 2022
