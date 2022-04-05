@@ -7,35 +7,38 @@ configs = [ Path.home() / '.config' / 'dotfiles' / 'configs',
 folders = [ Path.home() / '.config' / 'dotfiles' / 'folders',
         Path.home() / '.config' / 'dotfiles' / 'folders.local', ]
 
+fish_file = Path.home() / '.config' / 'fish' / 'shortcuts.fish'
+lf_file = Path.home() / '.config' / 'lf' / 'shortcuts'
 rang_file = Path.home() / '.config' / 'ranger' / 'rc.conf.shortcuts'
 shell_file = Path.home() / '.config' / 'shell' / 'shortcuts'
-fish_file = Path.home() / '.config' / 'fish' / 'shortcuts.fish'
 
+fish = ""
+lf = ""
 rang = ""
 shell = ""
-fish = ""
 
 def do_config(f):
+    global fish
     global rang
     global shell
-    global fish
 
     for line in f:
-        if not line.strip():
+        if not line.strip() or line.startswith('#'):
             continue
         ln = line.split()
 
-        rang += "map {} shell vim {}\n".format(*ln)
+        #rang += "map {} shell vim {}\n".format(*ln)
         shell += "alias {}='${{EDITOR}} {}'\n".format(*ln)
         fish += "abbr --add {} 'vim {}'\n".format(*ln)
 
 def do_folder(f):
+    global fish
+    global lf
     global rang
     global shell
-    global fish
 
     for line in f:
-        if not line.strip():
+        if not line.strip() or line.startswith('#'):
             continue
         ln = line.split()
 
@@ -43,6 +46,10 @@ def do_folder(f):
         rang += "map t{} tab_new {}\n".format(*ln)
         rang += "map m{} shell mv %s {}\n".format(*ln)
         rang += "map Y{} shell cp -r %s {}\n".format(*ln)
+
+        lf += "map g{} cd {}\n".format(*ln)
+        lf += "map M{} shell mv %s {}\n".format(*ln)
+        lf += "map Y{} shell cp -r %s {}\n".format(*ln)
 
         shell += "_{0}(){{ if [ -z \"$*\" ] ; then pushd {1} && ls ; else \"$@\" {1} ; fi ; }}\nalias {0}='_{0} '\n".format(*ln)
         fish += "abbr --add {} 'cd {}; ls'\n".format(*ln)
@@ -59,9 +66,10 @@ for p in folders:
     with p.open() as f:
         do_folder(f)
 
+fish_file.write_text(fish)
+lf_file.write_text(lf)
 rang_file.write_text(rang)
 shell_file.write_text(shell)
-fish_file.write_text(fish)
 
 print('Generated {}'.format(rang_file))
 print('Generated {}'.format(shell_file))
