@@ -63,8 +63,6 @@
       doom-localleader-alt-key "C-,"
       doom-localleader-key ",")
 
-(setq ispell-dictionary "en")
-
 (map! :m [tab] nil
       :n "Q" #'evil-fill-and-move
       (:when IS-MAC
@@ -89,6 +87,22 @@
 (after! minimap
   (add-to-list 'minimap-major-modes #'text-mode)
   (setq minimap-window-location 'left))
+
+;; :checkers spell
+(after! spell-fu
+  (setq ispell-dictionary "en_CA"
+        ispell-personal-dictionary (concat doom-private-dir "spell/" ispell-dictionary ".pws"))
+
+  (unless (file-exists-p ispell-personal-dictionary)
+    (make-directory (file-name-directory ispell-personal-dictionary) t)
+    (with-temp-file ispell-personal-dictionary (insert (format "personal_ws-1.1 en 0\n"))))
+
+  (add-hook!
+   spell-fu-mode
+   :append
+   (defun add-default-dictionaries ()
+     (spell-fu-dictionary-add (spell-fu-get-ispell-dictionary ispell-dictionary))
+     (spell-fu-dictionary-add (spell-fu-get-personal-dictionary "default" ispell-personal-dictionary)))))
 
 ;; :tools lsp
 (after! lsp-mode
