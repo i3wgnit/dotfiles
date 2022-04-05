@@ -39,10 +39,12 @@ alias diff='diff --color=auto'
 
 # TLDR
 alias clip='clipboard-arg '
+alias fj='firejail '
 alias ka='killall'
 alias lctl='loginctl'
 alias nwsb='newsboat'
 alias pm='pulsemixer'
+alias pyn='pypinyin'
 alias rep='repeat-until '
 alias spfm='spacefm'
 alias tors='torsocks -i '
