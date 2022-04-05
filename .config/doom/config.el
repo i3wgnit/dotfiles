@@ -128,6 +128,8 @@
   (add-hook! LaTeX-mode
              #'LaTeX-math-mode
              #'hack-local-variables)    ; hack to enable local variables in latex-mode
+  (when (featurep! :ui hl-todo)
+    (add-hook! LaTeX-mode #'hl-todo-mode))
 
   ;; Customization
   (add-to-list 'LaTeX-indent-environment-list '("empheq" LaTeX-indent-tabular))
@@ -237,12 +239,19 @@
 
           ("bar" . "overline")
           ("hat" . "widehat")
+          ("tilde" . "widetilde")
           ("vec" . "overrightarrow")
 
           ;; physics package
           ("vb" . "vb")
           ("ket" . "ket")
-          ("bra" . "bra")))
+          ("bra" . "bra")
+
+          ;; custom package
+          ("adj" . "adj")
+          ("conj" . "conj")
+          ("trans" . "trans")
+          ("inv" . "inv")))
 
   (aas-set-snippets 'laas-mode
     :cond #'laas-mathp
@@ -255,9 +264,13 @@
     "asin" "\\arcsin"
     "atan" "\\arctan"
 
+    "dim" "\\dim"
+    "det" "\\det"
+
     "..." "\\cdots"
     ",,," "\\ldots"
 
+    ";;o" "\\circ"
     ";*" "\\times"              ";;*" "\\otimes"
     ";+" "\\cup"                ";;+" "\\oplus"
     ";0" "\\emptyset"           ";;0" "\\varnothing"
@@ -266,6 +279,9 @@
     ";{" "\\subset"             ";;{" "\\subseteq"              ";;;{" "\\vartriangleleft"
     ";}" "\\supset"             ";;}" "\\supseteq"              ";;;}" "\\vartriangleright"
     ";;;~" "\\cong"
+    ";;v" "\\downarrow"
+    ";^" "\\wedge"              ";;^" "\\uparrow"
+
 
     ;; Disable
     "!=" "!="
