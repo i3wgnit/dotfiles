@@ -2,11 +2,14 @@
 
 # Requires acpilight and udev rules
 
-CTRL=
+XBACKLIGHT='xbacklight'
+xbacklight_with_ctrl() {
+    xbacklight -ctrl "$(xbacklight -list | grep '::kbd_backlight')" "$@"
+}
 
 [ "$1" = kbd ] && {
     shift
-    CTRL="-ctrl $(xbacklight -list | grep '::kbd_backlight')"
+    XBACKLIGHT='xbacklight_with_ctrl'
 }
 
 case "$1" in
@@ -14,6 +17,6 @@ case "$1" in
     dec) OPT='-dec' ;;
 esac
 
-xbacklight $CTRL "$OPT" "$2"
+"$XBACKLIGHT" "$OPT" "$2"
 
 kill -37 "$(pidof dwmblocks)"

@@ -24,6 +24,12 @@ do_pass() {
     "$PASS" "$@" 2>/dev/null
 }
 
+do_pass_clip() {
+    CMD="$1"
+    shift
+    do_pass "$CMD" -c "$@"
+}
+
 do_xclip() {
     "$XCLIP" -selection c
 }
@@ -58,27 +64,27 @@ CONTENT="${2:-"$(printf 'password\notp\nusername' | "$DMENU")"}"
 [ -z "$CONTENT" ] && die CONTENT was not provided
 case "$CONTENT" in
     user*|pass*|otp) : ;;
-    *) die CONTENT "\`${CONTENT}\`" is invalid
+    *) die CONTENT "'${CONTENT}'" is invalid
 esac
 
 ACTION="${1:-"$(printf 'type\nclipboard' | "$DMENU")"}"
 [ -z "$ACTION" ] && die ACTION was not provided
 case "$ACTION" in
     type|clip*) : ;;
-    *) die ACTION "\`${ACTION}\`" is invalid
+    *) die ACTION "'${ACTION}'" is invalid
 esac
 
 ENTRY="$(find "$PREFIX" -name '*.gpg' | sed "s;^${PREFIX}/\?;; ; s;.gpg\$;;" | do_dmenu)"
 [ -z "$ENTRY" ] && die ENTRY was not provided
 
 case "$ACTION" in
-    clip*) DO_PASS_ARGS='-c' ;;
-    type) DO_PASS_ARGS='' ;;
+    clip*) DO_PASS='do_pass_clip' ;;
+    type) DO_PASS='do_pass' ;;
 esac
 
 case "$CONTENT" in
-    pass*) do_pass show $DO_PASS_ARGS "$ENTRY" | head -n 1 ;;
-    otp) do_pass otp $DO_PASS_ARGS "$ENTRY" | tail -n 1 ;;
+    pass*) "$DO_PASS" show "$ENTRY" | head -n 1 ;;
+    otp) "$DO_PASS" otp "$ENTRY" | tail -n 1 ;;
     user*) get_special_match "$ENTRY" 'user\(name\)\?' "$(printf '%s' "$ENTRY" | sed 's;.*/;;')" | \
         case "$ACTION" in
             clip*) do_xclip ;;
